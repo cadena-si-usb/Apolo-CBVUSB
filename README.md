@@ -26,4 +26,4 @@ Autores
     * Carlos Infante
     * Midaysa Palacios
     * Génesis Kufatty
-    * Salvador
+    * Salvador Covelo
