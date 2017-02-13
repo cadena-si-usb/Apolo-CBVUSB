@@ -86,7 +86,7 @@
 
     {{include}}
 
-    <div class="container-fluid bg-4 text-left" style="padding-left: 8%;">
+    <div class="container-fluid bg-4 text-left" style="padding-left: 10%;">
       <div class="row">
         <br>
           <p>Contáctanos:</p>
