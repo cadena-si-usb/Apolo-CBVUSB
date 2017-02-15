@@ -1,5 +1,5 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
-{{extend 'layout.html'}}
+{{extend 'layoutno.html'}}
 
 <!-- Accesos directos para el usuario  -->
 <div class="container bg-0">
@@ -10,7 +10,7 @@
             <div class="wrapper">
                 <form action="" method="post" name="Login_Form" class="form-signin">
                     <h3 class="form-signin-heading text-center">INICIAR SESIÓN</h3>
-                    <input type="text" class="form-control" name="Username" placeholder="USERNAME" required="" autofocus="" />
+                    <input type="text" class="form-control" name="Username" placeholder="USERNAME" required="" autofocus=""/>
                     <input type="password" class="form-control" name="Password" placeholder="PASSWORD" required=""/>
                     <br />
                     <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">LOGIN</button>
@@ -21,13 +21,8 @@
     <br /><br />
     <div>
     </div>
-    <div class="row">
-        <div class="col-xs-8 text-center" style="font-size:40px; font-family:roboto;">
-            Comunicados
-        </div>
-    </div>
     <!-- Carrusel -->
-     <!-- ESTA CABLEADO, MAS ADELANTE GENERAR COMUNICADOS -->
+     <!-- ESTA CABLEADO, MAS ADELANTE GENERAR COMUNICADOS BIEN -->
     <div>
       <div class="row" style="font-family:roboto;">
         <div class="box">
@@ -36,28 +31,9 @@
               <!-- Wrapper for slides -->
               <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                  <img src="{{=URL('static','images/negro.jpg')}}" alt="Comunicado">
-                  <div class="carousel-caption">
-                    <h3>Comunicado1</h3>
-                    <p>Info1</p>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="{{=URL('static','images/negro.jpg')}}" alt="Comunicado">
-                  <div class="carousel-caption">
-                    <h3>Comunicado2</h3>
-                    <p>Info2</p>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="{{=URL('static','images/negro.jpg')}}" alt="Comunicado">
-                  <div class="carousel-caption">
-                    <h3>Comunicado3</h3>
-                    <p>Info3</p>
-                  </div>
+                  <img src="{{=URL('static','images/comunicado1.jpg')}}" alt="Comunicado">
                 </div>
               </div>
-
             <!-- Controles de izquierda y derecha -->
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>

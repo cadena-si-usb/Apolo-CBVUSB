@@ -55,28 +55,27 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" style="font-family:roboto;">
           <ul class="nav navbar-nav">
               <!-- DEFINIR CON WEB2PY EL INDEX CUANDO NO INICIAS SESION Y CUANDO INICIASTE SESION -->
-            <li><a href="../default/index.html">About</a></li>
+            <li><a href="../default/indexno.html">About</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle">Operaciones<b class="caret"> </b> </a>
+              <a href="#" class="dropdown-toggle"> Operaciones <b class="caret"> </b> </a>
               <ul class="dropdown-menu">
                 <li><a href="#">Servicio</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Parte</a></li>
               </ul>
             </li>
-              <li class="dropdown"> <a href="#" class="dropdown-toggle">Talento Humano<b class="caret"></b> </a>
+              <li class="dropdown"> <a href="#" class="dropdown-toggle"> Talento Humano <b class="caret"></b> </a>
               <ul class="dropdown-menu">
-                <li> <a href="../default/perfilth.html">Ver Perfil</a> </li>
+                <li> <a href="#"> Ver Perfil </a> </li>
                 <li class="divider"></li>
-                <li> <a href="../default/perfilmodth.html">Modificar Perfil</a> </li>
+                <li> <a href="#"> Modificar Perfil </a> </li>
                 <li class="divider"></li>
-                <li> <a href="../default/buscarth.html"> Buscar </a> </li>
+                <li> <a href="#"> Buscar </a> </li>
               </ul>
             </li>
               <li> <a href="#">Educación</a> </li>
               <li> <a href="#">Administración</a> </li>
               <li> <a href="#">Riesgos</a> </li>
-              <li> <a href="../default/indexno.html">Salir</a> </li>
           </ul>
         </div>
       </div>
