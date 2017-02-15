@@ -20,6 +20,8 @@ def index():
     response.flash = T("Hello World")
     return dict(message=T('Welcome to web2py!'))
 
+def indexno():
+    return dict()
 
 def user():
     """
@@ -39,6 +41,8 @@ def user():
     """
     return dict(form=auth())
 
+def perfilth():
+    return dict()
 
 @cache.action()
 def download():
@@ -57,5 +61,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-

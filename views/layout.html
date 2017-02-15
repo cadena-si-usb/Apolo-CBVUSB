@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">                                 <!-- Responsive :) -->
     <title>{{=response.title or request.application}}</title>                                            <!-- Titulo para el navegador -->
     <meta name="application-name" content="{{=request.application}}">                                    <!-- Meta con el titulo -->
-    <meta name="google-site-verification" content="">                                                    <!-- Google aceptanos xD -->
+    <meta name="google-site-verification" content="">                                                    <!-- Google aceptanos -->
     <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />       <!-- Importar fuente Roboto -->
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>                           <!-- Importar stylesheet de bootstrap -->
     <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap3.css')}}"/>                       <!-- Importar stylesheet de bootstrap de web2py -->
@@ -44,49 +44,47 @@
           <!-- Banner -->
           <div class="row bg-2">
               <div class="col-md-6 col-sm-6 col-xs-6 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
-                <img class="img-responsive" src="{{=URL('static','images/banner-large.png')}}" alt="Banner">
+                <img class="img-responsive" src="{{=URL('static','images/logo-banner-large.png')}}" alt="Banner">
               </div>
             </div>
-
-
         </div>
 
         <!-- Agrupar los enlaces de navegación, los formularios y cualquier
         otro elemento que se pueda ocultar al minimizar la barra -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <!-- FALTAN AGREGAR LOS HRER BIEN -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse" style="font-family:roboto;">
           <ul class="nav navbar-nav">
-            <li><a href="#">About</a></li>
+              <!-- DEFINIR CON WEB2PY EL INDEX CUANDO NO INICIAS SESION Y CUANDO INICIASTE SESION -->
+            <li><a href="../default/index.html">About</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Operaciones <b class="caret"></b>
-              </a>
+              <a href="#" class="dropdown-toggle"> Operaciones <b class="caret"> </b> </a>
               <ul class="dropdown-menu">
-                <li><a href="#">Acción #1</a></li>
+                <li><a href="#">Servicio</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Acción #2</a></li>
+                <li><a href="#">Parte</a></li>
               </ul>
             </li>
-              <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Talento Humano <b class="caret"></b>
-              </a>
+              <li class="dropdown"> <a href="#" class="dropdown-toggle"> Talento Humano <b class="caret"></b> </a>
               <ul class="dropdown-menu">
-                <li><a href="#">Acción #1</a></li>
+                <li> <a href="../default/perfilth.html"> Ver Perfil </a> </li>
                 <li class="divider"></li>
-                <li><a href="#">Acción #2</a></li>
+                <li> <a href="../default/perfilmodth.html"> Modificar Perfil </a> </li>
+                <li class="divider"></li>
+                <li> <a href="../default/buscarth.html"> Buscar </a> </li>
               </ul>
             </li>
-              <li><a href="#">Educación</a></li>
-              <li><a href="#">Administración</a></li>
-              <li><a href="#">Riesgos</a></li>
+              <li> <a href="#">Educación</a> </li>
+              <li> <a href="#">Administración</a> </li>
+              <li> <a href="#">Riesgos</a> </li>
           </ul>
         </div>
       </div>
     </nav>
-
+    
     {{include}}
-
-    <div class="container-fluid bg-4 text-left" style="padding-left: 10%;">
+      
+      <!-- Footer -->
+    <div class="container-fluid bg-4 text-left" style="padding-left: 20%; font-family:roboto;">
       <div class="row">
         <br>
           <p>Contáctanos:</p>
@@ -96,18 +94,13 @@
           </span> Teléfono: (+58) 212 905-3909</p>
           <p><span class="glyphicon glyphicon-envelope">
           </span> Correo electrónico: extension.bomberos@usb.ve</p>
-          <!--
-        <p><h5>Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.<br>
-                  Correo electrónico: extension.bomberos@usb.ve<br>
-                  Teléfono: (+58) 212 905-3909<br>
-        </h5></p> -->
         <br>
       </div>
     </div>
 
     <footer class="footer bg-4">
       <div class="container-fluid">
-        <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
+        <div class="copyright pull-left" style="font-family:roboto;">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
           <div id="poweredBy" class="pull-right">
             {{=T('Powered by')}}
             <a href="http://www.web2py.com/">web2py</a>

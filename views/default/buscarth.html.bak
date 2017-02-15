@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+<h1>This is the buscarth.html template</h1>
+{{=BEAUTIFY(response._vars)}}
+
+<div class="container bg-0">
+    <br /><br /><br /><br /><br /><br />
+    <b><div class="col-xs-4 text-center" style="font-size:40px;"> Buscar </div></b>
+    <br /><br /><br />
+
+    <div align="center">
+        <!-- Navegador de busqueda -->
+        <form class="navbar-form navbar-center" role="search">
+          <div class="form-group">
+              <!-- Campo de Busqueda-->
+            <input type="text" class="form-control" placeholder="Buscar" style="background-color:rgb(185,185,185);">
+          </div>
+            <!-- Boton de enviar en color azul -->
+          <button type="submit" class="btn btn-primary btn-lg" style="background-color:rgb(51,173,255);">Enviar</button>
+        </form>
+    </div>
+</div>
