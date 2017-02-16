@@ -53,3 +53,23 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
+timestamp: 2017-02-15T21:02:03.540506
+CREATE TABLE BOMBERO(
+    id SERIAL PRIMARY KEY,
+    Carnet VARCHAR(512) NOT NULL UNIQUE,
+    CI VARCHAR(512) NOT NULL UNIQUE,
+    Nombre VARCHAR(512),
+    Apellido VARCHAR(512)
+);
+success!
+timestamp: 2017-02-15T21:02:03.848444
+CREATE TABLE SERVICIO(
+    id SERIAL PRIMARY KEY,
+    CodServicio VARCHAR(512) NOT NULL UNIQUE,
+    Registra INTEGER REFERENCES BOMBERO (id) ON DELETE CASCADE  NOT NULL ,
+    Borrador CHAR(1),
+    Aprueba INTEGER REFERENCES BOMBERO (id) ON DELETE CASCADE  ,
+    fechaCreacion DATE,
+    tipo VARCHAR(512)
+);
+success!
