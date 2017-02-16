@@ -1,0 +1,19 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+<!-- Espacito xD -->
+<br /><br /><br /><br /><br /><br /><br /><br />
+
+<!-- Tabla de Servicios -->
+<div class="container-fluid">
+  <div class="page-header">
+    <h1>Servicios</h1>
+  </div>
+
+    <ul class="nav nav-pills">
+      <li class="active"><a href="{{=URL('services','myservices')}}">Mis servicios</a></li>
+      <li><a href="{{=URL('services','services')}}">Todos</a></li>
+      <li><a href="{{=URL('services','register')}}">Registrar</a></li>
+  </ul>
+
+  <br />
