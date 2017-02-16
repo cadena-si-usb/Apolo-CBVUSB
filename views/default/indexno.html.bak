@@ -1,0 +1,58 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layoutno.html'}}
+
+<!-- Accesos directos para el usuario  -->
+<div class="container bg-0">
+    <br /><br /><br /><br /><br /><br />
+    <!-- Inicio de sesion -->
+    <div align="center">
+        <a href="#" class="thumbnail text-center" style="background-color:white;width:35%">
+            <div class="wrapper">
+                <form action="" method="post" name="Login_Form" class="form-signin">
+                    <h3 class="form-signin-heading text-center">INICIAR SESIÓN</h3>
+                    <input type="text" class="form-control" name="Username" placeholder="USERNAME" required="" autofocus=""/>
+                    <input type="password" class="form-control" name="Password" placeholder="PASSWORD" required=""/>
+                    <br />
+                    <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">LOGIN</button>
+                </form>
+            </div>
+        </a>
+    </div>
+    <br /><br />
+    <div>
+    </div>
+    <!-- Carrusel -->
+     <!-- ESTA CABLEADO, MAS ADELANTE GENERAR COMUNICADOS BIEN -->
+    <div>
+      <div class="row" style="font-family:roboto;">
+        <div class="box">
+          <div class="col-xs-8 text-left sizeAdjust">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="{{=URL('static','images/comunicado1.jpg')}}" alt="Comunicado">
+                </div>
+              </div>
+            <!-- Controles de izquierda y derecha -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Twitter de Bomberos -->
+        <div class="col-xs-4 text-right sizeAdjust" style="font-family:roboto;">
+            <a class="twitter-timeline" data-lang="es" data-width="300" data-height="450" href="https://twitter.com/BomberosUSB">Tweets by BomberosUSB</a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

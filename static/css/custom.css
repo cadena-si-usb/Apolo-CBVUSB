@@ -1,0 +1,215 @@
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.navbar {
+  margin-bottom: 0;
+  background-color: #33adff;
+  z-index: 9999;
+  border: 0;
+  font-size: 12px !important;
+  line-height: 1.42857143 !important;
+  letter-spacing: 4px;
+  border-radius: 0;
+}
+
+.navbar li a,   {
+  color: white !important;
+}
+
+.navbar .navbar-brand {
+  color: black !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+  color: white !important;
+  background-color: #33adff !important;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+  color: black !important;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+    color: white;
+    background-color: black;
+}
+
+/* Fondo blanco con letras negras */
+.bg-0 {
+  background-color: white;
+  color: black;
+}
+
+/* Fondo azul con letras blancas */
+.bg-1 {
+  background-color: #33adff;
+  color: white;
+}
+
+/* Fondo gris (gradiente) con letras blancas */
+.bg-2 {
+  background-image: linear-gradient(180deg, #e0e0e0, white);
+  color: white;
+}
+
+/* Fondo negro con letras blancas */
+.bg-3 {
+  background-color: black; /* Green */
+  color: white;
+}
+
+/* Fondo negro con letras blancas y +*/
+.bg-4 {
+  background-color: black;
+  color: white;
+  line-height: 80%;
+}
+
+.container {
+  padding: 80px 120px;
+}
+
+.carousel {
+  width: 100%;
+  max-height: 700px;
+  min-height: 250px;
+}
+
+.carousel .item img {
+    width: 100%;
+    max-height: 700px;
+    min-height: 250px;
+}
+
+* {
+  font-family: 'Roboto', serif;
+  font-size: 12pt;
+}
+
+.sizeAdjust img {
+  border: 1px solid black;
+}
+
+
+.services-item {
+  margin: 0 0 15px;
+  right: 0;
+}
+.services-item .services-link {
+  display: block;
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.services-item .services-link .caption {
+  background: rgba(24, 188, 156, 0.9);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+}
+.services-item .services-link .caption:hover {
+  opacity: 1;
+}
+.services-item .services-link .caption .caption-content {
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  font-size: 20px;
+  text-align: center;
+  top: 50%;
+  margin-top: -12px;
+  color: white;
+}
+.services-item .services-link .caption .caption-content i {
+  margin-top: -12px;
+}
+.services-item .services-link .caption .caption-content h3,
+.services-item .services-link .caption .caption-content h4 {
+  margin: 0;
+}
+* {
+  z-index: 2;
+}
+@media (min-width: 767px) {
+  .services-item {
+    margin: 0 0 30px;
+  }
+}
+
+.services-modal .modal-content {
+  border-radius: 0;
+  background-clip: border-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+  min-height: 100%;
+  padding: 100px 0;
+  text-align: center;
+}
+.services-modal .modal-content h2 {
+  margin: 0;
+  font-size: 3em;
+}
+.services-modal .modal-content img {
+  margin-bottom: 30px;
+}
+.services-modal .modal-content .item-details {
+  margin: 30px 0;
+}
+.services-modal .close-modal {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  background-color: transparent;
+  top: 25px;
+  right: 25px;
+  cursor: pointer;
+}
+.services-modal .close-modal:hover {
+  opacity: 0.3;
+}
+.services-modal .close-modal .lr {
+  height: 75px;
+  width: 1px;
+  margin-left: 35px;
+  background-color: #2C3E50;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(45deg);
+  /* Safari and Chrome */
+  z-index: 1051;
+}
+.services-modal .close-modal .lr .rl {
+  height: 75px;
+  width: 1px;
+  background-color: #2C3E50;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  /* IE 9 */
+  -webkit-transform: rotate(90deg);
+  /* Safari and Chrome */
+  z-index: 1052;
+}
+.services-modal .modal-backdrop {
+  opacity: 0;
+  display: none;
+}
+
+.form-textbox {
+  height: 300px !important;
+  width: 500px !important;
+  font-size: 14px !important;
+}
+
