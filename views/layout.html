@@ -52,38 +52,52 @@
         <!-- Agrupar los enlaces de navegación, los formularios y cualquier
         otro elemento que se pueda ocultar al minimizar la barra -->
           <!-- FALTAN AGREGAR LOS HRER BIEN -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse" style="font-family:roboto;">
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
-              <!-- DEFINIR CON WEB2PY EL INDEX CUANDO NO INICIAS SESION Y CUANDO INICIASTE SESION -->
-            <li><a href="../default/index.html">About</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle">Operaciones<b class="caret"> </b> </a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Servicio</a></li>
+            <li><a href="{{=URL('default','index')}}">Inicio</a></li>
+            <li><a href="{{=URL('default','index')}}">Conócenos</a>
+                <ul class="dropdown-menu">
+                <li><a href="{{=URL('default','index')}}">Bomberos</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Parte</a></li>
+                <li><a href="{{=URL('default','index')}}">Historia</a></li>
+                <li class="divider"></li>
+                <li><a href="{{=URL('default','index')}}">Normativa</a></li>
+                <li class="divider"></li>
+                <li><a href="{{=URL('default','index')}}">Objetivos</a></li>
               </ul>
             </li>
-              <li class="dropdown"> <a href="#" class="dropdown-toggle">Talento Humano<b class="caret"></b> </a>
+            <li><a href="{{=URL('default','index')}}">Únetenos</a>
+            <li><a href="{{=URL('default','index')}}">Educación</a>
               <ul class="dropdown-menu">
-                <li> <a href="../default/perfilth.html">Ver Perfil</a> </li>
+                <li><a href="{{=URL('default','index')}}">Cursos</a></li>
                 <li class="divider"></li>
-                <li> <a href="../default/perfilmodth.html">Modificar Perfil</a> </li>
-                <li class="divider"></li>
-                <li> <a href="../default/buscarth.html">Buscar</a> </li>
+                <li><a href="{{=URL('default','index')}}">Servicio comunitario</a></li>
               </ul>
             </li>
-              <li> <a href="#">Educación</a> </li>
-              <li> <a href="#">Administración</a> </li>
-              <li> <a href="#">Riesgos</a> </li>
-              <li> <a href="../default/indexno.html">Salir</a> </li>
+            <li><a href="{{=URL('default','index')}}">Estadísticas</a></li>
+            <li><a href="{{=URL('default','index')}}">Operaciones</a>
+              <ul class="dropdown-menu">
+                <li><a href="{{=URL('default','index')}}">Guardias</a></li>
+                <li class="divider"></li>
+                <li><a href="{{=URL('services','services')}}">Servicios</a></li>
+              </ul>
+            </li>
+            <li><a href="{{=URL('default','index')}}">Talento Humano</a>
+              <ul class="dropdown-menu">
+                <li> <a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a> </li>
+                <li class="divider"></li>
+                <li> <a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a> </li>
+                <li class="divider"></li>
+                <li> <a href="{{=URL('default','buscarth.html')}}">Buscar</a> </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
-    
+
     {{include}}
-      
+
       <!-- Footer -->
     <div class="container-fluid bg-4 text-left" style="padding-left: 20%; font-family:roboto;">
       <div class="row">
