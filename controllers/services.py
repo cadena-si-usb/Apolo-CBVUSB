@@ -6,6 +6,8 @@ def register(): return dict()
 
 def myservices(): return dict()
 
+def parte(): return dict()
+
 @cache.action()
 def download():
     """
