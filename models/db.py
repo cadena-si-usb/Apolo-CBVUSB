@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # -------------------------------------------------------------------------
 # This scaffolding model makes your app work on Google App Engine too
 # File is released under public domain and you can use without limitations
@@ -130,3 +129,21 @@ auth.settings.reset_password_requires_verification = True
 # after defining tables, uncomment below to enable auditing
 # -------------------------------------------------------------------------
 # auth.enable_record_versioning(db)
+DB = DAL("postgres://cbvusb:1234@localhost/cbvusb")
+DB.define_table('BOMBERO',
+    Field('Carnet',unique = True,notnull = True),
+    Field('CI',unique = True, notnull = True),
+    Field('Nombre'),
+    Field('Apellido'))
+
+DB.define_table('SERVICIO',
+    Field('CodServicio',unique = True,notnull = True),
+    Field('Registra','reference BOMBERO',notnull = True),
+    Field('Borrador','boolean',default = True),
+    Field('Aprueba','reference BOMBERO'),
+    Field('fechaCreacion','date'),
+    Field('tipo'))
+
+DB.BOMBERO.Carnet.requires = IS_NOT_IN_DB(DB, DB.BOMBERO.Carnet)
+DB.BOMBERO.CI.requires = IS_NOT_IN_DB(DB, DB.BOMBERO.CI)
+DB.SERVICIO.Registra.requires = IS_IN_DB(DB, DB.BOMBERO.Carnet)
