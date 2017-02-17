@@ -33,3 +33,29 @@ DB.define_table('servicio',
     Field('Aprueba','reference bombero'),
     Field('fechaCreacion','date'),
     Field('tipo'))
+
+def insertBombero():
+	DB.usuario.insert(username = 'gerson',password = 'mamalo')
+	DB.persona.insert(cedula = 12345678, 
+		primer_nombre = 'Gerson',
+		segundo_nombre = 'Mamalo',
+		primer_apellido = 'MamaloNo',
+		segundo_apellido = 'MamaloMasFuerte',
+		fecha_nacimiento = '1986/05/02',
+		lugar_nacimiento = 'Mierdapolis',
+		genero ='Trans',
+		imagen = 'imagen',
+		email_principal = 'jajajaja',
+		email_alternativo = 'jejejeje',
+		estado_civil = 'Gerson de Apolo')
+	id_usuario = DB().select(DB.usuario.id)
+	id_persona = DB().select(DB.persona.id)
+	DB.bombero.insert(
+		carnet = 1310147,
+		imagen_perfil = 'Gay',
+		iniciales = 'GG',
+		tipo_sangre = 'O-',
+		id_persona = id_persona[0],
+		id_usuario = id_usuario[0])
+
+insertBombero()
