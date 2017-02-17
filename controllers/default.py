@@ -67,3 +67,12 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
+
+
+## Inician nuestras funciones
+def buscarth():
+
+    tablaBomberos = db.executesql("SELECT * FROM bombero;")
+    print tablaBomberos
+
+    return dict(tabla=tablaBomberos)
