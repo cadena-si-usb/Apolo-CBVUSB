@@ -58,4 +58,4 @@ def insertBombero():
 		id_persona = id_persona[0],
 		id_usuario = id_usuario[0])
 
-insertBombero()
+#insertBombero()
