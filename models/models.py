@@ -33,4 +33,3 @@ DB.define_table('servicio',
     Field('Aprueba','reference bombero'),
     Field('fechaCreacion','date'),
     Field('tipo'))
-
