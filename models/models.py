@@ -74,12 +74,12 @@ def insertarServicio(fechaCreacion,fechaFinalizacion,fechaLlegada,descripcion,lo
 
 def testCase():
     insertarBombero('gsalazar',1234,24655445,'Gerson','A.','Salazar','P.','1971/01/01','Cumana','Masculino','Gerson.jpg','blah@bleh.com','blah@blah.com','Casado',1310147,'O RH-','GS')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
 
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
