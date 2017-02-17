@@ -1,250 +1,156 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<!-- Espacito xD -->
-<br /><br /><br /><br /><br /><br /><br /><br />
-
-<!-- Tabla de Servicios -->
+<!-- container principal -->
 <div class="container-fluid">
+  <!-- Espacito xD -->
+  <div class="container-fluid">
+    <br /><br /><br /><br /><br /><br /><br /><br />
+  <div>
+
+  <!-- Título -->
   <div class="page-header">
-    <h1>Servicios</h1>
+    <h1>Registrar servicio</h1>
   </div>
 
-    <ul class="nav nav-pills">
-      <li class="active"><a href="{{=URL('services','register')}}">Registrar</a></li>
-      <li><a href="{{=URL('services','services')}}">Todo</a></li>
-      <li><a href="{{=URL('services','myservices')}}">Mi servicios</a></li>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#basicinfo" role="tab">Información básica</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a>
+    </li>
   </ul>
 
-  <br />
-
-
-      <div class="col-md-12">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h3 class="text-center panel-title"><strong>Registro de Servicio</strong></h3></div>
-              <div class="panel-body">
-                  <div class="col-md-3 col-md-offset-3">
-                      <p>Tipo de servicio</p>
-                      <p>Fecha de Inicio</p>
-                      <p>Fecha de Llegada</p>
-                      <p>Fecha de Regreso </p>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="dropdown">
-                          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">none </button>
-                          <ul role="menu" class="dropdown-menu">
-                              <li role="presentation"><a href="#">First Item</a></li>
-                              <li role="presentation"><a href="#">Second Item</a></li>
-                              <li role="presentation"><a href="#">Third Item</a></li>
-                          </ul>
-                      </div>
-                      <input type="datetime-local" />
-                      <input type="datetime-local" />
-                      <input type="datetime-local" />
-                  </div>
-                  <div class="col-md-6 col-md-offset-3">
-                      <p class="text-center"><strong>Descripcion del Servicio</strong></p>
-                      <textarea class="form-textbox"></textarea>
-                  </div>
-                  <div class="col-md-6 col-md-offset-3 card-item">
-                      <p class="text-center"><strong>J</strong>efe </p>
-                      <div class="container-fluid card-item">
-                          <div class="col-md-6">
-                              <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="container-fluid">
-                                  <p>Apolo</p>
-                                  <p>16 Años</p>
-                                  <p>Hombre </p>
-                                  <p>CI: 24 321 958</p>
-                                  <p>(+58) 426 584 3845</p>
-                                  <p>Caracas, Venezuela</p>
-                              </div>
-                          </div>
-                          <div class="col-md-4 col-md-offset-4">
-                              <button class="btn btn-default" type="button">Selecionar </button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-12">
-                      <p class="text-center"><strong>Integrantes </strong></p>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="container-fluid card-item">
-                                  <div class="col-md-6 col-md-offset-0">
-                                      <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="container-fluid">
-                                          <p>Apolo</p>
-                                          <p>16 Años</p>
-                                          <p>Hombre </p>
-                                          <p>CI: 24 321 958</p>
-                                          <p>(+58) 426 584 3845</p>
-                                          <p>Caracas, Venezuela</p>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4 col-md-offset-4">
-                                      <button class="btn btn-default" type="button">Selecionar </button>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="container-fluid card-item">
-                                  <div class="col-md-6">
-                                      <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="container-fluid">
-                                          <p>Apolo</p>
-                                          <p>16 Años</p>
-                                          <p>Hombre </p>
-                                          <p>CI: 24 321 958</p>
-                                          <p>(+58) 426 584 3845</p>
-                                          <p>Caracas, Venezuela</p>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4 col-md-offset-4">
-                                      <button class="btn btn-default" type="button">Selecionar </button>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="container-fluid card-item">
-                                  <div class="col-md-6">
-                                      <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="container-fluid">
-                                          <p>Apolo</p>
-                                          <p>16 Años</p>
-                                          <p>Hombre </p>
-                                          <p>CI: 24 321 958</p>
-                                          <p>(+58) 426 584 3845</p>
-                                          <p>Caracas, Venezuela</p>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4 col-md-offset-4">
-                                      <button class="btn btn-default" type="button">Selecionar </button>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="container-fluid card-item">
-                                  <div class="col-md-6">
-                                      <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="container-fluid">
-                                          <p>Apolo</p>
-                                          <p>16 Años</p>
-                                          <p>Hombre </p>
-                                          <p>CI: 24 321 958</p>
-                                          <p>(+58) 426 584 3845</p>
-                                          <p>Caracas, Venezuela</p>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4 col-md-offset-4">
-                                      <button class="btn btn-default" type="button">Selecionar </button>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="container-fluid card-item">
-                                  <div class="col-md-6">
-                                      <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="container-fluid">
-                                          <p>Apolo</p>
-                                          <p>16 Años</p>
-                                          <p>Hombre </p>
-                                          <p>CI: 24 321 958</p>
-                                          <p>(+58) 426 584 3845</p>
-                                          <p>Caracas, Venezuela</p>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4 col-md-offset-4">
-                                      <button class="btn btn-default" type="button">Selecionar </button>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="container-fluid card-item">
-                                  <div class="col-md-6">
-                                      <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div class="container-fluid">
-                                          <p>Apolo</p>
-                                          <p>16 Años</p>
-                                          <p>Hombre </p>
-                                          <p>CI: 24 321 958</p>
-                                          <p>(+58) 426 584 3845</p>
-                                          <p>Caracas, Venezuela</p>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4 col-md-offset-4">
-                                      <button class="btn btn-default" type="button">Selecionar </button>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-3 col-md-offset-3">
-                      <p>Unidad </p>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="dropdown">
-                          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">none </button>
-                          <ul role="menu" class="dropdown-menu">
-                              <li role="presentation"><a href="#">First Item</a></li>
-                              <li role="presentation"><a href="#">Second Item</a></li>
-                              <li role="presentation"><a href="#">Third Item</a></li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="col-md-6 col-md-offset-3">
-                      <p><strong>Conductor </strong></p>
-                  </div>
-                  <div class="col-md-6 col-md-offset-3">
-                      <div class="container-fluid card-item">
-                          <div class="col-md-6">
-                              <div class="container-fluid"><img src="{{=URL('static','images/apolo.png')}}" class="img-responsive" /></div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="container-fluid">
-                                  <p>Apolo</p>
-                                  <p>16 Años</p>
-                                  <p>Hombre </p>
-                                  <p>CI: 24 321 958</p>
-                                  <p>(+58) 426 584 3845</p>
-                                  <p>Caracas, Venezuela</p>
-                              </div>
-                          </div>
-                          <div class="col-md-4 col-md-offset-4">
-                              <button class="btn btn-default" type="button">Selecionar </button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-12 col-md-offset-0">
-                      <button class="btn btn-default" type="submit">Finalizar </button>
-                  </div>
-              </div>
+  <!-- Tab Información Básica -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="basicinfo" role="tabpanel">
+        <form role="form">
+          <div class="form-group">
+            <label for="startDate">Fecha de inicio</label>
+            <input type="email" class="form-control" id="startDate"
+                   placeholder="Introduce tu email">
           </div>
+          <div class="form-group">
+            <label for="startTime">Hora de inicio</label>
+            <input type="password" class="form-control" id="startTime"
+                   placeholder="Contraseña">
+          </div>
+          <div class="form-group">
+            <label for="startDate">Fecha de llegada</label>
+            <input type="email" class="form-control" id="startDate"
+                   placeholder="Introduce tu email">
+          </div>
+          <div class="form-group">
+            <label for="startTime">Hora de llegada</label>
+            <input type="password" class="form-control" id="startTime"
+                   placeholder="Contraseña">
+          </div>
+          <div class="form-group">
+            <label for="startDate">Fecha de regreso</label>
+            <input type="email" class="form-control" id="startDate"
+                   placeholder="Introduce tu email">
+          </div>
+          <div class="form-group">
+            <label for="startTime">Hora de regreso</label>
+            <input type="password" class="form-control" id="startTime"
+                   placeholder="Contraseña">
+          </div>
+          <div class="form-group">
+              <label for="description">Descripción</label>
+              <textarea id="description" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+              <label for="address">Dirección</label>
+              <textarea id="address" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="location">Ubicación en el mapa</label>
+            <div class="container-fluid">
+              <div class="span8">
+                <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
 
-  <div class="container-fluid">
-    <div class="span8">
-      <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>
+    <!-- Tab Comisiones -->
+    <div class="tab-pane" id="commission" role="tabpanel">
+      <form role="form">
+        <div class="form-group">
+          <label for="commissionBoss">Jefe de comisión</label>
+          <input type="email" class="form-control" id="commissionBoss"
+                 placeholder="Introduce tu email">
+        </div>
+        <div class="form-group">
+          <label for="commissionUnit">Unidad</label>
+          <input type="password" class="form-control" id="commissionUnit"
+                 placeholder="Contraseña">
+        </div>
+        <div class="form-group">
+          <label for="commissionOther">Acompañante</label>
+          <input type="email" class="form-control" id="commissionOther"
+                 placeholder="Introduce tu email">
+        </div>
+      </form>
+    </div>
+
+    <!-- Tab Afectados -->
+    <div class="tab-pane" id="affected" role="tabpanel">
+      <form role="form">
+        <div class="form-group">
+          <label for="affectedCI">Cédula</label>
+          <input type="email" class="form-control" id="affectedCI"
+                 placeholder="Introduce tu email">
+        </div>
+        <div class="form-group">
+          <label for="affected0">Primer nombre</label>
+          <input type="password" class="form-control" id="affected1"
+                 placeholder="Contraseña">
+        </div>
+        <div class="form-group">
+          <label for="affected1">Segundo nombre</label>
+          <input type="email" class="form-control" id="affected2"
+                 placeholder="Introduce tu email">
+        </div>
+        <div class="form-group">
+          <label for="affected2">Primer apellido</label>
+          <input type="password" class="form-control" id="affected2"
+                 placeholder="Contraseña">
+        </div>
+        <div class="form-group">
+          <label for="affectedName3">Segundo apellido</label>
+          <input type="email" class="form-control" id="affectedName3"
+                 placeholder="Introduce tu email">
+        </div>
+        <div class="form-group">
+          <label for="affectedGender">Sexo</label>
+          <input type="password" class="form-control" id="affectedGender"
+                 placeholder="Contraseña">
+        </div>
+                <div class="form-group">
+          <label for="affectedEmail">Correo electrónico</label>
+          <input type="password" class="form-control" id="affectedEmail"
+                 placeholder="Contraseña">
+        </div>
+        <div class="form-group">
+          <label for="affectedPhone">Teléfono</label>
+          <input type="email" class="form-control" id="affectedPhone"
+                 placeholder="Introduce tu email">
+        </div>
+        <div class="form-group">
+            <label for="affectedNotes">Notas/Tratamiento</label>
+            <textarea id="affectedNotes" class="form-control" rows="3"></textarea>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
+<!-- Google Maps -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
