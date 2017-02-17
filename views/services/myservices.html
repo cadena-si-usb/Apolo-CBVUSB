@@ -13,8 +13,8 @@ tan{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
   </ol>
 
     <ul class="nav nav-pills">
-      <li class="active"><a href="{{=URL('services','myservices')}}">Mis servicios</a></li>
       <li><a href="{{=URL('services','services')}}">Todos</a></li>
+      <li class="active"><a href="{{=URL('services','myservices')}}">Mis servicios</a></li>
       <li><a href="{{=URL('services','register')}}">Registrar</a></li>
   </ul>
 
@@ -37,7 +37,7 @@ tan{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
           <td>{{=row.localizacion}}</td>
           <td>{{=row.fechaCreacion}}</td>
           <td>{{=row.fechaFinalizacion}}</td>
-          <td><a class="glyphicon glyphicon-remove" style="color:red" href='http://www.google.com'></a></td>
+          <td><a class="glyphicon glyphicon-remove iconDelete" style="color:tan" href='http://www.google.com'></a></td>
         </tr>
         {{pass}}
 

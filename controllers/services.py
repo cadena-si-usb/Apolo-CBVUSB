@@ -39,6 +39,9 @@ def deleteService():
     #DB(DB.servicio.id == serviceId)._delete()
     return dict()
 
+def index(): return dict()
+def search(): return dict()
+
 
 @cache.action()
 def download():
@@ -57,3 +60,4 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
+
