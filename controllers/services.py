@@ -3,10 +3,9 @@
 def services(): return dict()
 
 def register(): return dict()
-
 def myservices(): return dict()
-
 def index(): return dict()
+def search(): return dict()
 
 @cache.action()
 def download():

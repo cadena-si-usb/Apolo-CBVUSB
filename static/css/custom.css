@@ -223,6 +223,12 @@
   font-size:14px !important;
 }
 
+.form-control{
+  width:450px !important;
+  background-color: #f9f9f9;
+  border: inset;
+}
+
 .card-item{
   margin-bottom:15px;
   border:double;
