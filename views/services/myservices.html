@@ -1,4 +1,4 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+tan{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
 <!-- Espacito xD -->
@@ -6,9 +6,11 @@
 
 <!-- Tabla de Servicios -->
 <div class="container-fluid">
-  <div class="page-header">
-    <h1>Servicios</h1>
-  </div>
+
+  <ol class="breadcrumb">
+    <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
+    <li class="active">Todos los servicios</li>
+  </ol>
 
     <ul class="nav nav-pills">
       <li class="active"><a href="{{=URL('services','myservices')}}">Mis servicios</a></li>
@@ -34,7 +36,7 @@
           <td>USB, Edificio QYP, piso 2, Lab 3A.</td>
           <td>08:30 14/01/17</td>
           <td>12:30 14/01/17</td>
-          <td><a class="glyphicon glyphicon-remove" style="color:red" href="https://www.google.com/"></a></td>
+          <td><a class="glyphicon glyphicon-remove" style="color:tan" href="https://www.google.com/"></a></td>
         </tr>
         <tr class='clickable-row' data-href='https://www.google.com/'>
           <td>Atención Prehospitalaria</td>
@@ -42,7 +44,7 @@
           <td>USB, cancha de basket.</td>
           <td>10:05 14/01/17</td>
           <td>12:55 14/01/17</td>
-          <td><a class="glyphicon glyphicon-remove" style="color:red" href="https://www.google.com/"></a></td>
+          <td><a class="glyphicon glyphicon-remove" style="color:tan" href="https://www.google.com/"></a></td>
         </tr>
         <tr class='clickable-row' data-href='https://www.google.com/'>
           <td>Rescate</td>
@@ -50,7 +52,7 @@
           <td>USB, ENE, aula 110.</td>
           <td>16:10 15/01/17</td>
           <td>16:55 15/01/17</td>
-          <td><a class="glyphicon glyphicon-remove" style="color:red" href="https://www.google.com/"></a></td>
+          <td><a class="glyphicon glyphicon-remove" style="color:tan" href="https://www.google.com/"></a></td>
         </tr>
         <tr class='clickable-row' data-href='https://www.google.com/'>
           <td>Incendio</td>
@@ -58,7 +60,7 @@
           <td>USB, estacionamiento de DACE.</td>
           <td>20:30 11/01/17</td>
           <td>23:25 11/01/17</td>
-          <td><a class="glyphicon glyphicon-remove" style="color:red" href="https://www.google.com/"></a></td>
+          <td><a class="glyphicon glyphicon-remove" style="color:tan" href="https://www.google.com/"></a></td>
         </tr>
       </table>
     </div>
