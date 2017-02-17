@@ -73,3 +73,54 @@ CREATE TABLE SERVICIO(
     tipo VARCHAR(512)
 );
 success!
+timestamp: 2017-02-16T23:00:38.970000
+ALTER TABLE bombero ADD hijos INTEGER;
+timestamp: 2017-02-16T23:02:52.867913
+ALTER TABLE bombero ADD hijos INTEGER;
+timestamp: 2017-02-16T23:04:50.856944
+CREATE TABLE usuario(
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(24) NOT NULL UNIQUE,
+    password VARCHAR(24) NOT NULL
+);
+success!
+timestamp: 2017-02-16T23:04:51.229307
+CREATE TABLE persona(
+    id SERIAL PRIMARY KEY,
+    cedula INTEGER NOT NULL UNIQUE,
+    primer_nombre VARCHAR(512) NOT NULL,
+    segundo_nombre VARCHAR(512),
+    primer_apellido VARCHAR(512) NOT NULL,
+    segundo_apellido VARCHAR(512) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    lugar_nacimiento VARCHAR(512) NOT NULL,
+    genero VARCHAR(512) NOT NULL,
+    imagen TEXT,
+    email_principal VARCHAR(512) NOT NULL,
+    email_alternativo VARCHAR(512),
+    estado_civil VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-02-16T23:04:51.335897
+CREATE TABLE bombero(
+    id SERIAL PRIMARY KEY,
+    carnet INTEGER NOT NULL UNIQUE,
+    imagen_perfil TEXT,
+    iniciales VARCHAR(512),
+    tipo_sangre VARCHAR(512),
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    hijos INTEGER
+);
+success!
+timestamp: 2017-02-16T23:04:51.646344
+CREATE TABLE servicio(
+    id SERIAL PRIMARY KEY,
+    CodServicio VARCHAR(512) NOT NULL UNIQUE,
+    Registra INTEGER REFERENCES bombero (id) ON DELETE CASCADE  NOT NULL ,
+    Borrador CHAR(1) NOT NULL DEFAULT 'T',
+    Aprueba INTEGER REFERENCES bombero (id) ON DELETE CASCADE  ,
+    fechaCreacion DATE,
+    tipo VARCHAR(512)
+);
+success!
