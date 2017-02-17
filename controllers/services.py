@@ -1,10 +1,36 @@
 # -*- coding: utf-8 -*-
 
-def services(): return dict()
+def myServices():
 
-def register(): return dict()
+    # bombero_carnet = request
+    #servicios = DB(DB.bombero.carnet == bombero_carnet)._select()
+    #return dict(servicios=servicios)
 
-def myservices(): return dict()
+    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
+    services = DB().select(DB.servicio.ALL)
+    return dict(services=services)
+    ##################################################
+
+def register():
+
+    form = SQLFORM(DB.servicio)
+    
+    #print form
+
+    return dict()
+
+
+def services(): 
+
+    services = DB().select(DB.servicio.ALL)
+    return dict(services=services)
+
+def deleteService():
+
+    #serviceId = 1
+    #DB(DB.servicio.id == serviceId)._delete()
+    return dict()
+
 
 @cache.action()
 def download():
@@ -12,7 +38,7 @@ def download():
     allows downloading of uploaded files
     http://..../[app]/default/download/[filename]
     """
-    return response.download(request, db)
+    return response.download(request, DB)
 
 
 def call():
