@@ -50,6 +50,9 @@ def perfilmodth():
 def buscarth():
     return dict()
 
+def registrousrth():
+    return dict()
+
 @cache.action()
 def download():
     """
