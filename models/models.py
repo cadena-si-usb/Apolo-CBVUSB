@@ -82,4 +82,4 @@ def testCase():
     insertarServicio('2017/02/10 12:30','2017/02/10 15:40','2017/02/10 15:40','Rescate de búho perdido en salón de clases.','USB, ENE, piso 1, aula 110','RES2')
     insertarServicio('2017/02/21 18:15','2017/02/22 19:45','2017/02/22 19:45','Ocurrió incendio en árbol adyacente a lagunna de los patos.','USB, laguna de los patos.','IDV')
     insertarServicio('2017/01/17 14:35','2017/01/17 20:45','2017/01/17 20:45','Liberación de gases tóxicos en entrada del edificio de QYP.','USB, QYP, Entrada sur.','MP')
-    insertarServicio('2017/01/21 12:20','2017/01/22 16:50','2017/01/22 16:50','Incendio de la vegetación cercana al tanque de agua de la USB.','USB, tanque de agua','Incendio Forestal')
+
