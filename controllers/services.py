@@ -23,7 +23,7 @@ def register():
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
     
-        insertarServicio(fechaCreacion,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
+        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
 
     return dict()
 
