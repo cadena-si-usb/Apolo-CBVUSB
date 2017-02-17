@@ -19,6 +19,21 @@
     </div>
 </div>
 
-{{=tabla}}
+
+<div class="col-xs-4 text-center" style="font-size:20px;"><table style="width:100%">
+    <tr>
+      <th>Carnet</th>
+      <th>Nombre</th> 
+      <th>Apellido</th>
+    </tr>
+    {{for row in tabla:}}
+    <tr class="clickable-row" data-href="http://www.google.com">
+      <td>{{=row.bombero.carnet}}</td>
+      <td>{{=row.persona.primer_nombre}}</td> 
+      <td>{{=row.persona.primer_apellido}}</td>
+    </tr>
+    {{pass}}
+  </table>
+</div>
 
 <br /><br /><br /><br /><br /><br /><br /><br />
