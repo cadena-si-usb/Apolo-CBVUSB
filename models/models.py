@@ -32,6 +32,7 @@ DB.define_table('servicio',
     Field('Aprueba','reference bombero'),
     Field('fechaCreacion','datetime'),
     Field('fechaFinalizacion','datetime'),
+    Field('fechaLlegada','datetime'),
     Field('descripcion', type='string'),
     Field('localizacion', type='string'),
     Field('tipo'))
@@ -60,12 +61,13 @@ def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,ca
         id_persona = id_persona[0],
         id_usuario = id_usuario[0])
 
-def insertarServicio(fechaCreacion,fechaFinalizacion,descripcion,localizacion,tipo):
+def insertarServicio(fechaCreacion,fechaFinalizacion,fechaLlegada,descripcion,localizacion,tipo):
     DB.servicio.insert(
         Registra = 1,
         Aprueba = 1,
         fechaCreacion = fechaCreacion,
         fechaFinalizacion = fechaFinalizacion,
+        fechaLlegada = fechaLlegada,
         descripcion = descripcion,
         localizacion = localizacion,
         tipo = tipo)
