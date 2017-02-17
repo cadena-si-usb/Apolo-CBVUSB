@@ -8,10 +8,10 @@
     <br /><br /><br /><br /><br /><br /><br /><br />
     <div>
 
-      <!-- Título -->
-      <div class="page-header">
-        <h1>Registrar servicio</h1>
-      </div>
+      <ol class="breadcrumb">
+        <li><a href="#">Servicios</a></li>
+        <li class="active">Registrar Servicio</li>
+      </ol>
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
@@ -36,22 +36,21 @@
           
             <div class="form-group">
               <label for="startDate">Tipo de Servicio</label>
-              <select>
-                <option value="" disabled="disabled" selected="selected">Please select a name</option>
-                <option value="1">CM</option>
-                <option value="2">AME1</option>
-                <option value="3">AME2</option>
-                <option value="4">IDE</option>
-                <option value="5">IDV</option>
-                <option value="6">PC</option>
-                <option value="7">AY</option>
-                <option value="8">MP</option>
-                <option value="9">RES1</option>
-                <option value="10">RES2</option>
-                <option value="11">SE</option>
-                <option value="12">GP</option>
-                <option value="13">NSA: No se actuó</option>
-                <option value="14">FA: Falsa Alarma</option>
+              <select name="tipo">
+                <option value="CM" selected="selected">CM</option>
+                <option value="AME1">AME1</option>
+                <option value="AME2">AME2</option>
+                <option value="IDE">IDE</option>
+                <option value="IDV">IDV</option>
+                <option value="PC">PC</option>
+                <option value="AY">AY</option>
+                <option value="MP">MP</option>
+                <option value="RES1">RES1</option>
+                <option value="RES2">RES2</option>
+                <option value="SE">SE</option>
+                <option value="GP">GP</option>
+                <option value="NSA">NSA: No se actuó</option>
+                <option value="FA">FA: Falsa Alarma</option>
               </select>
             </div>
 
@@ -99,15 +98,23 @@
               placeholder="">
             </div>
             <div class="form-group">
-              <label for="commissionUnit">Unidad</label>
-              <input type="password" class="form-control" id="commissionUnit"
-              placeholder="">
-            </div>
-            <div class="form-group">
               <label for="commissionOther">Acompañante</label>
               <input type="text" class="form-control" id="commissionOther"
               placeholder="">
             </div>
+            <div class="form-group">
+              <label for="comissionUnit">Tipo de Unidad</label>
+              <select>
+                <option value="1" selected="selected">A1</option>
+                <option value="2">M2</option>
+                <option value="3">L1</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="commissionChofer">Conductor</label>
+              <input type="text" class="form-control" id="commissionChofer" placeholder="">
+             </div>
+           </form>
           
         </div>
 
@@ -126,7 +133,7 @@
             <div class="form-group">
               <label for="affected1">Segundo nombre</label>
               <input type="email" class="form-control" id="affected2"
-              placeholder="Introduce tu email">
+              placeholder="">
             </div>
             <div class="form-group">
               <label for="affected2">Primer apellido</label>
@@ -157,6 +164,15 @@
               <label for="affectedNotes">Notas/Tratamiento</label>
               <textarea id="affectedNotes" class="form-control" rows="3"></textarea>
             </div>
+            <div class="form-group">
+              <label for="affectedNotes">Tipo</label>
+              <select>
+                <option value="1" selected="selected">Estudiante de la USB</option>
+                <option value="2">Profesor de la USB</option>
+                <option value="3">Empleado de la USB</option>
+                <option value="4">Obrero de la USB</option>
+                <option value="5">Externo</option>
+              </select>
           </form>
         </div>
       </div>

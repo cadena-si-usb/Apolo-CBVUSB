@@ -7,7 +7,7 @@ def myservices():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = DB().select(DB.servicio.ALL)
+    services = DB().select(orderby=~DB.servicio.fechaCreacion)
     return dict(services=services)
     ##################################################
 
@@ -30,7 +30,7 @@ def register():
 
 def services(): 
 
-    services = DB().select(DB.servicio.ALL)
+    services = DB().select(orderby=~DB.servicio.fechaCreacion)
     return dict(services=services)
 
 def deleteService():
