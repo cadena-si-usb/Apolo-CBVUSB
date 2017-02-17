@@ -32,6 +32,7 @@ DB.define_table('servicio',
     Field('Aprueba','reference bombero'),
     Field('fechaCreacion','datetime'),
     Field('fechaFinalizacion','datetime'),
+    Field('fechaLlegada','datetime'),
     Field('descripcion', type='string'),
     Field('localizacion', type='string'),
     Field('tipo'))
@@ -60,12 +61,13 @@ def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,ca
         id_persona = id_persona[0],
         id_usuario = id_usuario[0])
 
-def insertarServicio(fechaCreacion,fechaFinalizacion,descripcion,localizacion,tipo):
+def insertarServicio(fechaCreacion,fechaFinalizacion,fechaLlegada,descripcion,localizacion,tipo):
     DB.servicio.insert(
         Registra = 1,
         Aprueba = 1,
         fechaCreacion = fechaCreacion,
         fechaFinalizacion = fechaFinalizacion,
+        fechaLlegada = fechaLlegada,
         descripcion = descripcion,
         localizacion = localizacion,
         tipo = tipo)
@@ -73,11 +75,11 @@ def insertarServicio(fechaCreacion,fechaFinalizacion,descripcion,localizacion,ti
 def testCase():
     insertarBombero('gsalazar',1234,24655445,'Gerson','A.','Salazar','P.','1971/01/01','Cumana','Masculino','Gerson.jpg','blah@bleh.com','blah@blah.com','Casado',1310147,'O RH-','GS')
 
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
-    insertarServicio('1998/05/21','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
+    insertarServicio('1998/05/21','1999/05/22','1999/05/22','Ocurrio un incendio','USB','Incendio Forestal')
