@@ -18,6 +18,7 @@ def register():
         
         tipoServicio = request.vars['tipo'] 
         fechaCreacion = request.vars['fechaCreacion']
+        fechaLlegada = request.vars['fechaLlegada']
         fechaFinalizacion = request.vars['fechaFinalizacion']
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
