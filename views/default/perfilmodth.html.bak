@@ -1,0 +1,76 @@
+{{extend 'layout.html'}}
+<h1>This is the perfilmodt.html template</h1>
+{{=BEAUTIFY(response._vars)}}
+
+<div class="container" style="font-family:roboto;">
+	<br /><br /><br /><br /><br /><br />
+    <div class="row">
+        <!-- Foto -->
+        <div class="col-xs-4">
+            <div class="box">
+                <img src="{{=URL('static','images/apolo.png')}}" width="200px" height="200px">
+            </div>
+        </div>
+        <!-- Titulo -->
+        <b> <div class="col-xs-4 text-center" style="font-size:20px;">Modificar Datos de Usuario</div> </b>
+    </div>
+    <br />
+    <br />
+    <br />
+    <!-- Formularios -->
+    <b> <div class="text-left" style="font-size:20px;">Modificar Datos Básicos</div> </b>
+    <br />
+    <div class="forms">
+        <form action="action_page.php" style="font-size:12px;">
+            Cédula:
+            <input type="number" min="0" name="cédula">
+            <br /><br />
+            Fecha de Nacimiento:
+            <input type="date" name="Fecha-nac">
+            <br /><br />
+            Sexo:
+            <select name="sexo">
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+            </select>
+            <br /><br />
+            Tipo de Sangre:
+            <select name="sangre">
+                <option value="O">O</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+            </select>
+            Factor Rh:
+            <select name="factor-rh">
+                <option value="Rh+">Rh+</option>
+                <option value="Rh-">Rh-</option>
+            </select>
+            <br /><br />
+            Hijos:
+            <input type="number" name="hijos" min="0">
+            <br /><br />
+            <input type="submit" value="Submit" style="background-color:rgb(51,173,255);">
+        </form>
+    </div>
+    <br /><br />
+    <b> <div class="text-left" style="font-size:20px;">Modificar Datos de Contacto</div> </b>
+    <br />
+    <div class="forms">
+        <form action="action_page.php" style="font-size:12px;">
+            Celular:
+            <input type="tel" name="tel-usr">
+            <br /><br />
+            Casa:
+            <textarea name="casa" rows="1" cols="20"></textarea>
+            <br /><br />
+            Trabajo:
+            <textarea name="trabajo" rows="1" cols="20"></textarea>
+            <br /><br />
+            E-mail:
+            <input type="email" name="email">
+            <br /><br />
+            <input type="submit" value="Submit" style="background-color:rgb(51,173,255);">
+        </form>
+    </div>
+</div>

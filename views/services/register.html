@@ -1,0 +1,183 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+<!-- container principal -->
+<div class="container-fluid">
+  <!-- Espacito xD -->
+  <div class="container-fluid">
+    <br /><br /><br /><br /><br /><br /><br /><br />
+    <div>
+
+      <ol class="breadcrumb">
+        <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
+        <li class="active">Registrar Servicio</li>
+      </ol>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#basicinfo" role="tab">Información básica</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a>
+        </li>
+        <li class="nav-item">
+          <button type="submit" class="btn btn-default" form="registro">Enviar</button>
+        </li>
+      </ul>
+
+      <!-- Tab Información Básica -->
+      <form role="form" action="" method="post" id="registro">
+      <div class="tab-content">
+        <div class="tab-pane active" id="basicinfo" role="tabpanel">
+          
+            <div class="form-group">
+              <label for="startDate">Tipo de Servicio</label>
+              <select name="tipo">
+                <option value="CM" selected="selected">CM</option>
+                <option value="AME1">AME1</option>
+                <option value="AME2">AME2</option>
+                <option value="IDE">IDE</option>
+                <option value="IDV">IDV</option>
+                <option value="PC">PC</option>
+                <option value="AY">AY</option>
+                <option value="MP">MP</option>
+                <option value="RES1">RES1</option>
+                <option value="RES2">RES2</option>
+                <option value="SE">SE</option>
+                <option value="GP">GP</option>
+                <option value="NSA">NSA: No se actuó</option>
+                <option value="FA">FA: Falsa Alarma</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="startDate">Fecha de inicio</label>
+              <input type="datetime-local" class="form-control" id="startDate" name="fechaCreacion"/>
+            </div>
+
+            <div class="form-group">
+              <label for="stadrtDate">Fecha de llegada</label>
+              <input type="datetime-local" class="form-control" id="stadrtDate" name="fechaLlegada" />
+            </div>
+
+            <div class="form-group">
+              <label for="startDate">Fecha de regreso</label>
+              <input type="datetime-local" class="form-control" id="startDate" name="fechaFinalizacion" />
+            </div>
+
+
+            <div class="form-group">
+              <label for="description">Descripción</label>
+              <textarea id="description" class="form-control" rows="3" name="descripcion"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="address">Dirección</label>
+              <textarea id="address" class="form-control" rows="3" name="localizacion"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="location">Ubicación en el mapa</label>
+              <div class="container-fluid">
+                <div class="span8">
+                  <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+          
+        </div>
+
+        <!-- Tab Comisiones -->
+        <div class="tab-pane" id="commission" role="tabpanel">
+          
+            <div class="form-group">
+              <label for="commissionBoss">Jefe de comisión</label>
+              <input type="text" class="form-control" id="commissionBoss"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="commissionOther">Acompañante</label>
+              <input type="text" class="form-control" id="commissionOther"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="comissionUnit">Tipo de Unidad</label>
+              <select>
+                <option value="1" selected="selected">A1</option>
+                <option value="2">M2</option>
+                <option value="3">L1</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="commissionChofer">Conductor</label>
+              <input type="text" class="form-control" id="commissionChofer" placeholder="">
+             </div>
+           </form>
+          
+        </div>
+
+        <!-- Tab Afectados -->
+        <div class="tab-pane" id="affected" role="tabpanel">
+            <div class="form-group">
+              <label for="affectedCI">Cédula</label>
+              <input type="number" class="form-control" id="affectedCI"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affected0">Primer nombre</label>
+              <input type="password" class="form-control" id="affected1"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affected1">Segundo nombre</label>
+              <input type="email" class="form-control" id="affected2"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affected2">Primer apellido</label>
+              <input type="password" class="form-control" id="affected2"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affectedName3">Segundo apellido</label>
+              <input type="email" class="form-control" id="affectedName3"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affectedGender">Sexo</label>
+              <input type="password" class="form-control" id="affectedGender"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affectedEmail">Correo electrónico</label>
+              <input type="email" class="form-control" id="affectedEmail"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affectedPhone">Teléfono</label>
+              <input type="email" class="form-control" id="affectedPhone"
+              placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="affectedNotes">Notas/Tratamiento</label>
+              <textarea id="affectedNotes" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="affectedNotes">Tipo</label>
+              <select>
+                <option value="1" selected="selected">Estudiante de la USB</option>
+                <option value="2">Profesor de la USB</option>
+                <option value="3">Empleado de la USB</option>
+                <option value="4">Obrero de la USB</option>
+                <option value="5">Externo</option>
+              </select>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Maps -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>

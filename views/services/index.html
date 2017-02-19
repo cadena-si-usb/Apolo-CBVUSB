@@ -1,0 +1,47 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+<!-- Espacito xD -->
+<br /><br /><br /><br /><br /><br /><br /><br />
+
+<!-- Tabla de Servicios -->
+<div class="container-fluid">
+  <div class="page-header">
+    <h1>Servicios</h1>
+  </div>
+
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 services-item">
+          <a href="{{=URL('services','register.html')}}" class="services-link" data-toggle="modal">
+            <div class="caption">
+              <div class="caption-content">
+              </div>
+            </div>
+            <img src="{{=URL('static','images/crearServicio.jpg')}}" class="img-responsive" alt="">
+          </a>
+        </div>
+        <div class="col-md-4 services-item">
+          <a href="{{=URL('services','myservices.html')}}" class="services-link" data-toggle="modal">
+            <div class="caption">
+              <div class="caption-content">
+                <!--<p>Agregar Servicio</p>-->
+              </div>
+            </div>
+            <img src="{{=URL('static','images/gestionarServicios.jpg')}}" class="img-responsive" alt="">
+          </a>
+        </div>
+      <div class="col-md-4 services-item">
+        <a href="{{=URL('services','search.html')}}" class="services-link" data-toggle="modal">
+          <div class="caption">
+            <div class="caption-content">
+            </div>
+          </div>
+          <img src="{{=URL('static','images/buscarServicios.jpg')}}" class="img-responsive" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+  </section>
