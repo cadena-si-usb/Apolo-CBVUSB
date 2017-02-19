@@ -6,9 +6,11 @@
 
 <!-- Tabla de Servicios -->
 <div class="container-fluid">
-  <div class="page-header">
-    <h1>Servicios</h1>
-  </div>
+
+  <ol class="breadcrumb">
+    <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
+    <li class="active">Todos los servicios</li>
+  </ol>
 
     <ul class="nav nav-pills">
       <li class="active"><a href="{{=URL('services','services')}}">Todos</a></li>
@@ -28,54 +30,17 @@
           <th>Inicio</th>
           <th>Fin</th>
         </tr>
-        <tr>
-          <td>Incendio</td>
-          <td>Incendio forestal de pequeña escala en los alrededores del Pino Solitario.</td>
-          <td>Pino Solitario. Montaña de la USB.</td>
-          <td>15:35 16/01/17</td>
-          <td>17:20 16/01/17</td>
+        {{for row in services:}}
+        <tr class='clickable-row' data-href=''>
+          <td>{{=row.tipo}}</td>
+          <td>{{=row.descripcion}}</td>
+          <td>{{=row.localizacion}}</td>
+          <td>{{=row.fechaCreacion}}</td>
+          <td>{{=row.fechaFinalizacion}}</td>
+          <td><a class="glyphicon glyphicon-remove" style="color:tan" href='http://www.google.com'></a></td>
         </tr>
-        <tr>
-          <td>Materiales Peligrosos</td>
-          <td>Derrame de sustancias tóxicas en entrada de laboratorio.</td>
-          <td>USB, Edificio QYP, piso 2, Lab 3A.</td>
-          <td>08:30 14/01/17</td>
-          <td>12:30 14/01/17</td>
-        </tr>
-        <tr>
-          <td>Atención Prehospitalaria</td>
-          <td>Deportista se deslocó la rodilla en entrenamiento de basket.</td>
-          <td>USB, cancha de basket.</td>
-          <td>10:05 14/01/17</td>
-          <td>12:55 14/01/17</td>
-        </tr>
-        <tr>
-          <td>Incendio</td>
-          <td>Incendio forestal de pequeña escala en los alrededores del Tanque de Agua de la USB.</td>
-          <td>Tanque de agua, USB.</td>
-          <td>11:40 16/01/17</td>
-          <td>13:25 16/01/17</td>
-        </tr>
-        <tr>
-          <td>Rescate</td>
-          <td>Búho desorientado en salón de clases.</td>
-          <td>USB, ENE, aula 110.</td>
-          <td>16:10 15/01/17</td>
-          <td>16:55 15/01/17</td>
-        </tr>
-          <td>Materiales Peligrosos</td>
-          <td>Camión de transporte de ácidos volcado en carretera.</td>
-          <td>Redoma de El Placer.</td>
-          <td>08:30 13/01/17</td>
-          <td>16:15 13/01/17</td>
-        </tr>
-        <tr>
-          <td>Incendio</td>
-          <td>Indencio de vehículo en estacionamiento.</td>
-          <td>USB, estacionamiento de DACE.</td>
-          <td>20:30 11/01/17</td>
-          <td>23:25 11/01/17</td>
-        </tr>
+        {{pass}}
+
       </table>
     </div>
   </div>
@@ -90,6 +55,3 @@
     <li><a href="#">&raquo;</a></li>
   </ul>
 </div>
-
-
-

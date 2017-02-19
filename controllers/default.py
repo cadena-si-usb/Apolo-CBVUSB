@@ -47,9 +47,6 @@ def perfilth():
 def perfilmodth():
     return dict()
 
-def buscarth():
-    return dict()
-
 def registrousrth():
 
     #form = SQLFORM.factory(
@@ -88,7 +85,11 @@ def registrousrth():
         db.bombero.insert(carnet=int(carnet[0]), tipo_sangre=tipo_sangre[0], id_persona=id_persona, id_usuario=id_usuario)
 
     return dict()
+def buscarth():
 
+    tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+
+    return dict(tabla=tabla)
 @cache.action()
 def download():
     """
@@ -109,8 +110,3 @@ def call():
 
 
 ## Inician nuestras funciones
-def buscarth():
-
-    tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
-
-    return dict(tabla=tabla)

@@ -1,14 +1,14 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<br /><br /><br /><br /><br /><br /><br /><br />
 <!-- Accesos directos para el usuario  -->
 <div class="container bg-0">
+    <br /><br /><br /><br /><br /><br />
     <div class="row">
         <div class="box">
             <div class="text-center sizeAdjust">
                 <div class="col-xs-6">
-                    <a href="#" class="thumbnail" style="background-color:white;">
+                    <a href="{{=URL('services','index')}}" class="thumbnail" style="background-color:white;">
                         <h3>
                           SERVICIOS
                           <br /><br />
@@ -16,7 +16,7 @@
                           <br />
                         </h3>
                     </a>
-                    <a href='../default/perfilth.html' class="thumbnail" style="background-color:white;">
+                    <a href="{{=URL('default','perfilth')}}" class="thumbnail" style="background-color:white;">
                         <h3>
                           PERFIL
                           <br /><br />
@@ -34,5 +34,5 @@
         </div>
       </div>
     </div>
+  <br /><br /><br /><br /><br /><br />
 </div>
-<br /><br /><br /><br /><br /><br /><br /><br />

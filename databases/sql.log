@@ -1,4 +1,4 @@
-timestamp: 2017-02-13T08:22:49.780282
+timestamp: 2017-02-17T12:54:18.711966
 CREATE TABLE auth_user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name CHAR(128),
@@ -10,21 +10,21 @@ CREATE TABLE auth_user(
     registration_id CHAR(512)
 );
 success!
-timestamp: 2017-02-13T08:22:49.903043
+timestamp: 2017-02-17T12:54:19.045293
 CREATE TABLE auth_group(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     role CHAR(512),
     description TEXT
 );
 success!
-timestamp: 2017-02-13T08:22:50.000910
+timestamp: 2017-02-17T12:54:19.168577
 CREATE TABLE auth_membership(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
 );
 success!
-timestamp: 2017-02-13T08:22:50.102844
+timestamp: 2017-02-17T12:54:19.280164
 CREATE TABLE auth_permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
@@ -33,7 +33,7 @@ CREATE TABLE auth_permission(
     record_id INTEGER
 );
 success!
-timestamp: 2017-02-13T08:22:50.214843
+timestamp: 2017-02-17T12:54:19.459424
 CREATE TABLE auth_event(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     time_stamp TIMESTAMP,
@@ -43,7 +43,7 @@ CREATE TABLE auth_event(
     description TEXT
 );
 success!
-timestamp: 2017-02-13T08:22:50.329742
+timestamp: 2017-02-17T12:54:19.838387
 CREATE TABLE auth_cas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
@@ -53,38 +53,14 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
-timestamp: 2017-02-15T21:02:03.540506
-CREATE TABLE BOMBERO(
-    id SERIAL PRIMARY KEY,
-    Carnet VARCHAR(512) NOT NULL UNIQUE,
-    CI VARCHAR(512) NOT NULL UNIQUE,
-    Nombre VARCHAR(512),
-    Apellido VARCHAR(512)
-);
-success!
-timestamp: 2017-02-15T21:02:03.848444
-CREATE TABLE SERVICIO(
-    id SERIAL PRIMARY KEY,
-    CodServicio VARCHAR(512) NOT NULL UNIQUE,
-    Registra INTEGER REFERENCES BOMBERO (id) ON DELETE CASCADE  NOT NULL ,
-    Borrador CHAR(1),
-    Aprueba INTEGER REFERENCES BOMBERO (id) ON DELETE CASCADE  ,
-    fechaCreacion DATE,
-    tipo VARCHAR(512)
-);
-success!
-timestamp: 2017-02-16T23:00:38.970000
-ALTER TABLE bombero ADD hijos INTEGER;
-timestamp: 2017-02-16T23:02:52.867913
-ALTER TABLE bombero ADD hijos INTEGER;
-timestamp: 2017-02-16T23:04:50.856944
+timestamp: 2017-02-17T12:54:20.006719
 CREATE TABLE usuario(
     id SERIAL PRIMARY KEY,
     username VARCHAR(24) NOT NULL UNIQUE,
     password VARCHAR(24) NOT NULL
 );
 success!
-timestamp: 2017-02-16T23:04:51.229307
+timestamp: 2017-02-17T12:54:20.128514
 CREATE TABLE persona(
     id SERIAL PRIMARY KEY,
     cedula INTEGER NOT NULL UNIQUE,
@@ -101,7 +77,7 @@ CREATE TABLE persona(
     estado_civil VARCHAR(512) NOT NULL
 );
 success!
-timestamp: 2017-02-16T23:04:51.335897
+timestamp: 2017-02-17T12:54:20.283928
 CREATE TABLE bombero(
     id SERIAL PRIMARY KEY,
     carnet INTEGER NOT NULL UNIQUE,
@@ -113,14 +89,17 @@ CREATE TABLE bombero(
     hijos INTEGER
 );
 success!
-timestamp: 2017-02-16T23:04:51.646344
+timestamp: 2017-02-17T12:54:20.548453
 CREATE TABLE servicio(
     id SERIAL PRIMARY KEY,
-    CodServicio VARCHAR(512) NOT NULL UNIQUE,
     Registra INTEGER REFERENCES bombero (id) ON DELETE CASCADE  NOT NULL ,
     Borrador CHAR(1) NOT NULL DEFAULT 'T',
     Aprueba INTEGER REFERENCES bombero (id) ON DELETE CASCADE  ,
-    fechaCreacion DATE,
+    fechaCreacion TIMESTAMP,
+    fechaFinalizacion TIMESTAMP,
+    fechaLlegada TIMESTAMP,
+    descripcion VARCHAR(512),
+    localizacion VARCHAR(512),
     tipo VARCHAR(512)
 );
 success!
