@@ -91,6 +91,7 @@ ENV/
 .ropeproject
 
 #########################################################
-databases/
-errors/
-
+databases
+errors
+cache
+sessions
