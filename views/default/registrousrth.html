@@ -1,0 +1,79 @@
+{{extend 'layout.html'}}
+<h1>This is the rregistrousrth.html template<h1>
+{{=BEAUTIFY(response._vars)}}
+
+<div class="container" style="font-family:roboto;">
+	<br /><br /><br /><br /><br /><br />
+	<b> <div class="text-center" style="font-size:20px;">Registro de nuevo usuario</div> </b>
+	<br /><br /><br />
+	<div class="forms">
+		<form action="" method="POST" style="font-size:12px;">
+			<b> <div class="text-left" style="font-size:20px;">Datos del usuario:</div> </b>
+			<br />
+			Username:<br />
+			<input type="text" name="username">
+			<br /><br />
+			Password:<br />
+			<input type="password" name="password">
+			<br /><br /><br />
+			<b> <div class="text-left" style="font-size:20px;">Datos personales:</div> </b>
+			<br />
+			Cédula:
+			<input type="numer" name="cedula" min="0">
+			<br /><br />
+			Primer nombre:
+			<input type="text" name="primer_nombre">
+			<br /><br />
+			Segundo nombre:
+			<input type="text" name="segundo_nombre">
+			<br /><br />
+			Primer apellido:
+			<input type="text" name="primer_apellido">
+			<br /><br />
+			Segundo apellido:
+			<input type="text" name="segundo_apellido">
+			<br /><br />
+			Fecha de nacimiento:
+			<input type="date" name="fecha_nacimiento">
+            <br /><br />
+            Lugar de nacimiento:
+            <textarea name="lugar_nacimiento" rows="1" cols="20"></textarea>
+            <br /><br />
+            Género:
+            <select name="genero">
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+            </select>
+            <br /><br />
+            Email principal:
+            <input type="email" name="email_principal">
+            <br /><br />
+            Estado Civil:
+            <select name="estado_civil">
+                <option value="soltero">Soltero</option>
+            	<option value="casado">Casado</option>
+            	<option value="divorciado">Divorciado</option>
+            	<option value="Viudo">Viudo</option>
+            </select>
+            <br /><br /><br />
+            <b> <div class="text-left" style="font-size:20px;">Datos bomberiles:</div> </b>
+            <br />
+            Carnet:
+            <input type="number" min="0" max="9999999" name="carnet">
+            <br /><br />
+            Tipo de Sangre:
+            <select name="tipo_sangre">
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+            <br /><br />
+            <input type="submit" value="Registrar usuario" style="background-color:rgb(51,173,255);">
+		</form>
+	</div>
+</div>

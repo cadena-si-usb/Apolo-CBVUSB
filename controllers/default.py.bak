@@ -44,6 +44,12 @@ def user():
 def perfilth():
     return dict()
 
+def perfilmodth():
+    return dict()
+
+def buscarth():
+    return dict()
+
 @cache.action()
 def download():
     """

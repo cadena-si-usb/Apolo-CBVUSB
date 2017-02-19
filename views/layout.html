@@ -55,18 +55,6 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav">
             <li><a href="{{=URL('default','index')}}">Inicio</a></li>
-            <li><a href="{{=URL('default','index')}}">Conócenos</a>
-                <ul class="dropdown-menu">
-                <li><a href="{{=URL('default','index')}}">Bomberos</a></li>
-                <li class="divider"></li>
-                <li><a href="{{=URL('default','index')}}">Historia</a></li>
-                <li class="divider"></li>
-                <li><a href="{{=URL('default','index')}}">Normativa</a></li>
-                <li class="divider"></li>
-                <li><a href="{{=URL('default','index')}}">Objetivos</a></li>
-              </ul>
-            </li>
-            <li><a href="{{=URL('default','index')}}">Únetenos</a>
             <li><a href="{{=URL('default','index')}}">Educación</a>
               <ul class="dropdown-menu">
                 <li><a href="{{=URL('default','index')}}">Cursos</a></li>
@@ -74,12 +62,11 @@
                 <li><a href="{{=URL('default','index')}}">Servicio comunitario</a></li>
               </ul>
             </li>
-            <li><a href="{{=URL('default','index')}}">Estadísticas</a></li>
             <li><a href="{{=URL('default','index')}}">Operaciones</a>
               <ul class="dropdown-menu">
                 <li><a href="{{=URL('default','index')}}">Guardias</a></li>
                 <li class="divider"></li>
-                <li><a href="{{=URL('services','services')}}">Servicios</a></li>
+                <li><a href="{{=URL('services','index')}}">Servicios</a></li>
               </ul>
             </li>
             <li><a href="{{=URL('default','index')}}">Talento Humano</a>
@@ -91,13 +78,17 @@
                 <li> <a href="{{=URL('default','buscarth.html')}}">Buscar</a> </li>
               </ul>
             </li>
+            <li> <a href="#">Administración</a> </li>
+            <li> <a href="#">Riesgos</a> </li>
+            <li> <a href="#">Estadísticas</a> </li>
+            <li> <a href="{{=URL('default','index')}}">Salir</a> </li>
           </ul>
         </div>
       </div>
     </nav>
-
+    
     {{include}}
-
+      
       <!-- Footer -->
     <div class="container-fluid bg-4 text-left" style="padding-left: 20%; font-family:roboto;">
       <div class="row">
@@ -106,7 +97,7 @@
           <p><span class="glyphicon glyphicon-map-marker">
           </span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</p>
           <p><span class="glyphicon glyphicon-phone">
-          </span> Teléfono: (+58) 212 905-3909</p>
+          </span> Teléfono: (+58) 212 906-3909</p>
           <p><span class="glyphicon glyphicon-envelope">
           </span> Correo electrónico: extension.bomberos@usb.ve</p>
         <br>
@@ -126,7 +117,6 @@
     <!-- The javascript =============================== -->
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
     <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
-    <script src="{{=URL('static','js/custom.js')}}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     {{block page_js}}{{end page_js}}

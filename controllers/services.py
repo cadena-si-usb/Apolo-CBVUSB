@@ -3,11 +3,11 @@
 def myservices():
 
     # bombero_carnet = request
-    #servicios = DB(DB.bombero.carnet == bombero_carnet)._select()
+    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = DB().select(orderby=~DB.servicio.fechaCreacion)
+    services = db().select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
     ##################################################
 
@@ -24,20 +24,23 @@ def register():
         localizacionServicio = request.vars['localizacion']
     
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
-
+        redirect(URL('services','index.html'))
     return dict()
 
 
 def services(): 
 
-    services = DB().select(orderby=~DB.servicio.fechaCreacion)
+    services = db().select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 def deleteService():
 
     #serviceId = 1
-    #DB(DB.servicio.id == serviceId)._delete()
+    #db(db.servicio.id == serviceId)._delete()
     return dict()
+
+def index(): return dict()
+def search(): return dict()
 
 
 @cache.action()
@@ -46,7 +49,7 @@ def download():
     allows downloading of uploaded files
     http://..../[app]/default/download/[filename]
     """
-    return response.download(request, DB)
+    return response.download(request, db)
 
 
 def call():
@@ -57,3 +60,4 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
+
