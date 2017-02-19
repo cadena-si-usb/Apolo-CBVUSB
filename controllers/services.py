@@ -25,6 +25,7 @@ def register():
     
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
         redirect(URL('services','index.html'))
+
     return dict()
 
 
