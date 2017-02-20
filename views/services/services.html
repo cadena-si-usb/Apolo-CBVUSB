@@ -37,7 +37,7 @@
           <td>{{=row.localizacion}}</td>
           <td>{{=row.fechaCreacion}}</td>
           <td>{{=row.fechaFinalizacion}}</td>
-          <td><a class="glyphicon glyphicon-remove" style="color:tan" href='http://www.google.com'></a></td>
+          <td><a class="glyphicon glyphicon-remove" style="color:tan" href={{=URL('deleteService', vars=dict(row_id=row.id))}}></a></td>
         </tr>
         {{pass}}
 

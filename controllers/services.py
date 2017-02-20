@@ -36,9 +36,14 @@ def services():
 
 def deleteService():
 
-    #serviceId = 1
-    #db(db.servicio.id == serviceId)._delete()
-    return dict()
+    serviceId = request.vars.row_id
+    db(db.servicio.id == serviceId).delete()
+    redirect(URL('services','services'))
+
+def deleteMyService():
+    serviceId = request.vars.row_id
+    db(db.servicio.id == serviceId).delete()
+    redirect(URL('services','myservices'))
 
 def index(): return dict()
 def search(): return dict()
