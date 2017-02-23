@@ -2,83 +2,121 @@
 <h1>This is the perfilth.html template</h1>
 {{=BEAUTIFY(response._vars)}}
 
-<div class="container" style="font-family:roboto;">
+<div class="container bg-0">
     <br /><br /><br /><br /><br /><br />
     <div class="row">
-        <!-- Foto -->
+        <!-- Foto del usuario-->
         <div class="col-xs-4">
-            <div class="box">
+            <div class="box" align="center">
                 <!-- Sacar imagen de BD -->
                 <img src="{{=URL('static','images/apolo.png')}}" width="200px" height="200px">
             </div>
         </div>
-        <!-- Nombre del usuario -->
-        <b> <div class="col-xs-4 text-center" style="font-size:20px;"> Apolo </div> </b>
+        <div class="col-xs-4">
+            <!-- Nombre del usuario -->
+            <b><div align="left" style="font-size:24px;"> Apolo </div></b>
+            <br />
+            <div class="row">
+                <b><div class="col-xs-4 text-left" style="font-size:16px;">Cargo:</div></b>
+                <div class="col-xs-4 text-left" style="font-size:16px;">SuperUser</div>
+            </div>
+        </div>
     </div>
-    <br />
-    <br />
-    <br />
+    <br /><br /><br />
     <!-- Datos -->
+    <b><div align="left" style="font-size:24px;">Datos Básicos</div></b>
     <div class="row">
-        <b>
-        <div class="col-xs-8 text-left" style="font-size:20px;">Datos Básicos</div>
-        <div class="col-xs-4 text-left" style="font-size:20px;">Datos de Contacto</div>
-        </b>
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Cédula: </div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">23466895</div>
+        </div>
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Fecha de Nacimiento:</div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">01/12/1994</div>
+        </div>
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Sexo:</div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">F</div>
+        </div>
+        <div class="col-xs-12">
+        <b><div class="col-xs-4 text-left" style="font-size:16px;">Tipo de Sangre:</div></b>
+        <div class="col-xs-4 text-left" style="font-size:16px;">Factor O Rh -</div>
+        </div>
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Hijos:</div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">9</div>
+        </div>
     </div>
+    <br /><br /><br />
+    <b><div align="left" style="font-size:24px;">Datos de Contacto</div></b>
     <div class="row">
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Cédula: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">23466895</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Celular: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">0426-5550044</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Fecha de Nacimiento: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">01/12/1994</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Casa: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">0212-9093909</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Sexo: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">M</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Trabajo: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">0212-9876543</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Tipo de Sangre: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">Factor O Rh -</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Email: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">correo@gmail.com</div>
-        <b><div class="col-xs-3 text-left" style="font-size:12px;">Hijos: </div></b>
-        <div class="col-xs-3 text-left" style="font-size:12px;">20</div>
+        <!-- Iterar sobre los numeros -->
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Celular: </div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">0426-5550044</div>
+        </div>
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Casa: </div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">0212-9093909</div>
+        </div>
+            <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Trabajo: </div></b>
+        <div class="col-xs-4 text-left" style="font-size:16px;">0212-9876543</div>
+        </div>
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Email: </div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">correo@gmail.com</div>
+        </div>
+        <div class="col-xs-12">
+            <b><div class="col-xs-4 text-left" style="font-size:16px;">Email alternativo: </div></b>
+            <div class="col-xs-4 text-left" style="font-size:16px;">correo@gmail.com</div>
+        </div>
     </div>
     <br /><br /><br />
     <!-- Condicion -->
-    <b> <div class="¿text-left" style="font-size:20px;"> Condición </div> </b>
-    <div class="¿text-left" style="font-size:12px;"> No hay información de la condición actual. </div>
+    <b> <div align="left" style="font-size:24px;">Condición</div> </b>
+    <div class="col-xs-12 text-left" style="font-size:16px;"> No hay información de la condición actual. </div>
     <br /><br /><br />
     <!-- Vacaciones -->
-    <b> <div class="¿text-left" style="font-size:20px;"> Días de Permiso </div> </b>
-    <div class="¿text-left" style="font-size:12px;"> Actualmente no tiene días de permiso. </div>
+    <b> <div align="left" style="font-size:24px;">Días de Permiso</div> </b>
+    <div class="col-xs-12 text-left" style="font-size:16px;"> Actualmente no está en días de permiso. </div>
     <br /><br /><br />
     <!-- Ascenso -->
-    <b> <div class="text-left" style="font-size:20px;"> Ascenso </div> </b>
+    <b> <div align="left" style="font-size:24px;"> Ascenso </div> </b>
     <div class="row">
-        <b> <div class="col-xs-3 text-left" style="font-size:12px;"> Rango actual: </div> </b>
-        <div class="col-xs-3 text-left" style="font-size:12px;"> Bombero </div>
-        <b> <div class="col-xs-3 text-left" style="font-size:12px;"> Fecha de ascenso al rango actual: </div> </b>
-        <div class="col-xs-3 text-left" style="font-size:12px;"> 2015 </div>
-        <b> <div class="col-xs-3 text-left" style="font-size:12px;"> Rango anterior: </div> </b>
-        <div class="col-xs-3 text-left" style="font-size:12px;"> Rojo </div>
-        <b> <div class="col-xs-3 text-left" style="font-size:12px;"> Fecha de ascenso al rango anterior: </div> </b>
-        <div class="col-xs-3 text-left" style="font-size:12px;"> 2010 </div>
-        <b> <div class="col-xs-3 text-left" style="font-size:12px;"> Puntaje: </div> </b>
-        <div class="col-xs-3 text-left" style="font-size:12px;"> 199 </div>
+        <div class="col-xs-12">
+            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Rango actual: </div> </b>
+            <div class="col-xs-4 text-left" style="font-size:16px;"> Bombero </div>
+        </div>
+        <div class="col-xs-12">
+            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Fecha de ascenso al rango actual: </div> </b>
+            <div class="col-xs-4 text-left" style="font-size:16px;"> 2015 </div>
+        </div>
+        <div class="col-xs-12">
+            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Rango anterior: </div> </b>
+            <div class="col-xs-4 text-left" style="font-size:16px;"> Rojo </div>
+        </div>
+        <div class="col-xs-12">
+            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Fecha de ascenso al rango anterior: </div> </b>
+            <div class="col-xs-4 text-left" style="font-size:16px;"> 2010 </div>
+        </div>
+        <div class="col-xs-12">
+            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Puntaje: </div> </b>
+            <div class="col-xs-4 text-left" style="font-size:16px;"> 199 </div>
+        </div>
     </div>
-    <a href="#">Ver más</a>
+    <br />
+    <div class="col-xs-12"><a href="#">Ver más</a></div>
     <br /><br /><br />
     <!-- Premiaciones -->
-    <b> <div class="¿text-left" style="font-size:20px;"> Premiaciones </div> </b>
-    <a href="#">Ver más</a>
+    <b> <div align="left" style="font-size:24px;"> Premiaciones </div> </b>
+    <br />
+    <div class="col-xs-12"><a href="#">Ver más</a></div>
     <br /><br /><br />
-    <!-- Cursos -->
-    <b> <div class="¿text-center" style="font-size:20px;"> Cursos </div> </b>
-    <a href="#">Ver más</a>
+    <!-- Actividades -->
+    <b> <div align="left" style="font-size:24px;"> Actividades </div> </b>
+    <br />
+    <div class="col-xs-12"><a href="#">Ver más</a></div>
     <br /><br /><br />
-    <b> <div class="¿text-center" style="font-size:20px;"> Opciones de Administrador </div> </b>
-    <a href="../default/registrousrth.html">Registrar nuevo usuario</a>
-    <br /><br /><br /><br /><br /><br />
+    
 </div>
