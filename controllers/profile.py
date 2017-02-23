@@ -6,3 +6,4 @@ def buscarth():
 
 def registrousr():
 
+	return dict()

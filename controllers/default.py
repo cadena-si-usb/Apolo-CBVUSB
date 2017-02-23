@@ -45,7 +45,17 @@ def perfilth():
     return dict()
 
 def perfilmodth():
-    return dict()
+
+    form = SQLFORM(db.persona)
+
+    if form.process(session=None, formname='test').accepted:
+        response.flash = 'form accepted'
+    elif form.errors:
+        response.flash = 'form has errors'
+    else:
+        response.flash = 'please fill the form'
+
+    return dict(form=form)
 
 def registrousrth():
 
@@ -85,11 +95,13 @@ def registrousrth():
         db.bombero.insert(carnet=int(carnet[0]), tipo_sangre=tipo_sangre[0], id_persona=id_persona, id_usuario=id_usuario)
 
     return dict()
+
 def buscarth():
 
     tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
     return dict(tabla=tabla)
+    
 @cache.action()
 def download():
     """

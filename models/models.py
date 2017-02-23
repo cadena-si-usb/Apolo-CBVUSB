@@ -6,25 +6,25 @@ db.define_table('usuario',
         migrate="db.usuario")
 
 db.define_table('persona',
-        Field('cedula', type='integer', required=True, notnull=True, unique=True),
+        Field('cedula', type='string', unique=True),
         Field('primer_nombre', type='string', required=True, notnull=True),
         Field('segundo_nombre', type='string'),
         Field('primer_apellido', type='string', required=True, notnull=True),
-        Field('segundo_apellido', type='string', required=True, notnull=True),
-        Field('fecha_nacimiento', type='date', required=True, notnull=True),
-        Field('lugar_nacimiento', type='string', required=True, notnull=True),
-        Field('genero', type='string', required=True, notnull=True),
+        Field('segundo_apellido', type='string', notnull=True),
+        Field('fecha_nacimiento', type='date', notnull=True),
+        Field('lugar_nacimiento', type='string', notnull=True),
+        Field('genero', type='string', notnull=True),
         Field('imagen', type='text'),
-        Field('email_principal', type='string', required=True, notnull=True),
+        Field('email_principal', type='string', notnull=True),
         Field('email_alternativo', type='string'),
-        Field('estado_civil', type='string', required=True, notnull=True),
+        Field('estado_civil', type='string', notnull=True),
         migrate="db.persona")
         
 db.define_table('bombero', 
         Field('carnet', type='integer', required=True, notnull=True, unique=True),
         Field('imagen_perfil', type='text'),
         Field('iniciales', type='string'),
-        Field('tipo_sangre', type='string'),
+        Field('tipo_sangre', type='string', required=True),
         Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
         Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
         Field('hijos', type='integer', default=0),
@@ -42,48 +42,25 @@ db.define_table('servicio',
     Field('tipo'),
     migrate="db.servicio")
 
-def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,carnet,tipoS,inic):
-    db.usuario.insert(username = username,password = password)
-    db.persona.insert(cedula = cedula, 
-        primer_nombre = PN,
-        segundo_nombre = SN,
-        primer_apellido = PA,
-        segundo_apellido = SA,
-        fecha_nacimiento = FN,
-        lugar_nacimiento = LN,
-        genero = G,
-        imagen = I,
-        email_principal = emP,
-        email_alternativo = emA,
-        estado_civil = EC)
-    id_usuario = db().select(db.usuario.id)
-    id_persona = db().select(db.persona.id)
-    db.bombero.insert(
-        carnet = carnet,
-        imagen_perfil = I,
-        iniciales = inic,
-        tipo_sangre = tipoS,
-        id_persona = id_persona[0],
-        id_usuario = id_usuario[0])
+# REQUIRES de la DB
+db.usuario.username.requires = IS_ALPHANUMERIC(error_message='Debe contener únicamente caracteres alfanuméricos')
+db.usuario.password.requires = IS_MATCH('')
 
-def insertarServicio(fechaCreacion,fechaFinalizacion,fechaLlegada,descripcion,localizacion,tipo):
-    db.servicio.insert(
-        Registra = 1,
-        Aprueba = 1,
-        fechaCreacion = fechaCreacion,
-        fechaFinalizacion = fechaFinalizacion,
-        fechaLlegada = fechaLlegada,
-        descripcion = descripcion,
-        localizacion = localizacion,
-        tipo = tipo)
+db.persona.cedula.requires = IS_MATCH('^[VE]-\d+$', error_message='Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX')
+db.persona.primer_nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.persona.segundo_nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.persona.primer_apellido.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.persona.segundo_apellido.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.persona.lugar_nacimiento.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
+db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
+db.persona.email_alternativo.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')
+db.persona.estado_civil.requires = IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='Debe ser uno de los casos válidos')
 
-def testCase():
-    insertarBombero('gsalazar',1234,24655445,'Gerson','A.','Salazar','P.','1971/01/01','Cumana','Masculino','Gerson.jpg','blah@bleh.com','blah@blah.com','Casado',1310147,'O RH-','GS')
-
-    insertarServicio('2017/01/03 12:35','2017/01/03 16:45','2017/01/03 16:45','Incendio edificio QYP.','USB, QYP.','IDE')
-    insertarServicio('2017/01/11 15:20','2017/01/11 17:55','2017/01/11 17:55','Derrame de sustancias tóxicas en entrada de laboratorio de QYP.','USB, QYP, piso 2, lab 2A','MP')
-    insertarServicio('2017/02/25 09:35','2017/02/25 12:30','2017/02/25 12:30','Incendio de vegetación en los alrededores del Pino Solitario.','Montaña USB, Pino Solitario.','IDV')
-    insertarServicio('2017/01/21 11:10','2017/01/22 14:55','2017/01/22 14:55','Estudiante sufrió caida en escalera de auditorios.','USB, auditorios.','AME1')
-    insertarServicio('2017/02/10 12:30','2017/02/10 15:40','2017/02/10 15:40','Rescate de búho perdido en salón de clases.','USB, ENE, piso 1, aula 110','RES2')
-    insertarServicio('2017/02/21 18:15','2017/02/22 19:45','2017/02/22 19:45','Ocurrió incendio en árbol adyacente a lagunna de los patos.','USB, laguna de los patos.','IDV')
-    insertarServicio('2017/01/17 14:35','2017/01/17 20:45','2017/01/17 20:45','Liberación de gases tóxicos en entrada del edificio de QYP.','USB, QYP, Entrada sur.','MP')
+db.bombero.carnet.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
+db.bombero.iniciales.requires = IS_LENGTH(minsize=2,maxsize=4)
+db.bombero.tipo_sangre.requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos')
+db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
+db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
+db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
