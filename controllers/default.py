@@ -85,11 +85,15 @@ def registrousrth():
         db.bombero.insert(carnet=int(carnet[0]), tipo_sangre=tipo_sangre[0], id_persona=id_persona, id_usuario=id_usuario)
 
     return dict()
-def buscarth():
+def buscarres():
 
     tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
     return dict(tabla=tabla)
+
+def buscarth():
+    return dict()
+
 @cache.action()
 def download():
     """

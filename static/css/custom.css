@@ -76,21 +76,9 @@
   padding: 80px 120px;
 }
 
-.carousel {
-  width: 100%;
-  max-height: 700px;
-  min-height: 250px;
-}
-
-.carousel .item img {
-    width: 100%;
-    max-height: 700px;
-    min-height: 250px;
-}
-
 * {
   font-family: 'Roboto', serif;
-  font-size: 12pt;
+  font-size: 16pt 16px;
 }
 
 .sizeAdjust img {
@@ -245,4 +233,9 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-clip: padding-box;
+}
+
+.table tr th {
+    font-size: 16px;
+    text-align: center;
 }
