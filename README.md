@@ -1,23 +1,38 @@
-Interfaz para el sistema de los bomberos de la USB
-===================================================
+# Apolo
 
-Instrucciones:
----------------
+## Sistema para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar
+
+
+**Instrucciones:**
 
 + Crear una app en web2py llamada "Apolo"
 + Copiar la carpeta "Apolo" del repo en "web2py/applications/"
 + Darle que si cuando pregunte si quiere combinar las carpetas
 + Seleccionar reeamplazar todo cuando lo solicite
 
-Autores
---------
+
+**Autores**
 
 + Pyrony:
-    * Carlos Serrada
-    * Mathías San Miguel
-    * Juan Ortiz
+
+   * Carlos Serrada
+   * Mathias San Miguel
+   * Augusto Hidalgo
+   * Rubmary Rojas
+   * José Acevedo
+   * Juan Ortiz
+   * Pablo Betancourt
+   * Jonathan Reyes
+   * Irina Marcano
 
 + NOS (Number One Software):
-    * Lalezka Duque
-    * Daniel Valera
-    * Midaysa Palacios
+
+   * Christian Oliveros
+   * Alexander Romero
+   * Lalezka Duque
+   * Marcos Jota
+   * Daniel Valera
+   * Carlos Infante
+   * Midaysa Palacios
+   * Génesis Kufatty
+   * Salvador Covelo

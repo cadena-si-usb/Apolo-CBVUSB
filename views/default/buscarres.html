@@ -1,0 +1,31 @@
+{{extend 'layout.html'}}
+<h1>This is the buscarres.html template</h1>
+{{=BEAUTIFY(response._vars)}}
+
+<div class="container bg-0">
+    <br /><br /><br /><br /><br /><br />
+    <b><div class="col-xs-4 text-center" style="font-size:24px;">Buscar</div></b>
+    <br /><br /><br />
+    <!--  tabla generada por la busqueda -->
+    <div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
+        <table style="width:100%" class="table table-bordered table-hover">
+          <tr>
+            <th>Carnet</th>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th></th>
+          </tr>
+          {{for row in tabla:}}
+          <tr class="clickable-row text-center" data-href="http://www.google.com">
+            <td>{{=row.bombero.carnet}}</td>
+            <td>{{=row.persona.cedula}}</td>
+            <td>{{=row.persona.primer_nombre}}</td>
+            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
+            <td><a href="../default/perfilth.html">Ver perfil</a></td>
+          </tr>
+          {{pass}}
+        </table>
+    </div>
+    <br /><br /><br /><br /><br /><br />
+</div>
