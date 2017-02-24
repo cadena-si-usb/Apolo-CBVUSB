@@ -43,6 +43,7 @@ def user():
 
 def perfilth():
     usuario = db(db.persona.id==str(1)).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+    
     return dict(usuario=usuario)
 
 def perfilmodth():
@@ -102,19 +103,22 @@ def buscarth():
     boolean = True
     
     if busqueda != [] :
-        # Busca por iniciales, nombres, apellidos y username
-        palabra = ''
-        for i in busqueda:
-            palabra += str(i)
-        palabra += '%'
+        # Busca por iniciales, nombres, apellidos y username, sin importar que la palabra este en mayuscula o minuscula
+        # ilike es case insensitive
+        palabra = str(busqueda[0]) + '%'
         tabla = db(
-                    db.persona.primer_nombre.like(palabra)|
-                    db.persona.segundo_nombre.like(palabra)|
-                    db.persona.primer_apellido.like(palabra)|
-                    db.persona.segundo_apellido.like(palabra)|
-                    db.usuario.username.like(palabra)|
-                    db.bombero.iniciales.like(palabra)
-                    ).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.persona.id == db.usuario.id) & (db.bombero.id == db.usuario.id)),distinct=db.persona.id)
+                    db.persona.primer_nombre.ilike(palabra)|
+                    db.persona.segundo_nombre.ilike(palabra)|
+                    db.persona.primer_apellido.ilike(palabra)|
+                    db.persona.segundo_apellido.ilike(palabra)|
+                    db.usuario.username.ilike(palabra)|
+                    db.bombero.iniciales.ilike(palabra)
+                    ).select(
+                                join=db.bombero.on(
+                                                    (db.bombero.id_persona == db.persona.id) & 
+                                                    (db.persona.id == db.usuario.id) & 
+                                                    (db.bombero.id == db.usuario.id)),
+                                distinct=db.persona.id)
     else:
         boolean = False
         tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
