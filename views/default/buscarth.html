@@ -1,6 +1,5 @@
 {{extend 'layout.html'}}
 <h1>This is the buscarth.html template</h1>
-{{=BEAUTIFY(response._vars)}}
 
 <div class="container bg-0">
     <br /><br /><br /><br /><br /><br />
@@ -27,7 +26,7 @@
 		    </tr>
 		    {{for row in tabla:}}
 		    <tr class="clickable-row text-center" data-href="http://www.google.com">
-		        <td>{{=row.bombero.id}}</td>
+		        <td>{{=row.bombero.carnet}}</td>
 		        <td>{{=row.persona.cedula}}</td>
             	<td>{{=row.persona.primer_nombre}}</td>
             	<td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
