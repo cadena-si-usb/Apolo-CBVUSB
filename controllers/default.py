@@ -42,7 +42,7 @@ def user():
     return dict(form=auth())
 
 def perfilth():
-    usuario = db(db.persona.id==str(3)).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+    usuario = db(db.persona.id==str(1)).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
     
     return dict(usuario=usuario)
 
