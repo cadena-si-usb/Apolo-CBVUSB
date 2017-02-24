@@ -1,6 +1,7 @@
 {{extend 'layout.html'}}
 <h1>This is the perfilth.html template</h1>
-{{=BEAUTIFY(response._vars)}}
+
+<br /><br /><br /><br /><br /><br />
 
 <div class="container bg-0">
     <br /><br /><br /><br /><br /><br />
@@ -14,7 +15,7 @@
         </div>
         <div class="col-xs-4">
             <!-- Nombre del usuario -->
-            <b><div align="left" style="font-size:24px;"> Apolo </div></b>
+            <b><div align="left" style="font-size:24px;">{{=usuario.persona.primer_nombre}}</div></b>
             <br />
             <div class="row">
                 <b><div class="col-xs-4 text-left" style="font-size:16px;">Cargo:</div></b>
@@ -28,23 +29,23 @@
     <div class="row">
         <div class="col-xs-12">
             <b><div class="col-xs-4 text-left" style="font-size:16px;">Cédula: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">23466895</div>
+            <div class="col-xs-4 text-left" style="font-size:16px;">{{=usuario.persona.cedula}}</div>
         </div>
         <div class="col-xs-12">
             <b><div class="col-xs-4 text-left" style="font-size:16px;">Fecha de Nacimiento:</div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">01/12/1994</div>
+            <div class="col-xs-4 text-left" style="font-size:16px;">{{=usuario.persona.fecha_nacimiento}}</div>
         </div>
         <div class="col-xs-12">
             <b><div class="col-xs-4 text-left" style="font-size:16px;">Sexo:</div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">F</div>
+            <div class="col-xs-4 text-left" style="font-size:16px;">{{=usuario.persona.genero}}</div>
         </div>
         <div class="col-xs-12">
         <b><div class="col-xs-4 text-left" style="font-size:16px;">Tipo de Sangre:</div></b>
-        <div class="col-xs-4 text-left" style="font-size:16px;">Factor O Rh -</div>
+        <div class="col-xs-4 text-left" style="font-size:16px;">{{=usuario.bombero.tipo_sangre}}</div>
         </div>
         <div class="col-xs-12">
             <b><div class="col-xs-4 text-left" style="font-size:16px;">Hijos:</div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">9</div>
+            <div class="col-xs-4 text-left" style="font-size:16px;">{{=usuario.bombero.hijos}}</div>
         </div>
     </div>
     <br /><br /><br />
@@ -65,11 +66,11 @@
         </div>
         <div class="col-xs-12">
             <b><div class="col-xs-4 text-left" style="font-size:16px;">Email: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">correo@gmail.com</div>
+            <div class="col-xs-4 text-left" style="font-size:16px;">{{=usuario.persona.email_principal}}</div>
         </div>
         <div class="col-xs-12">
             <b><div class="col-xs-4 text-left" style="font-size:16px;">Email alternativo: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">correo@gmail.com</div>
+            <div class="col-xs-4 text-left" style="font-size:16px;">{{=usuario.persona.email_alternativo}}</div>
         </div>
     </div>
     <br /><br /><br />
