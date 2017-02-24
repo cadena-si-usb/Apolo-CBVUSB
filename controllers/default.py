@@ -98,14 +98,15 @@ def registrousrth():
 
 def buscarth():
     busqueda = request.vars.getlist("buscar")
-    print busqueda
-
-    if busqueda != []:
-        tabla = db(db.persona.primer_nombre.like(str(busqueda[0])+'%')).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+    boolean = True
+    
+    if busqueda != [] :
+        tabla = db(db.persona.primer_nombre.like(str(busqueda[0])+'%')|db.persona.segundo_nombre.like(str(busqueda[0])+'%')|db.persona.primer_apellido.like(str(busqueda[0])+'%')|db.persona.segundo_apellido.like(str(busqueda[0])+'%')).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
     else:
+        boolean = False
         tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
-    return dict(tabla=tabla)
+    return dict(tabla=tabla,boolean=boolean)
     
 @cache.action()
 def download():
