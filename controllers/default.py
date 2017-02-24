@@ -97,8 +97,10 @@ def registrousrth():
     return dict()
 
 def buscarth():
-
-    tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+    busqueda = request.vars.getlist("buscar")
+    tabla = db(db.persona.primer_nombre.like('Ma%')).select()
+    
+    #tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
     return dict(tabla=tabla)
     

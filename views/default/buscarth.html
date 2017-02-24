@@ -10,10 +10,31 @@
              <!-- Navegador de busqueda -->
             <form action="" method="POST" style="font-size:16px;">
                   <!-- Campo de Busqueda-->
-                <input type="text" placeholder=" Buscar..." name="buscar" style="font-size:16px;background-color:rgb(235,235,235);height:50px;width:auto">
+                <input type="text" placeholder="Buscar..." name="buscar" style="font-size:16px;background-color:rgb(235,235,235);height:50px;width:auto">
                 <!-- Boton de enviar en color azul -->
                 <input type="submit" class="bg-1" style="font-size:16px;background-color:rgb(51,173,255);height:50px;width:auto;" value="Enviar">
             </form>
         </div>
+        <br /><br /><br />
+        <div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
+		    <table style="width:100%" class="table table-bordered table-hover">
+		    <tr>
+	        	<th>Carnet</th>
+		        <th>Cédula</th>
+		        <th>Nombre</th>
+		        <th>Apellido</th>
+		        <th></th>
+		    </tr>
+		    {{for row in tabla:}}
+		    <tr class="clickable-row text-center" data-href="http://www.google.com">
+		        <td>{{=row.bombero.id}}</td>
+		        <td>{{=row.persona.cedula}}</td>
+            	<td>{{=row.persona.primer_nombre}}</td>
+            	<td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
+		        <td><a href="#">Ver perfil</a></td>
+		    </tr>
+		    {{pass}}
+		    </table>
+		</div>
     <br /><br /><br /><br /><br /><br />
 </div>
