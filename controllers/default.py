@@ -81,20 +81,43 @@ def registrousrth():
     carnet = request.vars.getlist("carnet")
     tipo_sangre = request.vars.getlist("tipo_sangre")
 
-    print username, password, cedula, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, fecha_nacimiento, lugar_nacimiento, genero, email_principal, estado_civil, carnet, tipo_sangre
-
-    if username == [] or password == [] or cedula == [] or primer_nombre == [] or segundo_nombre == [] or primer_apellido == [] or segundo_apellido == [] or fecha_nacimiento == [] or lugar_nacimiento == [] or genero == [] or email_principal == [] or estado_civil == [] or carnet == [] or tipo_sangre == []:
+    if (username == [] or password == [] or cedula == [] or 
+        primer_nombre == [] or segundo_nombre == [] or primer_apellido == [] or 
+        segundo_apellido == [] or fecha_nacimiento == [] or 
+        lugar_nacimiento == [] or genero == [] or email_principal == [] or 
+        estado_civil == [] or carnet == [] or tipo_sangre == []):
         pass
-    elif username[0] == "" or password[0] == "" or cedula[0] == "" or primer_nombre[0] == "" or segundo_nombre[0] == "" or primer_apellido[0] == "" or segundo_apellido[0] == "" or fecha_nacimiento[0] == "" or lugar_nacimiento[0] == "" or genero[0] == "" or email_principal[0] == "" or estado_civil[0] == "" or carnet[0] == "" or tipo_sangre[0] == "":
+    elif (username[0] == "" or password[0] == "" or cedula[0] == "" or 
+        primer_nombre[0] == "" or segundo_nombre[0] == "" or 
+        primer_apellido[0] == "" or segundo_apellido[0] == "" or 
+        fecha_nacimiento[0] == "" or lugar_nacimiento[0] == "" or 
+        genero[0] == "" or email_principal[0] == "" or estado_civil[0] == "" or 
+        carnet[0] == "" or tipo_sangre[0] == ""):
         pass
     else:
-        db.usuario.insert(username=username[0], password=password[0])
-        db.persona.insert(cedula=int(cedula[0]), primer_nombre=primer_nombre[0], segundo_nombre=segundo_nombre[0], primer_apellido=primer_apellido[0], segundo_apellido=segundo_apellido[0], fecha_nacimiento=fecha_nacimiento[0], lugar_nacimiento=lugar_nacimiento[0], genero=genero[0], email_principal=email_principal[0], estado_civil=estado_civil[0])
+        db.usuario.insert(
+                            username=username[0], 
+                            password=password[0])
+        db.persona.insert(
+                            cedula=int(cedula[0]), 
+                            primer_nombre=primer_nombre[0], 
+                            segundo_nombre=segundo_nombre[0], 
+                            primer_apellido=primer_apellido[0], 
+                            segundo_apellido=segundo_apellido[0], 
+                            fecha_nacimiento=fecha_nacimiento[0], 
+                            lugar_nacimiento=lugar_nacimiento[0], 
+                            genero=genero[0], 
+                            email_principal=email_principal[0], 
+                            estado_civil=estado_civil[0])
         usuario = db(db.usuario.username==username[0]).select(db.usuario.id)[0]
         id_usuario = usuario.id
         persona = db(db.persona.cedula==cedula[0]).select(db.persona.id)[0]
         id_persona = persona.id
-        db.bombero.insert(carnet=int(carnet[0]), tipo_sangre=tipo_sangre[0], id_persona=id_persona, id_usuario=id_usuario)
+        db.bombero.insert(
+                            carnet=int(carnet[0]), 
+                            tipo_sangre=tipo_sangre[0], 
+                            id_persona=id_persona, 
+                            id_usuario=id_usuario)
 
     return dict()
 
@@ -114,11 +137,11 @@ def buscarth():
                     db.usuario.username.ilike(palabra)|
                     db.bombero.iniciales.ilike(palabra)
                     ).select(
-                                join=db.bombero.on(
-                                                    (db.bombero.id_persona == db.persona.id) & 
-                                                    (db.persona.id == db.usuario.id) & 
-                                                    (db.bombero.id == db.usuario.id)),
-                                distinct=db.persona.id)
+                            join=db.bombero.on(
+                                                (db.bombero.id_persona == db.persona.id) & 
+                                                (db.persona.id == db.usuario.id) & 
+                                                (db.bombero.id == db.usuario.id)),
+                            distinct=db.persona.id)
     else:
         boolean = False
         tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
