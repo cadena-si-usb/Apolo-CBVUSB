@@ -4,37 +4,22 @@
 
 <div class="container bg-0">
     <br /><br /><br /><br /><br /><br />
-    <b><div class="col-xs-4 text-center" style="font-size:20px;">Buscar</div></b>
+    <b><div class="col-xs-4 text-center" style="font-size:24px;">Búsqueda</div></b>
     <br /><br /><br />
-    <div align="center">
-        <!-- Navegador de busqueda -->
-        <form class="navbar-form navbar-center" role="search">
-          <div class="form-group">
-              <!-- Campo de Busqueda-->
-            <input type="text" class="form-control" placeholder="Buscar" style="background-color:rgb(235,235,235);">
-          </div>
-            <!-- Boton de enviar en color azul -->
-          <button type="submit" class="btn btn-primary" style="background-color:rgb(51,173,255);">Enviar</button>
-        </form>
-    </div>
-
-<br /><br /><br />
-
-<table style="width:100%">
-  <tr>
-    <th>Carnet</th>
-    <th>Cédula</th>
-    <th>Nombre</th> 
-    <th>Apellido</th>
-  </tr>
-  {{for row in tabla:}}
-  <tr class="clickable-row" data-href="http://www.google.com">
-    <td>{{=row.bombero.carnet}}</td>
-    <td>{{=row.persona.cedula}}</td>
-    <td>{{=row.persona.primer_nombre}}</td> 
-    <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
-  </tr>
-  {{pass}}
-</table>
+        <div align="center">
+             <!-- Navegador de busqueda -->
+            <form class="navbar-form navbar-center" role="search">
+              <div class="form-group">
+                  <!-- Campo de Busqueda-->
+                <input type="text" placeholder=" Buscar..." style="background-color:rgb(235,235,235);height:50px;width:auto">
+              </div>
+                <!-- Boton de enviar en color azul -->
+                <button type="submit" class="btn btn-default bg-1" style="height:50px;width:auto;">
+                    <a href="../default/buscarres.html" style="color:white;">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                </button>
+            </form>
+        </div>
     <br /><br /><br /><br /><br /><br />
 </div>
