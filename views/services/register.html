@@ -31,9 +31,9 @@
 
       <!-- Tab Información Básica -->
       <form role="form" action="" method="post" id="registro">
-      <div class="tab-content">
-        <div class="tab-pane active" id="basicinfo" role="tabpanel">
-          
+        <div class="tab-content">
+          <div class="tab-pane active" id="basicinfo" role="tabpanel">
+
             <div class="form-group">
               <label for="startDate">Tipo de Servicio</label>
               <select name="tipo">
@@ -86,12 +86,12 @@
                 </div>
               </div>
             </div>
-          
-        </div>
 
-        <!-- Tab Comisiones -->
-        <div class="tab-pane" id="commission" role="tabpanel">
-          
+          </div>
+
+          <!-- Tab Comisiones -->
+          <div class="tab-pane" id="commission" role="tabpanel">
+            <div class="container" id="comisionPrefab1">
             <div class="form-group">
               <label for="commissionBoss">Jefe de comisión</label>
               <input type="text" class="form-control" id="commissionBoss"
@@ -113,66 +113,70 @@
             <div class="form-group">
               <label for="commissionChofer">Conductor</label>
               <input type="text" class="form-control" id="commissionChofer" placeholder="">
-             </div>
-           </form>
-          
+            </div>
+
         </div>
+        </div>
+      </form>
+              <button type="button" id="botton" class="btn btn-default btn-sm">
+            Agregar Comision <span class="glyphicon glyphicon-plus-sign"></span>
+          </button>
 
         <!-- Tab Afectados -->
         <div class="tab-pane" id="affected" role="tabpanel">
-            <div class="form-group">
-              <label for="affectedCI">Cédula</label>
-              <input type="number" class="form-control" id="affectedCI"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affected0">Primer nombre</label>
-              <input type="password" class="form-control" id="affected1"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affected1">Segundo nombre</label>
-              <input type="email" class="form-control" id="affected2"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affected2">Primer apellido</label>
-              <input type="password" class="form-control" id="affected2"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affectedName3">Segundo apellido</label>
-              <input type="email" class="form-control" id="affectedName3"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affectedGender">Sexo</label>
-              <input type="password" class="form-control" id="affectedGender"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affectedEmail">Correo electrónico</label>
-              <input type="email" class="form-control" id="affectedEmail"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affectedPhone">Teléfono</label>
-              <input type="email" class="form-control" id="affectedPhone"
-              placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="affectedNotes">Notas/Tratamiento</label>
-              <textarea id="affectedNotes" class="form-control" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="affectedNotes">Tipo</label>
-              <select>
-                <option value="1" selected="selected">Estudiante de la USB</option>
-                <option value="2">Profesor de la USB</option>
-                <option value="3">Empleado de la USB</option>
-                <option value="4">Obrero de la USB</option>
-                <option value="5">Externo</option>
-              </select>
+          <div class="form-group">
+            <label for="affectedCI">Cédula</label>
+            <input type="number" class="form-control" id="affectedCI"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affected0">Primer nombre</label>
+            <input type="password" class="form-control" id="affected1"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affected1">Segundo nombre</label>
+            <input type="email" class="form-control" id="affected2"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affected2">Primer apellido</label>
+            <input type="password" class="form-control" id="affected2"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affectedName3">Segundo apellido</label>
+            <input type="email" class="form-control" id="affectedName3"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affectedGender">Sexo</label>
+            <input type="password" class="form-control" id="affectedGender"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affectedEmail">Correo electrónico</label>
+            <input type="email" class="form-control" id="affectedEmail"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affectedPhone">Teléfono</label>
+            <input type="email" class="form-control" id="affectedPhone"
+            placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="affectedNotes">Notas/Tratamiento</label>
+            <textarea id="affectedNotes" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="affectedNotes">Tipo</label>
+            <select>
+              <option value="1" selected="selected">Estudiante de la USB</option>
+              <option value="2">Profesor de la USB</option>
+              <option value="3">Empleado de la USB</option>
+              <option value="4">Obrero de la USB</option>
+              <option value="5">Externo</option>
+            </select>
           </form>
         </div>
       </div>
