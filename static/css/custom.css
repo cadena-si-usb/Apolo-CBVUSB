@@ -1,3 +1,24 @@
+/*####################
+  Global
+#####################*/
+
+* {
+  font-family: 'Roboto', serif;
+  font-size: 14pt;
+}
+
+/*####################
+ Imágenes
+#####################*/
+
+.img-center {
+  margin:0 auto;
+}
+
+/*####################
+ Barra de navegación
+#####################*/
+
 .navbar .navbar-nav {
   display: inline-block;
   float: none;
@@ -8,14 +29,18 @@
 }
 
 .navbar {
-  margin-bottom: 0;
-  background-color: #33adff;
+  background: black;
   z-index: 9999;
-  border: 0;
   font-size: 12px !important;
   line-height: 1.42857143 !important;
   letter-spacing: 4px;
-  border-radius: 0;
+  border: 0px solid transparent;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.nav a{
+  font-size: 0.9em !important;
 }
 
 .navbar li a,   {
@@ -28,7 +53,7 @@
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
   color: white !important;
-  background-color: #33adff !important;
+  background: #33adff !important;
 }
 
 .navbar-default .navbar-toggle {
@@ -40,6 +65,10 @@
     color: white;
     background-color: black;
 }
+
+/*####################
+ Varios
+#####################*/
 
 /* Fondo blanco con letras negras */
 .bg-0 {
@@ -72,9 +101,9 @@
   line-height: 80%;
 }
 
-.container {
-  padding: 80px 120px;
-}
+/*####################
+ Carousel
+#####################*/
 
 .carousel {
   width: 100%;
@@ -88,14 +117,9 @@
     min-height: 250px;
 }
 
-* {
-  font-family: 'Roboto', serif;
-  font-size: 12pt;
-}
-
-.sizeAdjust img {
-  border: 1px solid black;
-}
+/*####################
+ Iconos de servicios
+#####################*/
 
 .services-item{
   margin:0 0 15px;
