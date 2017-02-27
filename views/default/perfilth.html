@@ -1,122 +1,143 @@
 {{extend 'layout.html'}}
-<h1>This is the perfilth.html template</h1>
 {{=BEAUTIFY(response._vars)}}
 
 <div class="container bg-0">
-    <br /><br /><br /><br /><br /><br />
     <div class="row">
         <!-- Foto del usuario-->
-        <div class="col-xs-4">
-            <div class="box" align="center">
-                <!-- Sacar imagen de BD -->
-                <img src="{{=URL('static','images/apolo.png')}}" width="200px" height="200px">
-            </div>
+        <div class="col-xs-12 col-sm-6 text-center">
+            <!-- Sacar imagen de BD -->
+            <img src="{{=URL('static','images/apolo.png')}}" width="200px" height="200px">
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-12 col-sm-6">
             <!-- Nombre del usuario -->
-            <b><div align="left" style="font-size:24px;"> Apolo </div></b>
-            <br />
-            <div class="row">
-                <b><div class="col-xs-4 text-left" style="font-size:16px;">Cargo:</div></b>
-                <b><div class="col-xs-4 text-left" style="font-size:16px;">SuperUser</div></b>
-            </div>
+            <h1 class="text-left"> Apolo </h1>
+            <div><span>SuperUser | <span class="text-danger">Retirado</span></span></div>
+            <div>Días de permiso restantes: <span class="text-warning">3</span></div>
         </div>
     </div>
-    <br /><br /><br />
+
+
+    <h2>Información</h2>
     <!-- Datos -->
-    <b><div align="left" style="font-size:24px;">Datos Básicos</div></b>
     <div class="row">
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Cédula: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">23466895</div>
-        </div>
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Fecha de Nacimiento:</div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">01/12/1994</div>
-        </div>
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Sexo:</div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">F</div>
-        </div>
-        <div class="col-xs-12">
-        <b><div class="col-xs-4 text-left" style="font-size:16px;">Tipo de Sangre:</div></b>
-        <div class="col-xs-4 text-left" style="font-size:16px;">Factor O Rh -</div>
-        </div>
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Hijos:</div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">9</div>
-        </div>
+        <div class="col-xs-12 col-sm-6">
+        <div class="table-responsive">
+            <h3>Datos Básicos</h3>
+            <table class="table table-condensed">
+              <tr>
+                <td>Cédula:</td>
+                <td>23.343.233</td>
+              </tr>
+              <tr>
+                <td>F. Nacimiento:</td>
+                <td>01/12/1994</td>
+              </tr>
+              <tr>
+                <td>Sexo:</td>
+                <td>Femenino</td>
+              </tr>
+              <tr>
+                <td>Sangre:</td>
+                <td>O Rh-</td>
+              </tr>
+              <tr>
+                <td>Hijos:</td>
+                <td>9</td>
+              </tr>
+            </table>
+        </div></div>
+        
+        <div class="col-xs-12 col-sm-6">
+        <div class="table-responsive">
+            <h3>Contacto</h3>
+            <table class="table table-condensed">
+              <tr>
+                <td>Celular:</td>
+                <td><a href="tel:+584244324323">0424-4324323</a></td>
+              </tr>
+              <tr>
+                <td>Casa:</td>
+                <td><a href="tel:+582124324323">0212-4324323</a></td>
+              </tr>
+              <tr>
+                <td>Trabajo:</td>
+                <td><a href="tel:+582124324323">0212-4324323</a></td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td><a href="mailto:lilpuppy@greeks.com">lilpuppy@greeks.com</a></td>
+              </tr>
+            </table>
+        </div></div>
     </div>
-    <br /><br /><br />
-    <b><div align="left" style="font-size:24px;">Datos de Contacto</div></b>
+
     <div class="row">
-        <!-- Iterar sobre los numeros -->
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Celular: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">0426-5550044</div>
-        </div>
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Casa: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">0212-9093909</div>
-        </div>
-            <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Trabajo: </div></b>
-        <div class="col-xs-4 text-left" style="font-size:16px;">0212-9876543</div>
-        </div>
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Email: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">correo@gmail.com</div>
-        </div>
-        <div class="col-xs-12">
-            <b><div class="col-xs-4 text-left" style="font-size:16px;">Email alternativo: </div></b>
-            <div class="col-xs-4 text-left" style="font-size:16px;">correo@gmail.com</div>
-        </div>
+        <!-- Ascenso -->
+        <div class="col-xs-12 col-sm-6">
+        <div class="table-responsive">
+            <h3>Ascensos</h3>
+            <table class="table table-condensed">
+              <tr>
+                <td>Jefe Supremo:</td>
+                <td>12 Febrero 2015</td>
+              </tr>
+              <tr>
+                <td>Campitán:</td>
+                <td>12 Enero 2014</td>
+              </tr>
+              <tr>
+                <td>Teniente:</td>
+                <td>03 Noviembre 2013</td>
+              </tr>
+              <tr>
+                <td>Bombero:</td>
+                <td>25 Febrero 2010</td>
+              </tr>
+            </table>
+        </div></div>
+
+        <!-- Premiaciones -->
+        <div class="col-xs-12 col-sm-6">
+        <div class="table-responsive">
+            <h3>Premiaciones</h3>
+            <table class="table table-condensed">
+              <tr>
+                <td>Mejor Bombero:</td>
+                <td>12 Febrero 2015</td>
+              </tr>
+              <tr>
+                <td>Best buddy:</td>
+                <td>12 Enero 2014</td>
+              </tr>
+              <tr>
+                <td>Garritas de Acero:</td>
+                <td>03 Noviembre 2013</td>
+              </tr>
+              <tr>
+                <td>Manchado de oro:</td>
+                <td>25 Febrero 2010</td>
+              </tr>
+            </table>
+            <a href="#">Ver más</a>
+        </div></div>
     </div>
-    <br /><br /><br />
-    <!-- Condicion -->
-    <b> <div align="left" style="font-size:24px;">Condición</div> </b>
-    <div class="col-xs-12 text-left" style="font-size:16px;"> No hay información de la condición actual. </div>
-    <br /><br /><br />
-    <!-- Vacaciones -->
-    <b> <div align="left" style="font-size:24px;">Días de Permiso</div> </b>
-    <div class="col-xs-12 text-left" style="font-size:16px;"> Actualmente no está en días de permiso. </div>
-    <br /><br /><br />
-    <!-- Ascenso -->
-    <b> <div align="left" style="font-size:24px;"> Ascenso </div> </b>
-    <div class="row">
-        <div class="col-xs-12">
-            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Rango actual: </div> </b>
-            <div class="col-xs-4 text-left" style="font-size:16px;"> Bombero </div>
-        </div>
-        <div class="col-xs-12">
-            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Fecha de ascenso al rango actual: </div> </b>
-            <div class="col-xs-4 text-left" style="font-size:16px;"> 2015 </div>
-        </div>
-        <div class="col-xs-12">
-            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Rango anterior: </div> </b>
-            <div class="col-xs-4 text-left" style="font-size:16px;"> Rojo </div>
-        </div>
-        <div class="col-xs-12">
-            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Fecha de ascenso al rango anterior: </div> </b>
-            <div class="col-xs-4 text-left" style="font-size:16px;"> 2010 </div>
-        </div>
-        <div class="col-xs-12">
-            <b> <div class="col-xs-4 text-left" style="font-size:16px;"> Puntaje: </div> </b>
-            <div class="col-xs-4 text-left" style="font-size:16px;"> 199 </div>
-        </div>
+
+
+    <div class="table-responsive">
+        <h3>Actividades</h3>
+        <table class="table table-condensed">
+          <tr>
+            <td>Artes marciales I</td>
+            <td>Combate</td>
+            <td>12/02/2003</td>
+          </tr>
+          <tr>
+            <td>Matpel XI</td>
+            <td>Matpel</td>
+            <td>12/02/2005</td>
+          </tr>
+        </table>
+        <a href="#">Ver más</a>
     </div>
-    <br />
-    <div class="col-xs-12"><a href="#">Ver más</a></div>
-    <br /><br /><br />
-    <!-- Premiaciones -->
-    <b> <div align="left" style="font-size:24px;"> Premiaciones </div> </b>
-    <br />
-    <div class="col-xs-12"><a href="#">Ver más</a></div>
-    <br /><br /><br />
-    <!-- Actividades -->
-    <b> <div align="left" style="font-size:24px;"> Actividades </div> </b>
-    <br />
-    <div class="col-xs-12"><a href="#">Ver más</a></div>
-    <br /><br /><br />
     
 </div>

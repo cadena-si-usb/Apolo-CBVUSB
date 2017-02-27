@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
- <html class="no-js" lang="{{=T.accepted_language or 'en'}}">
+<html class="no-js" lang="{{=T.accepted_language or 'en'}}">
   <head>
     <meta charset="utf-8">                                                                               <!-- Codificación utf-8 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}"> <!-- Compattibilidad con navegadores -->
@@ -29,80 +28,71 @@
 
   <body>
   <!-- Barra de navegación -->
-   <nav class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container-fluid">
         <!-- Banner -->
-        <div class="row bg-2">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
-            <img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner">
+        <img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner">
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Navegación</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
           </div>
-        </div>
 
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-
-        <!-- Agrupar los enlaces de navegación, los formularios y cualquier
-        otro elemento que se pueda ocultar al minimizar la barra -->
-        <!-- FALTAN AGREGAR LOS HRER BIEN -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{{=URL('default','index')}}">Inicio</a></li>
-            <li class="dropdown">
-              <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Educación<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{=URL('default','index')}}">Cursos</a></li>
-                <li class="divider"></li>
-                <li><a href="{{=URL('default','index')}}">Servicio comunitario</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{=URL('default','index')}}">Guardias</a></li>
-                <li class="divider"></li>
-                <li><a href="{{=URL('services','index')}}">Servicios</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Talento Humano<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li> <a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a> </li>
-                <li class="divider"></li>
-                <li> <a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a> </li>
-                <li class="divider"></li>
-                <li> <a href="{{=URL('default','buscarth.html')}}">Buscar</a> </li>
-              </ul>
-            </li>
-            <li> <a href="#">Administración</a> </li>
-            <li> <a href="#">Riesgos</a> </li>
-            <li> <a href="#">Estadísticas</a> </li>
-            <li> <a href="{{=URL('default','index')}}">Salir</a> </li>
-          </ul>
-        </div>
+          <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+          otro elemento que se pueda ocultar al minimizar la barra -->
+          <!-- FALTAN AGREGAR LOS HRER BIEN -->
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{{=URL('default','index')}}">Inicio</a></li>
+              <li class="dropdown">
+                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Educación<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{=URL('default','index')}}">Cursos</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{{=URL('default','index')}}">Servicio comunitario</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{=URL('default','index')}}">Guardias</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{{=URL('services','index')}}">Servicios</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Talento Humano<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li> <a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a> </li>
+                  <li class="divider"></li>
+                  <li> <a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a> </li>
+                  <li class="divider"></li>
+                  <li> <a href="{{=URL('default','buscarth.html')}}">Buscar</a> </li>
+                </ul>
+              </li>
+              <li> <a href="#">Administración</a> </li>
+              <li> <a href="#">Riesgos</a> </li>
+              <li> <a href="#">Estadísticas</a> </li>
+              <li> <a href="{{=URL('default','index')}}">Salir</a> </li>
+            </ul>
+          </div>
       </div>
     </nav>
 
     {{include}}
 
     <!-- Footer -->
-    <footer class="footer bg-4" style="padding: 1.5%;">
+    <footer class="footer bg-4">
       <div class="container-fluid">
-        <div class="row" style="padding-left: 1%;">
-          <br>
-            <p>Contáctanos:</p>
-            <p><span class="glyphicon glyphicon-map-marker">
-            </span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</p>
-            <p><span class="glyphicon glyphicon-phone">
-            </span> Teléfono: (+58) 212 906-3909</p>
-            <p><span class="glyphicon glyphicon-envelope">
-            </span> Correo electrónico: extension.bomberos@usb.ve</p>
-          <br>
+        <div class="row">
+            <h4>Contáctanos:</h4>
+            <p><span class="glyphicon glyphicon-map-marker"></span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</p>
+            <p><span class="glyphicon glyphicon-phone"></span> Teléfono: (+58) 212 906-3909</p>
+            <p><span class="glyphicon glyphicon-envelope"></span> Correo electrónico: extension.bomberos@usb.ve</p>
         </div>
         <br>
         <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
@@ -123,5 +113,6 @@
     <script src="{{=URL('static','js/analytics.min.js')}}"></script>
     <script type="text/javascript">analytics.initialize({'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}});</script>
     {{pass}}
+
   </body>
 </html>
