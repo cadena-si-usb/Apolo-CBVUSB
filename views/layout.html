@@ -28,11 +28,11 @@
 
   <body>
   <!-- Barra de navegación -->
-      <div class="container-fluid">
+      <div>
         <!-- Banner -->
         <img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner">
 
-        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation"><div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Navegación</span>
@@ -47,7 +47,6 @@
           <!-- FALTAN AGREGAR LOS HRER BIEN -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="{{=URL('default','index')}}">Inicio</a></li>
               <li class="dropdown">
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Educación<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -60,43 +59,42 @@
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{=URL('default','index')}}">Guardias</a></li>
-                  <li class="divider"></li>
                   <li><a href="{{=URL('services','index')}}">Servicios</a></li>
                 </ul>
               </li>
               <li class="dropdown">
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Talento Humano<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li> <a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a> </li>
-                  <li class="divider"></li>
-                  <li> <a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a> </li>
-                  <li class="divider"></li>
-                  <li> <a href="{{=URL('default','buscarth.html')}}">Buscar</a> </li>
+                  <li><a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a></li>
+                  <li><a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a></li>
+                  <li><a href="{{=URL('default','buscarth.html')}}">Buscar</a></li>
                 </ul>
               </li>
-              <li> <a href="#">Administración</a> </li>
-              <li> <a href="#">Riesgos</a> </li>
-              <li> <a href="#">Estadísticas</a> </li>
-              <li> <a href="{{=URL('default','index')}}">Salir</a> </li>
+              <li><a href="#">Administración</a></li>
+              <li><a href="#">Riesgos</a></li>
+              <li><a href="#">Estadísticas</a></li>
+              <li><a href="{{=URL('default','index')}}">Salir</a></li>
             </ul>
           </div>
+        </div></nav>
       </div>
-    </nav>
 
     {{include}}
 
     <!-- Footer -->
     <footer class="footer bg-4">
       <div class="container-fluid">
-        <div class="row">
+        <div class="col-xs-12">
             <h4>Contáctanos:</h4>
             <p><span class="glyphicon glyphicon-map-marker"></span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</p>
             <p><span class="glyphicon glyphicon-phone"></span> Teléfono: (+58) 212 906-3909</p>
             <p><span class="glyphicon glyphicon-envelope"></span> Correo electrónico: extension.bomberos@usb.ve</p>
         </div>
         <br>
-        <div class="copyright pull-left">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
-        <div id="poweredBy" class="pull-right">{{=T('Powered by')}}<a href="http://www.web2py.com/"> Web2py</a></div>
+        <div class="text-center">
+        <div class="copyright">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
+        <br>
+        </div>
       </div>
     </footer>
 
