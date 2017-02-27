@@ -6,38 +6,28 @@
   <div class="page-header">
     <h1>Servicios</h1>
   </div>
-  <section>
+  <main>
     <div class="container">
       <div class="row">
-        <div class="col-md-4 services-item">
-          <a href="{{=URL('services','register.html')}}" class="services-link" data-toggle="modal">
-            <div class="caption">
-              <div class="caption-content">
-              </div>
-            </div>
-            <img src="{{=URL('static','images/crearServicio.jpg')}}" class="img-responsive" alt="">
+        <div class="col-xs-12 col-sm-4 services-item">
+          <a href="{{=URL('services','register.html')}}" class="services-link">
+            <span class="sr-only sr-only-focusable">Crear Servicio</span>
+            <img src="{{=URL('static','images/crearServicio.jpg')}}" class="img-responsive" alt="Crear Servicio">
           </a>
         </div>
-        <div class="col-md-4 services-item">
-          <a href="{{=URL('services','myservices.html')}}" class="services-link" data-toggle="modal">
-            <div class="caption">
-              <div class="caption-content">
-                <!--<p>Agregar Servicio</p>-->
-              </div>
-            </div>
-            <img src="{{=URL('static','images/gestionarServicios.jpg')}}" class="img-responsive" alt="">
+        <div class="col-xs-12 col-sm-4 services-item">
+          <a href="{{=URL('services','myservices.html')}}" class="services-link">
+            <span class="sr-only sr-only-focusable">Gestionar Servicios</span>
+            <img src="{{=URL('static','images/gestionarServicios.jpg')}}" class="img-responsive" alt="Gestionar Servicios">
           </a>
         </div>
-      <div class="col-md-4 services-item">
-        <a href="{{=URL('services','search.html')}}" class="services-link" data-toggle="modal">
-          <div class="caption">
-            <div class="caption-content">
-            </div>
-          </div>
-          <img src="{{=URL('static','images/buscarServicios.jpg')}}" class="img-responsive" alt="">
-        </a>
+        <div class="col-xs-12 col-sm-4 services-item">
+          <a href="{{=URL('services','search.html')}}" class="services-link">
+            <span class="sr-only sr-only-focusable">Buscar Servicios</span>
+            <img src="{{=URL('static','images/buscarServicios.jpg')}}" class="img-responsive" alt="Buscar Servicios">
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  </section>
+  </main>
 </div>
