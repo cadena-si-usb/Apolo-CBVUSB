@@ -1,19 +1,19 @@
 {{extend 'layout.html'}}
 
 <div class="container bg-0">
-	<b> <div class="text-center" style="font-size:24px;">Registro de Nuevo Usuario</div> </b>
-	<br /><br /><br />
+	<h1 class="text-center" style="font-size:36px;">Registro de Nuevo Usuario</h1>
+	<br /><br />
 	<div class="forms">
-		<form action="" method="POST" style="font-size:16px;">
-			<b> <div class="text-left" style="font-size:24px;">Datos del Usuario:</div> </b>
+		<form action="" method="POST" style="font-size:18px;">
+			<h1 class="text-left" style="font-size:30px;">Datos del Usuario:</h1>
 			<br />
 			Username:<br />
 			<input type="text" name="username">
 			<br /><br />
 			Password:<br />
 			<input type="password" name="password">
-			<br /><br /><br />
-			<b> <div class="text-left" style="font-size:24px;">Datos Personales:</div> </b>
+			<br /><br />
+			<h1 class="text-left" style="font-size:30px;">Datos Personales:</h1>
 			<br />
 			Cédula:
 			<input type="number" name="cedula" min="0">
@@ -53,7 +53,7 @@
             	<option value="Viudo">Viudo</option>
             </select>
             <br /><br /><br />
-            <b> <div class="text-left" style="font-size:24px;">Datos Bomberiles:</div> </b>
+            <h1 class="text-left" style="font-size:30px;">Datos Bomberiles:</h1>
             <br />
             Carnet:
             <input type="number" min="0" max="9999999" name="carnet">
@@ -70,7 +70,7 @@
                 <option value="AB-">AB-</option>
             </select>
             <br /><br />
-            <input type="submit" value="Registrar Usuario" style="background-color:rgb(51,173,255);">
+            <input type="submit" value="Registrar Usuario" class="bg-1">
 		</form>
 	</div>
 </div>
