@@ -15,7 +15,7 @@
     <br /><br /><br />
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
 		<table class="table table-bordered table-hover">
-			<tr>
+			<tr valign="center" align="center">
 		        <th class="text-center">Carnet</th>
 			    <th class="text-center">Cédula</th>
 			    <th class="text-center">Nombre</th>
@@ -23,7 +23,7 @@
 			    <th class="text-center">Perfil</th>
 			</tr>
 			{{for row in tabla:}}
-			<tr class="clickable-row text-center" data-href="http://www.google.com">
+			<tr class="clickable-row text-center" data-href="http://www.google.com" valign="center" align="center">
 			    <td>{{=row.bombero.carnet}}</td>
 			    <td>{{=row.persona.cedula}}</td>
 	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
