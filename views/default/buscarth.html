@@ -3,35 +3,34 @@
 <div class="container bg-0">
     <b><h1 class="col-xs-4 text-center" style="font-size:36px;">Buscar</h1></b>
     <br /><br /><br />
-        <div align="center">
-             <!-- Navegador de busqueda -->
-            <form action="" method="POST" style="font-size:16px;">
-                  <!-- Campo de busqueda-->
-                <input type="text" placeholder="Buscar..." name="buscar" style="font-size:16px;background-color:rgb(235,235,235);height:50px;width:auto">
-                <!-- Boton de enviar en color azul -->
-                <input type="submit" class="bg-1" style="font-size:16px;background-color:rgb(51,173,255);height:50px;width:auto;" value="Enviar">
-            </form>
-        </div>
-        <br /><br /><br />
-		<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		    <table style="width:100%" class="table table-bordered table-hover">
-		    <tr>
-	        	<th class="text-center">Carnet</th>
-		        <th class="text-center">Cédula</th>
-		        <th class="text-center">Nombre</th>
-		        <th class="text-center">Apellido</th>
-		        <th class="text-center">Perfil</th>
-		    </tr>
-		    {{for row in tabla:}}
-		    <tr class="clickable-row text-center" data-href="http://www.google.com">
-		        <td>{{=row.bombero.carnet}}</td>
-		        <td>{{=row.persona.cedula}}</td>
-            	<td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
-            	<td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
-		        <td><a href="#">Ver perfil</a></td>
-		    </tr>
-		    {{pass}}
-		    </table>
-		</div>
-        
+    <div align="center">
+        <!-- Navegador de busqueda -->
+        <form action="" method="POST">
+            <!-- Campo de busqueda-->
+            <input type="text" placeholder="Buscar..." name="buscar" style="font-size:16px;background-color:rgb(235,235,235);height:50px;width:auto">
+            <!-- Boton de enviar en color azul -->
+            <input type="submit" class="bg-1" style="font-size:16px;background-color:rgb(51,173,255);height:50px;width:auto;" value="Enviar">
+        </form>
+    </div>
+    <br /><br /><br />
+	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
+		<table class="table table-bordered table-hover">
+			<tr>
+		        <th class="text-center">Carnet</th>
+			    <th class="text-center">Cédula</th>
+			    <th class="text-center">Nombre</th>
+			    <th class="text-center">Apellido</th>
+			    <th class="text-center">Perfil</th>
+			</tr>
+			{{for row in tabla:}}
+			<tr class="clickable-row text-center" data-href="http://www.google.com">
+			    <td>{{=row.bombero.carnet}}</td>
+			    <td>{{=row.persona.cedula}}</td>
+	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
+	            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
+			    <td><a href="#">Ver perfil</a></td>
+			</tr>
+			{{pass}}
+		</table>
+	</div>      
 </div>
