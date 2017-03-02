@@ -28,3 +28,141 @@
     </div>
     <br /><br /><br /><br /><br /><br />
 </div>
+
+    #form = SQLFORM.factory(
+    #    db.usuario,
+    #    db.persona,
+    #    db.bombero)
+
+    username = request.vars.getlist("username")
+    password0 = request.vars.getlist("password0")
+    password1 = request.vars.getlist("password1")
+    cedula = request.vars.getlist("cedula")
+    primer_nombre = request.vars.getlist("primer_nombre")
+    segundo_nombre = request.vars.getlist("segundo_nombre")
+    primer_apellido = request.vars.getlist("primer_apellido")
+    segundo_apellido = request.vars.getlist("segundo_apellido")
+    fecha_nacimiento = request.vars.getlist("fecha_nacimiento")
+    lugar_nacimiento = request.vars.getlist("lugar_nacimiento")
+    genero = request.vars.getlist("genero")
+    email_principal = request.vars.getlist("email_principal")
+    estado_civil = request.vars.getlist("estado_civil")
+    carnet = request.vars.getlist("carnet")
+    tipo_sangre = request.vars.getlist("tipo_sangre")
+
+    if (username == [] or password0 == [] or password1 == [] or cedula == [] or 
+        primer_nombre == [] or segundo_nombre == [] or primer_apellido == [] or 
+        segundo_apellido == [] or fecha_nacimiento == [] or 
+        lugar_nacimiento == [] or genero == [] or email_principal == [] or 
+        estado_civil == [] or carnet == [] or tipo_sangre == []):
+        pass
+    elif (username[0] == "" or password0[0] == "" or password1[0] == "" or 
+        cedula[0] == "" or primer_nombre[0] == "" or segundo_nombre[0] == "" or 
+        primer_apellido[0] == "" or segundo_apellido[0] == "" or 
+        fecha_nacimiento[0] == "" or lugar_nacimiento[0] == "" or 
+        genero[0] == "" or email_principal[0] == "" or estado_civil[0] == "" or 
+        carnet[0] == "" or tipo_sangre[0] == ""):
+        pass
+    else:
+        if ( password0[0] == password1[0] ):
+            db.usuario.insert(
+                                username=username[0], 
+                                password=password1[0])
+            db.persona.insert(
+                                cedula=int(cedula[0]), 
+                                primer_nombre=primer_nombre[0], 
+                                segundo_nombre=segundo_nombre[0], 
+                                primer_apellido=primer_apellido[0], 
+                                segundo_apellido=segundo_apellido[0], 
+                                fecha_nacimiento=fecha_nacimiento[0], 
+                                lugar_nacimiento=lugar_nacimiento[0], 
+                                genero=genero[0], 
+                                email_principal=email_principal[0], 
+                                estado_civil=estado_civil[0])
+            usuario = db(db.usuario.username==username[0]).select(db.usuario.id)[0]
+            id_usuario = usuario.id
+            persona = db(db.persona.cedula==cedula[0]).select(db.persona.id)[0]
+            id_persona = persona.id
+            db.bombero.insert(
+                                carnet=int(carnet[0]), 
+                                tipo_sangre=tipo_sangre[0], 
+                                id_persona=id_persona, 
+                                id_usuario=id_usuario)
+        else:
+            # Lanzar mensaje de error
+            print("Los passwords no coinciden.")
+
+<br /><br />
+  <div class="forms">
+    <form action="" method="POST" style="font-size:18px;">
+      <h1 class="text-left" style="font-size:30px;">Datos del Usuario:</h1>
+      <br />
+      Username:<br />
+      <input type="text" name="username">
+      <br /><br />
+      Password:<br />
+      <input type="password0" name="password0">
+      <br /><br />
+            Ingrese el Password nuevamente:<br />
+            <input type="password1" name="password1">
+            <br /><br />
+      <h1 class="text-left" style="font-size:30px;">Datos Personales:</h1>
+      <br />
+      Cédula:
+      <input type="number" name="cedula" min="0">
+      <br /><br />
+      Primer Nombre:
+      <input type="text" name="primer_nombre">
+      <br /><br />
+      Segundo Nombre:
+      <input type="text" name="segundo_nombre">
+      <br /><br />
+      Primer Apellido:
+      <input type="text" name="primer_apellido">
+      <br /><br />
+      Segundo Apellido:
+      <input type="text" name="segundo_apellido">
+      <br /><br />
+      Fecha de Nacimiento:
+      <input type="date" name="fecha_nacimiento">
+            <br /><br />
+            Lugar de Nacimiento:
+            <textarea name="lugar_nacimiento" rows="1" cols="20"></textarea>
+            <br /><br />
+            Género:
+            <select name="genero">
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+            </select>
+            <br /><br />
+            Email Principal:
+            <input type="email" name="email_principal">
+            <br /><br />
+            Estado Civil:
+            <select name="estado_civil">
+                <option value="soltero">Soltero</option>
+              <option value="casado">Casado</option>
+              <option value="divorciado">Divorciado</option>
+              <option value="Viudo">Viudo</option>
+            </select>
+            <br /><br /><br />
+            <h1 class="text-left" style="font-size:30px;">Datos Bomberiles:</h1>
+            <br />
+            Carnet:
+            <input type="number" min="0" max="9999999" name="carnet">
+            <br /><br />
+            Tipo de Sangre:
+            <select name="tipo_sangre">
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+            </select>
+            <br /><br />
+            <input type="submit" value="Registrar Usuario" class="bg-1">
+    </form>
+  </div>

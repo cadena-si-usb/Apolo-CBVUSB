@@ -1,76 +1,13 @@
 {{extend 'layout.html'}}
 
 <div class="container bg-0">
-	<h1 class="text-center" style="font-size:36px;">Registro de Nuevo Usuario</h1>
-	<br /><br />
+	<h1 class="text-center" style="font-size:36px;">Registro de nuevos usuarios</h1>
 	<div class="forms">
-		<form action="" method="POST" style="font-size:18px;">
-			<h1 class="text-left" style="font-size:30px;">Datos del Usuario:</h1>
-			<br />
-			Username:<br />
-			<input type="text" name="username">
-			<br /><br />
-			Password:<br />
-			<input type="password" name="password">
-			<br /><br />
-			<h1 class="text-left" style="font-size:30px;">Datos Personales:</h1>
-			<br />
-			Cédula:
-			<input type="number" name="cedula" min="0">
-			<br /><br />
-			Primer Nombre:
-			<input type="text" name="primer_nombre">
-			<br /><br />
-			Segundo Nombre:
-			<input type="text" name="segundo_nombre">
-			<br /><br />
-			Primer Apellido:
-			<input type="text" name="primer_apellido">
-			<br /><br />
-			Segundo Apellido:
-			<input type="text" name="segundo_apellido">
-			<br /><br />
-			Fecha de Nacimiento:
-			<input type="date" name="fecha_nacimiento">
-            <br /><br />
-            Lugar de Nacimiento:
-            <textarea name="lugar_nacimiento" rows="1" cols="20"></textarea>
-            <br /><br />
-            Género:
-            <select name="genero">
-                <option value="Femenino">Femenino</option>
-                <option value="Masculino">Masculino</option>
-            </select>
-            <br /><br />
-            Email Principal:
-            <input type="email" name="email_principal">
-            <br /><br />
-            Estado Civil:
-            <select name="estado_civil">
-                <option value="soltero">Soltero</option>
-            	<option value="casado">Casado</option>
-            	<option value="divorciado">Divorciado</option>
-            	<option value="Viudo">Viudo</option>
-            </select>
-            <br /><br /><br />
-            <h1 class="text-left" style="font-size:30px;">Datos Bomberiles:</h1>
-            <br />
-            Carnet:
-            <input type="number" min="0" max="9999999" name="carnet">
-            <br /><br />
-            Tipo de Sangre:
-            <select name="tipo_sangre">
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-            </select>
-            <br /><br />
-            <input type="submit" value="Registrar Usuario" class="bg-1">
-		</form>
-	</div>
+        <h1 class="text-left" style="font-size:30px;">Datos del usuario:</h1>
+            {{=formUsuario}}
+        <h1 class="text-left" style="font-size:30px;">Datos personales:</h1>
+            {{=formPersona}}
+        <h1 class="text-left" style="font-size:30px;">Datos bomberiles:</h1>
+            {{=formBombero}}
+    </div>
 </div>

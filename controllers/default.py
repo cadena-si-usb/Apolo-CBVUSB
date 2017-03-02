@@ -42,7 +42,7 @@ def user():
     return dict(form=auth())
 
 def perfilth():
-    usuario = db(db.persona.id==str(4)).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+    usuario = db(db.persona.id==str(1)).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
     
     return dict(usuario=usuario)
 
@@ -51,79 +51,38 @@ def perfilmodth():
     form = SQLFORM(db.persona)
 
     if form.process(session=None, formname='test').accepted:
-        response.flash = 'form accepted'
+        response.flash = 'La modificación fue exitosa.'
     elif form.errors:
-        response.flash = 'form has errors'
+        response.flash = 'La modificación fue errónea.'
     else:
-        response.flash = 'please fill the form'
+        response.flash = 'Complete el formulario de modificación.'
 
     return dict(form=form)
 
 def registrousrth():
 
-    #form = SQLFORM.factory(
-    #    db.usuario,
-    #    db.persona,
-    #    db.bombero)
+    exito = True
 
-    username = request.vars.getlist("username")
-    password = request.vars.getlist("password")
-    cedula = request.vars.getlist("cedula")
-    primer_nombre = request.vars.getlist("primer_nombre")
-    segundo_nombre = request.vars.getlist("segundo_nombre")
-    primer_apellido = request.vars.getlist("primer_apellido")
-    segundo_apellido = request.vars.getlist("segundo_apellido")
-    fecha_nacimiento = request.vars.getlist("fecha_nacimiento")
-    lugar_nacimiento = request.vars.getlist("lugar_nacimiento")
-    genero = request.vars.getlist("genero")
-    email_principal = request.vars.getlist("email_principal")
-    estado_civil = request.vars.getlist("estado_civil")
-    carnet = request.vars.getlist("carnet")
-    tipo_sangre = request.vars.getlist("tipo_sangre")
+    formUsuario = SQLFORM(db.usuario)
+    formPersona = SQLFORM(db.persona)
+    formBombero = SQLFORM(db.bombero)
 
-    if (username == [] or password == [] or cedula == [] or 
-        primer_nombre == [] or segundo_nombre == [] or primer_apellido == [] or 
-        segundo_apellido == [] or fecha_nacimiento == [] or 
-        lugar_nacimiento == [] or genero == [] or email_principal == [] or 
-        estado_civil == [] or carnet == [] or tipo_sangre == []):
+    if (formUsuario.process(session=None, formname='Usuario').accepted and
+        formPersona.process(session=None, formname='Persona').accepted and
+        formBombero.process(session=None, formname='Bombero').accepted):
         pass
-    elif (username[0] == "" or password[0] == "" or cedula[0] == "" or 
-        primer_nombre[0] == "" or segundo_nombre[0] == "" or 
-        primer_apellido[0] == "" or segundo_apellido[0] == "" or 
-        fecha_nacimiento[0] == "" or lugar_nacimiento[0] == "" or 
-        genero[0] == "" or email_principal[0] == "" or estado_civil[0] == "" or 
-        carnet[0] == "" or tipo_sangre[0] == ""):
-        pass
+    elif formUsuario.errors or formPersona.errors or formBombero.errors:
+        exito = False
+
+    if exito:
+        response.flash = '¡El usuario '+str(formUsuario)+' ha sido registrado exitosamente!'
     else:
-        db.usuario.insert(
-                            username=username[0], 
-                            password=password[0])
-        db.persona.insert(
-                            cedula=int(cedula[0]), 
-                            primer_nombre=primer_nombre[0], 
-                            segundo_nombre=segundo_nombre[0], 
-                            primer_apellido=primer_apellido[0], 
-                            segundo_apellido=segundo_apellido[0], 
-                            fecha_nacimiento=fecha_nacimiento[0], 
-                            lugar_nacimiento=lugar_nacimiento[0], 
-                            genero=genero[0], 
-                            email_principal=email_principal[0], 
-                            estado_civil=estado_civil[0])
-        usuario = db(db.usuario.username==username[0]).select(db.usuario.id)[0]
-        id_usuario = usuario.id
-        persona = db(db.persona.cedula==cedula[0]).select(db.persona.id)[0]
-        id_persona = persona.id
-        db.bombero.insert(
-                            carnet=int(carnet[0]), 
-                            tipo_sangre=tipo_sangre[0], 
-                            id_persona=id_persona, 
-                            id_usuario=id_usuario)
+        response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
-    return dict()
+    return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
 
 def buscarth():
     busqueda = request.vars.getlist("buscar")
-    boolean = True
     
     if busqueda != [] :
         # Busca por iniciales, nombres, apellidos y username, sin importar que la palabra este en mayuscula o minuscula
@@ -143,10 +102,9 @@ def buscarth():
                                                 (db.bombero.id == db.usuario.id)),
                             distinct=db.persona.id)
     else:
-        boolean = False
         tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
-    return dict(tabla=tabla,boolean=boolean)
+    return dict(tabla=tabla)
     
 @cache.action()
 def download():

@@ -56,7 +56,7 @@ db.persona.lugar_nacimiento.requires = IS_MATCH('^\w+$', error_message='Debe con
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')
-db.persona.estado_civil.requires = IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='Debe ser uno de los casos válidos')
+db.persona.estado_civil.requires = IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')
 
 db.bombero.carnet.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 db.bombero.iniciales.requires = IS_LENGTH(minsize=2,maxsize=4)
