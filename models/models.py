@@ -58,15 +58,11 @@ db.define_table('servicio',
     migrate="db.servicio")
 
 db.define_table('condicion',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
         Field('tipo', type='string', required=True, notnull=True),
         Field('descripcion', type='string', notnull=True),
         migrate="db.condicion")
 
 db.define_table('rango',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
         Field('nombre', type='string', required=True, notnull=True),
         Field('tipo', type='string', notnull=True),
         Field('abreviatura', type='string', notnull=True),
@@ -81,8 +77,6 @@ db.define_table('asciende',
         migrate="db.asciende")
 
 db.define_table('condecoracion',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
         Field('nombre', type='string', required=True, notnull=True),
         Field('descripcion', type='string', notnull=True),
         migrate="db.condecoracion")
@@ -94,6 +88,46 @@ db.define_table('otorgada',
         Field('fecha', type='date', notnull=True),
         Field('documento', type='string', notnull=True),
         migrate="db.otorgada")
+
+db.define_table('curso',
+        Field('nombre', type='string', required=True, notnull=True),
+        Field('horas', type='integer', notnull=True),
+        migrate="db.curso")
+
+db.define_table('estudio',
+        Field('nombre', type='string', required=True, notnull=True),
+        Field('nivel', type='string', notnull=True),
+        migrate="db.estudio")
+
+db.define_table('completo',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('estudio', type='reference estudio', required=True, notnull=True),
+        Field('fechaInicio', type='date', notnull=True),
+        Field('fechaFin', type='date', notnull=True),
+        migrate="db.completo")
+
+db.define_table('asiste',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('curso', type='reference estudio', required=True, notnull=True),
+        Field('fecha', type='date', notnull=True),
+        Field('imagen', type='string', notnull=True),
+        migrate="db.asiste")
+
+db.define_table('escuela',
+                Field('nombre', type='string', required=True, notnull=True),
+                migrate="db.escuela")
+
+db.define_table('dicta',
+        Field('escuela', type='reference escuela', required=True, notnull=True),
+        Field('curso', type='reference curso', required=True, notnull=True),
+        migrate="db.dicta")
+
+db.define_table('ofrece',
+        Field('escuela', type='reference escuela', required=True, notnull=True),
+        Field('estudio', type='reference estudio', required=True, notnull=True),
+        migrate="db.dicta")
 
 # REQUIRES de la DB
 db.usuario.username.requires = IS_ALPHANUMERIC(error_message='Debe contener únicamente caracteres alfanuméricos')
@@ -118,7 +152,39 @@ db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
+db.direccion.direccion_tipo = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.direccion.direccion_ciudad = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+
 db.servicio.fechaCreacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.servicio.fechaFinalizacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.servicio.fechaLlegada.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 
+db.condicion.tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+#Falta IN_SET tipos de condicion
+db.condicion.descripcion.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+
+db.rango.tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+#Falta IN_SET tipos de condicion
+db.rango.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.rango.abreviatura.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+
+db.asciende.fecha.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+
+db.condecoracion.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+#Falta IN_SET tipos de condicion
+db.condecoracion.descripcion.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+
+db.otorgada.fecha.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+
+db.curso.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.curso.horas.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
+
+db.estudio.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.estudio.nivel.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+
+db.completo.fechaInicio.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.completo.fechaFin.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+
+db.asiste.fecha.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+
+db.escuela.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
