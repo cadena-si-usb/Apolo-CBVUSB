@@ -19,6 +19,21 @@ db.define_table('persona',
         Field('email_alternativo', type='string'),
         Field('estado_civil', type='string', notnull=True),
         migrate="db.persona")
+
+db.define_table('numero',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('codigo_telefono', type='integer', length=4, notnull=True),
+        Field('numero_telefono', type='integer', length=7, notnull=True),
+        migrate="db.numero")
+
+db.define_table('direccion',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('direccion_descripcion', type='string', notnull=True),
+        Field('direccion_tipo', type='string', notnull=True),
+         Field('direccion_ciudad', type='string', notnull=True),
+        migrate="db.direccion")
         
 db.define_table('bombero', 
         Field('carnet', type='integer', required=True, notnull=True, unique=True),
@@ -42,6 +57,44 @@ db.define_table('servicio',
     Field('tipo'),
     migrate="db.servicio")
 
+db.define_table('condicion',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('tipo', type='string', required=True, notnull=True),
+        Field('descripcion', type='string', notnull=True),
+        migrate="db.condicion")
+
+db.define_table('rango',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('nombre', type='string', required=True, notnull=True),
+        Field('tipo', type='string', notnull=True),
+        Field('abreviatura', type='string', notnull=True),
+        migrate="db.rango")
+
+db.define_table('asciende',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('rango', type='reference rango', required=True, notnull=True),
+        Field('fecha', type='date', notnull=True),
+        Field('documento', type='string', notnull=True),
+        migrate="db.asciende")
+
+db.define_table('condecoracion',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('nombre', type='string', required=True, notnull=True),
+        Field('descripcion', type='string', notnull=True),
+        migrate="db.condecoracion")
+
+db.define_table('otorgada',
+        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+        Field('condecoracion', type='reference condecoracion', required=True, notnull=True),
+        Field('fecha', type='date', notnull=True),
+        Field('documento', type='string', notnull=True),
+        migrate="db.otorgada")
+
 # REQUIRES de la DB
 db.usuario.username.requires = IS_ALPHANUMERIC(error_message='Debe contener únicamente caracteres alfanuméricos')
 db.usuario.password.requires = IS_MATCH('')
@@ -64,3 +117,8 @@ db.bombero.tipo_sangre.requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
+
+db.servicio.fechaCreacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.servicio.fechaFinalizacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.servicio.fechaLlegada.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+
