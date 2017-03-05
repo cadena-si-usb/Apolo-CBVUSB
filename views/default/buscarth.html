@@ -13,6 +13,7 @@
         </form>
     </div>
     <br /><br />
+    {{if len(tabla)>0:}}
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
 		<table class="table table-bordered table-hover">
 			<tr valign="center" align="center">
@@ -32,5 +33,6 @@
 			</tr>
 			{{pass}}
 		</table>
-	</div>      
+	</div>
+	{{pass}}      
 </div>
