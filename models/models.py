@@ -1,8 +1,8 @@
 db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
 db.define_table('usuario', 
-		Field('username', type='string', length=24, required=True, notnull=True, unique=True),
-		Field('password', type='password', length=24, required=True, notnull=True),
+		Field('username', type='string', length=24, unique=True),
+		Field('password', type='password', length=24),
 		migrate="db.usuario")
 
 db.define_table('persona',
@@ -130,8 +130,12 @@ db.define_table('ofrece',
 		migrate="db.ofrece")
 
 # REQUIRES de la DB
-db.usuario.username.requires = IS_ALPHANUMERIC(error_message='Debe contener únicamente caracteres alfanuméricos')
-db.usuario.password.requires = IS_MATCH('')
+db.usuario.username.requires = IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
+																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
+																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.\n\n')
+db.usuario.password.requires = IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe:'+
+																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.\n\n')
 
 db.persona.cedula.requires = IS_MATCH('^[VE]-\d+$', error_message='Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX')
 db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
