@@ -156,6 +156,56 @@ def registrousrth():
 
     return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
 
+#buttons=[A("Siguiente",_class='btn',_href=URL("default","registrousrth2",args=[formPersona])]
+def registrousrth1():
+
+    formPersona = SQLFORM.factory(db.usuario, db.persona)
+
+    if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+        response.flash = '¡El usuario '+str(formPersona)+' ha sido registrado exitosamente!'
+        id_usuario=db.usuario.insert(**db.usuario._filter_fields(formPersona.vars))
+        formPersona.vars.persona=id_usuario
+        id_persona=db.persona.insert(**db.persona._filter_fields(formPersona.vars))
+        redirect(URL("default","registrousrth2",args=[id_usuario,id_persona]))
+    elif formPersona.errors:
+        response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
+
+    return dict(formPersona=formPersona)
+
+def registrousrth2():
+
+    id_usuario=int(request.args[0])
+    id_persona=int(request.args[1])
+
+    formBombero = SQLFORM.factory(
+            Field('carnet', type='integer', unique=True, requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
+            Field('iniciales', type='string', requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))),
+            Field('tipo_sangre', type='string', requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
+            )
+
+    if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
+        #response.flash = '¡El usuario '+str(formBombero.vars[carnet])+' ha sido registrado exitosamente!'
+        id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
+        redirect(URL("default","registrousrth_final",args=request.args+[formBombero.vars]))
+    elif formBombero.errors:
+        response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
+
+    return dict(formBombero=formBombero)
+
+def registrousrth_final():
+    return dict()
+
+def eliminarusrth():
+    if request.args:
+        userid = request.args[0]
+        db(db.persona.id==userid).delete()
+
+    tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+
+    if len(tabla) == 0:
+        response.flash = 'No hay usuarios en el sistema.'
+
+    return dict(tabla=tabla)
 
 def buscarth():
     # Importamos la libreria de expresiones regulares

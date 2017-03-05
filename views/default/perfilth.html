@@ -11,7 +11,8 @@
             <!-- Nombre del usuario -->
             <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
             <br />
-            <div><span>SuperUser | Bombero</span></div>
+            <!-- Cargo dentro de la organizacion | Rango -->
+            <h4>Administrador | Bombero</h4>
         </div>
     </div>
     <br /><br />
@@ -77,16 +78,20 @@
         </div>
     <br /><br />
     <div class="col-xs-12">
-        <div class="table-resposive">
-            <h3>Datos académicos</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3>Datos académicos</h3></div>
             <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Profesión:</td>
+                    <td>-</td>
+                </tr>
             </table>
         </div>
         </div>
     <br /><br />
     <div class="col-xs-12">
-        <div class="table-resposive">
-            <h3>Datos bomberiles</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3>Datos de bombero</h3></div>
             <table class="table table-bordered table-hover">
                 <tr>
                     <td>Condición:</td>
@@ -105,14 +110,9 @@
         </div>
     <br /><br />
     <div class="col-xs-12">
-        <div class="table-resposive">
-            <h3>Ascensos</h3>
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <td>Puntaje:</td>
-                    <td>987</td>
-                </tr>
-            </table>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3>Ascensos</h3></div>
+            <div class="panel-body">Puntaje: 987</div>
             <table class="table table-bordered table-hover">
                 <tr>
                     <td>Rango actual:</td>
@@ -122,29 +122,29 @@
                 </tr> 
                 <tr>
                     <td>Rango anterior:</td>
-                    <td>Rojo</td>
+                    <td>Estudiante</td>
                     <td>Fecha de ascenso:</td>
                     <td>2010</td>
                 </tr>
             </table>
-            <td><a href="#">Ver más</a></td>
+            <div class="panel-footer"><a href="#">Ver más</a></div>
     </div>
     </div>
     <div class="col-xs-12">
-        <div class="table-resposive">
-            <h3>Premiaciones</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3>Premiaciones</h3></div>
             <table class="table table-bordered table-hover">
             </table>
-            <td><a href="#">Ver más</a></td>
+            <div class="panel-footer"><a href="#">Ver más</a></div>
     </div>
     </div>
     <br /><br />
     <div class="col-xs-12">
-        <div class="table-resposive">
-            <h3>Actividades</h3>
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3>Actividades</h3></div>
             <table class="table table-bordered table-hover">
             </table>
-            <td><a href="#">Ver más</a></td>
+            <div class="panel-footer"><a href="#">Ver más</a></div>
     </div>
     </div>
 </main>
