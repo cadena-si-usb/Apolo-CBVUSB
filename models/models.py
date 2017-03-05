@@ -130,12 +130,13 @@ db.define_table('ofrece',
 		migrate="db.ofrece")
 
 # REQUIRES de la DB
-db.usuario.username.requires = IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
+db.usuario.username.requires = [IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
 																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
-																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.\n\n')
+																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
+								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')
 db.usuario.password.requires = IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe:'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.\n\n')
+																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.')
 
 db.persona.cedula.requires = IS_MATCH('^[VE]-\d+$', error_message='Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX')
 db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
