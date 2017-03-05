@@ -1,14 +1,14 @@
 /*####################
-  Global
+Global
 #####################*/
 
 * {
   font-family: 'Roboto', serif;
-  font-size: 9pt;
+  font-size: 14pt;
 }
 
 /*####################
-  Varios
+Varios
 #####################*/
 
 .bottom-space-separator {
@@ -20,7 +20,7 @@
 }
 
 /*####################
- Imágenes
+Imágenes
 #####################*/
 
 .img-center {
@@ -28,7 +28,7 @@
 }
 
 /*####################
- Barra de navegación
+Barra de navegación
 #####################*/
 
 .navbar .navbar-nav {
@@ -44,6 +44,7 @@
   background: black;
   position: relative;
   z-index: 1;
+  font-size: 12px !important;
   line-height: 1.42857143 !important;
   letter-spacing: 4px;
   border: 0px solid transparent;
@@ -52,7 +53,7 @@
 }
 
 .nav a{
-  font-size: .9em !important;
+  font-size: 0.9em !important;
 }
 
 .navbar li a,   {
@@ -79,7 +80,7 @@
 }
 
 /*####################
- Varios
+Varios
 #####################*/
 
 /* Fondo blanco con letras negras */
@@ -114,7 +115,7 @@
 }
 
 /*####################
- Carousel
+Carousel
 #####################*/
 
 .carousel {
@@ -124,15 +125,50 @@
 }
 
 .carousel .item img {
-    width: 100%;
-    max-height: 700px;
-    min-height: 250px;
+  width: 100%;
+  max-height: 700px;
+  min-height: 250px;
 }
 
 /*####################
- Iconos de servicios
+Iconos de servicios
 #####################*/
 
+
+.wrapper {
+  background: #111111;
+  display:block;
+  width:300px;
+  height:300px;
+
+  color:#FFD740;
+
+  line-height: 300px;
+  text-align: center;
+  border-radius: 20px;
+
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.wrapper:hover {
+  background-color: #000000;
+  color:#FF3D00;
+  color:#0D47A1; /*elimina esta linea y vive la experiencia naranja*/
+}
+
+.text {
+  font-family: 'Monoton', cursive;
+  font-size: 40px;
+
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+/*
+ESTO YA NO LO USA EL TEAM PYRONY, HABRA QUE VER SI NO LES JODEMOS NADA A NOS
 .services-item{
   margin:0 0 15px;
   right:0;
@@ -159,94 +195,94 @@
 .services-item .services-link .caption:hover{
   opacity:1;
 }
-/*
+
 .services-item .services-link .caption .caption-content{
-  position:absolute;
-  width:100%;
-  height:20px;
-  font-size:20px;
-  text-align:center;
-  top:50%;
-  margin-top:-12px;
-  color:white;
+position:absolute;
+width:100%;
+height:20px;
+font-size:20px;
+text-align:center;
+top:50%;
+margin-top:-12px;
+color:white;
 }
 
 .services-item .services-link .caption .caption-content i{
-  margin-top:-12px;
+margin-top:-12px;
 }
 
 .services-item .services-link .caption .caption-content h3, .services-item .services-link .caption .caption-content h4{
-  margin:0;
+margin:0;
 }
 
 @media (min-width: 767px) {
-  .services-item{
-    margin:0 0 30px;
-  }
+.services-item{
+margin:0 0 30px;
+}
 }
 
 .services-modal .modal-content{
-  border-radius:0;
-  background-clip:border-box;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  border:none;
-  min-height:100%;
-  padding:100px 0;
-  text-align:center;
+border-radius:0;
+background-clip:border-box;
+-webkit-box-shadow:none;
+box-shadow:none;
+border:none;
+min-height:100%;
+padding:100px 0;
+text-align:center;
 }
 
 .services-modal .modal-content h2{
-  margin:0;
-  font-size:3em;
+margin:0;
+font-size:3em;
 }
 
 .services-modal .modal-content img{
-  margin-bottom:30px;
+margin-bottom:30px;
 }
 
 .services-modal .modal-content .item-details{
-  margin:30px 0;
+margin:30px 0;
 }
 
 .services-modal .close-modal{
-  position:absolute;
-  width:75px;
-  height:75px;
-  background-color:transparent;
-  top:25px;
-  right:25px;
-  cursor:pointer;
+position:absolute;
+width:75px;
+height:75px;
+background-color:transparent;
+top:25px;
+right:25px;
+cursor:pointer;
 }
 
 .services-modal .close-modal:hover{
-  opacity:0.3;
+opacity:0.3;
 }
 
 .services-modal .close-modal .lr{
-  height:75px;
-  width:1px;
-  margin-left:35px;
-  background-color:#2C3E50;
-  transform:rotate(45deg);
-  -ms-transform:rotate(45deg);
-  -webkit-transform:rotate(45deg);
-  z-index:1051;
+height:75px;
+width:1px;
+margin-left:35px;
+background-color:#2C3E50;
+transform:rotate(45deg);
+-ms-transform:rotate(45deg);
+-webkit-transform:rotate(45deg);
+z-index:1051;
 }
 
 .services-modal .close-modal .lr .rl{
-  height:75px;
-  width:1px;
-  background-color:#2C3E50;
-  transform:rotate(90deg);
-  -ms-transform:rotate(90deg);
-  -webkit-transform:rotate(90deg);
-  z-index:1052;
+height:75px;
+width:1px;
+background-color:#2C3E50;
+transform:rotate(90deg);
+-ms-transform:rotate(90deg);
+-webkit-transform:rotate(90deg);
+z-index:1052;
 }
 
 .services-modal .modal-backdrop{
-  opacity:0;
-  display:none;
+opacity:0;
+display:none;
 }*/
 
 .form-textbox{
