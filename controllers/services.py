@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from gluon.serializers import json
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de "Mis servicios"
@@ -40,31 +41,6 @@ def msdraft():
     #servicios = db(db.bombero.carnet == bombero_carnet)._select()
     #return dict(servicios=servicios)
 
-    # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
-    if request.env.request_method == 'POST':
-    
-        tipoServicio = request.vars['tipo'] 
-        fechaCreacion = request.vars['fechaCreacion']
-        fechaLlegada = request.vars['fechaLlegada']
-        fechaFinalizacion = request.vars['fechaFinalizacion']
-        descripcionServicio = request.vars['descripcion']
-        localizacionServicio = request.vars['localizacion']
-    
-        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
-        redirect(URL('services','index.html'))
-
-    else:
-        # Obtener ID de ultimo servicio registrado
-        # ID de nuevo servicio sera ultimo ID + 1
-        ultimoServicioId = db.servicio.id.max()
-        ultimoServicioId = db().select(ultimoServicioId).first()[ultimoServicioId]
-        
-        # Caso especial para 1er servicio registrado
-        if ultimoServicioId is None:
-            ultimoServicioId = 0
-
-        return dict(nuevoServicioId=ultimoServicioId + 1)
-
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
     services = db().select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
@@ -105,6 +81,11 @@ def deleteService():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Vista principal de "Servicios"
+def services():
+    services = db().select(orderby=~db.servicio.fechaCreacion)
+    return dict(services=services)
+
+# Vista principal de "Servicios"
 def index(): return dict()
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -120,7 +101,6 @@ def search(): return dict()
 
 # Vista principal de "Registrar servicio"
 def register():
-
     # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
     if request.env.request_method == 'POST':
 
@@ -134,7 +114,27 @@ def register():
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
         redirect(URL('services','index.html'))
 
-    return dict()
+    else:
+        # Obtener ID de ultimo servicio registrado
+        # ID de nuevo servicio sera ultimo ID + 1
+        ultimoServicioId = db.servicio.id.max()
+        ultimoServicioId = db().select(ultimoServicioId).first()[ultimoServicioId]
+
+        # Caso especial para 1er servicio registrado
+        if ultimoServicioId is None:
+            ultimoServicioId = 0
+
+        # Obtener nombres de bomberos para autocompletado de registro de comisiones
+        bomberos = db(db.bombero.id_persona == db.persona.id).select()
+        nombreBomberos = list()
+        for bombero in bomberos:
+            nombreBomberos.append(  bombero.persona.primer_nombre    + " " +\
+                                    bombero.persona.segundo_nombre   + " " +\
+                                    bombero.persona.primer_apellido  + " " +\
+                                    bombero.persona.segundo_apellido)
+
+        return dict(nuevoServicioId=ultimoServicioId + 1, nombreBomberos=nombreBomberos)
+
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Otras funciones
@@ -157,4 +157,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
