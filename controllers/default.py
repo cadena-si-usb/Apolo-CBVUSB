@@ -197,8 +197,12 @@ def registrousrth_final():
 
 def eliminarusrth():
     if request.args:
-        userid = request.args[0]
-        db(db.persona.id==userid).delete()
+        id_persona = int(request.args[0])
+        print id_persona
+        bombero = db(db.bombero.id_persona==id_persona).select(db.bombero.id_usuario).first()
+        id_usuario = bombero.id_usuario
+        db(db.persona.id==id_persona).delete()
+        db(db.usuario.id==id_usuario).delete()
 
     tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
