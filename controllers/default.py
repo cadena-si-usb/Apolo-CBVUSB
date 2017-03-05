@@ -2,12 +2,22 @@
 # this file is released under public domain and you can use without limitations
 #psql -U cbvusb -h localhost -W
 
+import re
+
 # -------------------------------------------------------------------------
 # This is a sample controller
 # - index is the default action of any application
 # - user is required for authentication and authorization
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
+
+def limpiarErroresDB():
+
+	usuariosSueltos = db(db.no_completado).select()
+
+	for row in usuariosSueltos:
+		db(db.persona.id==row.id_persona).delete()
+		db(db.usuario.id==row.id_usuario).delete()
 
 def index():
 	"""
@@ -17,9 +27,11 @@ def index():
 	if you need a simple wiki simply replace the two lines below with:
 	return auth.wiki()
 	"""
+	limpiarErroresDB()
 	return dict()
 
 def indexno():
+	limpiarErroresDB()
 	return dict()
 
 def user():
@@ -42,17 +54,19 @@ def user():
 
 def perfilth():
 
+	limpiarErroresDB()
 	if request.args:
 		userid = int(request.args[0])
 	else:
 		userid = str(1)
 
-	usuario = db(db.persona.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+	usuario = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 	
 	return dict(usuario=usuario)
 
 def perfilmodth():
 
+	limpiarErroresDB()
 	userid = str(1)
 
 	form = SQLFORM.factory(
@@ -125,18 +139,6 @@ def perfilmodth():
 		)
 
 	if form.process(session=None, formname='perfilmod', keepvalues=True).accepted:
-
-		"""db(db.persona.id==userid).update(fecha_nacimiento=form.vars.fecha_nacimiento)
-		db(db.persona.id==userid).update(primer_nombre=form.vars.primer_nombre)
-		db(db.persona.id==userid).update(segundo_nombre=form.vars.segundo_nombre)
-		db(db.persona.id==userid).update(primer_apellido=form.vars.primer_apellido)
-		db(db.persona.id==userid).update(segundo_apellido=form.vars.segundo_apellido)
-		db(db.persona.id==userid).update(email_principal=form.vars.email_principal)
-		db(db.persona.id==userid).update(email_alternativo=form.vars.email_alternativo)
-		db(db.persona.id==userid).update(imagen=form.vars.imagen)
-		db(db.persona.id==userid).update(estado_civil=form.vars.estado_civil)
-		db(db.persona.id==userid).update(lugar_nacimiento=form.vars.lugar_nacimiento)
-		db(db.persona.id==userid).update(genero=form.vars.genero)"""
 		db(db.persona.id==userid).update(**db.persona._filter_fields(form.vars))
 
 	elif form.errors:
@@ -225,13 +227,18 @@ def registrousrth():
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
 def registrousrth1():
-
+	limpiarErroresDB()
 	formPersona = SQLFORM.factory(db.usuario, db.persona)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+		
 		id_usuario=db.usuario.insert(**db.usuario._filter_fields(formPersona.vars))
 		formPersona.vars.persona=id_usuario
+		
 		id_persona=db.persona.insert(**db.persona._filter_fields(formPersona.vars))
+		
+		db.no_completado.insert(id_persona=id_persona,id_usuario=id_usuario)
+		
 		redirect(URL("default","registrousrth2",args=[id_usuario,id_persona]))
 
 	elif formPersona.errors:
@@ -252,7 +259,7 @@ def registrousrth2():
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		redirect(URL("default","registrousrth_final",args=request.args+[formBombero.vars]))
+		redirect(URL("default","registrousrth_final",args=request.args+[id_bombero]))
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
@@ -261,9 +268,11 @@ def registrousrth2():
 
 # Deseable: Que me muestre el nombre del usuario en el mensaje final
 def registrousrth_final():
+	limpiarErroresDB()
 	return dict()
 
 def eliminarusrth():
+	limpiarErroresDB()
 	if request.args:
 		
 		id_persona = int(request.args[0])
@@ -282,10 +291,8 @@ def eliminarusrth():
 	return dict(tabla=tabla)
 
 def buscarth():
-	# Importamos la libreria de expresiones regulares
-	import re
-
 	# Busqueda suministrada por el usuario
+	limpiarErroresDB()
 	busqueda = request.vars.getlist("buscar")
 	error = False
 

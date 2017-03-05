@@ -1,8 +1,45 @@
+from gluon.tools import Auth, Service, PluginManager
+from gluon.contrib.login_methods.ldap_auth import ldap_auth
+
 db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
+auth = Auth(db, host_names=myconf.get('host.names'))
+auth.define_tables(username=True, signature=False)
+service = Service()
+plugins = PluginManager()
+
+auth.settings.login_methods.append(ldap_auth(
+	server='localhost',
+	base_dn='ou=Users,dc=login,dc=com',
+	manage_user=True,
+	user_firstname_attrib='cn:1',
+	user_lastname_attrib='cn:2',
+	user_mail_attrib='mail',
+	manage_groups=True,
+	db=db,
+	group_dn='ou=Groups,dc=domain,dc=com',
+	group_name_attrib='cn',
+	group_member_attrib='memberUid',
+	group_filterstr='objectClass=*'))
+
+# -------------------------------------------------------------------------
+# create all tables needed by auth if not custom tables
+# -------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------
+# configure email
+# -------------------------------------------------------------------------
+mail = auth.settings.mailer
+mail.settings.server = 'logging' if request.is_local else myconf.get('smtp.server')
+mail.settings.sender = myconf.get('smtp.sender')
+mail.settings.login = myconf.get('smtp.login')
+mail.settings.tls = myconf.get('smtp.tls') or False
+mail.settings.ssl = myconf.get('smtp.ssl') or False
+
+# auth.enable_record_versioning(db)
 db.define_table('usuario', 
-	Field('username', type='string', length=24, unique=True),
-	Field('password', type='password', length=24),
+	Field('username', type='string', length=512, unique=True),
+	Field('password', type='password', readable=False, length=512),
 	migrate="db.usuario")
 
 db.define_table('persona',
@@ -19,6 +56,11 @@ db.define_table('persona',
 	Field('email_alternativo', type='string'),
 	Field('estado_civil', type='string', notnull=True),
 	migrate="db.persona")
+
+db.define_table('no_completado',
+	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
+	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+	migrate="db.no_completado")
 
 db.define_table('numero',
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
@@ -135,9 +177,10 @@ db.usuario.username.requires = [IS_MATCH('^\w{6,16}', error_message='El nombre d
 																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
 								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]
 
-db.usuario.password.requires = IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe:'+
+db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe:'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.')
+																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
+								CRYPT()]
 
 db.persona.cedula.requires = IS_MATCH('^[VE]-\d+$', error_message='Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX')
 db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
