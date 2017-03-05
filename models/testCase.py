@@ -19,8 +19,8 @@ def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,ca
         imagen_perfil = I,
         iniciales = inic,
         tipo_sangre = tipoS,
-        id_persona = id_persona[0],
-        id_usuario = id_usuario[0])
+        id_persona = id_persona[len(id_persona)-1],
+        id_usuario = id_usuario[len(id_persona)-1])
 
 def insertarServicio(fechaCreacion,fechaFinalizacion,fechaLlegada,descripcion,localizacion,tipo):
     db.servicio.insert(
@@ -34,7 +34,7 @@ def insertarServicio(fechaCreacion,fechaFinalizacion,fechaLlegada,descripcion,lo
         tipo = tipo)
 
 def testCase():
-    insertarBombero('gsalazar',1234,24655445,'Gerson','A.','Salazar','P.','1971/01/01','Cumana','Masculino','Gerson.jpg','blah@bleh.com','blah@blah.com','Casado',1310147,'O RH-','GS')
+    insertarBombero('gsalazar',1234,24444444,'Gerson','A.','Salazar','P.','1971/01/01','Cumana','Masculino','Gerson.jpg','blah@bleh.com','blah@blah.com','Casado',1311347,'O RH-','GS')
 
     insertarServicio('2017/01/03 12:35','2017/01/03 16:45','2017/01/03 16:45','Incendio edificio QYP.','USB, QYP.','IDE')
     insertarServicio('2017/01/11 15:20','2017/01/11 17:55','2017/01/11 17:55','Derrame de sustancias tóxicas en entrada de laboratorio de QYP.','USB, QYP, piso 2, lab 2A','MP')
