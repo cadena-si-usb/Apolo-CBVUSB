@@ -8,9 +8,9 @@
     <li class="active">Mis servicios</li>
   </ol>
   <ul class="nav nav-pills">
-    <li class="active"><a href="{{=URL('services','myservices.html')}}">Todos</a></li>
+    <li><a href="{{=URL('services','myservices.html')}}">Todos</a></li>
     <li><a href="{{=URL('services','msapproved.html')}}">Aprobados</a></li>
-    <li><a href="{{=URL('services','mspending.html')}}">Pendentes por aprobación</a></li>
+    <li class="active"><a href="{{=URL('services','mspending.html')}}">Pendentes por aprobación</a></li>
     <li><a href="{{=URL('services','msdraft.html')}}">Borradores</a></li>
     <li><a href="{{=URL('services','register.html')}}">Registrar</a></li>
   </ul>
@@ -20,7 +20,6 @@
     <div class="table-responsive">
       <table class= "table table-hover">
         <tr>
-          <th>ID</th>
           <th>Tipo</th>
           <th>Descripción</th>
           <th>Localización</th>
@@ -28,8 +27,7 @@
           <th>Fin</th>
         </tr>
         {{for row in services:}}
-        <tr class='clickable-row' data-href='http://www.google.com'>
-          <td>{{=row.id}}</td>
+        <tr class='clickable-row' data-href='#'>
           <td>{{=row.tipo}}</td>
           <td>{{=row.descripcion}}</td>
           <td>{{=row.localizacion}}</td>
