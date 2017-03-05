@@ -8,6 +8,18 @@
 }
 
 /*####################
+  Varios
+#####################*/
+
+.bottom-space-separator {
+  margin-bottom: 1em;
+}
+
+.top-space-separator {
+  margin-top: 1em;
+}
+
+/*####################
  Imágenes
 #####################*/
 
@@ -30,7 +42,8 @@
 
 .navbar {
   background: black;
-  z-index: 9999;
+  position: relative;
+  z-index: 1;
   font-size: 12px !important;
   line-height: 1.42857143 !important;
   letter-spacing: 4px;
@@ -165,10 +178,6 @@
 
 .services-item .services-link .caption .caption-content h3, .services-item .services-link .caption .caption-content h4{
   margin:0;
-}
-
-*{
-  z-index:2;
 }
 
 @media (min-width: 767px) {
