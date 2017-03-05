@@ -9,7 +9,6 @@
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
 
-
 def index():
     """
     example action using the internationalization operator T and flash
@@ -43,7 +42,13 @@ def user():
     return dict(form=auth())
 
 def perfilth():
-    usuario = db(db.persona.id==str(4)).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+
+    if request.args:
+        userid = request.args[0]
+    else:
+        userid = str(1)
+
+    usuario = db(db.persona.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
     
     return dict(usuario=usuario)
 
@@ -67,22 +72,22 @@ def perfilmodth():
         db(db.persona.cedula==form.vars.cedula).update(genero=form.vars.genero)
 
     elif form.errors:
-        response.flash = 'form has errors'
-
-
+        response.flash = 'Hay un error en un campo'
         
     else:
-        response.flash = 'please fill the form'
+        response.flash = 'Debe completar todos los campos'
 
     return dict(form=form)
 
 def registrousrth():
 
-    #form = SQLFORM.factory(
-    #    db.usuario,
-    #    db.persona,
-    #    db.bombero)
+    """
+    form = SQLFORM.factory(
+        db.usuario,
+        db.persona,
+        db.bombero)
 
+    
     username = request.vars.getlist("username")
     password = request.vars.getlist("password")
     cedula = request.vars.getlist("cedula")
@@ -137,10 +142,30 @@ def registrousrth():
                             id_usuario=id_usuario)
 
     return dict()
+    """
+    exito = True
+
+    formUsuario = SQLFORM(db.usuario)
+    formPersona = SQLFORM(db.persona)
+    formBombero = SQLFORM(db.bombero)
+
+    if (formUsuario.process(session=None, formname='Usuario').accepted and
+        formPersona.process(session=None, formname='Persona').accepted and
+        formBombero.process(session=None, formname='Bombero').accepted):
+        pass
+    elif formUsuario.errors or formPersona.errors or formBombero.errors:
+        exito = False
+
+    if exito:
+        response.flash = '¡El usuario '+str(formUsuario)+' ha sido registrado exitosamente!'
+    else:
+        response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
+
+    return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
+
 
 def buscarth():
     busqueda = request.vars.getlist("buscar")
-    boolean = True
     
     if busqueda != [] :
         # Busca por iniciales, nombres, apellidos y username, sin importar que la palabra este en mayuscula o minuscula
@@ -160,10 +185,9 @@ def buscarth():
                                                 (db.bombero.id == db.usuario.id)),
                             distinct=db.persona.id)
     else:
-        boolean = False
         tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
-    return dict(tabla=tabla,boolean=boolean)
+    return dict(tabla=tabla)
     
 @cache.action()
 def download():

@@ -28,7 +28,7 @@
 			    <td>{{=row.persona.cedula}}</td>
 	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
 	            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
-			    <td><a href="#">Ver perfil</a></td>
+			    <td><a href="{{=URL('default','perfilth',args=[str(row.bombero.id)])}}">Ver perfil</a></td>
 			</tr>
 			{{pass}}
 		</table>

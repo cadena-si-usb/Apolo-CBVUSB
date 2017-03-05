@@ -1,133 +1,133 @@
 db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
 db.define_table('usuario', 
-        Field('username', type='string', length=24, required=True, notnull=True, unique=True),
-        Field('password', type='password', length=24, required=True, notnull=True),
-        migrate="db.usuario")
+		Field('username', type='string', length=24, required=True, notnull=True, unique=True),
+		Field('password', type='password', length=24, required=True, notnull=True),
+		migrate="db.usuario")
 
 db.define_table('persona',
-        Field('cedula', type='string', unique=True),
-        Field('primer_nombre', type='string', required=True, notnull=True),
-        Field('segundo_nombre', type='string'),
-        Field('primer_apellido', type='string', required=True, notnull=True),
-        Field('segundo_apellido', type='string', notnull=True),
-        Field('fecha_nacimiento', type='date', notnull=True),
-        Field('lugar_nacimiento', type='string', notnull=True),
-        Field('genero', type='string', notnull=True),
-        Field('imagen', type='text'),
-        Field('email_principal', type='string', notnull=True),
-        Field('email_alternativo', type='string'),
-        Field('estado_civil', type='string', notnull=True),
-        migrate="db.persona")
+		Field('cedula', type='string', unique=True),
+		Field('primer_nombre', type='string', required=True, notnull=True),
+		Field('segundo_nombre', type='string'),
+		Field('primer_apellido', type='string', required=True, notnull=True),
+		Field('segundo_apellido', type='string', notnull=True),
+		Field('fecha_nacimiento', type='date', notnull=True),
+		Field('lugar_nacimiento', type='string', notnull=True),
+		Field('genero', type='string', notnull=True),
+		Field('imagen', type='text'),
+		Field('email_principal', type='string', notnull=True),
+		Field('email_alternativo', type='string'),
+		Field('estado_civil', type='string', notnull=True),
+		migrate="db.persona")
 
 db.define_table('numero',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-        Field('codigo_telefono', type='integer', length=4, notnull=True),
-        Field('numero_telefono', type='integer', length=7, notnull=True),
-        migrate="db.numero")
+		Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+		Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+		Field('codigo_telefono', type='integer', length=4, notnull=True),
+		Field('numero_telefono', type='integer', length=7, notnull=True),
+		migrate="db.numero")
 
 db.define_table('direccion',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-        Field('direccion_descripcion', type='string', notnull=True),
-        Field('direccion_tipo', type='string', notnull=True),
-         Field('direccion_ciudad', type='string', notnull=True),
-        migrate="db.direccion")
-        
+		Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+		Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+		Field('direccion_descripcion', type='string', notnull=True),
+	Field('direccion_tipo', type='string', notnull=True),
+	Field('direccion_ciudad', type='string', notnull=True),
+	migrate="db.direccion")
+		
 db.define_table('bombero', 
-        Field('carnet', type='integer', required=True, notnull=True, unique=True),
-        Field('imagen_perfil', type='text'),
-        Field('iniciales', type='string'),
-        Field('tipo_sangre', type='string', required=True),
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-        Field('hijos', type='integer', default=0),
-        migrate="db.bombero")
+	Field('carnet', type='integer', required=True, notnull=True, unique=True),
+	Field('imagen_perfil', type='text'),
+	Field('iniciales', type='string'),
+	Field('tipo_sangre', type='string', required=True),
+	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
+	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+	Field('hijos', type='integer', default=0),
+	migrate="db.bombero")
 
 db.define_table('servicio',
-    Field('Registra','reference bombero',notnull = True),
-    Field('Borrador','boolean',default = True,notnull = True),
-    Field('Aprueba','reference bombero'),
-    Field('fechaCreacion','datetime'),
-    Field('fechaFinalizacion','datetime'),
-    Field('fechaLlegada','datetime'),
-    Field('descripcion', type='string'),
-    Field('localizacion', type='string'),
-    Field('tipo'),
-    migrate="db.servicio")
+	Field('Registra','reference bombero',notnull = True),
+	Field('Borrador','boolean',default = True,notnull = True),
+	Field('Aprueba','reference bombero'),
+	Field('fechaCreacion','datetime'),
+	Field('fechaFinalizacion','datetime'),
+	Field('fechaLlegada','datetime'),
+	Field('descripcion', type='string'),
+	Field('localizacion', type='string'),
+	Field('tipo'),
+	migrate="db.servicio")
 
 db.define_table('condicion',
-        Field('tipo', type='string', required=True, notnull=True),
-        Field('descripcion', type='string', notnull=True),
-        migrate="db.condicion")
+		Field('tipo', type='string', required=True, notnull=True),
+		Field('descripcion', type='string', notnull=True),
+		migrate="db.condicion")
 
 db.define_table('rango',
-        Field('nombre', type='string', required=True, notnull=True),
-        Field('tipo', type='string', notnull=True),
-        Field('abreviatura', type='string', notnull=True),
-        migrate="db.rango")
+		Field('nombre', type='string', required=True, notnull=True),
+		Field('tipo', type='string', notnull=True),
+		Field('abreviatura', type='string', notnull=True),
+		migrate="db.rango")
 
 db.define_table('asciende',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-        Field('rango', type='reference rango', required=True, notnull=True),
-        Field('fecha', type='date', notnull=True),
-        Field('documento', type='string', notnull=True),
-        migrate="db.asciende")
+		Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+		Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+		Field('rango', type='reference rango', required=True, notnull=True),
+		Field('fecha', type='date', notnull=True),
+		Field('documento', type='string', notnull=True),
+		migrate="db.asciende")
 
 db.define_table('condecoracion',
-        Field('nombre', type='string', required=True, notnull=True),
-        Field('descripcion', type='string', notnull=True),
-        migrate="db.condecoracion")
+		Field('nombre', type='string', required=True, notnull=True),
+		Field('descripcion', type='string', notnull=True),
+		migrate="db.condecoracion")
 
 db.define_table('otorgada',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-        Field('condecoracion', type='reference condecoracion', required=True, notnull=True),
-        Field('fecha', type='date', notnull=True),
-        Field('documento', type='string', notnull=True),
-        migrate="db.otorgada")
+		Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+		Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+		Field('condecoracion', type='reference condecoracion', required=True, notnull=True),
+		Field('fecha', type='date', notnull=True),
+		Field('documento', type='string', notnull=True),
+		migrate="db.otorgada")
 
 db.define_table('curso',
-        Field('nombre', type='string', required=True, notnull=True),
-        Field('horas', type='integer', notnull=True),
-        migrate="db.curso")
+		Field('nombre', type='string', required=True, notnull=True),
+		Field('horas', type='integer', notnull=True),
+		migrate="db.curso")
 
 db.define_table('estudio',
-        Field('nombre', type='string', required=True, notnull=True),
-        Field('nivel', type='string', notnull=True),
-        migrate="db.estudio")
+		Field('nombre', type='string', required=True, notnull=True),
+		Field('nivel', type='string', notnull=True),
+		migrate="db.estudio")
 
 db.define_table('completo',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-        Field('estudio', type='reference estudio', required=True, notnull=True),
-        Field('fechaInicio', type='date', notnull=True),
-        Field('fechaFin', type='date', notnull=True),
-        migrate="db.completo")
+		Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+		Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+		Field('estudio', type='reference estudio', required=True, notnull=True),
+		Field('fechaInicio', type='date', notnull=True),
+		Field('fechaFin', type='date', notnull=True),
+		migrate="db.completo")
 
 db.define_table('asiste',
-        Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-        Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-        Field('curso', type='reference estudio', required=True, notnull=True),
-        Field('fecha', type='date', notnull=True),
-        Field('imagen', type='string', notnull=True),
-        migrate="db.asiste")
+		Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+		Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+		Field('curso', type='reference estudio', required=True, notnull=True),
+		Field('fecha', type='date', notnull=True),
+		Field('imagen', type='string', notnull=True),
+		migrate="db.asiste")
 
 db.define_table('escuela',
-        Field('nombre', type='string', required=True, notnull=True),
-        migrate="db.escuela")
+		Field('nombre', type='string', required=True, notnull=True),
+		migrate="db.escuela")
 
 db.define_table('dicta',
-        Field('escuela', type='reference escuela', required=True, notnull=True),
-        Field('curso', type='reference curso', required=True, notnull=True),
-        migrate="db.dicta")
+		Field('escuela', type='reference escuela', required=True, notnull=True),
+		Field('curso', type='reference curso', required=True, notnull=True),
+		migrate="db.dicta")
 
 db.define_table('ofrece',
-        Field('escuela', type='reference escuela', required=True, notnull=True),
-        Field('estudio', type='reference estudio', required=True, notnull=True),
-        migrate="db.ofrece")
+		Field('escuela', type='reference escuela', required=True, notnull=True),
+		Field('estudio', type='reference estudio', required=True, notnull=True),
+		migrate="db.ofrece")
 
 # REQUIRES de la DB
 db.usuario.username.requires = IS_ALPHANUMERIC(error_message='Debe contener únicamente caracteres alfanuméricos')
