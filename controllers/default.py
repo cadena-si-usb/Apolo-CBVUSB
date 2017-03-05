@@ -45,7 +45,7 @@ def perfilth():
     if request.args:
         userid = request.args[0]
     else:
-        userid = str(1)
+        userid = str(2)
 
     usuario = db(db.persona.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
     

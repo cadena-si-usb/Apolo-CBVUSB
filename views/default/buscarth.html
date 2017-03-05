@@ -14,7 +14,7 @@
     </div>
     <br /><br />
     {{if len(tabla)>0:}}
-	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
+	<div class="panel panel-default"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
 		<table class="table table-bordered table-hover">
 			<tr valign="center" align="center">
 		        <th class="text-center">Carnet</th>
@@ -27,8 +27,16 @@
 			<tr valign="center" align="center">
 			    <td>{{=row.bombero.carnet}}</td>
 			    <td>{{=row.persona.cedula}}</td>
+			    {{if row.persona.segundo_nombre != None:}}
 	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
+	            {{else:}}
+	            <td>{{=row.persona.primer_nombre}}</td>
+	            {{pass}}
+	            {{if row.persona.segundo_apellido != None:}}
 	            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
+	            {{else:}}
+	            <td>{{=row.persona.primer_apellido}}</td>
+	            {{pass}}
 			    <td><a href="{{=URL('default','perfilth',args=[str(row.bombero.id)])}}">Ver perfil</a></td>
 			</tr>
 			{{pass}}
