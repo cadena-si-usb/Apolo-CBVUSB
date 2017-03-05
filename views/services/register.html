@@ -1,6 +1,12 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
+{{block head}}
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+{{end}}
+
+<body>
 <!-- container principal -->
 <div class="container">
   <ol class="breadcrumb">
@@ -102,7 +108,7 @@
             <h3 id="t_Comision1">Comisión #1</h3>
           </div>
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group ui-widget">
               <label for="commissionBoss">Jefe de comisión</label>
               <input type="text" class="form-control" id="commissionBoss" placeholder="Don Quijote">
             </div>
@@ -274,8 +280,16 @@
 </form>
 </div>
 
-<!-- Validar form de registro de servicio -->
-<script src="{{=URL('static','js/services/register.js')}}"></script>
-
 <!-- Google Maps -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
+
+{{block page_js}}
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    {{=ASSIGNJS(nombres = nombreBomberos)}}
+    </script>
+  <script src="{{=URL('static','js/services/register.js')}}"></script>         <!-- Script para form de registro de servicio -->
+{{end}}
+
+</body>
