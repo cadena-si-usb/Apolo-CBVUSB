@@ -15,9 +15,7 @@ def register():
 
     # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
     if request.env.request_method == 'POST':
-        
-        print request.vars['id']
-
+    
         tipoServicio = request.vars['tipo'] 
         fechaCreacion = request.vars['fechaCreacion']
         fechaLlegada = request.vars['fechaLlegada']
