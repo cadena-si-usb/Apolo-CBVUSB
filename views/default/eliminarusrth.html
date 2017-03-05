@@ -4,8 +4,8 @@
     <h1 class="text-center">Eliminar usuarios</h1>
     <br /><br />
     {{if len(tabla)>0:}}
-	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="table table-bordered table-hover">
+	<div class="panel panel-primary"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
+		<table class="table table-bordered">
 			<tr valign="center" align="center">
 		        <th class="text-center">Carnet</th>
 			    <th class="text-center">Cédula</th>
@@ -17,8 +17,16 @@
 			<tr valign="center" align="center">
 			    <td>{{=row.bombero.carnet}}</td>
 			    <td>{{=row.persona.cedula}}</td>
+			    {{if row.persona.segundo_nombre != None:}}
 	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
+	            {{else:}}
+	            <td>{{=row.persona.primer_nombre}}</td>
+	            {{pass}}
+	            {{if row.persona.segundo_apellido != None:}}
 	            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
+	            {{else:}}
+	            <td>{{=row.persona.primer_apellido}}</td>
+	            {{pass}}
 			    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Eliminar</a></td>
 			</tr>
 			{{pass}}

@@ -9,7 +9,15 @@
         </div>
         <div class="col-xs-12 col-sm-6">
             <!-- Nombre del usuario -->
+            {{if usuario[0].persona.segundo_nombre == None and usuario[0].persona.segundo_apellido == None:}}
+            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.primer_apellido}}</h1>
+            {{elif usuario[0].persona.segundo_nombre == None and usuario[0].persona.segundo_apellido != None:}}
+            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
+            {{elif usuario[0].persona.segundo_nombre != None and usuario[0].persona.segundo_apellido == None:}}
+            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}}</h1>
+            {{elif usuario[0].persona.segundo_nombre != None and usuario[0].persona.segundo_apellido != None:}}
             <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
+            {{pass}}
             <br />
             <!-- Cargo dentro de la organizacion | Rango -->
             <h4>Administrador | Bombero</h4>

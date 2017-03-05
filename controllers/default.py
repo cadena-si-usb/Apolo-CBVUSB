@@ -43,9 +43,11 @@ def user():
 def perfilth():
 
     if request.args:
-        userid = request.args[0]
+        userid = int(request.args[0])
     else:
         userid = str(1)
+
+    print userid
 
     usuario = db(db.persona.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
     
@@ -53,10 +55,9 @@ def perfilth():
 
 def perfilmodth():
 
-    form = SQLFORM(db.persona)
+    form = SQLFORM.factory(db.persona)
     if form.process(session=None, formname='test').accepted:
         response.flash = 'form accepted'
-                #hay que cambiar db(db.persona.cedula==form.vars.cedula) por db.bombero.id_usuario para usos practicos 
 
         db(db.persona.cedula==form.vars.cedula).update(fecha_nacimiento=form.vars.fecha_nacimiento)
         db(db.persona.cedula==form.vars.cedula).update(primer_nombre=form.vars.primer_nombre)
@@ -72,9 +73,6 @@ def perfilmodth():
 
     elif form.errors:
         response.flash = 'Hay un error en un campo'
-        
-    else:
-        response.flash = 'Debe completar todos los campos'
 
     return dict(form=form)
 
@@ -151,22 +149,22 @@ def registrousrth():
         formPersona.process(session=None, formname='Persona').accepted and
         formBombero.process(session=None, formname='Bombero').accepted):
         response.flash = '¡El usuario '+str(formUsuario)+' ha sido registrado exitosamente!'
+
     elif formUsuario.errors or formPersona.errors or formBombero.errors:
         response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
     return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
 
-#buttons=[A("Siguiente",_class='btn',_href=URL("default","registrousrth2",args=[formPersona])]
 def registrousrth1():
 
     formPersona = SQLFORM.factory(db.usuario, db.persona)
 
     if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
-        response.flash = '¡El usuario '+str(formPersona)+' ha sido registrado exitosamente!'
         id_usuario=db.usuario.insert(**db.usuario._filter_fields(formPersona.vars))
         formPersona.vars.persona=id_usuario
         id_persona=db.persona.insert(**db.persona._filter_fields(formPersona.vars))
         redirect(URL("default","registrousrth2",args=[id_usuario,id_persona]))
+
     elif formPersona.errors:
         response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
@@ -184,21 +182,28 @@ def registrousrth2():
             )
 
     if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
-        #response.flash = '¡El usuario '+str(formBombero.vars[carnet])+' ha sido registrado exitosamente!'
         id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
         redirect(URL("default","registrousrth_final",args=request.args+[formBombero.vars]))
+
     elif formBombero.errors:
         response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
     return dict(formBombero=formBombero)
 
+# Deseable: Que me muestre el nombre del usuario en el mensaje final
 def registrousrth_final():
     return dict()
 
 def eliminarusrth():
     if request.args:
-        userid = request.args[0]
-        db(db.persona.id==userid).delete()
+        
+        id_persona = int(request.args[0])
+        
+        if not db(db.persona.id==id_persona).isempty():
+            bombero = db(db.bombero.id_persona==id_persona).select(db.bombero.id_usuario).first()
+            id_usuario = bombero.id_usuario
+            db(db.persona.id==id_persona).delete()
+            db(db.usuario.id==id_usuario).delete()
 
     tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
