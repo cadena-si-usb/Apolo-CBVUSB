@@ -156,6 +156,14 @@ def registrousrth():
 
     return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
 
+def registrousrth1():
+    return dict()
+
+def registrousrth2():
+    return dict()
+
+def registrousrth_final():
+    return dict()
 
 def buscarth():
     # Importamos la libreria de expresiones regulares
