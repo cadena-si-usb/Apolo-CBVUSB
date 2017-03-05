@@ -30,7 +30,7 @@
   <!-- Barra de navegación -->
       <div>
         <!-- Banner -->
-        <a href="{{=URL('default','index')}}"><img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner"></a>
+        <a href="{{=URL('default','index')}}" title="Ir al inicio"><img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner"></a>
 
         <nav class="navbar navbar-default navbar-static-top" role="navigation"><div class="container-fluid">
           <div class="navbar-header">
@@ -80,16 +80,16 @@
           </div>
         </div></nav>
       </div>
-
+    
+    <!-- Mensajes de error -->
     {{if response.flash:}}
-    <div class="w2p_flash">
+    <div class="w2p_flash.error alert alert-danger" align="center">
       {{=response.flash}}
     </div>
     {{pass}}
-
+    
     <div style="padding-bottom: 2%; padding-top: 2%;">
-
-    {{include}}
+      {{include}}
     </div>
 
     <!-- Footer -->
