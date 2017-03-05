@@ -45,7 +45,7 @@ def perfilth():
     if request.args:
         userid = request.args[0]
     else:
-        userid = str(2)
+        userid = str(4)
 
     usuario = db(db.persona.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
     
@@ -198,7 +198,7 @@ def registrousrth_final():
 def eliminarusrth():
     if request.args:
         userid = request.args[0]
-        db(db.persona.id==userid).delete()
+        db(db.persona.id==userid).delete()        
 
     tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
