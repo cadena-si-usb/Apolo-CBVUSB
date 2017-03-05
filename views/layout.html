@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto" type="text/css">         <!-- Importar fuente Roboto -->
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>                           <!-- Importar stylesheet de bootstrap -->
     <link rel="stylesheet" href="{{=URL('static','css/custom.css')}}"/>                                  <!-- Importar stylesheet propio -->
+
+    <link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>                                  <!-- Importar stylesheet propio -->
+
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
@@ -103,6 +106,8 @@
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
     <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
     <script src="{{=URL('static','js/custom.js')}}"></script>
+    <script src="{{=URL('static','js/remodal.min.js')}}"></script>
+    <script src="{{=URL('static','js/sweetalert.min.js')}}"></script>
 
     {{block page_js}}{{end page_js}}
     {{if response.google_analytics_id:}}
