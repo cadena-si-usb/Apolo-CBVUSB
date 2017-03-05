@@ -116,8 +116,8 @@ db.define_table('asiste',
         migrate="db.asiste")
 
 db.define_table('escuela',
-                Field('nombre', type='string', required=True, notnull=True),
-                migrate="db.escuela")
+        Field('nombre', type='string', required=True, notnull=True),
+        migrate="db.escuela")
 
 db.define_table('dicta',
         Field('escuela', type='reference escuela', required=True, notnull=True),
@@ -127,19 +127,19 @@ db.define_table('dicta',
 db.define_table('ofrece',
         Field('escuela', type='reference escuela', required=True, notnull=True),
         Field('estudio', type='reference estudio', required=True, notnull=True),
-        migrate="db.dicta")
+        migrate="db.ofrece")
 
 # REQUIRES de la DB
 db.usuario.username.requires = IS_ALPHANUMERIC(error_message='Debe contener únicamente caracteres alfanuméricos')
 db.usuario.password.requires = IS_MATCH('')
 
 db.persona.cedula.requires = IS_MATCH('^[VE]-\d+$', error_message='Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX')
-db.persona.primer_nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
-db.persona.segundo_nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
-db.persona.primer_apellido.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
-db.persona.segundo_apellido.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+db.persona.segundo_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+db.persona.segundo_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
 db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
-db.persona.lugar_nacimiento.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.persona.lugar_nacimiento.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')
@@ -152,8 +152,8 @@ db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
-db.direccion.direccion_tipo = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
-db.direccion.direccion_ciudad = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.direccion.direccion_tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.direccion.direccion_ciudad.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
 
 db.servicio.fechaCreacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.servicio.fechaFinalizacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
