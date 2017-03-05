@@ -9,7 +9,7 @@ $(document).ready(function(){
   var $unidadPrefab = $unidad.clone();
 
   $(".clickable-row").click(function() {
-      window.location = $(this).data("href");
+    window.location = $(this).data("href");
   });
 
   $('#instanceComision').click(function(){
@@ -36,26 +36,48 @@ $(document).ready(function(){
     // get the last DIV which ID starts with ^= "comisionPrefab"
     $unidad = $('div[id^="i_Unidad"]:last');
     $unidad.prop('id', 'i_Unidad'+num);
+    //$(this).hide();
 
   });
 
-    //al hacer click en anadir unidad, instacia y
-    // anexa una nueva comision vacia al formulario
-    //#instanciarUnidad es el id del primer boton "anadir unidad"
-    $('#instanciarUnidad').click(function(){
+  //al hacer click en anadir unidad, instacia y
+  // anexa una nueva comision vacia al formulario
+  //#instanciarUnidad es el id del primer boton "anadir unidad"
+  $('#instanciarUnidad').click(function(){
 
-      // get the last DIV which ID starts with ^= "comisionPrefab"
-      // obtiene la ultima unidad, pero de todas las que esten instanciadas,
-      // eg. puede corresponder a otra comision
-      $unidad = $('div[id^="i_Unidad"]:last');
-      var num = parseInt( $unidad.prop("id").match(/\d+/g), 10 ) +1;
-      var $unidadPrefab2 = $unidadPrefab.clone();
+    // get the last DIV which ID starts with ^= "comisionPrefab"
+    // obtiene la ultima unidad, pero de todas las que esten instanciadas,
+    // eg. puede corresponder a otra comision
+    $unidad = $('div[id^="i_Unidad"]:last');
+    var num = parseInt( $unidad.prop("id").match(/\d+/g), 10 ) +1;
+    var $unidadPrefab2 = $unidadPrefab.clone();
 
-      //var src = $('#i_Unidad'+num); no sirve
-      var src = $('#i_Unidad'+1);
+    //var src = $('#i_Unidad'+num); no sirve
+    var src = $('#i_Unidad'+1);
 
-      // Assign the new ID (i.e: from num 4 to ID "comisionPrefab4")
-      $unidadPrefab2.prop('id', 'i_Unidad'+num);
-      $unidadPrefab2.appendTo(src);
-    });
+    // Assign the new ID (i.e: from num 4 to ID "comisionPrefab4")
+    $unidadPrefab2.prop('id', 'i_Unidad'+num);
+    $unidadPrefab2.appendTo(src);
+  });
+
+  $('#btn-submit').on('click',function(e){
+      e.preventDefault();
+      var form = $('#registro');
+      swal({
+        title: "¿Estás seguro de enviar?",
+        text: "Asegúrate de haber llenado todos los campos pertinentes",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Si, enviar!",
+          closeOnConfirm: false,
+          html: false
+
+      }, function(isConfirm){
+          if (isConfirm) form.submit();
+          swal("Enviado!",
+          "Se ha registrado el servicio satisfatoriamente",
+          "success");
+      });
+  });
 });
