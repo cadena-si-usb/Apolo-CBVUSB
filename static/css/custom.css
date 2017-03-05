@@ -4,7 +4,7 @@
 
 * {
   font-family: 'Roboto', serif;
-  font-size: 14pt;
+  font-size: 9pt;
 }
 
 /*####################
@@ -44,7 +44,6 @@
   background: black;
   position: relative;
   z-index: 1;
-  font-size: 12px !important;
   line-height: 1.42857143 !important;
   letter-spacing: 4px;
   border: 0px solid transparent;
@@ -53,7 +52,7 @@
 }
 
 .nav a{
-  font-size: 0.9em !important;
+  font-size: .9em !important;
 }
 
 .navbar li a,   {
@@ -75,8 +74,8 @@
 }
 
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
-    color: white;
-    background-color: black;
+  color: white;
+  background-color: black;
 }
 
 /*####################

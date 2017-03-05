@@ -3,20 +3,18 @@
 
 <!-- Tabla de Servicios -->
 <div class="container-fluid">
-
   <ol class="breadcrumb">
     <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
-    <li class="active">Borradores</li>
+    <li class="active">Mis servicios</li>
   </ol>
-
-    <ul class="nav nav-pills">
-      <li><a href="{{=URL('services','services')}}">Todos</a></li>
-      <li class="active"><a href="{{=URL('services','myservices')}}">Mis servicios</a></li>
-      <li class="active"><a href="{{=URL('services','myservices')}}">Borradores</a></li>
-      <li><a href="{{=URL('services','register')}}">Registrar</a></li>
+  <ul class="nav nav-pills">
+    <li><a href="{{=URL('services','myservices.html')}}">Todos</a></li>
+    <li><a href="{{=URL('services','msapproved.html')}}">Aprobados</a></li>
+    <li><a href="{{=URL('services','mspending.html')}}">Pendentes por aprobación</a></li>
+    <li class="active"><a href="{{=URL('services','msdraft.html')}}">Borradores</a></li>
+    <li><a href="{{=URL('services','register.html')}}">Registrar</a></li>
   </ul>
-
-  <br />
+  <br/>
 
   <div class="col-xs-10">
     <div class="table-responsive">
@@ -29,7 +27,7 @@
           <th>Fin</th>
         </tr>
         {{for row in services:}}
-        <tr class='clickable-row' data-href='http://www.google.com'>
+        <tr class='clickable-row' data-href='#'>
           <td>{{=row.tipo}}</td>
           <td>{{=row.descripcion}}</td>
           <td>{{=row.localizacion}}</td>
