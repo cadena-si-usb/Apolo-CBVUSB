@@ -16,6 +16,8 @@ def register():
     # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
     if request.env.request_method == 'POST':
         
+        print request.vars['id']
+
         tipoServicio = request.vars['tipo'] 
         fechaCreacion = request.vars['fechaCreacion']
         fechaLlegada = request.vars['fechaLlegada']
@@ -30,8 +32,13 @@ def register():
         # Obtener ID de ultimo servicio registrado
         # ID de nuevo servicio sera ultimo ID + 1
         ultimoServicioId = db.servicio.id.max()
-        ultimoServicioId = db().select(ultimoServicioId).first()[ultimoServicioId] + 1
-        return dict(nuevoServicioId=ultimoServicioId)
+        ultimoServicioId = db().select(ultimoServicioId).first()[ultimoServicioId]
+        
+        # Caso especial para 1er servicio registrado
+        if ultimoServicioId is None:
+            ultimoServicioId = 0
+
+        return dict(nuevoServicioId=ultimoServicioId + 1)
 
 
 def services(): 

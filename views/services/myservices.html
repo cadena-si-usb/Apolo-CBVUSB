@@ -21,6 +21,7 @@
     <div class="table-responsive">
       <table class= "table table-hover">
         <tr>
+          <th>ID</th>
           <th>Tipo</th>
           <th>Descripción</th>
           <th>Localización</th>
@@ -29,6 +30,7 @@
         </tr>
         {{for row in services:}}
         <tr class='clickable-row' data-href='http://www.google.com'>
+          <td>{{=row.id}}</td>
           <td>{{=row.tipo}}</td>
           <td>{{=row.descripcion}}</td>
           <td>{{=row.localizacion}}</td>
