@@ -26,7 +26,12 @@ def register():
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
         redirect(URL('services','index.html'))
 
-    return dict()
+    else:
+        # Obtener ID de ultimo servicio registrado
+        # ID de nuevo servicio sera ultimo ID + 1
+        ultimoServicioId = db.servicio.id.max()
+        ultimoServicioId = db().select(ultimoServicioId).first()[ultimoServicioId] + 1
+        return dict(nuevoServicioId=ultimoServicioId)
 
 
 def services(): 
