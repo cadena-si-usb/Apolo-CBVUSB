@@ -25,7 +25,7 @@
   </ul>
 
   <!-- Tab Información Básica -->
-  <form role="form" action="" method="post" id="registro">
+  <form role="form" action="" method="post" id="registro" name="registro" onsubmit="return validateForm()">
     <div class="tab-content">
       <div class="tab-pane active" id="basicinfo" role="tabpanel">
         <div class="row">
@@ -68,13 +68,13 @@
           <input type="datetime-local" class="form-control" id="stadrtDate" name="fechaLlegada" />
         </div> -->
 
-        <div class="col-xs-12 col-sm-3">
-          <div class="form-group">
-            <label for="startDate">Fecha/hora de fin</label>
-            <input type="datetime-local" class="form-control" id="startDate" name="fechaFinalizacion" />
+          <div class="col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="endDate">Fecha/hora de fin</label>
+              <input type="datetime-local" class="form-control" id="endDate" name="fechaFinalizacion" />
+            </div>
           </div>
         </div>
-      </div>
 
       <div class="form-group">
         <label for="description">Descripción</label>
@@ -269,13 +269,16 @@
       <div class="row">
         <div class="col-xs-12">
           <p class=""><strong>¿Estás seguro de querer enviar?</strong> Asegúrate de haber llenado todos los campos pertinentes.</p>
-          <button type="submit" class="btn btn-default" form="registro" method="POST">Enviar</button>
+          <button type="submit" class="btn btn-default" form="registro" method="post">Enviar</button>
         </div>
       </div>
     </div>
   </div>
 </form>
 </div>
+
+<!-- Validar form de registro de servicio -->
+<script src="{{=URL('static','js/services/register.js')}}"></script>
 
 <!-- Google Maps -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
