@@ -17,8 +17,7 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Hello World")
-    return dict(message=T('Welcome to web2py!'))
+    return dict()
 
 def indexno():
     return dict()
@@ -165,26 +164,45 @@ def registrousrth():
 
 
 def buscarth():
+    # Importamos la libreria de expresiones regulares
+    import re
+
+    # Busqueda suministrada por el usuario
     busqueda = request.vars.getlist("buscar")
-    
-    if busqueda != [] :
-        # Busca por iniciales, nombres, apellidos y username, sin importar que la palabra este en mayuscula o minuscula
-        # ilike es case insensitive
+    error = False
+
+    if busqueda != []:
         palabra = str(busqueda[0]) + '%'
-        tabla = db(
-                    db.persona.primer_nombre.ilike(palabra)|
-                    db.persona.segundo_nombre.ilike(palabra)|
-                    db.persona.primer_apellido.ilike(palabra)|
-                    db.persona.segundo_apellido.ilike(palabra)|
-                    db.usuario.username.ilike(palabra)|
-                    db.bombero.iniciales.ilike(palabra)
-                    ).select(
-                            join=db.bombero.on(
-                                                (db.bombero.id_persona == db.persona.id) & 
-                                                (db.persona.id == db.usuario.id) & 
-                                                (db.bombero.id == db.usuario.id)),
-                            distinct=db.persona.id)
+        # Expresion regular de las palabras en castellano, sin simbolos y numeros.
+        regex = '[a-zA-ZñÑáéíóúÁÉÍÓÚ]+'
+        if re.match(regex,palabra):
+            # Query que busca todas las personas cuyo primer nombre, segundo nombre,
+            # primer apellido, segundo apellido o nombre de usuario coincidan con
+            # la busqueda suministrada por el usuario. Esta busqueda es case
+            # insensitive
+            tabla = db(
+                        db.persona.primer_nombre.ilike(palabra)|
+                        db.persona.segundo_nombre.ilike(palabra)|
+                        db.persona.primer_apellido.ilike(palabra)|
+                        db.persona.segundo_apellido.ilike(palabra)|
+                        db.usuario.username.ilike(palabra)|
+                        db.bombero.iniciales.ilike(palabra)
+                        ).select(
+                                join=db.bombero.on(
+                                                    (db.bombero.id_persona == db.persona.id) & 
+                                                    (db.persona.id == db.usuario.id) & 
+                                                    (db.bombero.id == db.usuario.id)),
+                                distinct=db.persona.id)
+
+            if len(tabla) == 0:
+                error = True
+        else:
+            error = True
     else:
+        tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+
+    if error:
+        response.flash = 'No hay registro para esta búsqueda.'
         tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 
     return dict(tabla=tabla)
