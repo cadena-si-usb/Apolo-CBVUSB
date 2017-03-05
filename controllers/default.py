@@ -156,10 +156,20 @@ def registrousrth():
 
     return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
 
+#buttons=[A("Siguiente",_class='btn',_href=URL("default","registrousrth2",args=[formPersona])]
 def registrousrth1():
+
+    formPersona = SQLFORM(db.usuario, db.persona, submit_button='Submit')
+
+    if formPersona.process(session=None, formname='Persona').accepted:
+
+
     return dict()
 
 def registrousrth2():
+
+    formBombero = SQLFORM(db.bombero)
+
     return dict()
 
 def registrousrth_final():
