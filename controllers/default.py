@@ -165,6 +165,13 @@ def registrousrth2():
 def registrousrth_final():
     return dict()
 
+def eliminarusrth():
+    tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+    if len(tabla) == 0:
+        response.flash = 'No hay usuarios en el sistema.'
+
+    return dict(tabla=tabla)
+
 def buscarth():
     # Importamos la libreria de expresiones regulares
     import re
