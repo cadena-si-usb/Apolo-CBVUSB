@@ -142,7 +142,6 @@ def registrousrth():
 
     return dict()
     """
-    exito = True
 
     formUsuario = SQLFORM(db.usuario)
     formPersona = SQLFORM(db.persona)
@@ -151,13 +150,8 @@ def registrousrth():
     if (formUsuario.process(session=None, formname='Usuario').accepted and
         formPersona.process(session=None, formname='Persona').accepted and
         formBombero.process(session=None, formname='Bombero').accepted):
-        pass
-    elif formUsuario.errors or formPersona.errors or formBombero.errors:
-        exito = False
-
-    if exito:
         response.flash = '¡El usuario '+str(formUsuario)+' ha sido registrado exitosamente!'
-    else:
+    elif formUsuario.errors or formPersona.errors or formBombero.errors:
         response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
     return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
