@@ -1,17 +1,7 @@
 {{extend 'layout.html'}}
 
 <div class="container bg-0">
-    <h1 class="text-center">Buscar</h1>
-    <br /><br />
-    <div align="center">
-        <!-- Navegador de busqueda -->
-        <form action="" method="POST">
-            <!-- Campo de busqueda-->
-            <input type="text" placeholder="Buscar..." name="buscar" style="font-size:16px;background-color:rgb(235,235,235);height:50px;width:auto;">
-            <!-- Boton de enviar en color azul -->
-            <input type="submit" class="bg-1" style="font-size:16px;background-color:rgb(51,173,255);height:50px;width:auto;" value="Enviar">
-        </form>
-    </div>
+    <h1 class="text-center">Eliminar usuarios</h1>
     <br /><br />
     {{if len(tabla)>0:}}
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
@@ -21,7 +11,7 @@
 			    <th class="text-center">Cédula</th>
 			    <th class="text-center">Nombre</th>
 			    <th class="text-center">Apellido</th>
-			    <th class="text-center">Perfil</th>
+			    <th class="text-center"></th>
 			</tr>
 			{{for row in tabla:}}
 			<tr valign="center" align="center">
@@ -29,10 +19,10 @@
 			    <td>{{=row.persona.cedula}}</td>
 	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
 	            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
-			    <td><a href="{{=URL('default','perfilth',args=[str(row.bombero.id)])}}">Ver perfil</a></td>
+			    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Eliminar</a></td>
 			</tr>
 			{{pass}}
 		</table>
 	</div>
-	{{pass}}      
+	{{pass}}    
 </div>
