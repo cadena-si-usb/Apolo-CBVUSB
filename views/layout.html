@@ -30,7 +30,7 @@
   <!-- Barra de navegación -->
       <div>
         <!-- Banner -->
-        <img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner">
+        <a href="{{=URL('default','index')}}"><img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner"></a>
 
         <nav class="navbar navbar-default navbar-static-top" role="navigation"><div class="container-fluid">
           <div class="navbar-header">
@@ -47,14 +47,15 @@
           <!-- FALTAN AGREGAR LOS HRER BIEN -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-              <li class="dropdown">
+              <li><a href="#">Educación</a></li>
+              <!--li class="dropdown">
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Educación<span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                < ul class="dropdown-menu">
                   <li><a href="{{=URL('default','index')}}">Cursos</a></li>
                   <li class="divider"></li>
                   <li><a href="{{=URL('default','index')}}">Servicio comunitario</a></li>
                 </ul>
-              </li>
+              </li-->
               <li class="dropdown">
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -67,6 +68,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a></li>
                   <li><a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a></li>
+                  <li><a href="{{=URL('default','registrousrth')}}">Registrar Usuario</a></li>
                   <li><a href="{{=URL('default','buscarth.html')}}">Buscar</a></li>
                 </ul>
               </li>
@@ -79,7 +81,16 @@
         </div></nav>
       </div>
 
+    {{if response.flash:}}
+    <div class="w2p_flash">
+      {{=response.flash}}
+    </div>
+    {{pass}}
+
+    <div style="padding-bottom: 2%; padding-top: 2%;">
+
     {{include}}
+    </div>
 
     <!-- Footer -->
     <footer class="footer bg-4">

@@ -1,143 +1,142 @@
 {{extend 'layout.html'}}
-{{=BEAUTIFY(response._vars)}}
 
 <main class="container bg-0">
     <div class="row">
         <!-- Foto del usuario-->
         <div class="col-xs-12 col-sm-6 text-center">
             <!-- Sacar imagen de BD -->
-            <img src="{{=URL('static','images/apolo.png')}}" width="200px" height="200px">
+            <img src="{{=URL('static','images/Apolo.jpg')}}" width="200px" height="200px">
         </div>
         <div class="col-xs-12 col-sm-6">
             <!-- Nombre del usuario -->
-            <h1 class="text-left"> Apolo </h1>
-            <div><span>SuperUser | <span class="text-danger">Retirado</span></span></div>
-            <div>Días de permiso restantes: <span class="text-warning">3</span></div>
+            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
+            <br />
+            <div><span>SuperUser | Bombero</span></div>
         </div>
     </div>
-
-
-    <h2>Información</h2>
-    <!-- Datos -->
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
-        <div class="table-responsive">
-            <h3>Datos Básicos</h3>
-            <table class="table table-condensed">
-              <tr>
-                <td>Cédula:</td>
-                <td>23.343.233</td>
-              </tr>
-              <tr>
-                <td>F. Nacimiento:</td>
-                <td>01/12/1994</td>
-              </tr>
-              <tr>
-                <td>Sexo:</td>
-                <td>Femenino</td>
-              </tr>
-              <tr>
-                <td>Sangre:</td>
-                <td>O Rh-</td>
-              </tr>
-              <tr>
-                <td>Hijos:</td>
-                <td>9</td>
-              </tr>
-            </table>
-        </div></div>
-        
-        <div class="col-xs-12 col-sm-6">
-        <div class="table-responsive">
-            <h3>Contacto</h3>
-            <table class="table table-condensed">
-              <tr>
-                <td>Celular:</td>
-                <td><a href="tel:+584244324323">0424-4324323</a></td>
-              </tr>
-              <tr>
-                <td>Casa:</td>
-                <td><a href="tel:+582124324323">0212-4324323</a></td>
-              </tr>
-              <tr>
-                <td>Trabajo:</td>
-                <td><a href="tel:+582124324323">0212-4324323</a></td>
-              </tr>
-              <tr>
-                <td>Email:</td>
-                <td><a href="mailto:lilpuppy@greeks.com">lilpuppy@greeks.com</a></td>
-              </tr>
-            </table>
-        </div></div>
-    </div>
-
-    <div class="row">
-        <!-- Ascenso -->
-        <div class="col-xs-12 col-sm-6">
-        <div class="table-responsive">
-            <h3>Ascensos</h3>
-            <table class="table table-condensed">
-              <tr>
-                <td>Jefe Supremo:</td>
-                <td>12 Febrero 2015</td>
-              </tr>
-              <tr>
-                <td>Campitán:</td>
-                <td>12 Enero 2014</td>
-              </tr>
-              <tr>
-                <td>Teniente:</td>
-                <td>03 Noviembre 2013</td>
-              </tr>
-              <tr>
-                <td>Bombero:</td>
-                <td>25 Febrero 2010</td>
-              </tr>
-            </table>
-        </div></div>
-
-        <!-- Premiaciones -->
-        <div class="col-xs-12 col-sm-6">
-        <div class="table-responsive">
-            <h3>Premiaciones</h3>
-            <table class="table table-condensed">
-              <tr>
-                <td>Mejor Bombero:</td>
-                <td>12 Febrero 2015</td>
-              </tr>
-              <tr>
-                <td>Best buddy:</td>
-                <td>12 Enero 2014</td>
-              </tr>
-              <tr>
-                <td>Garritas de Acero:</td>
-                <td>03 Noviembre 2013</td>
-              </tr>
-              <tr>
-                <td>Manchado de oro:</td>
-                <td>25 Febrero 2010</td>
-              </tr>
-            </table>
-            <a href="#">Ver más</a>
-        </div></div>
-    </div>
-
-
-    <div class="table-responsive">
-        <h3>Actividades</h3>
-        <table class="table table-condensed">
-          <tr>
-            <td>Artes marciales I</td>
-            <td>Combate</td>
-            <td>12/02/2003</td>
-          </tr>
-          <tr>
-            <td>Matpel XI</td>
-            <td>Matpel</td>
-            <td>12/02/2005</td>
-          </tr>
-        </table>
-        <a href="#">Ver más</a>
-    </div>
     
+    <div class="col-xs-12">
+        <div class="table-resposive">
+            <h3>Datos básicos</h3>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Cédula:</td>
+                    <td>{{=usuario[0].persona.cedula}}</td>
+                </tr> 
+                <tr>
+                    <td>Fecha de nacimiento:</td>
+                    <td>{{=usuario[0].persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
+                </tr>
+                <tr>
+                    <td>Sexo:</td>
+                    <td>{{=usuario[0].persona.genero}}</td>
+                </tr>
+                <tr>
+                    <td>Tipo de sangre:</td>
+                    <td>{{=usuario[0].bombero.tipo_sangre}}</td>
+                </tr>
+                <tr>
+                    <td>Hijos:</td>
+                    <td><a href="#">{{=usuario[0].bombero.hijos}}</a></td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    <br /><br />
+    <div class="col-xs-12">
+        <div class="table-resposive">
+            <h3>Datos de contacto</h3>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Celular:</td>
+                    <td>0416-5316622</td>
+                </tr> 
+                <tr>
+                    <td>Casa:</td>
+                    <td>0212-4836498</td>
+                </tr>
+                <tr>
+                    <td>Trabajo:</td>
+                    <td>0212-5559988</td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{=usuario[0].persona.email_principal}}</td>
+                </tr>
+                <tr>
+                    <td>Email alternativo:</td>
+                    {{if (usuario[0].persona.email_alternativo) != None:}}
+                    
+                    <td>{{=usuario[0].persona.email_alternativo}}</td>
+                    {{else:}}
+                    <td>-</td>
+                    {{pass}}
+                </tr>
+            </table>
+        </div>
+        </div>
+    <br /><br />
+    <div class="col-xs-12">
+        <div class="table-resposive">
+            <h3>Datos bomberiles</h3>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Condición:</td>
+                    <td>-</td>
+                </tr> 
+                <tr>
+                    <td>Días de Permiso:</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Horas de trabajo:</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    <br /><br />
+    <div class="col-xs-12">
+        <div class="table-resposive">
+            <h3>Ascensos</h3>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Puntaje:</td>
+                    <td>987</td>
+                </tr>
+            </table>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Rango actual:</td>
+                    <td>Bombero</td>
+                    <td>Fecha de ascenso:</td>
+                    <td>2015</td>
+                </tr> 
+                <tr>
+                    <td>Rango anterior:</td>
+                    <td>Rojo</td>
+                    <td>Fecha de ascenso:</td>
+                    <td>2010</td>
+                </tr>
+            </table>
+            <td><a href="#">Ver más</a></td>
+    </div>
+    </div>
+    <div class="col-xs-12">
+        <div class="table-resposive">
+            <h3>Premiaciones</h3>
+            <table class="table table-bordered table-hover">
+            </table>
+            <td><a href="#">Ver más</a></td>
+    </div>
+    </div>
+    <br /><br />
+    <div class="col-xs-12">
+        <div class="table-resposive">
+            <h3>Actividades</h3>
+            <table class="table table-bordered table-hover">
+            </table>
+            <td><a href="#">Ver más</a></td>
+    </div>
+    </div>
 </main>
