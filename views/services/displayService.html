@@ -28,33 +28,43 @@
   </ul>
 
   <!-- Tab Información Básica -->
-    <div class="tab-content">
-      <div class="tab-pane active" id="basicinfo" role="tabpanel">
-        <div class="row">
+  <div class="tab-content">
+    <div class="tab-pane active" id="basicinfo" role="tabpanel">
+      <div class="row">
           
-          <div class="col-xs-12">
-            <h2>Servicio <kbd>{{=service.id}}</kbd></h2>
-          </div>
-        
-          <div class="col-xs-12 col-sm-6">
-            <label>Tipo de Servicio</label>
-            <p>{{=service.tipo}}</p> 
-          </div>
-
-          <div class="col-xs-12 col-sm-3">
-              <label>Fecha/hora de inicio</label>
-              <p>{{=service.fechaCreacion}}</p> 
-          </div>
-
-          <!--
-          <label for="stadrtDate">Fecha y hora de llegada</label>
-          -->
-
-          <div class="col-xs-12 col-sm-3">
-              <label>Fecha/hora de fin</label>
-              <p>{{=service.fechaFinalizacion}}</p>
-          </div>
+        <div class="col-xs-6">
+          <h2>Servicio <kbd>{{=service.id}}</kbd></h2>
         </div>
+
+        <div class="col-xs-6 text-right">
+          {{if service.Borrador:}}
+            <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">
+              Editar servicio <span class="glyphicon glyphicon-edit"></span>
+            </a>
+          {{pass}}
+        </div>          
+      </div>
+        
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <label>Tipo de Servicio</label>
+          <p>{{=service.tipo}}</p> 
+        </div>
+
+        <div class="col-xs-12 col-sm-3">
+            <label>Fecha/hora de inicio</label>
+            <p>{{=service.fechaCreacion}}</p> 
+        </div>
+
+        <!--
+        <label for="stadrtDate">Fecha y hora de llegada</label>
+        -->
+
+        <div class="col-xs-12 col-sm-3">
+            <label>Fecha/hora de fin</label>
+            <p>{{=service.fechaFinalizacion}}</p>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-xs-12">
@@ -82,10 +92,12 @@
 
     <!-- Tab Comisiones -->
     <div class="tab-pane fade" id="commission" role="tabpanel">
+      <div><h2>Coming Soon...</h2></div>
     </div>
 
     <!-- Tab Afectados -->
     <div class="tab-pane fade" id="affected" role="tabpanel">
+      <div><h2>Coming Soon...</h2></div>
     </div>
 
   </div>

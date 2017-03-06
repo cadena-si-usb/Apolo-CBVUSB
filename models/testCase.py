@@ -22,13 +22,13 @@ def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,ca
         id_persona = id_persona[len(id_persona)-1],
         id_usuario = id_usuario[len(id_persona)-1])
 
-def insertarServicio(fechaCreacion,fechaFinalizacion,fechaLlegada,descripcion,localizacion,tipo):
+def insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcion,localizacion,tipo):
     db.servicio.insert(
         Registra = 1,
         Aprueba = 1,
         fechaCreacion = fechaCreacion,
-        fechaFinalizacion = fechaFinalizacion,
         fechaLlegada = fechaLlegada,
+        fechaFinalizacion = fechaFinalizacion,
         descripcion = descripcion,
         localizacion = localizacion,
         tipo = tipo)
