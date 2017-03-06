@@ -11,7 +11,6 @@ import re
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
 
-@auth.requires_login()
 def index():
 	"""
 	example action using the internationalization operator T and flash
@@ -284,7 +283,7 @@ def eliminarusrth():
 
 	return dict(tabla=tabla)
 
-@auth.requires_login()
+#@auth.requires_login()
 def buscarth():
 	# Busqueda suministrada por el usuario
 	busqueda = request.vars.getlist("buscar")
