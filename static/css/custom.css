@@ -134,6 +134,12 @@ Carousel
 Iconos de servicios
 #####################*/
 
+.service-item {
+  display: inline-block;
+  margin: 2px;
+  border: 0px solid transparent;
+}
+
 .wrapper {
   background: #111111;
   display:block;
@@ -313,4 +319,3 @@ display:none;
   background-position: 50% 50%;
   background-clip: padding-box;
 }
-
