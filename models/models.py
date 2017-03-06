@@ -4,23 +4,24 @@ from gluon.contrib.login_methods.ldap_auth import ldap_auth
 db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
 auth = Auth(db, host_names=myconf.get('host.names'))
+auth.settings.table_user_name = 'usuario'
 auth.define_tables(username=True, signature=False)
 service = Service()
 plugins = PluginManager()
 
-auth.settings.login_methods.append(ldap_auth(
-	server='localhost',
-	base_dn='ou=Users,dc=login,dc=com',
-	manage_user=True,
-	user_firstname_attrib='cn:1',
-	user_lastname_attrib='cn:2',
-	user_mail_attrib='mail',
-	manage_groups=True,
-	db=db,
-	group_dn='ou=Groups,dc=domain,dc=com',
-	group_name_attrib='cn',
-	group_member_attrib='memberUid',
-	group_filterstr='objectClass=*'))
+#auth.settings.login_methods.append(ldap_auth(
+#	server='localhost',
+#	base_dn='ou=Users,dc=login,dc=com',
+#	manage_user=True,
+#	user_firstname_attrib='cn:1',
+#	user_lastname_attrib='cn:2',
+#	user_mail_attrib='mail',
+#	manage_groups=True,
+#	db=db,
+#	group_dn='ou=Groups,dc=domain,dc=com',
+#	group_name_attrib='cn',
+#	group_member_attrib='memberUid',
+#	group_filterstr='objectClass=*'))
 
 #auth.settings.actions_disabled.append('register')
 
@@ -39,10 +40,12 @@ mail.settings.tls = myconf.get('smtp.tls') or False
 mail.settings.ssl = myconf.get('smtp.ssl') or False
 
 # auth.enable_record_versioning(db)
+"""
 db.define_table('usuario', 
 	Field('username', type='string', length=512, unique=True),
-	Field('password', type='password', readable=False, length=512),
+	Field('password', type='password', readable=False, length=512)
 	migrate="db.usuario")
+"""
 
 db.define_table('persona',
 	Field('cedula', type='string', unique=True),
@@ -81,6 +84,7 @@ db.define_table('bombero',
 	Field('tipo_sangre', type='string', required=True),
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
 	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
+	Field('cargo', type='string', notnull=True, default='Administrador'),
 	Field('hijos', type='integer', default=0),
 	migrate="db.bombero")
 
@@ -174,7 +178,7 @@ db.usuario.username.requires = [IS_MATCH('^\w{6,16}', error_message='El nombre d
 																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
 								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]
 
-db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe:'+
+db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe: \n'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
 								CRYPT()]
@@ -196,6 +200,12 @@ db.bombero.iniciales.requires = IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))
 db.bombero.tipo_sangre.requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos')
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
+db.bombero.cargo.requires = IS_IN_SET(['Administrador', 'Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
+									'Inspector en Jefe', 'sub-Inspector',
+									'Gerente de Riesgo', 'Gerente de Administración', 'Gerente de Educación', 'Gerente de Operaciones','Gerente de Talento humano',
+									'Coordinador de Riesgo', 'Coordinador de Administración', 'Coordinador de Educación', 'Coordinador de Operaciones','Coordinador de Talento humano',
+									'Miembro de Riesgo', 'Miembro de Administración', 'Miembro de Educación', 'Miembro de Operaciones','Miembro de Talento humano',
+									'Estudiante'])
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
 db.direccion.direccion_tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')

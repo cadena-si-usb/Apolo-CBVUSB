@@ -215,18 +215,18 @@ def registrousrth():
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
 def registrousrth1():
-	formPersona = SQLFORM.factory(db.usuario, db.persona)
+	formPersona = SQLFORM.factory(
+		Field('username', type='string', length=512, unique=True, requires=[IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
+																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
+																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
+								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]),
+		Field('password', type='password', readable=False, length=512, requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe: \n'+
+																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
+								CRYPT()]), 
+		db.persona)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
-		"""
-		id_usuario=db.usuario.insert(**db.usuario._filter_fields(formPersona.vars))
-		formPersona.vars.persona=id_usuario
-		
-		id_persona=db.persona.insert(**db.persona._filter_fields(formPersona.vars))
-		
-		db.no_completado.insert(id_persona=id_persona,id_usuario=id_usuario)
-		"""
-		print formPersona.vars.values()
 		redirect(URL("default","registrousrth2",vars=formPersona.vars))
 
 	elif formPersona.errors:
@@ -238,7 +238,6 @@ def registrousrth2():
 
 	usuario=db.usuario._filter_fields(request.vars)
 	persona=db.persona._filter_fields(request.vars)
-	print persona
 
 	formBombero = SQLFORM.factory(
 		Field('carnet', type='integer', unique=True, requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
@@ -248,11 +247,15 @@ def registrousrth2():
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
 
-		id_usuario=db.usuario.insert(**usuario)		
+		primer_nombre=persona['primer_nombre']
+		primer_apellido=persona['primer_apellido']
+		email_principal=persona['email_principal']
+
+		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
 		id_persona=db.persona.insert(**persona)
 
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		db.auth_user.insert(**usuario)
+
 		redirect(URL("default","registrousrth_final"))
 
 	elif formBombero.errors:
