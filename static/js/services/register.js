@@ -39,3 +39,7 @@ function validateForm() {
     //    return false;
     //}
 }
+
+$( function() {
+    $( "#commissionBoss" ).autocomplete({source: nombres});
+});

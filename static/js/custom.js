@@ -61,23 +61,25 @@ $(document).ready(function(){
   });
 
   $('#btn-submit').on('click',function(e){
-      e.preventDefault();
-      var form = $('#registro');
-      swal({
-        title: "¿Estás seguro de enviar?",
-        text: "Asegúrate de haber llenado todos los campos pertinentes",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Si, enviar!",
-          closeOnConfirm: false,
-          html: false
+    e.preventDefault();
+    var form = $('#registro');
+    swal({
+      title: "¿Estás seguro de enviar?",
+      text: "Asegúrate de haber llenado todos los campos pertinentes",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#1565C0",
+      confirmButtonText: "Si, enviar!",
+      cancelButtonText: "Aun no termino",
+      closeOnConfirm: false,
+      html: false
 
-      }, function(isConfirm){
-          if (isConfirm) form.submit();
-          swal("Enviado!",
-          "Se ha registrado el servicio satisfatoriamente",
-          "success");
-      });
+    }, function(isConfirm){
+      if (isConfirm) { form.submit();
+        swal("Enviado!",
+        "Se ha registrado el servicio satisfatoriamente",
+        "success");
+      }
+    });
   });
 });

@@ -3,24 +3,23 @@
 
 <!-- Tabla de Servicios -->
 <div class="container-fluid">
-
   <ol class="breadcrumb">
     <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
     <li class="active">Todos los servicios</li>
   </ol>
-
   <ul class="nav nav-pills">
-      <li class="active"><a href="{{=URL('services','services')}}">Todos</a></li>
-      <li><a href="{{=URL('services','myservices')}}">Mis servicios</a></li>
-      <li><a href="{{=URL('services','register')}}">Registrar</a></li>
+    <li><a href="{{=URL('services','allservices.html')}}">Todos</a></li>
+    <li><a href="{{=URL('services','asapproved.html')}}">Aprobados</a></li>
+    <li class="active"><a href="{{=URL('services','aspending.html')}}">Pendentes por aprobación</a></li>
+    <li><a href="{{=URL('services','register.html')}}">Registrar</a></li>
   </ul>
-
-  <br />
+  <br/>
 
   <div class="col-xs-10">
     <div class="table-responsive">
       <table class= "table table-hover">
         <tr>
+          <th>ID</th>
           <th>Tipo</th>
           <th>Descripción</th>
           <th>Localización</th>
@@ -28,13 +27,13 @@
           <th>Fin</th>
         </tr>
         {{for row in services:}}
-        <tr class='clickable-row' data-href=''>
+        <tr class='clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
+          <td>{{=row.id}}</td>
           <td>{{=row.tipo}}</td>
           <td>{{=row.descripcion}}</td>
           <td>{{=row.localizacion}}</td>
           <td>{{=row.fechaCreacion}}</td>
           <td>{{=row.fechaFinalizacion}}</td>
-          <td><a class="glyphicon glyphicon-remove" style="color:tan" href={{=URL('deleteService', vars=dict(row_id=row.id))}}></a></td>
         </tr>
         {{pass}}
 

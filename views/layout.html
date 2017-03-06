@@ -8,12 +8,12 @@
     <meta name="application-name" content="{{=request.application}}">                                    <!-- Meta con el titulo -->
     <meta name="google-site-verification" content="">                                                    <!-- Google aceptanos -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto" type="text/css">         <!-- Importar fuente Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">                       <!-- Importar fuente Monoton -->
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>                           <!-- Importar stylesheet de bootstrap -->
     <link rel="stylesheet" href="{{=URL('static','css/custom.css')}}"/>                                  <!-- Importar stylesheet propio -->
+    <link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>                              <!-- Importar stylesheet para mensajes de alerta -->
 
-    <link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>                                  <!-- Importar stylesheet propio -->
-
-    <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
 
@@ -30,11 +30,15 @@
   </head>
 
   <body>
-  <!-- Barra de navegación -->
-      <div>
+      <div class="bottom-space-separator">
         <!-- Banner -->
-        <a href="{{=URL('default','index')}}" title="Ir al inicio"><img class="img-responsive img-center" src="{{=URL('static','images/banner-large.png')}}" alt="Banner"></a>
+        <div class="container">
+          <a href="{{=URL('default','index')}}" title="Ir al inicio">
+            <img class="img-responsive img-center" src="{{=URL('static','images/banner-legacy-medium.png')}}" alt="Banner">
+          </a>
+        </div>
 
+        <!-- Barra de navegación -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation"><div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -76,34 +80,33 @@
                   <li><a href="{{=URL('default','buscarth.html')}}">Buscar</a></li>
                 </ul>
               </li>
-              <li><a href="#">Administración</a></li>
-              <li><a href="#">Riesgos</a></li>
-              <li><a href="#">Estadísticas</a></li>
+              <li><a href="{{=URL('default','index')}}">Administración</a></li>
+              <li><a href="{{=URL('default','index')}}">Riesgos</a></li>
+              <li><a href="{{=URL('default','index')}}">Estadísticas</a></li>
               <li><a href="{{=URL('default','index')}}">Salir</a></li>
             </ul>
           </div>
         </div></nav>
       </div>
-    
+
     <!-- Mensajes de error -->
     {{if response.flash:}}
     <div class="w2p_flash.error alert alert-danger" align="center">
       {{=response.flash}}
     </div>
     {{pass}}
-    
-    <div style="padding-bottom: 2%; padding-top: 2%;">
-      {{include}}
-    </div>
+
+
+    {{include}}
 
     <!-- Footer -->
-    <footer class="footer bg-4">
+    <footer class="footer bg-4 top-space-separator">
       <div class="container-fluid">
         <div class="col-xs-12">
-            <h4>Contáctanos:</h4>
-            <p><span class="glyphicon glyphicon-map-marker"></span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</p>
-            <p><span class="glyphicon glyphicon-phone"></span> Teléfono: (+58) 212 906-3909</p>
-            <p><span class="glyphicon glyphicon-envelope"></span> Correo electrónico: extension.bomberos@usb.ve</p>
+            <h5>Contáctanos:</h5>
+            <h6><span class="glyphicon glyphicon-map-marker"></span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</h6>
+            <h6><span class="glyphicon glyphicon-phone"></span> Teléfono: (+58) 212 906-3909</h6>
+            <h6><span class="glyphicon glyphicon-envelope"></span> Correo electrónico: extension.bomberos@usb.ve</h6>
         </div>
         <br>
         <div class="text-center">
@@ -118,7 +121,6 @@
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
     <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
     <script src="{{=URL('static','js/custom.js')}}"></script>
-    <script src="{{=URL('static','js/remodal.min.js')}}"></script>
     <script src="{{=URL('static','js/sweetalert.min.js')}}"></script>
 
     {{block page_js}}{{end page_js}}
