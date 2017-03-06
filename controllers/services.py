@@ -100,6 +100,17 @@ def search(): return dict()
 # Funciones que conforman la vista de "Registrar servicio"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+# Obtener nombres de bomberos para autocompletado de registro de comisiones
+def obtenerNombreBomberos():
+    bomberos = db(db.bombero.id_persona == db.persona.id).select()
+    nombreBomberos = list()
+    for bombero in bomberos:
+        nombreBomberos.append(  bombero.persona.primer_nombre    + " " +\
+                                bombero.persona.segundo_nombre   + " " +\
+                                bombero.persona.primer_apellido  + " " +\
+                                bombero.persona.segundo_apellido)
+    return nombreBomberos
+
 # Vista principal de "Registrar servicio"
 def register():
     # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
@@ -126,16 +137,37 @@ def register():
             ultimoServicioId = 0
 
         # Obtener nombres de bomberos para autocompletado de registro de comisiones
-        bomberos = db(db.bombero.id_persona == db.persona.id).select()
-        nombreBomberos = list()
-        for bombero in bomberos:
-            nombreBomberos.append(  bombero.persona.primer_nombre    + " " +\
-                                    bombero.persona.segundo_nombre   + " " +\
-                                    bombero.persona.primer_apellido  + " " +\
-                                    bombero.persona.segundo_apellido)
+        nombreBomberos = obtenerNombreBomberos()
 
         return dict(nuevoServicioId=ultimoServicioId + 1, nombreBomberos=nombreBomberos)
 
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Funciones que conforman la vista de "Editar borrador"
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def editDraft():
+
+    if request.env.request_method == 'POST':
+
+        servicio = db(db.servicio.id == request.vars['id']).select().first()
+        servicio.id = request.vars['id']
+        servicio.tipo = request.vars['tipo']
+        servicio.fechaCreacion = request.vars['fechaCreacion']
+        servicio.fechaLlegada = request.vars['fechaLlegada']
+        servicio.fechaFinalizacion = request.vars['fechaFinalizacion']
+        servicio.descripcion = request.vars['descripcion']
+        servicio.localizacion = request.vars['localizacion']
+
+        servicio.update_record()
+
+        redirect(URL('services','index.html'))
+
+    else:
+        serviceId = request.vars.id
+        service = db(db.servicio.id == serviceId).select()[0]
+
+        nombreBomberos = obtenerNombreBomberos()
+
+        return dict(service=service, nombreBomberos=nombreBomberos)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Otras funciones
