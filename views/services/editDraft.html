@@ -280,6 +280,31 @@
     </div>
   </div>
 </form>
+
+
+<!-- Modal para confirmacion de eliminacion de servicio -->
+<a class="text-danger" role="button" data-toggle="modal" data-target="#eliminarServicioModal"><p class="text-right">Eliminar borrador</p></a>
+<div class="modal fade" id="eliminarServicioModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title">Eliminar Borrador</h4>
+      </div>
+      <div class="modal-body text-center">
+        <p>¿Está seguro que desea eliminar el borrador?</p>
+      </div>
+      <div class="modal-footer">
+        <div class="row text-center">
+          <form method="post" action={{=URL('services','deleteMyService', vars=dict(row_id=service.id))}}>
+            <button type="submit" class="btn btn-default">Continuar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <!-- Google Maps -->
