@@ -2,41 +2,21 @@
 {{extend 'layout.html'}}
 
 <!-- Tabla de Servicios -->
-<div class="container-fluid">
-  <div class="page-header">
+<div class="page-header" style="margin-left: 3em;">
     <h1>Servicios</h1>
+</div>
+
+<div class="container-fluid">
+  <div class="service-item">
+    <a href="{{=URL('services','register.html')}}" class="wrapper"><span class="text">Crear Servicio</span></a>
   </div>
-  <main>
-    <div class="container-fluid">
-      <div class="col-xs-12 col-sm-3">
-        <a href="{{=URL('services','register.html')}}" class="wrapper">
-          <span class="text">
-            Crear Servicio
-          </span>
-        </a>
-      </div>
-      <div></div>
-      <div class="col-xs-12 col-sm-3">
-        <a href="{{=URL('services','allservices.html')}}" class="wrapper">
-          <span class="text">
-            Gestionar Servicios
-          </span>
-        </a>
-      </div>
-      <div class="col-xs-12 col-sm-3">
-        <a href="{{=URL('services','myservices.html')}}" class="wrapper">
-          <span class="text">
-            Mis Servicios
-          </span>
-        </a>
-      </div>
-      <div class="col-xs-12 col-sm-3">
-        <a href="{{=URL('services','search.html')}}" class="wrapper">
-          <span class="text">
-            Buscar Servicios
-          </span>
-        </a>
-      </div>
-    </div>
-  </main>
+  <div class="service-item">
+    <a href="{{=URL('services','allservices.html')}}" class="wrapper"><span class="text">Gestionar Servicios</span></a>
+  </div>
+  <div class="service-item">
+    <a href="{{=URL('services','myservices.html')}}" class="wrapper"><span class="text">Mis Servicios</span></a>
+  </div>
+  <div class="service-item">
+    <a href="{{=URL('services','search.html')}}" class="wrapper"><span class="text">Buscar Servicios</span></a>
+  </div>
 </div>
