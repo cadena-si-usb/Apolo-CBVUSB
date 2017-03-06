@@ -22,7 +22,7 @@ def msapproved():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db(db.servicio.Aprueba.notnull).select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Mis servicios pendientes por aprovación"
@@ -32,7 +32,7 @@ def mspending():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db().select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Aprueba == None) & (db.servicio.Borrador == False)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Mis servicios guardados en borradores"
@@ -42,7 +42,7 @@ def msdraft():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db().select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Borrador == True).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Botón para eliminar un servicio en cualquier vista de "Mis servicios"
@@ -57,17 +57,17 @@ def deleteMyService():
 
 # Vista principal de "Gestionar Servicios"
 def allservices():
-    services = db().select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Borrador == False).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
-# Vista para listar "Todos los servicios aprovados"
+# Vista para listar "Todos los servicios aprobados"
 def asapproved():
-    services = db().select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
-# Vista para listar "Todos los servicios pendientes por aprovación"
+# Vista para listar "Todos los servicios pendientes por aprobación"
 def aspending():
-    services = db().select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Aprueba == None) & (db.servicio.Borrador == False)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Botón para eliminar un servicio en cualquier vista de "Gestionar servicios"
@@ -116,15 +116,19 @@ def register():
     # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
     if request.env.request_method == 'POST':
 
-        tipoServicio = request.vars['tipo']
-        fechaCreacion = request.vars['fechaCreacion']
-        fechaLlegada = request.vars['fechaLlegada']
-        fechaFinalizacion = request.vars['fechaFinalizacion']
-        descripcionServicio = request.vars['descripcion']
-        localizacionServicio = request.vars['localizacion']
+        print request.vars["jefeComision"]
+        print request.vars["conductor"]
+        print request.vars["acompanante"]
 
-        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
-        redirect(URL('services','index.html'))
+        #tipoServicio = request.vars['tipo']
+        #fechaCreacion = request.vars['fechaCreacion']
+        #fechaLlegada = request.vars['fechaLlegada']
+        #fechaFinalizacion = request.vars['fechaFinalizacion']
+        #descripcionServicio = request.vars['descripcion']
+        #localizacionServicio = request.vars['localizacion']
+
+        #insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
+        #redirect(URL('services','index.html'))
 
     else:
         # Obtener ID de ultimo servicio registrado
