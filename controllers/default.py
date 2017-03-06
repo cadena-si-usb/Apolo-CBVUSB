@@ -11,14 +11,7 @@ import re
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
 
-def limpiarErroresDB():
-
-	usuariosSueltos = db(db.no_completado).select()
-
-	for row in usuariosSueltos:
-		db(db.persona.id==row.id_persona).delete()
-		db(db.usuario.id==row.id_usuario).delete()
-
+@auth.requires_login()
 def index():
 	"""
 	example action using the internationalization operator T and flash
@@ -27,11 +20,9 @@ def index():
 	if you need a simple wiki simply replace the two lines below with:
 	return auth.wiki()
 	"""
-	limpiarErroresDB()
 	return dict()
 
 def indexno():
-	limpiarErroresDB()
 	return dict()
 
 def user():
@@ -54,7 +45,6 @@ def user():
 
 def perfilth():
 
-	limpiarErroresDB()
 	if request.args:
 		userid = int(request.args[0])
 	else:
@@ -66,7 +56,6 @@ def perfilth():
 
 def perfilmodth():
 
-	limpiarErroresDB()
 	userid = str(1)
 
 	form = SQLFORM.factory(
@@ -227,19 +216,19 @@ def registrousrth():
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
 def registrousrth1():
-	limpiarErroresDB()
 	formPersona = SQLFORM.factory(db.usuario, db.persona)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
-		
+		"""
 		id_usuario=db.usuario.insert(**db.usuario._filter_fields(formPersona.vars))
 		formPersona.vars.persona=id_usuario
 		
 		id_persona=db.persona.insert(**db.persona._filter_fields(formPersona.vars))
 		
 		db.no_completado.insert(id_persona=id_persona,id_usuario=id_usuario)
-		
-		redirect(URL("default","registrousrth2",args=[id_usuario,id_persona]))
+		"""
+		print formPersona.vars.values()
+		redirect(URL("default","registrousrth2",vars=formPersona.vars))
 
 	elif formPersona.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
@@ -248,18 +237,24 @@ def registrousrth1():
 
 def registrousrth2():
 
-	id_usuario=int(request.args[0])
-	id_persona=int(request.args[1])
+	usuario=db.usuario._filter_fields(request.vars)
+	persona=db.persona._filter_fields(request.vars)
+	print persona
 
 	formBombero = SQLFORM.factory(
-			Field('carnet', type='integer', unique=True, requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
-			Field('iniciales', type='string', requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))),
-			Field('tipo_sangre', type='string', requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
-			)
+		Field('carnet', type='integer', unique=True, requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
+		Field('iniciales', type='string', requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))),
+		Field('tipo_sangre', type='string', requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
+		)
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
+
+		id_usuario=db.usuario.insert(**usuario)		
+		id_persona=db.persona.insert(**persona)
+
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		redirect(URL("default","registrousrth_final",args=request.args+[id_bombero]))
+		db.auth_user.insert(**usuario)
+		redirect(URL("default","registrousrth_final"))
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
@@ -268,18 +263,17 @@ def registrousrth2():
 
 # Deseable: Que me muestre el nombre del usuario en el mensaje final
 def registrousrth_final():
-	limpiarErroresDB()
 	return dict()
 
 def eliminarusrth():
-	limpiarErroresDB()
 	if request.args:
 		
-		id_persona = int(request.args[0])
+		id_bombero = int(request.args[0])
 		
-		if not db(db.persona.id==id_persona).isempty():
-			bombero = db(db.bombero.id_persona==id_persona).select(db.bombero.id_usuario).first()
+		if not db(db.bombero.id==id_bombero).isempty():
+			bombero = db(db.bombero.id==id_bombero).select().first()
 			id_usuario = bombero.id_usuario
+			id_persona = bombero.id_persona
 			db(db.persona.id==id_persona).delete()
 			db(db.usuario.id==id_usuario).delete()
 
@@ -290,9 +284,9 @@ def eliminarusrth():
 
 	return dict(tabla=tabla)
 
+@auth.requires_login()
 def buscarth():
 	# Busqueda suministrada por el usuario
-	limpiarErroresDB()
 	busqueda = request.vars.getlist("buscar")
 	error = False
 

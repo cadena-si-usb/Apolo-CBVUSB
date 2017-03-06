@@ -22,6 +22,8 @@ auth.settings.login_methods.append(ldap_auth(
 	group_member_attrib='memberUid',
 	group_filterstr='objectClass=*'))
 
+#auth.settings.actions_disabled.append('register')
+
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables
 # -------------------------------------------------------------------------
@@ -56,11 +58,6 @@ db.define_table('persona',
 	Field('email_alternativo', type='string'),
 	Field('estado_civil', type='string', notnull=True),
 	migrate="db.persona")
-
-db.define_table('no_completado',
-	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
-	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-	migrate="db.no_completado")
 
 db.define_table('numero',
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
