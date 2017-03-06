@@ -76,6 +76,12 @@ def deleteService():
     db(db.servicio.id == serviceId).delete()
     redirect(URL('services','services'))
 
+# Vista para visualizar servicio
+def displayService():
+    serviceId = request.vars.id
+    service = db(db.servicio.id == serviceId).select()[0]
+    return dict(service=service)
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista principal (Servicios)
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
