@@ -4,7 +4,7 @@ Global
 
 * {
   font-family: 'Roboto', serif;
-  font-size: 14pt;
+  font-size: 9pt;
 }
 
 /*####################
@@ -133,7 +133,6 @@ Carousel
 /*####################
 Iconos de servicios
 #####################*/
-
 
 .wrapper {
   background: #111111;
@@ -314,3 +313,4 @@ display:none;
   background-position: 50% 50%;
   background-clip: padding-box;
 }
+
