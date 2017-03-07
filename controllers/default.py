@@ -3,6 +3,7 @@
 #psql -U cbvusb -h localhost -W
 
 import re
+import time
 
 # -------------------------------------------------------------------------
 # This is a sample controller
@@ -50,7 +51,7 @@ def perfilth():
 	else:
 		userid = auth.user.id
 
-	usuario = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+	usuario = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
 	
 	return dict(usuario=usuario)
 
@@ -58,78 +59,97 @@ def perfilth():
 def perfilmodth():
 
 	userid = auth.user.id
+	bombero=db(db.bombero.id_usuario==userid).select().first()
+	persona=db(db.persona.id==bombero.id_persona).select().first()
 
 	form = SQLFORM.factory(
 		Field('cedula', 
 			type='string', 
 			unique=True, 
-			default=db(db.persona.id==userid).select().first().cedula, 
+			default=persona.cedula, 
 			requires=IS_MATCH('^[VE]-\d+$', error_message='Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX')
 			),
 		Field('primer_nombre', 
 			type='string', 
 			notnull=True, 
-			default=db(db.persona.id==userid).select().first().primer_nombre, 
+			default=persona.primer_nombre, 
 			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
 			),
 		Field('segundo_nombre', 
 			type='string',
-			default=db(db.persona.id==userid).select().first().segundo_nombre, 
+			default=persona.segundo_nombre, 
 			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
 			),
 		Field('primer_apellido', 
 			type='string', 
 			notnull=True,
-			default=db(db.persona.id==userid).select().first().primer_apellido, 
+			default=persona.primer_apellido, 
 			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
 			),
 		Field('segundo_apellido', 
 			type='string',
-			default=db(db.persona.id==userid).select().first().segundo_apellido, 
+			default=persona.segundo_apellido, 
 			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
 			),
 		Field('fecha_nacimiento', 
 			type='date', 
 			notnull=True,
-			default=db(db.persona.id==userid).select().first().fecha_nacimiento,
+			default=persona.fecha_nacimiento,
 			requires=IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 			),
 		Field('lugar_nacimiento', 
 			type='string', 
 			notnull=True,
-			default=db(db.persona.id==userid).select().first().lugar_nacimiento, 
+			default=persona.lugar_nacimiento, 
 			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
 			),
 		Field('genero', 
 			type='string', 
 			notnull=True,
-			default=db(db.persona.id==userid).select().first().genero, 
+			default=persona.genero, 
 			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 			),
 		Field('imagen', type='text',
-			default=db(db.persona.id==userid).select().first().imagen
+			default=persona.imagen
 			),
 		Field('email_principal', 
 			type='string', 
 			notnull=True,
-			default=db(db.persona.id==userid).select().first().email_principal, 
+			default=persona.email_principal, 
 			requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')
 			),
 		Field('email_alternativo', 
 			type='string',
-			default=db(db.persona.id==userid).select().first().email_alternativo, 
+			default=persona.email_alternativo, 
 			requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
 			),
 		Field('estado_civil', 
 			type='string', 
 			notnull=True,
-			default=db(db.persona.id==userid).select().first().estado_civil, 
+			default=persona.estado_civil, 
 			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')
-			)
+			),
+		Field('tipo_sangre', 
+			type='string', 
+			notnull=True,
+			default=bombero.tipo_sangre,
+			requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos')
+			),
+		Field('cargo', 
+			type='string', 
+			notnull=True, 
+			default=bombero.cargo,
+			requires = IS_IN_SET(['Administrador', 'Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
+									'Inspector en Jefe', 'sub-Inspector',
+									'Gerente de Riesgo', 'Gerente de Administración', 'Gerente de Educación', 'Gerente de Operaciones','Gerente de Talento humano',
+									'Coordinador de Riesgo', 'Coordinador de Administración', 'Coordinador de Educación', 'Coordinador de Operaciones','Coordinador de Talento humano',
+									'Miembro de Riesgo', 'Miembro de Administración', 'Miembro de Educación', 'Miembro de Operaciones','Miembro de Talento humano',
+									'Estudiante'], error_message='Debe seleccionar una opción'))
 		)
 
 	if form.process(session=None, formname='perfilmod', keepvalues=True).accepted:
-		db(db.persona.id==userid).update(**db.persona._filter_fields(form.vars))
+		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(form.vars))
+		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(form.vars))
 
 	elif form.errors:
 		response.flash = 'Hay un error en un campo'
@@ -270,6 +290,8 @@ def registrousrth2():
 def registrousrth_final():
 	id_usuario=request.args[0]
 	username=db(db.usuario.id==id_usuario).select().first().username
+
+	#redirect(URL("default","index"))
 	return dict(username=username)
 
 def eliminarusrth():

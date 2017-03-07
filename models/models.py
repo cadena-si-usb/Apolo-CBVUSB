@@ -23,7 +23,7 @@ plugins = PluginManager()
 #	group_member_attrib='memberUid',
 #	group_filterstr='objectClass=*'))
 
-#auth.settings.actions_disabled.append('register')
+auth.settings.actions_disabled.append('register')
 
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables
@@ -205,7 +205,7 @@ db.bombero.cargo.requires = IS_IN_SET(['Administrador', 'Comandante en Jefe', 'P
 									'Gerente de Riesgo', 'Gerente de Administración', 'Gerente de Educación', 'Gerente de Operaciones','Gerente de Talento humano',
 									'Coordinador de Riesgo', 'Coordinador de Administración', 'Coordinador de Educación', 'Coordinador de Operaciones','Coordinador de Talento humano',
 									'Miembro de Riesgo', 'Miembro de Administración', 'Miembro de Educación', 'Miembro de Operaciones','Miembro de Talento humano',
-									'Estudiante'])
+									'Estudiante'], error_message='Debe seleccionar una opción')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
 db.direccion.direccion_tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')

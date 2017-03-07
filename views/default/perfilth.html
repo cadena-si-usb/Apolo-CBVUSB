@@ -9,18 +9,18 @@
         </div>
         <div class="col-xs-12 col-sm-6">
             <!-- Nombre del usuario -->
-            {{if usuario[0].persona.segundo_nombre == None and usuario[0].persona.segundo_apellido == None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.primer_apellido}}</h1>
-            {{elif usuario[0].persona.segundo_nombre == None and usuario[0].persona.segundo_apellido != None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
-            {{elif usuario[0].persona.segundo_nombre != None and usuario[0].persona.segundo_apellido == None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}}</h1>
-            {{elif usuario[0].persona.segundo_nombre != None and usuario[0].persona.segundo_apellido != None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
+            {{if usuario.persona.segundo_nombre == None and usuario.persona.segundo_apellido == None:}}
+            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}}</h1>
+            {{elif usuario.persona.segundo_nombre == None and usuario.persona.segundo_apellido != None:}}
+            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
+            {{elif usuario.persona.segundo_nombre != None and usuario.persona.segundo_apellido == None:}}
+            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}}</h1>
+            {{elif usuario.persona.segundo_nombre != None and usuario.persona.segundo_apellido != None:}}
+            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
             {{pass}}
             <br />
             <!-- Cargo dentro de la organizacion | Rango -->
-            <h4>Administrador | Bombero</h4>
+            <h4>{{=usuario.bombero.cargo}} | Bombero</h4>
         </div>
     </div>
     <br /><br />
@@ -30,23 +30,23 @@
             <table class="table table-bordered table-hover">
                 <tr>
                     <td>Cédula:</td>
-                    <td>{{=usuario[0].persona.cedula}}</td>
+                    <td>{{=usuario.persona.cedula}}</td>
                 </tr> 
                 <tr>
                     <td>Fecha de nacimiento:</td>
-                    <td>{{=usuario[0].persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
+                    <td>{{=usuario.persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
                 </tr>
                 <tr>
                     <td>Sexo:</td>
-                    <td>{{=usuario[0].persona.genero}}</td>
+                    <td>{{=usuario.persona.genero}}</td>
                 </tr>
                 <tr>
                     <td>Tipo de sangre:</td>
-                    <td>{{=usuario[0].bombero.tipo_sangre}}</td>
+                    <td>{{=usuario.bombero.tipo_sangre}}</td>
                 </tr>
                 <tr>
                     <td>Hijos:</td>
-                    <td>{{=usuario[0].bombero.hijos}}</td>
+                    <td>{{=usuario.bombero.hijos}}</td>
                 </tr>
             </table>
         </div>
@@ -70,13 +70,13 @@
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td>{{=usuario[0].persona.email_principal}}</td>
+                    <td>{{=usuario.persona.email_principal}}</td>
                 </tr>
                 <tr>
                     <td>Email alternativo:</td>
-                    {{if (usuario[0].persona.email_alternativo) != None:}}
+                    {{if (usuario.persona.email_alternativo) != None:}}
                     
-                    <td>{{=usuario[0].persona.email_alternativo}}</td>
+                    <td>{{=usuario.persona.email_alternativo}}</td>
                     {{else:}}
                     <td>-</td>
                     {{pass}}

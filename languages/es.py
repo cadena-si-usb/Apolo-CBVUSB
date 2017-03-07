@@ -113,6 +113,7 @@
 'db': 'bdd',
 'DB Model': 'Modelo BDD',
 'Debe contener sólo carácteres': 'Debe contener sólo carácteres',
+'Debe seleccionar una opción': 'Debe seleccionar una opción',
 'Debe ser alguno de los tipos válidos': 'Debe ser alguno de los tipos válidos',
 'Debe ser del siguiente formato: dd/mm/yyyy': 'Debe ser del siguiente formato: dd/mm/yyyy',
 'Debe ser positivo': 'Debe ser positivo',
