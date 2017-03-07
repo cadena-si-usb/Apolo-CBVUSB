@@ -1,22 +1,24 @@
 $(document).ready(function() {
     var comissionsCNT = $("#comissionsCNT"); // ID del contenedor de las comisiones
     var addComission = $("#addComission");   // ID del botón para añadir comisiones
-    var addUnit = $(".addUnit");             // ID del botón para añadir unidad
-    var comissionsCount = 1;
-    var unitsCount = [1];
-    var comissionMembersCount = [3];
+    var comissionsCount = 1;                 // Contador de comisiones
+    var unitsCount = [1];                    // Arreglo para contar las unidades (Por defecto 1)
+    var comissionMembersCount = [3];         // Arreglo para contar los acompañantes (Por defecto 3)
 
+    // Función para hacer clickeables las filas de las tablas y redirigir al href correspondiente
     $(".clickable-row").on('click', function() {
         window.location = $(this).data("href");
     });
 
+    // Función para los botones para añadir unidades
     $("body").on("click","a.addUnit", function() {
-        var num1 = parseInt(this.id.match(/\d+/g), 10 );
-        var unitCNT = "#unitsCNT" + num1;
+        var num1 = parseInt(this.id.match(/\d+/g), 10 ); // Obtener el número de la comisión a la que corresponde la unidad
+        var unitCNT = "#unitsCNT" + num1;                // Generar el identificador al contenedor de la unidad correspondiente
 
-        unitsCount[num1-1]++;
-        var num2 = unitsCount[num1-1];
+        unitsCount[num1-1]++;                            // Aumentar el contador de unidades para la comisión permitente
+        var num2 = unitsCount[num1-1];                   // Variable auxiliar para la sustitucion en el html de abajo
 
+        // Inserción del html
         $(unitCNT).append(
         '<div id="unit'+num1+'-'+num2+'">\
             <div class="col-xs-4 col-sm-2">\
@@ -31,27 +33,30 @@ $(document).ready(function() {
             <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="conductor">\
           </div>\
         </div>');
-
     });
 
+    // Función para los botones para añadir acompañantes
     $("body").on("click","a.addComissionMember", function() {
-        var num1 = parseInt(this.id.match(/\d+/g), 10 );
-        var comissionMembersCNT = "#comissionMembersCNT" + num1;
+        var num1 = parseInt(this.id.match(/\d+/g), 10 );         // Obtener el número de la comisión al que corresponde el acompañante
+        var comissionMembersCNT = "#comissionMembersCNT" + num1; // Generar el identificador al contenedor del acompañante
 
-        comissionMembersCount[num1-1]++;
-        var num2 = comissionMembersCount[num1-1];
+        comissionMembersCount[num1-1]++;                         // Aumentar el contador de acompañantes para la comisión permitente
+        var num2 = comissionMembersCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
 
+        // Inserción del html
         $(comissionMembersCNT).append('<input type="text" class="form-control" id="comissionMember'+num1+'-'+num2+'" placeholder="Sancho Panza" name="acompanante2">');
     });
 
+    // Función para el botón para añadir nuevas comisiones
     $(addComission).on('click', function() {
-        comissionsCount++;
-        unitsCount = unitsCount.concat([1]);
-        comissionMembersCount = comissionMembersCount.concat([3]);
+        comissionsCount++;                                          // Aumentar el contador de comisiones
+        unitsCount = unitsCount.concat([1]);                        // Agregar un nuevo slot contador de unidades
+        comissionMembersCount = comissionMembersCount.concat([3]);  // Agregar un nuevo slot contador de acompañantes
 
-        var num1 = comissionsCount;
-        var num2 = unitsCount[num1-1];
+        var num1 = comissionsCount;                                 // Variable auxiliar para la sustitucion en el html de abajo
+        var num2 = unitsCount[num1-1];                              // Variable auxiliar para la sustitucion en el html de abajo
 
+        // Inserción del html
         $(comissionsCNT).append(
         '<div class="row" id="comission'+num1+'">\
           <div class="col-xs-12"><h3 id="comissionTitle'+num1+'">Comisión #'+num1+'</h3></div>\
@@ -101,6 +106,7 @@ $(document).ready(function() {
 
     });
 
+    // Función para popUp al momento de enviar un servicio
     $('#btn-submit').on('click',function(e){
         e.preventDefault();
         var form = $('#registro');
