@@ -137,7 +137,16 @@ def register():
 
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
-        redirect(URL('services','index.html'))
+        # Borrador guardado. Redireccionar a edicion de borrador para continuar con registro
+        if request.vars['draft'] is not None:
+            # Obtener ID del servicio recien registrado
+            servicioRegistradoID = db.servicio.id.max()
+            servicioRegistradoID = db().select(servicioRegistradoID).first()[servicioRegistradoID]
+            redirect(URL('services','editDraft.html',vars=dict(id=servicioRegistradoID)))
+        
+        # Servicio registrado. Redireccionar a pagina principal
+        else:
+            redirect(URL('services','index.html'))
 
     # Pagina de registro inicial (method get)
     else:
@@ -172,13 +181,15 @@ def editDraft():
         servicio.descripcion = request.vars['descripcion']
         servicio.localizacion = request.vars['localizacion']
 
-        # Guardar form
+        # Registrar form
         if request.vars['draft'] is None:
             servicio.Borrador = False
-
-        servicio.update_record()
-
-        redirect(URL('services','index.html'))
+            servicio.update_record()
+            redirect(URL('services','index.html'))
+        # Guardar borrador y continuar edicion
+        else:
+            servicio.update_record()
+            redirect(URL('services','editDraft.html',vars=dict(id=request.vars['id'])))
 
     else:
 
