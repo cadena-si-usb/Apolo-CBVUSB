@@ -25,7 +25,8 @@ def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,ca
 def insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcion,localizacion,tipo):
     db.servicio.insert(
         Registra = 1,
-        Aprueba = 1,
+        Aprueba = None,
+        Borrador = False,
         fechaCreacion = fechaCreacion,
         fechaLlegada = fechaLlegada,
         fechaFinalizacion = fechaFinalizacion,

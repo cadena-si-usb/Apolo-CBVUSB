@@ -116,19 +116,19 @@ def register():
     # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
     if request.env.request_method == 'POST':
 
-        print request.vars["jefeComision"]
-        print request.vars["conductor"]
-        print request.vars["acompanante"]
+        #print request.vars["jefeComision"]
+        #print request.vars["conductor"]
+        #print request.vars["acompanante"]
 
-        #tipoServicio = request.vars['tipo']
-        #fechaCreacion = request.vars['fechaCreacion']
-        #fechaLlegada = request.vars['fechaLlegada']
-        #fechaFinalizacion = request.vars['fechaFinalizacion']
-        #descripcionServicio = request.vars['descripcion']
-        #localizacionServicio = request.vars['localizacion']
+        tipoServicio = request.vars['tipo']
+        fechaCreacion = request.vars['fechaCreacion']
+        fechaLlegada = request.vars['fechaLlegada']
+        fechaFinalizacion = request.vars['fechaFinalizacion']
+        descripcionServicio = request.vars['descripcion']
+        localizacionServicio = request.vars['localizacion']
 
-        #insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
-        #redirect(URL('services','index.html'))
+        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
+        redirect(URL('services','index.html'))
 
     else:
         # Obtener ID de ultimo servicio registrado
