@@ -54,9 +54,10 @@ def perfilth():
 	
 	return dict(usuario=usuario)
 
+@auth.requires_login()
 def perfilmodth():
 
-	userid = str(1)
+	userid = auth.user.id
 
 	form = SQLFORM.factory(
 		Field('cedula', 
@@ -258,7 +259,7 @@ def registrousrth2():
 
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
 
-		redirect(URL("default","registrousrth_final"))
+		redirect(URL("default","registrousrth_final",args=[id_usuario]))
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
@@ -267,7 +268,9 @@ def registrousrth2():
 
 # Deseable: Que me muestre el nombre del usuario en el mensaje final
 def registrousrth_final():
-	return dict()
+	id_usuario=request.args[0]
+	username=db(db.usuario.id==id_usuario).select().first().username
+	return dict(username=username)
 
 def eliminarusrth():
 	if request.args:
