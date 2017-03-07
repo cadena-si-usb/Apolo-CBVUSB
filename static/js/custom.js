@@ -20,17 +20,17 @@ $(document).ready(function() {
 
         // Inserción del html
         $(unitCNT).append(
-        '<div id="unit'+num1+'-'+num2+'">\
-            <div class="col-xs-4 col-sm-2">\
-                <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unidad">\
-                    <option value="" selected="selected">--</option>\
-                    <option value="1">A1</option>\
-                    <option value="2">M2</option>\
-                    <option value="3">L1</option>\
-                </select>\
-            </div>\
+        '<div id="unit'+num1+'-'+num2+'" name="unit'+num1+'-'+num2+'">\
+          <div class="col-xs-4 col-sm-2">\
+            <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
+              <option value="" selected="selected">--</option>\
+              <option value="1">A1</option>\
+              <option value="2">M2</option>\
+              <option value="3">L1</option>\
+            </select>\
+          </div>\
           <div class="col-xs-8 col-sm-10">\
-            <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="conductor">\
+            <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver'+num1+'-'+num2+'">\
           </div>\
         </div>');
     });
@@ -44,7 +44,7 @@ $(document).ready(function() {
         var num2 = comissionMembersCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
 
         // Inserción del html
-        $(comissionMembersCNT).append('<input type="text" class="form-control" id="comissionMember'+num1+'-'+num2+'" placeholder="Sancho Panza" name="acompanante2">');
+        $(comissionMembersCNT).append('<input type="text" class="form-control" id="comissionMember'+num1+'-'+num2+'" placeholder="Sancho Panza" name="comissionMember'+num1+'-'+num2+'">');
     });
 
     // Función para el botón para añadir nuevas comisiones
@@ -58,48 +58,54 @@ $(document).ready(function() {
 
         // Inserción del html
         $(comissionsCNT).append(
-        '<div class="row" id="comission'+num1+'">\
-          <div class="col-xs-12"><h3 id="comissionTitle'+num1+'">Comisión #'+num1+'</h3></div>\
-          <div class="col-xs-12 col-sm-6">\
-            <div class="form-group ui-widget">\
-              <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
-              <input id="commissionBoss'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="jefeComision">\
-            </div>\
-            <label for="unitTitle">Unidades</label>\
-            <div class="row">\
-              <div id="unitsCNT'+num1+'">\
-                <div id="unit'+num1+'-'+num2+'">\
-                  <div class="col-xs-4 col-sm-2">\
-                    <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unidad">\
-                      <option value="" selected="selected">--</option>\
-                      <option value="1">A1</option>\
-                      <option value="2">M2</option>\
-                      <option value="3">L1</option>\
-                    </select>\
-                  </div>\
-                  <div class="col-xs-8 col-sm-10">\
-                    <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="conductor">\
-                  </div>\
-                </div>\
-              </div>\
-              <div class="col-xs-12 text-right">\
-                <a href="#" id="addUnit'+num1+'" class="addUnit" role="button">\
-                  <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>\
-                </a>\
-              </div>\
+        '<div id="comission'+num1+'">\
+          <div class="row">\
+            <div class="col-xs-12">\
+              <h3 id="comissionTitle'+num1+'">Comisión #'+num1+'</h3>\
             </div>\
           </div>\
-          <div class="col-xs-12 col-sm-6">\
-            <div id="comissionMembersCNT'+num1+'">\
-              <label for="comissionMembers'+num1+'">Acompañantes</label>\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-1" placeholder="Sancho Panza" name="acompanante0">\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-2" placeholder="Sancho Panza" name="acompanante1">\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-3" placeholder="Sancho Panza" name="acompanante2">\
+          <div class="row">\
+            <div class="col-xs-12 col-sm-6">\
+              <div class="form-group ui-widget">\
+                <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
+                <input id="commissionBoss'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="commissionBoss'+num1+'">\
+              </div>\
+              <label for="unitTitle'+num1+'">Unidades</label>\
+              <div class="row">\
+                <div id="unitsCNT'+num1+'">\
+                  <div id="unit'+num1+'-'+num2+'" name="unit'+num1+'-'+num2+'">\
+                    <div class="col-xs-4 col-sm-2">\
+                      <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
+                        <option value="" selected="selected">--</option>\
+                        <option value="1">A1</option>\
+                        <option value="2">M2</option>\
+                        <option value="3">L1</option>\
+                      </select>\
+                    </div>\
+                    <div class="col-xs-8 col-sm-10">\
+                      <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver'+num1+'-'+num2+'">\
+                    </div>\
+                  </div>\
+                </div>\
+                <div class="col-xs-12 text-right">\
+                  <a href="#" id="addUnit'+num1+'" class="addUnit" role="button">\
+                    <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>\
+                  </a>\
+                </div>\
+              </div>\
             </div>\
-            <div class="text-right">\
-              <a href="#" id="addComissionMember'+num1+'" class="addComissionMember" role="button">\
-                <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
-              </a>\
+            <div class="col-xs-12 col-sm-6">\
+              <div id="comissionMembersCNT'+num1+'">\
+                <label for="comissionMember'+num1+'-'+num2+'">Acompañantes</label>\
+                <input type="text" class="form-control" id="comissionMember'+num1+'-1" placeholder="Sancho Panza" name="comissionMember'+num1+'-1">\
+                <input type="text" class="form-control" id="comissionMember'+num1+'-2" placeholder="Sancho Panza" name="comissionMember'+num1+'-2">\
+                <input type="text" class="form-control" id="comissionMember'+num1+'-3" placeholder="Sancho Panza" name="comissionMember'+num1+'-3">\
+              </div>\
+              <div class="text-right">\
+                <a href="#" id="addComissionMember'+num1+'" class="addComissionMember" role="button">\
+                  <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
+                </a>\
+              </div>\
             </div>\
           </div>\
         </div>');

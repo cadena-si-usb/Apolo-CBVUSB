@@ -128,6 +128,12 @@ def register():
         #print request.vars["conductor"]
         #print request.vars["acompanante"]
 
+        print "JEFES"
+        print request.vars["commissionBoss1"]
+        print request.vars["commissionBoss2"]
+
+
+
         tipoServicio = request.vars['tipo']
         fechaCreacion = request.vars['fechaCreacion']
         fechaLlegada = request.vars['fechaLlegada']
