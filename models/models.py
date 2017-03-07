@@ -178,7 +178,7 @@ db.usuario.username.requires = [IS_MATCH('^\w{6,16}', error_message='El nombre d
 																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
 								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]
 
-db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe: \n'+
+db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
 								CRYPT()]

@@ -42,12 +42,13 @@ def user():
 	"""
 	return dict(form=auth())
 
+@auth.requires_login()
 def perfilth():
 
 	if request.args:
 		userid = int(request.args[0])
 	else:
-		userid = str(1)
+		userid = auth.user.id
 
 	usuario = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
 	
@@ -220,13 +221,14 @@ def registrousrth1():
 																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
 																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
 								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]),
-		Field('password', type='password', readable=False, length=512, requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{8,24}$', error_message='La contraseña debe: \n'+
+		Field('password', type='password', readable=False, length=512, requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
+																										'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 								CRYPT()]), 
 		db.persona)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+		formPersona.vars = dict((k,v) for k,v in formPersona.vars.iteritems() if v is not None)
 		redirect(URL("default","registrousrth2",vars=formPersona.vars))
 
 	elif formPersona.errors:

@@ -221,6 +221,8 @@
 'Is Active': 'Está Activo',
 'Key': 'Llave',
 'La contraseña debe:\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/\n\t- Debe tener una longitud entre 8 y 24 caracteres.': 'La contraseña debe:\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/\n\t- Debe tener una longitud entre 8 y 24 caracteres.',
+'La contraseña debe: \n\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/\n\t- Debe tener una longitud entre 4 y 24 caracteres.': 'La contraseña debe: \n\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/\n\t- Debe tener una longitud entre 4 y 24 caracteres.',
+'La contraseña debe: \n\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/\n\t- Debe tener una longitud entre 8 y 24 caracteres.': 'La contraseña debe: \n\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/\n\t- Debe tener una longitud entre 8 y 24 caracteres.',
 'language file "%(filename)s" created/updated': 'archivo de lenguaje "%(filename)s" creado/actualizado',
 'Language files (static strings) updated': 'Archivos de lenguaje (cadenas estáticas) actualizados',
 'languages': 'lenguajes',
