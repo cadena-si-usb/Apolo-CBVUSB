@@ -88,8 +88,8 @@ auth.define_tables(username=True, signature=False)
 service = Service()
 plugins = PluginManager()
 
-from gluon.contrib.login_methods.ldap_auth import ldap_auth
-
+#from gluon.contrib.login_methods.ldap_auth import ldap_auth
+"""
 auth.settings.login_methods.append(ldap_auth(
 	server='localhost',
 	base_dn='ou=users,dc=login,dc=com',
@@ -103,6 +103,7 @@ auth.settings.login_methods.append(ldap_auth(
 	group_name_attrib='cn',
 	group_member_attrib='memberUid',
 	group_filterstr='objectClass=*'))
+"""
 
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables
