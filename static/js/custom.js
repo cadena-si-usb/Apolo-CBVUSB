@@ -4,6 +4,7 @@ $(document).ready(function() {
     var addUnit = $(".addUnit");             // ID del botón para añadir unidad
     var comissionsCount = 1;
     var unitsCount = [1];
+    var comissionMembersCount = [3];
 
     $(".clickable-row").on('click', function() {
         window.location = $(this).data("href");
@@ -30,17 +31,29 @@ $(document).ready(function() {
             <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="conductor">\
           </div>\
         </div>');
+
+    });
+
+    $("body").on("click","a.addComissionMember", function() {
+        var num1 = parseInt(this.id.match(/\d+/g), 10 );
+        var comissionMembersCNT = "#comissionMembersCNT" + num1;
+
+        comissionMembersCount[num1-1]++;
+        var num2 = comissionMembersCount[num1-1];
+
+        $(comissionMembersCNT).append('<input type="text" class="form-control" id="comissionMember'+num1+'-'+num2+'" placeholder="Sancho Panza" name="acompanante2">');
     });
 
     $(addComission).on('click', function() {
         comissionsCount++;
         unitsCount = unitsCount.concat([1]);
+        comissionMembersCount = comissionMembersCount.concat([3]);
 
         var num1 = comissionsCount;
         var num2 = unitsCount[num1-1];
 
         $(comissionsCNT).append(
-        '<div class="row" id="comission"'+num1+'>\
+        '<div class="row" id="comission'+num1+'">\
           <div class="col-xs-12"><h3 id="comissionTitle'+num1+'">Comisión #'+num1+'</h3></div>\
           <div class="col-xs-12 col-sm-6">\
             <div class="form-group ui-widget">\
@@ -72,14 +85,14 @@ $(document).ready(function() {
             </div>\
           </div>\
           <div class="col-xs-12 col-sm-6">\
-            <div class="comissionMembers">\
+            <div id="comissionMembersCNT'+num1+'">\
               <label for="comissionMembers'+num1+'">Acompañantes</label>\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-0" placeholder="Sancho Panza" name="acompanante0">\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-1" placeholder="Sancho Panza" name="acompanante1">\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-2" placeholder="Sancho Panza" name="acompanante2">\
+              <input type="text" class="form-control" id="comissionMember'+num1+'-1" placeholder="Sancho Panza" name="acompanante0">\
+              <input type="text" class="form-control" id="comissionMember'+num1+'-2" placeholder="Sancho Panza" name="acompanante1">\
+              <input type="text" class="form-control" id="comissionMember'+num1+'-3" placeholder="Sancho Panza" name="acompanante2">\
             </div>\
             <div class="text-right">\
-              <a href="#" id="addComissionMember'+num1+'" role="button">\
+              <a href="#" id="addComissionMember'+num1+'" class="addComissionMember" role="button">\
                 <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
               </a>\
             </div>\
