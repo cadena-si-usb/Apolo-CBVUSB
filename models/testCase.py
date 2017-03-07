@@ -1,6 +1,6 @@
 def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,carnet,tipoS,inic):
     db.usuario.insert(username = username,password = password)
-    db.persona.insert(cedula = cedula, 
+    db.persona.insert(cedula = cedula,
         primer_nombre = PN,
         segundo_nombre = SN,
         primer_apellido = PA,

@@ -8,7 +8,7 @@
     <meta name="application-name" content="{{=request.application}}">                                    <!-- Meta con el titulo -->
     <meta name="google-site-verification" content="">                                                    <!-- Google aceptanos -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto" type="text/css">         <!-- Importar fuente Roboto -->
-    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">                       <!-- Importar fuente Monoton -->
+    <link href="https://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet">               <!-- Importar fuente Hammersmith One -->
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>                           <!-- Importar stylesheet de bootstrap -->
     <link rel="stylesheet" href="{{=URL('static','css/custom.css')}}"/>                                  <!-- Importar stylesheet propio -->
     <link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>                              <!-- Importar stylesheet para mensajes de alerta -->
@@ -16,6 +16,17 @@
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+    <script language="text/javascript">
+   function load_js()
+   {
+      var head= document.getElementsByTagName('head')[0];
+      var script= document.createElement('script');
+      script.type= 'text/javascript';
+      script.src= "{{=URL('static','css/custom.css')}}";
+      head.appendChild(script);
+   }
+   load_js();
+</script>
 
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
     {{block head}}{{end}}
