@@ -74,7 +74,7 @@ def aspending():
 def deleteService():
     serviceId = request.vars.row_id
     db(db.servicio.id == serviceId).delete()
-    redirect(URL('services','services'))
+    redirect(URL('services','allservices'))
 
 # Vista para visualizar servicio
 def displayService():
@@ -113,8 +113,16 @@ def obtenerNombreBomberos():
 
 # Vista principal de "Registrar servicio"
 def register():
-    # Cada request.vars['algo'] depende de como lo hallan llamado en el form en html
+   
+   # Form rellenado y submiteado por usuario
     if request.env.request_method == 'POST':
+
+        # Guardar borrador de form
+        if request.vars['draft'] is not None:
+            borrador = True        
+        # Registrar form completo
+        else:
+            borrador = False
 
         #print request.vars["jefeComision"]
         #print request.vars["conductor"]
@@ -127,10 +135,13 @@ def register():
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
 
-        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio)
+        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
+
         redirect(URL('services','index.html'))
 
+    # Pagina de registro inicial (method get)
     else:
+
         # Obtener ID de ultimo servicio registrado
         # ID de nuevo servicio sera ultimo ID + 1
         ultimoServicioId = db.servicio.id.max()
@@ -161,11 +172,16 @@ def editDraft():
         servicio.descripcion = request.vars['descripcion']
         servicio.localizacion = request.vars['localizacion']
 
+        # Guardar form
+        if request.vars['draft'] is None:
+            servicio.Borrador = False
+
         servicio.update_record()
 
         redirect(URL('services','index.html'))
 
     else:
+
         serviceId = request.vars.id
         service = db(db.servicio.id == serviceId).select()[0]
 
