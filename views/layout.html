@@ -51,53 +51,50 @@
 
           <!-- Agrupar los enlaces de navegación, los formularios y cualquier
           otro elemento que se pueda ocultar al minimizar la barra -->
-          <!-- FALTAN AGREGAR LOS HRER BIEN -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
               <li><a href="#">Educación</a></li>
-              <!--li class="dropdown">
-                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Educación<span class="caret"></span></a>
-                < ul class="dropdown-menu">
-                  <li><a href="{{=URL('default','index')}}">Cursos</a></li>
-                  <li class="divider"></li>
-                  <li><a href="{{=URL('default','index')}}">Servicio comunitario</a></li>
-                </ul>
-              </li-->
               <li class="dropdown">
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{=URL('default','index')}}">Guardias</a></li>
                   <li><a href="{{=URL('services','index')}}">Servicios</a></li>
+                  <li><a href="{{=URL('services','index')}}">Estadísticas</a></li>
                 </ul>
               </li>
               <li class="dropdown">
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Talento Humano<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a></li>
-                  <li><a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a></li>
-                  <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
-                  <li><a href="{{=URL('default','eliminarusrth')}}">Eliminar Usuario</a></li>
                   <li><a href="{{=URL('default','buscarth.html')}}">Buscar</a></li>
                 </ul>
               </li>
               <li><a href="{{=URL('default','index')}}">Administración</a></li>
               <li><a href="{{=URL('default','index')}}">Riesgos</a></li>
-              <li><a href="{{=URL('default','index')}}">Estadísticas</a></li>
-              <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
+              <li class="dropdown">
+                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a></li>
+                  <li><a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a></li>
+                  <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
+                  <li><a href="{{=URL('default','eliminarusrth')}}">Eliminar Usuario</a></li>
+                  <li><a href="{{=URL('default','logout')}}">Salir</a></li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div></nav>
       </div>
 
-    <!-- Mensajes de error -->
+    <!-- Mensajes -->
     {{if response.flash:}}
-    <div class="w2p_flash alert alert-danger" align="center">
+    <div class="w2p_flash alert alert-warning alert-dismissable" align="center" style="width: 50%;height: auto;">
       {{=response.flash}}
     </div>
     {{pass}}
 
-
+    <div style="padding-bottom: auto;padding-top: auto; padding-right: auto; padding-left: auto;">
     {{include}}
+    </div>
 
     <!-- Footer -->
     <footer class="footer bg-4 top-space-separator">
