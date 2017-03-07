@@ -1,5 +1,5 @@
-from gluon.tools import Auth, Service, PluginManager
-from gluon.contrib.login_methods.ldap_auth import ldap_auth
+#from gluon.tools import Auth, Service, PluginManager
+#from gluon.contrib.login_methods.ldap_auth import ldap_auth
 
 db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
