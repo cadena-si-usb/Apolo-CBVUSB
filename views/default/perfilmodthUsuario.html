@@ -2,14 +2,14 @@
 <div class="container bg-0">
 	<h2 align="center">Modificar Perfil</h2>
 	<br/><br/>
-	<ul class="nav nav-pills" role="tablist">
+	<ul class="nav nav-tabs" role="tablist">
 	    <li class="nav-item">
-	      <a class="nav-link" data-toggle="tab" href="#datousuario" role="tab">Datos del usuario</a>
+	      <a class="nav-link active" data-toggle="tab" href="#datousuario" role="tab">Datos del usuario</a>
 	    </li>
-	    <li class="nav-item active">
+	    <li class="nav-item">
 	      <a class="nav-link" data-toggle="tab" href="{{=URL('default','perfilmodthPersona')}}" role="tab">Datos personales</a>
 	    </li>
-	    <li class="nav-item active">
+	    <li class="nav-item">
 	      <a class="nav-link" data-toggle="tab" href="{{=URL('default','perfilmodthBombero')}}" role="tab">Datos de bombero</a>
 	    </li>
 	</ul>
@@ -18,16 +18,6 @@
 		<div class="tab-pane active" id="datousuario" role="tabpanel">
 			<div class="forms">
 				{{=formUsuario}}
-			</div>
-		</div>
-		<div class="tab-pane active" id="datopersonal" role="tabpanel">
-			<div class="forms">
-				{{=formPersona}}
-			</div>
-		</div>
-		<div class="tab-pane active" id="datobombero" role="tabpanel">
-			<div class="forms">
-				{{=formBombero}}
 			</div>
 		</div>
 	</div>
