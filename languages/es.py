@@ -279,6 +279,7 @@
 'No records found': 'No se han encontrado registros',
 'Not authorized': 'No autorizado',
 'not in': 'no en',
+'Numero de cedula no valido': 'Numero de cedula no valido',
 'Object or table name': 'Nombre del objeto o tabla',
 'Old password': 'Contraseña vieja',
 'Online book': 'Online book',

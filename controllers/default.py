@@ -90,60 +90,71 @@ def perfilmodth():
 			notnull=True, 
 			default=persona.primer_nombre, 
 			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+			label='Primer nombre (*)'
 			),
 		Field('segundo_nombre', 
 			type='string',
 			default=persona.segundo_nombre, 
 			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
+			label='Segundo nombre'
 			),
 		Field('primer_apellido', 
 			type='string', 
 			notnull=True, 
 			default=persona.primer_apellido, 
 			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+			label='Primer apellido (*)'
 			),
 		Field('segundo_apellido', 
 			type='string',
 			default=persona.segundo_apellido, 
 			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
+			label='Segundo apellido'
 			),
 		Field('fecha_nacimiento', 
 			type='date', 
 			notnull=True,
 			default=persona.fecha_nacimiento,
 			requires=IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+			label='Fecha de nacimiento (*)'
 			),
 		Field('lugar_nacimiento', 
 			type='string', 
 			notnull=True,
 			default=persona.lugar_nacimiento, 
 			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+			label='Estado de nacimiento (*)'
 			),
 		Field('genero', 
 			type='string', 
 			notnull=True,
 			default=persona.genero, 
 			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
+			label='Género (*)'
 			),
 		Field('imagen', type='text',
 			default=persona.imagen
+			label='Imagen de perfil'
 			),
 		Field('email_principal', 
 			type='string', 
 			notnull=True,
 			default=persona.email_principal, 
 			requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')
+			label='Email principal (*)'
 			),
 		Field('email_alternativo', 
 			type='string',
 			default=persona.email_alternativo, 
 			requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
+			label='Email secundario'
 			),
 		Field('estado_civil', 
 			type='string', 
 			notnull=True,
 			default=persona.estado_civil, 
 			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')
+			label='Estado civil (*)'
 			)
 		)
 	
@@ -160,12 +171,29 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=bombero.cargo,
-			requires = IS_IN_SET(['Administrador', 'Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
-									'Inspector en Jefe', 'sub-Inspector',
-									'Gerente de Riesgo', 'Gerente de Administración', 'Gerente de Educación', 'Gerente de Operaciones','Gerente de Talento humano',
-									'Coordinador de Riesgo', 'Coordinador de Administración', 'Coordinador de Educación', 'Coordinador de Operaciones','Coordinador de Talento humano',
-									'Miembro de Riesgo', 'Miembro de Administración', 'Miembro de Educación', 'Miembro de Operaciones','Miembro de Talento humano',
-									'Estudiante'], error_message='Debe seleccionar una opción')))
+			requires = IS_IN_SET(['Administrador', 
+									'Comandante en Jefe', 
+									'Primer comandante', 
+									'Segundo comandante', 
+									'Inspector en Jefe', 
+									'Gerente de Riesgo', 
+									'Gerente de Administración', 
+									'Gerente de Educación', 
+									'Gerente de Operaciones',
+									'Gerente de Talento humano',
+									'Sub-Gerente de Riesgo', 
+									'Sub-Gerente de Administración', 
+									'Sub-Gerente de Educación', 
+									'Sub-Gerente de Operaciones',
+									'Sub-Gerente de Talento humano',
+									'Miembro de Riesgo', 
+									'Miembro de Administración', 
+									'Miembro de Educación', 
+									'Miembro de Operaciones',
+									'Miembro de Talento humano',
+									'Estudiante'
+									], error_message='Debe seleccionar una opción')
+			label='Cargo que ocupa'))
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
