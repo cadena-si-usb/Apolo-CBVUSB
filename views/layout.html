@@ -83,7 +83,7 @@
               </li>
               {{else:}}
               <li class="dropdown">
-                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visitante<span class="caret"></span></a>
+                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{=URL('default/user','login')}}">Iniciar sesión</a></li>
                   <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
@@ -97,12 +97,15 @@
 
     <!-- Mensajes -->
     {{if response.flash:}}
-    <div class="w2p_flash alert alert-warning alert-dismissable" role="alert" align="center">
-      {{=response.flash}}
+    <div class="row">
+    {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
+      <!--h4 title="Cerrar" class="w2p_flash alert alert-warning col-sm-6 col-sm-offset-3" style="width: 50%;height: auto;">
+        {{=response.flash}}
+      </h4-->
     </div>
     {{pass}}
 
-    <div style="padding-bottom: auto;padding-top: auto; padding-right: auto; padding-left: auto;">
+    <div style="padding: auto;">
     {{include}}
     </div>
 
