@@ -137,41 +137,48 @@ Iconos de servicios
 .service-item {
   display: inline-block;
   margin: 2px;
-  border: 0px solid transparent;
 }
 
 .wrapper {
-  background: #111111;
+  background: #1565C0;
+
   display:block;
-  width:300px;
-  height:300px;
+  width:280px;
+  height:180px;
 
-  color:#FFD740;
+  color: white;
 
-  line-height: 300px;
+  line-height: 180px;
   text-align: center;
-  border-radius: 20px;
 
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  border: 5px solid #1565C0;
+  border-radius: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .wrapper:hover {
-  background-color: #000000;
-  color:#FF3D00;
-  color:#0D47A1; /*elimina esta linea y vive la experiencia naranja*/
+  background: white;
+  border-color: #1565C0;
+  color: #1565C0;
 }
 
 .text {
-  font-family: 'Monoton', cursive;
+  font-family: 'Hammersmith One', sans-serif;
   font-size: 40px;
+  font-weight: 600;
+  text-transform: capitalize;
 
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
 }
+
 /*
 ESTO YA NO LO USA EL TEAM PYRONY, HABRA QUE VER SI NO LES JODEMOS NADA A NOS
 .services-item{
@@ -319,3 +326,4 @@ display:none;
   background-position: 50% 50%;
   background-clip: padding-box;
 }
+
