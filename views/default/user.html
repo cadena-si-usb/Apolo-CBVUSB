@@ -1,18 +1,18 @@
 {{extend 'layout.html'}}
 
-<h2 align="center">
-{{=T('Registrarse') if request.args(0) == 'register' else T('Iniciar Sesión') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
-</h2>
-
-<div class="container">
+<div class="container" align="center">
+    <h2>
+    {{=T('Registrarse') if request.args(0) == 'register' else T('Iniciar Sesión') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
+    </h2>
+    <br/><br/>
     <div id="web2py_user_form" align="center">
         {{
         if request.args(0)=='login':
             if not 'register' in auth.settings.actions_disabled:
-                form.add_button(T('Registrarse'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-default')
+                form.add_button(T('Registrarse'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-primary')
             pass
             if not 'request_reset_password' in auth.settings.actions_disabled:
-                form.add_button(T('¿Olvidaste tu contraseña?'),URL(args='request_reset_password'),_class='btn btn-default')
+                form.add_button(T('¿Olvidaste tu contraseña?'),URL(args='request_reset_password'),_class='btn btn-primary')
             pass
         pass
         =form
@@ -20,14 +20,13 @@
     </div>
 </div>
 
-
 {{block page_js}}
 <script>
     jQuery("#web2py_user_form input:visible:enabled:first").focus();
-{{if request.args(0)=='register':}}
-    web2py_validate_entropy(jQuery('#auth_user_password'),100);
-{{elif request.args(0)=='change_password':}}
-    web2py_validate_entropy(jQuery('#no_table_new_password'),100);
-{{pass}}
+    {{if request.args(0)=='register':}}
+        web2py_validate_entropy(jQuery('#auth_user_password'),100);
+    {{elif request.args(0)=='change_password':}}
+        web2py_validate_entropy(jQuery('#no_table_new_password'),100);
+    {{pass}}
 </script>
 {{end page_js}}
