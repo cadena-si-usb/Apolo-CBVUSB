@@ -111,6 +111,34 @@ def obtenerNombreBomberos():
                                 bombero.persona.segundo_apellido)
     return nombreBomberos
 
+def registrarComisiones(request):
+
+    commissionCounter = 1
+
+    # Procesar cada comision agregada
+    while request.vars["comissionTitle"+str(commissionCounter)] is not None:
+        
+        # Jefe de comision
+        jefeComision = request.vars["commissionBoss"+str(commissionCounter)]
+        
+        # Acompanantes
+        acompanantesCounter = 1
+        acompanantes = list()
+        while request.vars["comissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)] is not None:
+            acompanantes.append(request.vars["comissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)])
+            acompanantesCounter+=1
+
+        # Unidades
+        UnidadesCounter = 1
+        unidades = list()
+        conductores = list()
+        while request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)] is not None:
+            unidades.append(request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)])
+            conductores.append(request.vars["comissionDriver"+str(commissionCounter)+"-"+str(UnidadesCounter)])
+            UnidadesCounter+=1
+
+        commissionCounter+=1
+
 # Vista principal de "Registrar servicio"
 def register():
    
@@ -124,22 +152,15 @@ def register():
         else:
             borrador = False
 
-        #print request.vars["jefeComision"]
-        #print request.vars["conductor"]
-        #print request.vars["acompanante"]
-
-        print "JEFES"
-        print request.vars["commissionBoss1"]
-        print request.vars["commissionBoss2"]
-
-
-
         tipoServicio = request.vars['tipo']
         fechaCreacion = request.vars['fechaCreacion']
         fechaLlegada = request.vars['fechaLlegada']
         fechaFinalizacion = request.vars['fechaFinalizacion']
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
+
+        # Registrar datos de comisiones asociadas
+        registrarComisiones(request)
 
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
