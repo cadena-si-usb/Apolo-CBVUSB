@@ -71,13 +71,13 @@
               <li><a href="{{=URL('default','index')}}">Administración</a></li>
               <li><a href="{{=URL('default','index')}}">Riesgos</a></li>
               <li class="dropdown">
-                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario<span class="caret"></span></a>
+                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=auth.user.username}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{=URL('default','perfilth.html')}}">Ver Perfil</a></li>
-                  <li><a href="{{=URL('default','perfilmodth.html')}}">Modificar Perfil</a></li>
+                  <li><a href="{{=URL('default','perfilmodthUsuario.html')}}">Modificar Perfil</a></li>
                   <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
                   <li><a href="{{=URL('default','eliminarusrth')}}">Eliminar Usuario</a></li>
-                  <li><a href="{{=URL('default','logout')}}">Salir</a></li>
+                  <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
                 </ul>
               </li>
             </ul>
@@ -87,7 +87,7 @@
 
     <!-- Mensajes -->
     {{if response.flash:}}
-    <div class="w2p_flash alert alert-warning alert-dismissable" align="center" style="width: 50%;height: auto;">
+    <div class="w2p_flash alert alert-warning alert-dismissable" role="alert" align="center">
       {{=response.flash}}
     </div>
     {{pass}}

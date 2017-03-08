@@ -10,13 +10,13 @@
         <div class="col-xs-12 col-sm-6">
             <!-- Nombre del usuario -->
             {{if usuario.persona.segundo_nombre == None and usuario.persona.segundo_apellido == None:}}
-            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}}</h1>
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}}</h1>
             {{elif usuario.persona.segundo_nombre == None and usuario.persona.segundo_apellido != None:}}
-            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
             {{elif usuario.persona.segundo_nombre != None and usuario.persona.segundo_apellido == None:}}
-            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}}</h1>
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}}</h1>
             {{elif usuario.persona.segundo_nombre != None and usuario.persona.segundo_apellido != None:}}
-            <h1 style="font-size:36px;">{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
             {{pass}}
             <br />
             <!-- Cargo dentro de la organizacion | Rango -->
@@ -26,7 +26,7 @@
     <br /><br />
     <div class="col-xs-12 col-sm-6">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3>Datos básicos</h3></div>
+            <div class="panel-heading"><h4>Datos básicos</h4></div>
             <table class="table table-bordered">
                 <tr>
                     <td>Cédula:</td>
@@ -54,7 +54,7 @@
 
     <div class="col-xs-12 col-sm-6">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3>Datos de contacto</h3></div>
+            <div class="panel-heading"><h4>Datos de contacto</h4></div>
             <table class="table table-bordered">
                 <tr>
                     <td>Celular:</td>
@@ -87,7 +87,7 @@
     <br /><br />
     <div class="col-xs-12">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3>Datos académicos</h3></div>
+            <div class="panel-heading"><h4>Datos académicos</h4></div>
             <table class="table table-bordered">
             </table>
         </div>
@@ -95,7 +95,7 @@
     <br /><br />
     <div class="col-xs-12">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3>Datos de bombero</h3></div>
+            <div class="panel-heading"><h4>Datos de bombero</h4></div>
             <table class="table table-bordered">
             </table>
         </div>
@@ -103,7 +103,7 @@
     <br /><br />
     <div class="col-xs-12">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3>Ascensos</h3></div>
+            <div class="panel-heading"><h4>Ascensos</h4></div>
             <div class="panel-body"></div>
             <table class="table table-bordered">
             </table>
@@ -112,7 +112,7 @@
     </div>
     <div class="col-xs-12">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3>Premiaciones</h3></div>
+            <div class="panel-heading"><h4>Premiaciones</h4></div>
             <table class="table table-bordered">
             </table>
             <div class="panel-footer"><a href="#">Ver más</a></div>
@@ -121,7 +121,7 @@
     <br /><br />
     <div class="col-xs-12">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3>Actividades</h3></div>
+            <div class="panel-heading"><h4>Actividades</h4></div>
             <table class="table table-bordered">
             </table>
             <div class="panel-footer"><a href="#">Ver más</a></div>

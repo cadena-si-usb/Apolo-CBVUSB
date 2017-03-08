@@ -22,9 +22,6 @@ def index():
 	"""
 	return dict()
 
-def indexno():
-	return dict()
-
 def user():
 	"""
 	exposes:
@@ -56,19 +53,13 @@ def perfilth():
 	return dict(usuario=usuario)
 
 @auth.requires_login()
-def perfilmodth():
-
+def perfilmodthPersona():
+	
 	userid = auth.user.id
 	bombero=db(db.bombero.id_usuario==userid).select().first()
 	persona=db(db.persona.id==bombero.id_persona).select().first()
 
-	form = SQLFORM.factory(
-		Field('cedula', 
-			type='string', 
-			unique=True, 
-			default=persona.cedula, 
-			requires=IS_MATCH('^[VE]-\d+$', error_message='Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX')
-			),
+	formPersona = SQLFORM.factory(
 		Field('primer_nombre', 
 			type='string', 
 			notnull=True, 
@@ -82,7 +73,7 @@ def perfilmodth():
 			),
 		Field('primer_apellido', 
 			type='string', 
-			notnull=True,
+			notnull=True, 
 			default=persona.primer_apellido, 
 			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
 			),
@@ -128,13 +119,50 @@ def perfilmodth():
 			notnull=True,
 			default=persona.estado_civil, 
 			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')
-			),
-		Field('tipo_sangre', 
-			type='string', 
-			notnull=True,
-			default=bombero.tipo_sangre,
-			requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos')
-			),
+			)
+		)
+	
+	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
+		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(formPersona.vars))
+		redirect(URL("default","perfilmodthBombero",vars=formPersona.vars))
+	elif formPersona.errors:
+		response.flash = 'Hay un error en un campo'
+	
+	return dict(formPersona=formPersona)
+
+@auth.requires_login()
+def perfilmodthUsuario():
+	
+	userid = auth.user.id
+	bombero=db(db.bombero.id_usuario==userid).select().first()
+	usuario=db(db.usuario.id==bombero.id_usuario).select().first()
+
+	formUsuario = SQLFORM.factory(
+		Field('password', 
+			type='password', 
+			notnull=True, 
+			default=usuario.password, 
+			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
+																								'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+																								'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
+						CRYPT()]
+						))
+	
+	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
+		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
+		redirect(URL("default","perfilmodthPersona",vars=formUsuario.vars))
+	elif formUsuario.errors:
+		response.flash = 'Hay un error en un campo'
+	
+	return dict(formUsuario=formUsuario)
+
+@auth.requires_login()
+def perfilmodthBombero():
+
+	userid = auth.user.id
+	bombero=db(db.bombero.id_usuario==userid).select().first()
+
+	formBombero = SQLFORM.factory(
 		Field('cargo', 
 			type='string', 
 			notnull=True, 
@@ -144,32 +172,16 @@ def perfilmodth():
 									'Gerente de Riesgo', 'Gerente de Administración', 'Gerente de Educación', 'Gerente de Operaciones','Gerente de Talento humano',
 									'Coordinador de Riesgo', 'Coordinador de Administración', 'Coordinador de Educación', 'Coordinador de Operaciones','Coordinador de Talento humano',
 									'Miembro de Riesgo', 'Miembro de Administración', 'Miembro de Educación', 'Miembro de Operaciones','Miembro de Talento humano',
-									'Estudiante'], error_message='Debe seleccionar una opción'))
-		)
-
-	if form.process(session=None, formname='perfilmod', keepvalues=True).accepted:
-		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(form.vars))
-		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(form.vars))
-
-	elif form.errors:
+									'Estudiante'], error_message='Debe seleccionar una opción')))
+	
+	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
+		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
+		user = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
+		redirect(URL("default","index",args=[user]))
+	elif formBombero.errors:
 		response.flash = 'Hay un error en un campo'
 
-	return dict(form=form)
-
-def registrousrth():
-	formUsuario = SQLFORM(db.usuario)
-	formPersona = SQLFORM(db.persona)
-	formBombero = SQLFORM(db.bombero)
-
-	if (formUsuario.process(session=None, formname='Usuario').accepted and
-		formPersona.process(session=None, formname='Persona').accepted and
-		formBombero.process(session=None, formname='Bombero').accepted):
-		response.flash = '¡El usuario '+str(formUsuario)+' ha sido registrado exitosamente!'
-
-	elif formUsuario.errors or formPersona.errors or formBombero.errors:
-		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
-
-	return dict(formUsuario=formUsuario, formPersona=formPersona, formBombero=formBombero)
+	return dict(formBombero=formBombero)
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
 def registrousrth1():
@@ -224,6 +236,7 @@ def registrousrth2():
 
 # Deseable: Que me muestre el nombre del usuario en el mensaje final
 def registrousrth_final():
+	
 	id_usuario=request.args[0]
 	username=db(db.usuario.id==id_usuario).select().first().username
 
@@ -231,6 +244,7 @@ def registrousrth_final():
 	return dict(username=username)
 
 def eliminarusrth():
+	
 	if request.args:
 		
 		id_bombero = int(request.args[0])
