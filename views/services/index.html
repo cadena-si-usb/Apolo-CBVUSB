@@ -1,22 +1,69 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<!-- Tabla de Servicios -->
-<div class="page-header" style="margin-left: 3em;">
-    <h1>Servicios</h1>
-</div>
-
 <div class="container-fluid">
-  <div class="service-item">
-    <a href="{{=URL('services','register.html')}}" class="wrapper"><span class="text">Crear Servicio</span></a>
+  <div class="row">
+    <div class="col-md-12 col-md-offset-1">
+      <div class="page-header"">
+          <h2>Servicios</h2>
+      </div>
+    </div>
   </div>
-  <div class="service-item">
-    <a href="{{=URL('services','allservices.html')}}" class="wrapper"><span class="text">Gestionar Servicios</span></a>
+  <div class="row bottom-space-separator">
+    <div class="col-md-12 col-md-offset-3">
+      <div class="container-fluid">
+        <form class="navbar-form navbar-left" style="padding: 2px;" role="search">
+          <div class="form-group">
+            <input type="search" class="form-search form-control" placeholder="Escribe el nombre de un servicio...">
+          </div>
+          <button type="submit" class="btn btn-default bg-1"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="service-item">
-    <a href="{{=URL('services','myservices.html')}}" class="wrapper"><span class="text">Mis Servicios</span></a>
+  <div class="row top-space-separator bottom-space-separator">
+    <div class="col-md-12 col-md-offset-2">
+      <div class="container-fluid">
+        <div class="service-item">
+          <a href="{{=URL('services','register.html')}}" class="wrapper"><span class="text">Crear Servicio</span></a>
+        </div>
+        <div class="service-item">
+          <a href="{{=URL('services','myservices.html')}}" class="wrapper wrapper-large"><span class="text">Gestionar mis registros de servicios</span></a>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="service-item">
-    <a href="{{=URL('services','search.html')}}" class="wrapper"><span class="text">Buscar Servicios</span></a>
+  <div class="row top-space-separator">
+    <div class="col-md-10 col-md-offset-1">
+      <h3>Últimos servicios aprobados</h3>
+      <div class="table-responsive">
+        <table class= "table table-hover">
+          <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Localización</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+          </tr>
+          {{for i in range(len(services)):}}
+          {{if i == 10: break}}
+          <tr class='clickable-row' data-href={{=URL('services','displayService', vars=dict(id=services[i].id))}}>
+            <td>{{=services[i].id}}</td>
+            <td>{{=services[i].tipo}}</td>
+            <td>{{=services[i].descripcion}}</td>
+            <td>{{=services[i].localizacion}}</td>
+            <td>{{=services[i].fechaCreacion}}</td>
+            <td>{{=services[i].fechaFinalizacion}}</td>
+          </tr>
+          {{pass}}
+        </table>
+      </div>
+      <div class="text-left">
+        <a href="{{=URL('services','allservices.html')}}" role="button">
+          <small>Ver todos</small>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
