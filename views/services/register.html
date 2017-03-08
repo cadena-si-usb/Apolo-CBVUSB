@@ -2,87 +2,87 @@
 {{extend 'layout.html'}}
 
 {{block head}}
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
 {{end}}
 
 <body>
-  <!-- container principal -->
-  <div class="container">
-    <ol class="breadcrumb">
-      <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
-      <li class="active">Registrar Servicio</li>
-    </ol>
+<!-- container principal -->
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
+    <li class="active">Registrar Servicio</li>
+  </ol>
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item active">
-        <a class="nav-link" data-toggle="tab" href="#basicinfo" role="tab">Info. básica</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a>
-      </li>
-      <li class="nav-item">
-        <a id="btn-submit" role="tab">Enviar</a>
-      </li>
-    </ul>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item active">
+      <a class="nav-link" data-toggle="tab" href="#basicinfo" role="tab">Info. básica</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a>
+    </li>
+    <li class="nav-item">
+      <a id="btn-submit" role="tab">Enviar</a>
+    </li>
+  </ul>
 
-    <!-- Tab Información Básica -->
-    <form role="form" action="" method="post" id="registro" name="registro" onsubmit="return validateForm()">
-      <div class="tab-content">
-        <div class="tab-pane active" id="basicinfo" role="tabpanel">
+  <!-- Tab Información Básica -->
+  <form role="form" action="" method="post" id="registro" name="registro" onsubmit="return validateForm()">
+    <div class="tab-content">
+      <div class="tab-pane active" id="basicinfo" role="tabpanel">
 
-          <div class="row">
-            <div class="col-xs-6">
-              <h2>Servicio <kbd>{{=nuevoServicioId}}</kbd></h2>
-              <input type="hidden" name="id" value="{{=nuevoServicioId}}">
-            </div>
-            <div class="col-xs-6 text-right">
-              <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-floppy-disk"></span>
-              </button>
-            </div>
-
+        <div class="row">
+          <div class="col-xs-6">
+            <h2>Servicio <kbd>{{=nuevoServicioId}}</kbd></h2>
+            <input type="hidden" name="id" value="{{=nuevoServicioId}}">
+          </div>
+          <div class="col-xs-6 text-right">
+            <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-save"></span>
+            </button>
           </div>
 
-          <div class="row">
-            <div class="col-xs-12 col-sm-6">
-              <div class="form-group">
-                <label for="startDate">Tipo de Servicio</label>
-                <select name="tipo" class="form-control" required="required">
-                  <option value="" selected="selected">- - Seleccione el tipo de servicio - -</option>
-                  <option value="CM">CM</option>
-                  <option value="AME1">AME1</option>
-                  <option value="AME2">AME2</option>
-                  <option value="IDE">IDE</option>
-                  <option value="IDV">IDV</option>
-                  <option value="PC">PC</option>
-                  <option value="AY">AY</option>
-                  <option value="MP">MP</option>
-                  <option value="RES1">RES1</option>
-                  <option value="RES2">RES2</option>
-                  <option value="SE">SE</option>
-                  <option value="GP">GP</option>
-                  <option value="NSA">NSA: No se actuó</option>
-                  <option value="FA">FA: Falsa Alarma</option>
-                </select>
-              </div>
-            </div>
+        </div>
 
-            <div class="col-xs-12 col-sm-3">
-              <div class="form-group">
-                <label for="startDate">Fecha/hora de inicio</label>
-                <input type="datetime-local" class="form-control" id="startDate" name="fechaCreacion" required="required"/>
-              </div>
-            </div>
-            <!--
-
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
             <div class="form-group">
-            <label for="stadrtDate">Fecha y hora de llegada</label>
-            <input type="datetime-local" class="form-control" id="stadrtDate" name="fechaLlegada" />
-          </div> -->
+              <label for="startDate">Tipo de Servicio</label>
+              <select name="tipo" class="form-control" required="required">
+                <option value="" selected="selected">- - Seleccione el tipo de servicio - -</option>
+                <option value="CM">CM</option>
+                <option value="AME1">AME1</option>
+                <option value="AME2">AME2</option>
+                <option value="IDE">IDE</option>
+                <option value="IDV">IDV</option>
+                <option value="PC">PC</option>
+                <option value="AY">AY</option>
+                <option value="MP">MP</option>
+                <option value="RES1">RES1</option>
+                <option value="RES2">RES2</option>
+                <option value="SE">SE</option>
+                <option value="GP">GP</option>
+                <option value="NSA">NSA: No se actuó</option>
+                <option value="FA">FA: Falsa Alarma</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3">
+            <div class="form-group">
+              <label for="startDate">Fecha/hora de inicio</label>
+              <input type="datetime-local" class="form-control" id="startDate" name="fechaCreacion" required="required"/>
+            </div>
+          </div>
+          <!--
+
+          <div class="form-group">
+          <label for="stadrtDate">Fecha y hora de llegada</label>
+          <input type="datetime-local" class="form-control" id="stadrtDate" name="fechaLlegada" />
+        </div> -->
 
           <div class="col-xs-12 col-sm-3">
             <div class="form-group">
@@ -92,237 +92,236 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="description">Descripción</label>
-          <textarea id="description" class="form-control" rows="5" name="descripcion" required="required"></textarea>
-        </div>
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea id="description" class="form-control" rows="5" name="descripcion" required="required"></textarea>
+      </div>
 
-        <div class="form-group">
-          <label for="address">Dirección</label>
-          <textarea id="address" class="form-control" rows="2" name="localizacion" required="required"></textarea>
-        </div>
+      <div class="form-group">
+        <label for="address">Dirección</label>
+        <textarea id="address" class="form-control" rows="2" name="localizacion" required="required"></textarea>
+      </div>
 
-        <div class="form-group">
-          <label for="location">Ubicación en el mapa</label>
-          <div class="container-fluid">
-            <!--<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>-->
+      <div class="form-group">
+        <label for="location">Ubicación en el mapa</label>
+        <div class="container-fluid">
+          <!--<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>-->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Comisiones -->
+    <div class="tab-pane fade" id="commission" role="tabpanel">
+
+      <div id="comissionsCNT">
+        <div id="comission1">
+          <div class="row">
+            <div class="col-xs-6">
+              <h3 id="comissionTitle1" name="comissionTitle1">Comisión <kbd>1</kbd></h3>
+              <input type="hidden" name="comissionTitle1" value="comissionTitle1">
+            </div>
+            <div class="col-xs-6 text-right">
+              <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-save"></span>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="form-group ui-widget">
+                <label for="commissionBoss1">Jefe de comisión</label>
+                <input id="commissionBoss1" type="text" class="form-control" placeholder="Don Quijote" name="commissionBoss1">
+              </div>
+              <label for="unitTitle">Unidades</label>
+              <div class="row">
+                <div id="unitsCNT1">
+                  <div id="unit1-1">
+                    <div class="col-xs-4 col-sm-2">
+                      <select id="unitValue1-1" class="form-control" name="unitValue1-1">
+                        <op12tion value="" selected="selected">--</option>
+                        <option value="A1">A1</option>
+                        <option value="M2">M2</option>
+                        <option value="L1">L1</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-8 col-sm-10">
+                      <input id="comissionDriver1-1" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver1-1">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 text-right">
+                  <a href="#" id="addUnit1" class="addUnit" role="button">
+                    <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div id="comissionMembersCNT1">
+                <label for="comissionMember1-1">Acompañantes</label>
+                <input type="text" class="form-control" id="comissionMember1-1" placeholder="Sancho Panza" name="comissionMember1-1">
+                <input type="text" class="form-control" id="comissionMember1-2" placeholder="Sancho Panza" name="comissionMember1-2">
+                <input type="text" class="form-control" id="comissionMember1-3" placeholder="Sancho Panza" name="comissionMember1-3">
+              </div>
+              <div class="text-right">
+                <a href="#" id="addComissionMember1" class="addComissionMember" role="button">
+                  <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Tab Comisiones -->
-      <div class="tab-pane fade" id="commission" role="tabpanel">
+      <hr>
+      <hr>
+      <div class="text-center">
 
-        <div id="comissionsCNT">
-          <div id="comission1">
-            <div class="row">
-              <div class="col-xs-6">
-                <h3 id="comissionTitle1">Comisión #1</h3>
-              </div>
-              <div class="col-xs-6 text-right">
-                <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-floppy-disk"></span>
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-sm-6">
-                <div class="form-group ui-widget">
-                  <label for="commissionBoss1">Jefe de comisión</label>
-                  <input id="commissionBoss1" type="text" class="form-control" placeholder="Don Quijote" name="commissionBoss1">
-                </div>
-                <label for="unitTitle">Unidades</label>
-                <div class="row">
-                  <div id="unitsCNT1">
-                    <div id="unit1-1">
-                      <div class="col-xs-4 col-sm-2">
-                        <select id="unitValue1-1" class="form-control" name="unitValue1-1">
-                          <op12tion value="" selected="selected">--</option>
-                            <option value="1">A1</option>
-                            <option value="2">M2</option>
-                            <option value="3">L1</option>
-                          </select>
-                        </div>
-                        <div class="col-xs-8 col-sm-10">
-                          <input id="comissionDriver1-1" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver1-1">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 text-right">
-                      <a id="addUnit1" class="addUnit" role="button">
-                        <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                  <div id="comissionMembersCNT1">
-                    <label for="comissionMember1-1">Acompañantes</label>
-                    <input type="text" class="form-control" id="comissionMember1-1" placeholder="Sancho Panza" name="comissionMember1-1">
-                    <input type="text" class="form-control" id="comissionMember1-2" placeholder="Sancho Panza" name="comissionMember1-2">
-                    <input type="text" class="form-control" id="comissionMember1-3" placeholder="Sancho Panza" name="comissionMember1-3">
-                  </div>
-                  <div class="text-right">
-                    <a id="addComissionMember1" class="addComissionMember" role="button">
-                      <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <button id="addComission" type="button" class="btn btn-default btn-sm">
+          Agregar Comisión
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Tab Afectados -->
+    <div class="tab-pane fade" id="affected" role="tabpanel">
+
+      <div id="afectado0">
+        <div class="row">
+          <div class="col-xs-6">
+            <h3>Afectado <kbd>1</kbd></h3>
           </div>
-
-          <hr>
-          <hr>
-          <div class="text-center">
-            <button id="addComission" type="button" class="btn btn-default btn-sm">
-              Agregar Comisión Adicional
-              <span class="glyphicon glyphicon-plus-sign"></span>
+          <div class="col-xs-6 text-right">
+            <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-save"></span>
             </button>
           </div>
         </div>
-
-        <!-- Tab Afectados -->
-        <div class="tab-pane fade" id="affected" role="tabpanel">
-          <div id="afectadosCNT">
-            <div id="afectado11">
-              <div class="row">
-                <div class="col-xs-6">
-                  <h3 class="AfectadoTitle1">Afectado #1</h3>
-                </div>
-                <div class="col-xs-6 text-right">
-                  <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-floppy-disk"></span>
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-12">
-                  <label>Nombre</label>
-                </div>
-                <div class="col-xs-6 col-sm-3">
-                  <div class="form-group">
-                    <label for="name1Afectado1" class="sr-only">1er Nombre</label>
-                    <input type="text" class="form-control" id="name1Afectado1" placeholder="José">
-                  </div>
-                </div>
-
-                <div class="col-xs-6 col-sm-3">
-                  <div class="form-group">
-                    <label for="name2Afectado1" class="sr-only"><small>2do Nombre</small></label>
-                    <input type="text" class="form-control" id="name2Afectado1" placeholder="Manuel">
-                  </div>
-                </div>
-
-                <div class="col-xs-6 col-sm-3">
-                  <div class="form-group">
-                    <label for="apellido1Afectado1" class="sr-only">1er Apellido</label>
-                    <input type="text" class="form-control" id="apellido1Afectado1" placeholder="Pérez">
-                  </div>
-                </div>
-
-                <div class="col-xs-6 col-sm-3">
-                  <div class="form-group">
-                    <label for="apellido2Afectado1" class="sr-only"><small>2do Apellido</small></label>
-                    <input type="text" class="form-control" id="apellido2Afectado1" placeholder="Rodríguez">
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                  <div class="form-group">
-                    <label for="affectionType1">Tipo</label>
-                    <select class="form-control" id="affectionType1">
-                      <option value="" selected="selected">Seleccione tipo de afectado</option>
-                      <option value="1">Estudiante de la USB</option>
-                      <option value="2">Profesor de la USB</option>
-                      <option value="3">Empleado de la USB</option>
-                      <option value="4">Obrero de la USB</option>
-                      <option value="5">Externo</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-xs-8 col-sm-5">
-                  <div class="form-group">
-                    <label for="affectedCI1">Cédula</label>
-                    <input type="text" class="form-control" id="affectedCI1" placeholder="21.123.123">
-                  </div>
-                </div>
-
-                <div class="col-xs-4 col-sm-1">
-                  <div class="form-group">
-                    <label for="affectedGender1">Sexo</label>
-                    <select class="form-control" id="affectedGende1r">
-                      <option value="?" selected="selected">?</option>
-                      <option value="F">F</option>
-                      <option value="M">M</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                  <h3>Contacto</h3>
-                  <div id="emailCNT1">
-                    <label>Correos Electronicos</label>
-                    <input class="form-control" id="emailMember1-1" type="email" placeholder="josebombero@gmail.com" name="emailMember1-1">
-                  </div>
-                  <div class="col-xs-12 text-right">
-                    <a id="addEmail1" class="addEmail" role="button">
-                      <small>Añadir email adicional<span class="glyphicon glyphicon-envelope"></span></small>
-                    </a>
-                  </div>
-
-                  <div id="phoneCNT1">
-                    <label>Teléfonos</label>
-                    <input class="form-control" id="phoneMember1-1" type="tel" placeholder="0424-8412323" name="phoneMember1-1">
-                  </div>
-                  <div class="col-xs-12 text-right">
-                    <a id="addPhone1" class="addPhone" role="button">
-                      <small>Añadir teléfono adicional<span class="glyphicon glyphicon-earphone"></span></small>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6">
-                  <h3>Notas/Tratamiento</h3>
-                  <div class="form-group">
-                    <textarea id="affectedNotes" class="form-control" rows="6"></textarea>
-                  </div>
-                </div>
-              </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label>Nombre</label>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+              <label for="affected0" class="sr-only">1er Nombre</label>
+              <input type="text" class="form-control" id="affected1" placeholder="José">
             </div>
           </div>
 
-          <hr>
-          <hr>
-          <div class="text-center">
-            <button id="addAfectado" type="button" class="btn btn-default btn-sm">
-              Agregar Afectado Adicional
-              <span class="glyphicon glyphicon-plus-sign"></span>
-            </button>
+          <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+              <label for="affected1" class="sr-only"><small>2do Nombre</small></label>
+              <input type="text" class="form-control" id="affected2" placeholder="Manuel">
+            </div>
+          </div>
+
+          <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+              <label for="affected2" class="sr-only">1er Apellido</label>
+              <input type="text" class="form-control" id="affected2" placeholder="Pérez">
+            </div>
+          </div>
+
+          <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+              <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>
+              <input type="text" class="form-control" id="affectedName3" placeholder="Rodríguez">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="affectedNotes">Tipo</label>
+              <select class="form-control" id="affectedNotes">
+                <option value="" selected="selected">Seleccione tipo de afectado</option>
+                <option value="1">Estudiante de la USB</option>
+                <option value="2">Profesor de la USB</option>
+                <option value="3">Empleado de la USB</option>
+                <option value="4">Obrero de la USB</option>
+                <option value="5">Externo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-xs-8 col-sm-5">
+            <div class="form-group">
+              <label for="affectedCI">Cédula</label>
+              <input type="text" class="form-control" id="affectedCI" placeholder="21.123.123">
+            </div>
+          </div>
+
+          <div class="col-xs-4 col-sm-1">
+            <div class="form-group">
+              <label for="affectedGender">Sexo</label>
+              <select class="form-control" id="affectedGender">
+                <option value="?" selected="selected">?</option>
+                <option value="F">F</option>
+                <option value="M">M</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <h3>Contacto
+              <button type="button" class="btn btn-sm btn-default">Añadir <span class="glyphicon glyphicon-envelope"></span></button>
+              <button type="button" class="btn btn-sm btn-default">Añadir <span class="glyphicon glyphicon-earphone"></span></button>
+            </h3>
+
+
+            <h4>Emails</h4>
+            <div class="form-group">
+              <input type="email" class="form-control" id="affectedEmail" placeholder="josebombero@gmail.com">
+            </div>
+
+            <h4>Teléfonos</h4>
+            <div class="form-group">
+              <input type="tel" class="form-control" id="affectedPhone" placeholder="0424-8412323">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6">
+            <h3>Notas/Tratamiento</h3>
+
+            <div class="form-group">
+              <textarea id="affectedNotes" class="form-control" rows="6"></textarea>
+            </div>
           </div>
         </div>
       </div>
-    </form>
+    </div>
 
-    <div style="float: right;">
-      <a class="text-danger" role="button" href={{=URL('services','index.html')}}><p>Cancelar registro<small class="glyphicon glyphicon-remove-sign"></small></p></a>
+    <div class="tab-pane fade" id="enviar" role="tabpanel">
+      <div class="row">
+        <div class="col-xs-12">
+          <p class=""><strong>¿Estás seguro de querer enviar?</strong> Asegúrate de haber llenado todos los campos pertinentes.</p>
+          <button type="submit" class="btn btn-default" form="registro" method="post" name="submitButton" value="registrar" onclick="registerService()">Enviar</button>
+        </div>
+      </div>
     </div>
 
   </div>
+</form>
 
-  <!-- Google Maps -->
-  <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>-->
+<div style="float: right;">
+  <a class="text-danger" role="button" href={{=URL('services','index.html')}}><p>Cancelar registro</p></a>
+</div>
 
-  {{block page_js}}
+</div>
+
+<!-- Google Maps -->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>-->
+
+{{block page_js}}
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
-  {{=ASSIGNJS(nombres = nombreBomberos)}}
-  </script>
-  <script src="{{=URL('static','js/services/register.js')}}"></script>      <!-- Script para form de registro de servicio -->
-  {{end}}
+    {{=ASSIGNJS(nombres = nombreBomberos)}}
+    </script>
+  <script src="{{=URL('static','js/services/register.js')}}"></script>         <!-- Script para form de registro de servicio -->
+{{end}}
 
 </body>

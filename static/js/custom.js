@@ -72,7 +72,8 @@ $(document).ready(function() {
         '<div id="comission'+num1+'">\
           <div class="row">\
             <div class="col-xs-12">\
-              <h3 id="comissionTitle'+num1+'">Comisión #'+num1+'</h3>\
+              <h3 id="comissionTitle'+num1+'" name="comissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
+              <input type="hidden" name="comissionTitle'+num1+'" value="comissionTitle'+num1+'">\
             </div>\
           </div>\
           <div class="row">\
