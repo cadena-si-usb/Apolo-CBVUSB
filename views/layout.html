@@ -103,14 +103,11 @@
         </div></nav>
       </div>
 
-    {{tipo="success"}}
     <!-- Mensajes -->
     {{if response.flash:}}
+    {{tipo="success"}}
     <div class="row">
     {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
-      <!--h4 title="Cerrar" class="w2p_flash alert alert-warning col-sm-6 col-sm-offset-3" style="width: 50%;height: auto;">
-        {{=response.flash}}
-      </h4-->
     </div>
     {{pass}}
 
