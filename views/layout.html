@@ -96,6 +96,10 @@
       </div>
 
     <!-- Mensajes -->
+    {{if not('tipo' in locals()):
+        tipo = "success"}}
+    {{pass}}
+
     {{if response.flash:}}
     <div class="row">
     {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
