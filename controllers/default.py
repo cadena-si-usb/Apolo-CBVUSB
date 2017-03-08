@@ -241,11 +241,13 @@ def registrousrth1():
 		Field('username', type='string', length=512, unique=True, requires=[IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
 																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
 																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
-								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]),
+								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')],
+								label='Nombre de usuario'),
 		Field('password', type='password', readable=False, length=512, requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 																										'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
-								CRYPT()]), 
+								CRYPT()],
+								label='Clave'), 
 		db.persona)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
