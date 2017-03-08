@@ -88,7 +88,7 @@ def displayService():
 
 # Vista principal de "Servicios"
 def index():
-    services = db(db.servicio.Borrador == False).select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
