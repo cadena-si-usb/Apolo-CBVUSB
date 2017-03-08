@@ -191,7 +191,7 @@ db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéí�
 db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.persona.lugar_nacimiento.requires = IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro',
                                                   'Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
-                                                  'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales'], error_message='No es una opción válida')
+                                                  'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales','Extranjero'], error_message='No es una opción válida')
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))

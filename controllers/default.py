@@ -38,6 +38,7 @@ def user():
 	to decorate functions that need access control
 	also notice there is http://..../[app]/appadmin/manage/auth to allow administrator to manage users
 	"""
+	T.force('es')
 	return dict(form=auth())
 
 @auth.requires_login()
@@ -54,6 +55,7 @@ def perfilth():
 
 @auth.requires_login()
 def perfilmodth():
+	T.force('es')
 	userid = auth.user.id
 	bombero=db(db.bombero.id_usuario==userid).select().first()
 	persona=db(db.persona.id==bombero.id_persona).select().first()
@@ -179,19 +181,77 @@ def perfilmodth():
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
 def registrousrth1():
+	T.force('es')
 	tipo=""
 	formPersona = SQLFORM.factory(
-		Field('username', type='string', length=512, unique=True, requires=[IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
-																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
-																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
-								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')],
-								label='Nombre de usuario'),
-		Field('password', type='password', readable=False, length=512, requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
-																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																										'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
-								CRYPT()],
-								label='Clave'), 
-		db.persona)
+		Field('username', 
+				type='string', 
+				length=512, 
+				unique=True, 
+				requires=[IS_MATCH('^\w{6,16}', 
+								error_message='El nombre de usuario debe:'+
+												'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
+												'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
+							IS_NOT_IN_DB(db, db.usuario.username, 
+								error_message='Ya existe un usuario con ese nombre.')],
+				label='Nombre de usuario'),
+		Field('password', 
+				type='password', 
+				readable=False, 
+				length=512, 
+				requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', 
+								error_message='La contraseña debe: \n'+
+												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
+							CRYPT()],
+				label='Clave'),
+		Field('cedula_letra', 
+				type='string', 
+				length=512, 
+				unique=True, 
+				requires=[IS_IN_SET(['V','E'], 
+								error_message='No es una opción válida')],
+				label='Nacionalidad'),
+		Field('cedula', 
+				type='string',
+				length=512, 
+				requires=[IS_INT_IN_RANGE(minimum=1,maximum=100000000, 
+								error_message='Numero de cedula no valido')],
+				label='Cédula'),
+		Field('primer_nombre', 
+				type='string',
+				length=512, 
+				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+								error_message='Debe contener sólo carácteres')],
+				label='Primer nombre'),
+		Field('segundo_nombre',
+				type='string',
+				length=512, 
+				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+								error_message='Debe contener sólo carácteres'))],
+				label='Primer nombre'),
+		Field('primer_apellido',
+				type='string',
+				length=512, 
+				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+								error_message='Debe contener sólo carácteres')],
+				label='Primer nombre'),
+		Field('segundo_apellido',
+				type='string',
+				length=512, 
+				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+								error_message='Debe contener sólo carácteres'))],
+				label='Primer nombre'),
+		Field('fecha_nacimiento',
+				type='date',
+				requires=[IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')]),
+		Field('lugar_nacimiento'),
+		Field('genero'),
+		Field('imagen'),
+		Field('email_principal'),
+		Field('email_alternativo'),
+		Field('estado_civil') 
+		)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
 		formPersona.vars = dict((k,v) for k,v in formPersona.vars.iteritems() if v is not None)
@@ -314,7 +374,7 @@ def download():
 	"""
 	return response.download(request, db)
 
-
+@auth.requires_login()
 def call():
 	"""
 	exposes services. for example:
