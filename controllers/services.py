@@ -88,7 +88,7 @@ def displayService():
 
 # Vista principal de "Servicios"
 def index():
-    services = db().select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Borrador == False).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -119,10 +119,10 @@ def registrarComisiones(request):
 
     # Procesar cada comision agregada
     while request.vars["comissionTitle"+str(commissionCounter)] is not None:
-        
+
         # Jefe de comision
         jefeComision = request.vars["commissionBoss"+str(commissionCounter)]
-        
+
         # Acompanantes
         acompanantesCounter = 1
         acompanantes = list()
