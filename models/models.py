@@ -9,20 +9,21 @@ auth.define_tables(username=True, signature=False)
 service = Service()
 plugins = PluginManager()
 
-#auth.settings.login_methods.append(ldap_auth(
-#	server='localhost',
-#	base_dn='ou=Users,dc=login,dc=com',
-#	manage_user=True,
-#	user_firstname_attrib='cn:1',
-#	user_lastname_attrib='cn:2',
-#	user_mail_attrib='mail',
-#	manage_groups=True,
-#	db=db,
-#	group_dn='ou=Groups,dc=domain,dc=com',
-#	group_name_attrib='cn',
-#	group_member_attrib='memberUid',
-#	group_filterstr='objectClass=*'))
-
+"""
+auth.settings.login_methods.append(ldap_auth(
+	server='localhost',
+	base_dn='ou=Users,dc=login,dc=com',
+	manage_user=True,
+	user_firstname_attrib='cn:1',
+	user_lastname_attrib='cn:2',
+	user_mail_attrib='mail',
+	manage_groups=True,
+	db=db,
+	group_dn='ou=Groups,dc=domain,dc=com',
+	group_name_attrib='cn',
+	group_member_attrib='memberUid',
+	group_filterstr='objectClass=*'))
+"""
 auth.settings.actions_disabled.append('register')
 
 # -------------------------------------------------------------------------
