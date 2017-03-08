@@ -133,12 +133,12 @@ Carousel
 /*####################
 Iconos de servicios
 #####################*/
-
+/*
 .service-item {
   display: inline-block;
   margin: 2px;
 }
-
+*/
 .wrapper {
   background: #1565C0;
 
@@ -163,7 +163,7 @@ Iconos de servicios
 }
 
 .wrapper-large {
-  width:480px;
+  width:350px;
 }
 
 .wrapper:hover {
@@ -184,7 +184,8 @@ Iconos de servicios
 }
 
 /*
-ESTO YA NO LO USA EL TEAM PYRONY, HABRA QUE VER SI NO LES JODEMOS NADA A NOS
+ESTO YA NO LO USA EL TEAM PYRONY, HABRA QUE VER SI NO LE JODEMOS NADA A NOS
+
 .services-item{
   margin:0 0 15px;
   right:0;
@@ -330,4 +331,3 @@ display:none;
   background-position: 50% 50%;
   background-clip: padding-box;
 }
-
