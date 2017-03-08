@@ -162,6 +162,10 @@ Iconos de servicios
   transition: all 0.4s ease;
 }
 
+.wrapper-large {
+  width:480px;
+}
+
 .wrapper:hover {
   background: white;
   border-color: #1565C0;

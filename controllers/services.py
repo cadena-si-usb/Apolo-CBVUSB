@@ -87,7 +87,9 @@ def displayService():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Vista principal de "Servicios"
-def index(): return dict()
+def index():
+    services = db().select(orderby=~db.servicio.fechaCreacion)
+    return dict(services=services)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Buscar servicios"
@@ -113,13 +115,13 @@ def obtenerNombreBomberos():
 
 # Vista principal de "Registrar servicio"
 def register():
-   
+
    # Form rellenado y submiteado por usuario
     if request.env.request_method == 'POST':
 
         # Guardar borrador de form
         if request.vars['draft'] is not None:
-            borrador = True        
+            borrador = True
         # Registrar form completo
         else:
             borrador = False
@@ -149,7 +151,7 @@ def register():
             servicioRegistradoID = db.servicio.id.max()
             servicioRegistradoID = db().select(servicioRegistradoID).first()[servicioRegistradoID]
             redirect(URL('services','editDraft.html',vars=dict(id=servicioRegistradoID)))
-        
+
         # Servicio registrado. Redireccionar a pagina principal
         else:
             redirect(URL('services','index.html'))
