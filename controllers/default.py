@@ -53,11 +53,34 @@ def perfilth():
 	return dict(usuario=usuario)
 
 @auth.requires_login()
-def perfilmodthPersona():
-	
+def perfilmodth():
 	userid = auth.user.id
 	bombero=db(db.bombero.id_usuario==userid).select().first()
 	persona=db(db.persona.id==bombero.id_persona).select().first()
+	usuario=db(db.usuario.id==userid).select().first()
+	tipo=""
+
+	formUsuario = SQLFORM.factory(
+		Field('password', 
+			type='password', 
+			notnull=True, 
+			default=usuario.password, 
+			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
+																								'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+																								'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
+						CRYPT()]
+						,
+			label='Clave'))
+	
+	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
+		print db(db.usuario.id==userid).select()
+		print (formUsuario.vars)
+		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
+		response.flash = 'Cambio de contraseña realizado satisfactoriamente'
+		tipo="success"
+	elif formUsuario.errors:
+		response.flash = 'Hay un error en un campo'
+		tipo="danger"
 
 	formPersona = SQLFORM.factory(
 		Field('primer_nombre', 
@@ -124,43 +147,11 @@ def perfilmodthPersona():
 	
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
 		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(formPersona.vars))
-		redirect(URL("default","perfilmodthBombero",vars=formPersona.vars))
+		response.flash = 'Cambio realizado satisfactoriamente'
+		tipo="success"
 	elif formPersona.errors:
 		response.flash = 'Hay un error en un campo'
-	
-	return dict(formPersona=formPersona)
-
-@auth.requires_login()
-def perfilmodthUsuario():
-	
-	userid = auth.user.id
-	bombero=db(db.bombero.id_usuario==userid).select().first()
-	usuario=db(db.usuario.id==bombero.id_usuario).select().first()
-
-	formUsuario = SQLFORM.factory(
-		Field('password', 
-			type='password', 
-			notnull=True, 
-			default=usuario.password, 
-			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
-																								'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																								'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
-						CRYPT()]
-						))
-	
-	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
-		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
-		redirect(URL("default","perfilmodthPersona",vars=formUsuario.vars))
-	elif formUsuario.errors:
-		response.flash = 'Hay un error en un campo'
-	
-	return dict(formUsuario=formUsuario)
-
-@auth.requires_login()
-def perfilmodthBombero():
-
-	userid = auth.user.id
-	bombero=db(db.bombero.id_usuario==userid).select().first()
+		tipo="danger"
 
 	formBombero = SQLFORM.factory(
 		Field('cargo', 
@@ -177,23 +168,27 @@ def perfilmodthBombero():
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
 		user = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-		redirect(URL("default","index",args=[user]))
+		response.flash = 'Cambio realizado satisfactoriamente'
+		tipo="success"
 	elif formBombero.errors:
 		response.flash = 'Hay un error en un campo'
+		tipo="danger"
 
-	return dict(formBombero=formBombero)
+
+	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)	
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
 def registrousrth1():
+	tipo=""
 	formPersona = SQLFORM.factory(
 		Field('username', type='string', length=512, unique=True, requires=[IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
 																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
 																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
-								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]),
+								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')], label='Nombre de usuario'),
 		Field('password', type='password', readable=False, length=512, requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 																										'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
-								CRYPT()]), 
+								CRYPT()],label='Clave'), 
 		db.persona)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
@@ -202,13 +197,15 @@ def registrousrth1():
 
 	elif formPersona.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
+		tipo="danger"
 
-	return dict(formPersona=formPersona)
+	return dict(formPersona=formPersona,tipo=tipo)
 
 def registrousrth2():
 
 	usuario=db.usuario._filter_fields(request.vars)
 	persona=db.persona._filter_fields(request.vars)
+	tipo=""
 
 	formBombero = SQLFORM.factory(
 		Field('carnet', type='integer', unique=True, requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
@@ -224,26 +221,19 @@ def registrousrth2():
 
 		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
 		id_persona=db.persona.insert(**persona)
-
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
 
-		redirect(URL("default","registrousrth_final",args=[id_usuario]))
+		response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
+		tipo= "success"
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
+		tipo="danger"
 
-	return dict(formBombero=formBombero)
-
-# Deseable: Que me muestre el nombre del usuario en el mensaje final
-def registrousrth_final():
-	
-	id_usuario=request.args[0]
-	username=db(db.usuario.id==id_usuario).select().first().username
-
-	#redirect(URL("default","index"))
-	return dict(username=username)
+	return dict(formBombero=formBombero,tipo=tipo)
 
 def eliminarusrth():
+	tipo = ""
 	
 	if request.args:
 		
@@ -251,23 +241,29 @@ def eliminarusrth():
 		
 		if not db(db.bombero.id==id_bombero).isempty():
 			bombero = db(db.bombero.id==id_bombero).select().first()
+			username = str(db.usuario[bombero.id_usuario].username)
 			id_usuario = bombero.id_usuario
 			id_persona = bombero.id_persona
 			db(db.persona.id==id_persona).delete()
 			db(db.usuario.id==id_usuario).delete()
+			response.flash = '¡El usuario '+username+' ha sido eliminado satisfactoriamente!'
+			tipo = "success"
 
-	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+
+	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet)
 
 	if len(tabla) == 0:
 		response.flash = 'No hay usuarios en el sistema.'
+		tipo="warning"
 
-	return dict(tabla=tabla)
+	return dict(tabla=tabla,tipo=tipo)
 
 #@auth.requires_login()
 def buscarth():
 	# Busqueda suministrada por el usuario
 	busqueda = request.vars.getlist("buscar")
 	error = False
+	tipo=""
 
 	if busqueda != []:
 		palabra = str(busqueda[0]) + '%'
@@ -290,7 +286,7 @@ def buscarth():
 													(db.bombero.id_persona == db.persona.id) & 
 													(db.persona.id == db.usuario.id) & 
 													(db.bombero.id == db.usuario.id)),
-								distinct=db.persona.id,
+								distinct=db.bombero.carnet,
 								orderby=~db.bombero.carnet) # =~ se refiere al orden descendente
 
 			if len(tabla) == 0:
@@ -298,14 +294,15 @@ def buscarth():
 		else:
 			error = True
 	else:
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet)
 
 	if error:
-		if busqueda[0] != None:
+		if busqueda[0] != '':
 			response.flash = 'No hay registro para esta búsqueda.'
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+			tipo="danger"
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet)
 
-	return dict(tabla=tabla)
+	return dict(tabla=tabla,tipo=tipo)
 	
 @cache.action()
 def download():
