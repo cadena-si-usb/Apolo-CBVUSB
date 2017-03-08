@@ -157,7 +157,7 @@ $(document).ready(function() {
         '<div id="affected'+num1+'">\
             <div class="row">\
               <div class="col-xs-6">\
-                <h3>Afectado <kbd>1</kbd></h3>\
+                <h3>Afectado <kbd>'+num1+'</kbd></h3>\
               </div>\
             </div>\
             <div class="row">\
