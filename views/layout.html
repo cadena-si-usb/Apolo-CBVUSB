@@ -12,6 +12,14 @@
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>                           <!-- Importar stylesheet de bootstrap -->
     <link rel="stylesheet" href="{{=URL('static','css/custom.css')}}"/>                                  <!-- Importar stylesheet propio -->
     <link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>                              <!-- Importar stylesheet para mensajes de alerta -->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Custom functions file -->
+    <script src="js/functions.js"></script>
+    <!-- Sweet Alert Script -->
+    <script src="js/sweetalert.min.js"></script>
+    <!-- Sweet Alert Styles -->
+    <link href="css/sweetalert.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
@@ -95,6 +103,7 @@
         </div></nav>
       </div>
 
+    {{tipo="success"}}
     <!-- Mensajes -->
     {{if not('tipo' in locals()):
         tipo = "success"}}

@@ -123,7 +123,7 @@ $(document).ready(function() {
             showCancelButton: true,
             confirmButtonColor: "#1565C0",
             confirmButtonText: "Si, enviar!",
-            cancelButtonText: "Aun no termino",
+            cancelButtonText: "Aún no termino",
             closeOnConfirm: false,
             html: false
         }, function(isConfirm) {
@@ -134,14 +134,10 @@ $(document).ready(function() {
                 }
         });
     });
-    $('#popmsj').on('a w2p_flash', function () {
-    swal(
-      function (isConfirm) {
-        if (isConfirm) {
-          swal("Deleted!", "Your imaginary file has been deleted!", "success");
-        } else {
-          swal("Cancelled", "Your imaginary file is safe :)", "error");
-        }
-      });
-  })
+    var msj = "#rflashmsj";
+    var hola = $('response.flash')
+    swal({     
+        text: '<h4 type="' +msj+ '">'hola'</h4>',
+        html: true 
+    });
 });
