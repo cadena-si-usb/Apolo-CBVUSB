@@ -280,6 +280,7 @@
 'Not authorized': 'No autorizado',
 'not in': 'no en',
 'Numero de cedula no valido': 'Numero de cedula no valido',
+'Numero de cedula no valido.': 'Numero de cedula no valido.',
 'Número inválido de carnet': 'Número inválido de carnet',
 'Object or table name': 'Nombre del objeto o tabla',
 'Old password': 'Contraseña vieja',

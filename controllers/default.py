@@ -67,21 +67,32 @@ def perfilmodth():
 			type='password', 
 			notnull=True, 
 			default=usuario.password, 
-			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
-																								'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																								'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
+			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', 
+							error_message='La contraseña debe: \n'+
+												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 						CRYPT()]
 						,
-			label='Clave'))
+			label='Clave'),
+		Field('password_again', 
+			type='password_again', 
+			notnull=True, 
+			default=usuario.password, 
+			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', 
+							error_message='La contraseña debe: \n'+
+												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
+						CRYPT()],
+			label='Ingrese la clave de nuevo'))
 	
 	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
 		print db(db.usuario.id==userid).select()
 		print (formUsuario.vars)
 		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
-		response.flash = 'Cambio de contraseña realizado satisfactoriamente'
+		response.flash = 'Cambio de contraseña realizado satisfactoriamente.'
 		tipo="success"
 	elif formUsuario.errors:
-		response.flash = 'Hay un error en un campo'
+		response.flash = 'Hay un error en un campo.'
 		tipo="danger"
 
 	formPersona = SQLFORM.factory(
@@ -89,47 +100,47 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=persona.primer_nombre, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'),
+			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres.'),
 			label='Primer nombre (*)'
 			),
 		Field('segundo_nombre', 
 			type='string',
 			default=persona.segundo_nombre, 
-			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')),
+			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres.')),
 			label='Segundo nombre'
 			),
 		Field('primer_apellido', 
 			type='string', 
 			notnull=True, 
 			default=persona.primer_apellido, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'),
+			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres.'),
 			label='Primer apellido (*)'
 			),
 		Field('segundo_apellido', 
 			type='string',
 			default=persona.segundo_apellido, 
-			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')),
+			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres.')),
 			label='Segundo apellido'
 			),
 		Field('fecha_nacimiento', 
 			type='date', 
 			notnull=True,
 			default=persona.fecha_nacimiento,
-			requires=IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
+			requires=IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),
 			label='Fecha de nacimiento (*)'
 			),
 		Field('lugar_nacimiento', 
 			type='string', 
 			notnull=True,
 			default=persona.lugar_nacimiento, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'),
+			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres.'),
 			label='Estado de nacimiento (*)'
 			),
 		Field('genero', 
 			type='string', 
 			notnull=True,
 			default=persona.genero, 
-			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida'),
+			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida.'),
 			label='Género (*)'
 			),
 		Field('imagen', type='text',
@@ -140,20 +151,20 @@ def perfilmodth():
 			type='string', 
 			notnull=True,
 			default=persona.email_principal, 
-			requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'),
+			requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com.'),
 			label='Email principal (*)'
 			),
 		Field('email_alternativo', 
 			type='string',
 			default=persona.email_alternativo, 
-			requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')),
+			requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com.')),
 			label='Email secundario'
 			),
 		Field('estado_civil', 
 			type='string', 
 			notnull=True,
 			default=persona.estado_civil, 
-			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'),
+			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'),
 			label='Estado civil (*)'
 			)
 		)
@@ -192,16 +203,16 @@ def perfilmodth():
 									'Miembro de Operaciones',
 									'Miembro de Talento humano',
 									'Estudiante'
-									], error_message='Debe seleccionar una opción'),
+									], error_message='Debe seleccionar una opción.'),
 			label='Cargo que ocupa'))
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
 		user = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-		response.flash = 'Cambio realizado satisfactoriamente'
+		response.flash = 'Cambio realizado satisfactoriamente.'
 		tipo="success"
 	elif formBombero.errors:
-		response.flash = 'Hay un error en un campo'
+		response.flash = 'Hay un error en un campo.'
 		tipo="danger"
 
 
@@ -233,62 +244,72 @@ def registrousrth1():
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 							CRYPT()],
 				label='Clave (*)'),
+		Field('password_again',
+				type='password_again', 
+				readable=False, 
+				length=512, 
+				requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', 
+								error_message='La contraseña debe: \n'+
+												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
+												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
+							CRYPT()],
+				label='Ingrese la clave de nuevo (*)'),
 		Field('cedula_letra', 
 				type='string',  
 				unique=True, 
-				requires=[IS_IN_SET(['V','E'], 
-								error_message='No es una opción válida')],
+				requires=IS_IN_SET(['V','E'], 
+								error_message='No es una opción válida.'),
 				label='Nacionalidad (*)'),
 		Field('cedula', 
 				type='string',
 				length=512, 
-				requires=[IS_INT_IN_RANGE(minimum=1,maximum=100000000, 
-								error_message='Numero de cedula no valido')],
+				requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, 
+								error_message='Numero de cedula no valido.'),
 				label='Cédula (*)'),
 		Field('primer_nombre', 
 				type='string',
 				length=512, 
-				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
-								error_message='Debe contener sólo carácteres')],
+				requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
+								error_message='Debe contener sólo carácteres.'),
 				label='Primer nombre (*)'),
 		Field('segundo_nombre',
 				type='string',
 				length=512, 
-				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
-								error_message='Debe contener sólo carácteres'))],
+				requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
+								error_message='Debe contener sólo carácteres.')),
 				label='Segundo nombre'),
 		Field('primer_apellido',
 				type='string',
 				length=512, 
-				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
-								error_message='Debe contener sólo carácteres')],
+				requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
+								error_message='Debe contener sólo carácteres.'),
 				label='Primer apellido (*)'),
 		Field('segundo_apellido',
 				type='string',
 				length=512, 
-				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
-								error_message='Debe contener sólo carácteres'))],
+				requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
+								error_message='Debe contener sólo carácteres.')),
 				label='Segundo apellido'),
 		Field('fecha_nacimiento',
 				type='date',
-				requires=[IS_DATE(format=T('%d/%m/%Y'), 
-								error_message='Debe ser del siguiente formato: dd/mm/yyyy')],
-				label='Fecha de nacimiento'),
+				requires=IS_DATE(format=T('%d/%m/%Y'), 
+								error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),
+				label='Fecha de nacimiento (*)'),
 		Field('lugar_nacimiento',
 				type='string',
-				requires=[IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas',
+				requires=IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas',
 										'Bolívar','Carabobo','Cojedes','Delta Amacuro',
 										'Distrito Capital','Falcón','Guárico','Lara',
 										'Mérida','Miranda','Monagas','Nueva Esparta',
 										'Portuguesa','Sucre','Táchira','Trujillo',
 										'Vargas','Yaracuy','Zulia',
 										'Dependencias Federales','Extranjero'], 
-								error_message='No es una opción válida')],
+								error_message='No es una opción válida.'),
 				label='Lugar de nacimiento'),
 		Field('genero',
 				type='string',
-				requires=[IS_IN_SET(['Masculino','Femenino'],
-								error_message='No es una opción válida')],
+				requires=IS_IN_SET(['Masculino','Femenino'],
+								error_message='No es una opción válida.'),
 				label='Género (*)'),
 		Field('imagen',
 				type='string',
@@ -297,16 +318,16 @@ def registrousrth1():
 		Field('email_principal',
 				type='string',
 				length=512,
-				requires=[IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')],
+				requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'),
 				label='Email principal (*)'),
 		Field('email_alternativo',
 				type='string',
 				length=512,
-				requires=[IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))],
+				requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')),
 				label='Email alternativo'),
 		Field('estado_civil',
 				type='string',
-				requires=[IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')],
+				requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'),
 				label='Estado civil') 
 		)
 
@@ -330,13 +351,16 @@ def registrousrth2():
 		Field('carnet', 
 				type='integer', 
 				unique=True, 
-				requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
+				requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo.'),
+				label='Carnet (*)'),
 		Field('iniciales', 
 				type='string', 
-				requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))),
+				requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4)),
+				label='Iniciales (*)'),
 		Field('tipo_sangre', 
 				type='string', 
-				requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
+				requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos.'),
+				label='Tipo de Sangre (*)')
 		)
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
@@ -348,9 +372,9 @@ def registrousrth2():
 		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
 		id_persona=db.persona.insert(**persona)
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
 		tipo= "success"
-		redirect(URL("default","index"))
+		response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
+		redirect(URL("default","index",args=db.usuario[id_usuario]))
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
