@@ -52,8 +52,8 @@ Barra de navegación
   margin-bottom: 0px;
 }
 
-.nav a{
-  font-size: 0.9em !important;
+.main-nav a{
+  font-size: 10pt !important;
 }
 
 .navbar li a,   {
@@ -213,6 +213,10 @@ Iconos de servicios
   background-clip: padding-box;
 }
 
+
+/*####################
+Magia para el footer
+#####################*/
 
 .Site {
   display: flex;
