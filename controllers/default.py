@@ -48,7 +48,7 @@ def perfilth():
 	else:
 		userid = auth.user.id
 
-	usuario = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
+	usuario = db(db.bombero.id_usuario==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
 	
 	return dict(usuario=usuario)
 
