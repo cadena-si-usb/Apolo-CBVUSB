@@ -90,6 +90,7 @@ db.define_table('bombero',
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
 	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
 	Field('cargo', type='string', notnull=True, default='Administrador'),
+	Field('rango', type='string', notnull=True, default='Bombero'), 	# OJO AQUI
 	Field('hijos', type='integer', default=0),
 	migrate="db.bombero")
 
@@ -211,6 +212,8 @@ db.bombero.cargo.requires = IS_IN_SET(['Administrador', 'Comandante en Jefe', 'P
 									'Sub-gerente de Riesgo', 'Sub-gerente de Administración', 'Sub-gerente de Educación', 'Sub-gerente de Operaciones','Sub-gerente de Talento humano',
 									'Miembro de Riesgo', 'Miembro de Administración', 'Miembro de Educación', 'Miembro de Operaciones','Miembro de Talento humano',
 									'Estudiante'], error_message='Debe seleccionar una opción')
+db.bombero.rango.requires = IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
+									'Inspector en Jefe', 'Bombero' 'Estudiante'], error_message='Debe seleccionar una opción')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
 db.direccion.direccion_tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')

@@ -66,6 +66,16 @@ def perfilmodth():
 
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
+		Field('username', 
+				type='string',  
+				notnull=True, 
+				requires=[IS_MATCH('^\w{6,16}', 
+								error_message='El nombre de usuario debe:'+
+												'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
+												'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
+							IS_NOT_IN_DB(db, db.usuario.username, 
+								error_message='Ya existe un usuario con ese nombre.')],
+				label='Nombre de usuario (*)'),
 		Field('password', 
 			type='password', 
 			notnull=True,  
@@ -75,7 +85,7 @@ def perfilmodth():
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 						CRYPT()]
 						,
-			label='Clave nueva'),
+			label='Clave nueva (*)'),
 		Field('password_again', 
 			type='password', 
 			notnull=True, 
@@ -84,11 +94,9 @@ def perfilmodth():
 												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 						CRYPT()],
-			label='Reingrese la nueva clave'))
+			label='Reingrese la nueva clave (*)'))
 	
 	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
-		print db(db.usuario.id==userid).select()
-		print (formUsuario.vars)
 		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
 		response.flash = 'Cambio de contraseña realizado satisfactoriamente.'
 		tipo="success"
@@ -97,6 +105,20 @@ def perfilmodth():
 		tipo="danger"
 
 	formPersona = SQLFORM.factory(
+		Field('nacionalidad', 
+			type='string', 
+			notnull=True, 
+			default=persona.nacionalidad, 
+			requires=IS_IN_SET(['V','E'], error_message='No es una opción válida'),
+			label='Nacionalidad (*)'
+			),
+		Field('cedula', 
+			type='string', 
+			notnull=True, 
+			default=persona.cedula, 
+			requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'),
+			label='Cedula (*)'
+			),
 		Field('primer_nombre', 
 			type='string', 
 			notnull=True, 
@@ -187,13 +209,13 @@ def perfilmodth():
 			notnull=True, 
 			default=bombero.tipo_sangre,
 			requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'),
-			label='Tipo de sangre'),
+			label='Tipo de sangre (*)'),
 		Field('iniciales', 
 			type='iniciales', 
 			notnull=True, 
 			default=bombero.iniciales,
 			requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4)),
-			label='Iniciales'),
+			label='Iniciales (*)'),
 		Field('cargo', 
 			type='string', 
 			notnull=True, 
@@ -220,7 +242,15 @@ def perfilmodth():
 									'Miembro de Talento humano',
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
-			label='Cargo que ocupa'))	#FALTA RANGO
+			label='Cargo que ocupa (*)'),
+			Field('rango', 
+			type='string', 
+			notnull=True,
+			default=bombero.rango,
+			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
+										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
+									error_message='Debe seleccionar una opción'),
+			label='Rango (*)'))	#FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
@@ -355,9 +385,15 @@ def registrousrth2():
 									'Miembro de Talento humano',
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
-			label='Cargo que ocupa (*)')
+			label='Cargo que ocupa (*)'),
+		Field('rango', 
+			type='string', 
+			unique=True,
+			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
+										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
+									error_message='Debe seleccionar una opción',
+			label='Rango (*)'))
 		)
-		# FALTA EL FIELD DE CARGO
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
 
