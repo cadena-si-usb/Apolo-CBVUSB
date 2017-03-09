@@ -117,6 +117,7 @@
 'Debe ser alguno de los tipos válidos': 'Debe ser alguno de los tipos válidos',
 'Debe ser del siguiente formato: dd/mm/yyyy': 'Debe ser del siguiente formato: dd/mm/yyyy',
 'Debe ser positivo': 'Debe ser positivo',
+'Debe ser positivo.': 'Debe ser positivo.',
 'Debe ser uno de los casos válidos': 'Debe ser uno de los casos válidos',
 'Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX': 'Debe tener un formato válido V-XXXXXXX o E-XXXXXXXX',
 'Debe tener un formato válido. EJ: example@org.com': 'Debe tener un formato válido. EJ: example@org.com',

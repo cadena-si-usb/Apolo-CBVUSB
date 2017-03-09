@@ -383,8 +383,16 @@ def registrousrth2():
 	return dict(formBombero=formBombero,tipo=tipo)
 
 def eliminarusrth():
+
 	tipo = ""
-	
+	bombero_por_pagina = 10
+	if len(request.args):				# pagina actual
+		pagina=int(request.args[0])
+	else: 
+		pagina=0
+	print pagina
+	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
+
 	if request.args:
 		
 		id_bombero = int(request.args[0])
@@ -399,21 +407,37 @@ def eliminarusrth():
 			response.flash = '¡El usuario '+username+' ha sido eliminado satisfactoriamente!'
 			tipo = "success"
 
-
-	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet)
+	tam = db(db.persona).count()
+	if (tam%bombero_por_pagina==0):
+		tam_total = tam//bombero_por_pagina
+	else:
+		tam_total = tam//bombero_por_pagina +1
+	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
 
 	if len(tabla) == 0:
 		response.flash = 'No hay usuarios en el sistema.'
 		tipo="warning"
 
-	return dict(tabla=tabla,tipo=tipo)
+	return dict(tabla=tabla,tipo=tipo,tam_total=tam_total,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
 
-#@auth.requires_login()
+@auth.requires_login()
 def buscarth():
-	# Busqueda suministrada por el usuario
-	busqueda = request.vars.getlist("buscar")
+	
+	busqueda = request.vars.getlist("buscar") # Busqueda suministrada por el usuario
 	error = False
 	tipo=""
+	bombero_por_pagina = 10
+	if len(request.args):				# pagina actual
+		pagina=int(request.args[0])
+	else: 
+		pagina=0
+	print pagina
+	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
+	tam = db(db.bombero).count()
+	if (tam%bombero_por_pagina==0):
+		tam_total = tam//bombero_por_pagina
+	else:
+		tam_total = tam//bombero_por_pagina +1
 
 	if busqueda != []:
 		palabra = str(busqueda[0]) + '%'
@@ -424,6 +448,7 @@ def buscarth():
 			# primer apellido, segundo apellido o nombre de usuario coincidan con
 			# la busqueda suministrada por el usuario. Esta busqueda es case
 			# insensitive
+
 			tabla = db(
 						db.persona.primer_nombre.ilike(palabra)|
 						db.persona.segundo_nombre.ilike(palabra)|
@@ -437,22 +462,23 @@ def buscarth():
 													(db.persona.id == db.usuario.id) & 
 													(db.bombero.id == db.usuario.id)),
 								distinct=db.bombero.carnet,
-								orderby=~db.bombero.carnet) # =~ se refiere al orden descendente
+								orderby=~db.bombero.carnet,
+								limitby=limites) # =~ se refiere al orden descendente
 
 			if len(tabla) == 0:
 				error = True
 		else:
 			error = True
 	else:
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet)
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
 
 	if error:
 		if busqueda[0] != '':
 			response.flash = 'No hay registro para esta búsqueda.'
 			tipo="danger"
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet)
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
 
-	return dict(tabla=tabla,tipo=tipo)
+	return dict(tabla=tabla,tam_total=tam_total,tipo=tipo,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
 	
 @cache.action()
 def download():
