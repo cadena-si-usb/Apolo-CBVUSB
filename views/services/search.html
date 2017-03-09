@@ -1,30 +1,21 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<!-- Espacito xD -->
-<br /><br /><br /><br /><br /><br /><br /><br />
+<div class="container-fluid">
 
+  <ol class="breadcrumb">
+    <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
+    <li class="active">Búsqueda</li>
+  </ol>
 
-<ol class="breadcrumb">
-  <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
-  <li class="active">Búsqueda</li>
-</ol>
-
-<div class="col-md-12 col-md-offset-3">
-  <div class="container-fluid">
-    <form class="navbar-form navbar-left" role="search">
-      <div class="form-group">
-        <input type="search" class="form-search" class="form-control" placeholder="Escribe el nombre de un servicio...">
-      </div>
-      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-    </form>
+  <div class="col-md-12 col-md-offset-3">
+    <div class="container-fluid">
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="search" class="form-search" class="form-control" placeholder="Escribe el nombre de un servicio...">
+        </div>
+        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+      </form>
+    </div>
   </div>
 </div>
-
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />

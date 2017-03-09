@@ -1,0 +1,108 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+{{block head_css}}
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+{{end}}
+
+<body>
+<!-- container principal -->
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
+    <li class="active">Visualizar Servicio</li>
+  </ol>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item active">
+      <a class="nav-link" data-toggle="tab" href="#basicinfo" role="tab">Info. básica</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a>
+    </li>
+  </ul>
+
+  <!-- Tab Información Básica -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="basicinfo" role="tabpanel">
+      <div class="row">
+
+        <div class="col-xs-6">
+          <h2>Servicio <kbd>{{=service.id}}</kbd></h2>
+        </div>
+
+        <div class="col-xs-6 text-right">
+          {{if service.Borrador:}}
+            <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">
+              Editar servicio <span class="glyphicon glyphicon-edit"></span>
+            </a>
+          {{pass}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <label>Tipo de Servicio</label>
+          <p>{{=service.tipo}}</p>
+        </div>
+
+        <div class="col-xs-12 col-sm-3">
+            <label>Fecha/hora de inicio</label>
+            <p>{{=service.fechaCreacion}}</p>
+        </div>
+
+        <!--
+        <label for="stadrtDate">Fecha y hora de llegada</label>
+        -->
+
+        <div class="col-xs-12 col-sm-3">
+            <label>Fecha/hora de fin</label>
+            <p>{{=service.fechaFinalizacion}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <label>Descripción</label>
+          <p>{{=service.descripcion}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <label>Dirección</label>
+          <p>{{=service.localizacion}}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <label for="location">Ubicación en el mapa</label>
+          <div class="container-fluid">
+            <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Comisiones -->
+    <div class="tab-pane fade" id="commission" role="tabpanel">
+      <div><h2>Coming Soon...</h2></div>
+    </div>
+
+    <!-- Tab Afectados -->
+    <div class="tab-pane fade" id="affected" role="tabpanel">
+      <div><h2>Coming Soon...</h2></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
+</body>
