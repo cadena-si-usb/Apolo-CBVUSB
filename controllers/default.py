@@ -235,6 +235,7 @@ def perfilmodth():
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)	
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
+#@auth.requires_login()
 def registrousrth1():
 	T.force('es')
 	tipo=""
@@ -316,6 +317,7 @@ def registrousrth1():
 
 	return dict(formPersona=formPersona,tipo=tipo)
 
+#@auth.requires_login()
 def registrousrth2():
 	T.force('es')
 	usuario=db.usuario._filter_fields(request.vars)
@@ -376,6 +378,7 @@ def registrousrth2():
 
 	return dict(formBombero=formBombero,tipo=tipo)
 
+#@auth.requires_login()
 def registrousrth_final():
 	T.force('es')
 	usuario=db.usuario._filter_fields(request.vars)
@@ -383,6 +386,7 @@ def registrousrth_final():
 	username = str(db.usuario[request.args[0]].username)
 	return dict(username=username)
 
+@auth.requires_login()
 def eliminarusrth():
 	T.force('es')
 	tipo = ""
@@ -447,6 +451,7 @@ def eliminarusrth():
 
 	return dict(tabla=tabla,tipo=tipo,tam_total=tam_total,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
 
+@auth.requires_login()
 def buscarth():
 	T.force('es')
 	busqueda = request.vars.getlist("buscar") # Busqueda suministrada por el usuario

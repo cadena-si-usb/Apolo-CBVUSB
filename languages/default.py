@@ -92,7 +92,7 @@
 'Registration identifier': 'Identificación de Registro',
 'Registration key': 'Clave de Registro',
 'Registration successful': 'Registro satisfactorio',
-'Remember me (for 30 days)': 'Recuérdame (for 30 days)',
+'Remember me (for 30 days)': 'Recuérdame (por 30 días)',
 'Reset Password key': 'Resetear contraseña',
 'Role': 'Role',
 'Semantic': 'Semantica',
