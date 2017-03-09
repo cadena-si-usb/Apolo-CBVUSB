@@ -89,71 +89,71 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=persona.primer_nombre, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'),
 			label='Primer nombre (*)'
 			),
 		Field('segundo_nombre', 
 			type='string',
 			default=persona.segundo_nombre, 
-			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
+			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')),
 			label='Segundo nombre'
 			),
 		Field('primer_apellido', 
 			type='string', 
 			notnull=True, 
 			default=persona.primer_apellido, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'),
 			label='Primer apellido (*)'
 			),
 		Field('segundo_apellido', 
 			type='string',
 			default=persona.segundo_apellido, 
-			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
+			requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')),
 			label='Segundo apellido'
 			),
 		Field('fecha_nacimiento', 
 			type='date', 
 			notnull=True,
 			default=persona.fecha_nacimiento,
-			requires=IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+			requires=IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
 			label='Fecha de nacimiento (*)'
 			),
 		Field('lugar_nacimiento', 
 			type='string', 
 			notnull=True,
 			default=persona.lugar_nacimiento, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
+			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'),
 			label='Estado de nacimiento (*)'
 			),
 		Field('genero', 
 			type='string', 
 			notnull=True,
 			default=persona.genero, 
-			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
+			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida'),
 			label='Género (*)'
 			),
 		Field('imagen', type='text',
-			default=persona.imagen
+			default=persona.imagen,
 			label='Imagen de perfil'
 			),
 		Field('email_principal', 
 			type='string', 
 			notnull=True,
 			default=persona.email_principal, 
-			requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')
+			requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'),
 			label='Email principal (*)'
 			),
 		Field('email_alternativo', 
 			type='string',
 			default=persona.email_alternativo, 
-			requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
+			requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')),
 			label='Email secundario'
 			),
 		Field('estado_civil', 
 			type='string', 
 			notnull=True,
 			default=persona.estado_civil, 
-			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')
+			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'),
 			label='Estado civil (*)'
 			)
 		)
@@ -192,7 +192,7 @@ def perfilmodth():
 									'Miembro de Operaciones',
 									'Miembro de Talento humano',
 									'Estudiante'
-									], error_message='Debe seleccionar una opción')
+									], error_message='Debe seleccionar una opción'),
 			label='Cargo que ocupa'))
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
@@ -257,28 +257,61 @@ def registrousrth1():
 				length=512, 
 				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
 								error_message='Debe contener sólo carácteres'))],
-				label='Primer nombre'),
+				label='Segundo nombre'),
 		Field('primer_apellido',
 				type='string',
 				length=512, 
 				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
 								error_message='Debe contener sólo carácteres')],
-				label='Primer nombre'),
+				label='Primer apellido'),
 		Field('segundo_apellido',
 				type='string',
 				length=512, 
 				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
 								error_message='Debe contener sólo carácteres'))],
-				label='Primer nombre'),
+				label='Segundo apellido'),
 		Field('fecha_nacimiento',
 				type='date',
-				requires=[IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')]),
-		Field('lugar_nacimiento'),
-		Field('genero'),
-		Field('imagen'),
-		Field('email_principal'),
-		Field('email_alternativo'),
-		Field('estado_civil') 
+				requires=[IS_DATE(format=T('%d/%m/%Y'), 
+								error_message='Debe ser del siguiente formato: dd/mm/yyyy')],
+				label='Fecha de nacimiento'),
+		Field('lugar_nacimiento',
+				type='string',
+				length=512,
+				requires=[IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas',
+										'Bolívar','Carabobo','Cojedes','Delta Amacuro',
+										'Distrito Capital','Falcón','Guárico','Lara',
+										'Mérida','Miranda','Monagas','Nueva Esparta',
+										'Portuguesa','Sucre','Táchira','Trujillo',
+										'Vargas','Yaracuy','Zulia',
+										'Dependencias Federales','Extranjero'], 
+								error_message='No es una opción válida')],
+				label='Lugar de nacimiento'),
+		Field('genero',
+				type='string',
+				length=512,
+				requires=[IS_IN_SET(['Masculino','Femenino'],
+								error_message='No es una opción válida')],
+				label='Género'),
+		Field('imagen',
+				type='string',
+				length=512,
+				label='Imagen de perfil'),
+		Field('email_principal',
+				type='string',
+				length=512,
+				requires=[IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')],
+				label='Email principal'),
+		Field('email_alternativo',
+				type='string',
+				length=512,
+				requires=[IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))],
+				label='Email alternativo'),
+		Field('estado_civil',
+				type='string',
+				length=512,
+				requires=[IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')],
+				label='Estado civil') 
 		)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
