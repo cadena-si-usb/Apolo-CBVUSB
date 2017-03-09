@@ -58,13 +58,13 @@ db.define_table('persona',
 	Field('segundo_nombre', type='string'),
 	Field('primer_apellido', type='string', required=True, notnull=True),
 	Field('segundo_apellido', type='string'),
-	Field('fecha_nacimiento', type='date', notnull=True),
-	Field('lugar_nacimiento', type='string', notnull=True),
+	Field('fecha_nacimiento', type='date'),
+	Field('lugar_nacimiento', type='string'),
 	Field('genero', type='string', notnull=True),
 	Field('imagen', type='upload', uploadfolder=os.path.join(request.folder,'static/profile-images'),default='static/images/index.png'),
 	Field('email_principal', type='string', notnull=True),
 	Field('email_alternativo', type='string'),
-	Field('estado_civil', type='string', notnull=True),
+	Field('estado_civil', type='string'),
 	migrate="db.persona")
 
 db.define_table('numero',
@@ -86,7 +86,7 @@ db.define_table('bombero',
 	Field('carnet', type='integer', required=True, notnull=True, unique=True),
 	Field('imagen_perfil', type='text'),
 	Field('iniciales', type='string'),
-	Field('tipo_sangre', type='string', required=True),
+	Field('tipo_sangre', type='string'),
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
 	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
 	Field('cargo', type='string', notnull=True, default='Administrador'),
@@ -191,7 +191,7 @@ db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s
 db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres')
 db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres'))
-db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.persona.fecha_nacimiento.requires = IS_DATE(format=('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.persona.lugar_nacimiento.requires = IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro',
                                                   'Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
                                                   'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales'], error_message='No es una opción válida')

@@ -3,23 +3,21 @@
 <div class="container bg-0">
     <h1 class="text-center">Buscar</h1>
     <br /><br />
+    
     <div align="center">
-        <!-- Navegador de busqueda -->
         <form action="" method="POST">
-            <!-- Campo de busqueda-->
-            <input class="bg-default" type="text" placeholder="Buscar..." name="buscar" style="font-size:14px;background-color:rgb(235,235,235);height:50px;width:auto;">
-            <!-- Boton de enviar en color azul -->
-            <input type="submit" class="bg-primary" style="font-size:14px;height:50px;width:auto;" value="Enviar" class="bg-1">
+            <input class="bg-default" type="text" placeholder="Buscar por nombres..." name="buscar" style="font-size:14px;background-color:rgb(235,235,235);height:50px;width:auto;">
+            <input type="submit" class="bg-primary" style="font-size:14px;height:50px;width:auto;" value="Enviar" class="bg-primary">
         </form>
     </div>
     <br /><br />
     {{if len(tabla)>0:}}
-	<div class="panel panel-primary"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="table table-bordered table-striped">
+	<div class="panel panel-primary">
+		<table class="table table-bordered table-striped table-hover">
 			<tr valign="center" align="center" class="bg-primary">
 		        <td class="text-center bg-primary">CARNET</td>
 			    <td class="text-center bg-primary">CÉDULA</td>
-			    <td class="text-center bg-primary">NOMBRE</td>
+			    <td class="text-center bg-primary">NOMBRES</td>
 			    <td class="text-center bg-primary">APELLIDOS</td>
 			    <td class="text-center bg-primary">PERFIL</td>
 			</tr>

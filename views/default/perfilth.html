@@ -34,7 +34,11 @@
                 </tr> 
                 <tr>
                     <td>Fecha de nacimiento:</td>
+                    {{if (usuario.persona.fecha_nacimiento) != None:}}
                     <td>{{=usuario.persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
+                    {{else:}}
+                    <td>-/-/-</td>
+                    {{pass}}
                 </tr>
                 <tr>
                     <td>Sexo:</td>
@@ -42,12 +46,17 @@
                 </tr>
                 <tr>
                     <td>Tipo de sangre:</td>
+                    {{if (usuario.bombero.tipo_sangre) != None:}}
                     <td>{{=usuario.bombero.tipo_sangre}}</td>
+                    {{else:}}
+                    <td>-</td>
+                    {{pass}}
                 </tr>
+                <!--
                 <tr>
                     <td>Hijos:</td>
                     <td>{{=usuario.bombero.hijos}}</td>
-                </tr>
+                </tr>-->
             </table>
         </div>
         </div>
@@ -56,6 +65,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading"><h4>Datos de contacto</h4></div>
             <table class="table table-bordered">
+                <!--
                 <tr>
                     <td>Celular:</td>
                     <td>0416-5316622</td>
@@ -67,7 +77,7 @@
                 <tr>
                     <td>Trabajo:</td>
                     <td>0212-5559988</td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td>Email:</td>
                     <td>{{=usuario.persona.email_principal}}</td>
@@ -84,6 +94,7 @@
             </table>
         </div>
         </div>
+    <!--
     <br /><br />
     <div class="col-xs-12">
         <div class="panel panel-primary">
@@ -127,4 +138,5 @@
             <div class="panel-footer"><a href="#">Ver más</a></div>
     </div>
     </div>
+    -->
 </main>
