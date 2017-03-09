@@ -43,17 +43,10 @@ mail.settings.tls = myconf.get('smtp.tls') or False
 mail.settings.ssl = myconf.get('smtp.ssl') or False
 
 # auth.enable_record_versioning(db)
-"""
-db.define_table('usuario', 
-	Field('username', type='string', length=512, unique=True),
-	Field('password', type='password', readable=False, length=512)
-	Field('password2', type='password', readable=False, length=512)
-	migrate="db.usuario")
-"""
 
 db.define_table('persona',
 	Field('cedula', type='integer', unique=True),
-    Field('nacionalidad', type='string', required=True, notnull=True),
+	Field('nacionalidad', type='string', required=True, notnull=True),
 	Field('primer_nombre', type='string', required=True, notnull=True),
 	Field('segundo_nombre', type='string'),
 	Field('primer_apellido', type='string', required=True, notnull=True),
@@ -140,14 +133,14 @@ db.define_table('otorgada',
 db.define_table('curso',
 	Field('nombre', type='string', required=True, notnull=True),
 	Field('horas', type='integer', notnull=True),
-    Field('tipo', type='string', notnull=True),
-    Field('escuela', type='string', notnull=True),
+	Field('tipo', type='string', notnull=True),
+	Field('escuela', type='string', notnull=True),
 	migrate="db.curso")
 
 db.define_table('estudio',
 	Field('nombre', type='string', required=True, notnull=True),
 	Field('nivel', type='string', notnull=True),
-    Field('escuela', type='string', notnull=True),
+	Field('escuela', type='string', notnull=True),
 	migrate="db.estudio")
 
 db.define_table('completo',
@@ -178,11 +171,9 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
 								CRYPT()]
 
-"""db.usuario.password2.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
-																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
-								CRYPT()]
-"""
+
+
+
 
 db.persona.cedula.requires = IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido')
 
@@ -191,14 +182,32 @@ db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s
 db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres')
 db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres'))
-db.persona.fecha_nacimiento.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), 
-                                                     minimum=(datetime.date.today() - datetime.timedelta(36500)), 
-                                                     maximum=(datetime.date.today() - datetime.timedelta(6600)), 
-                                                     error_message='Debe tener más de 18 años y menos de 100')]
-db.persona.lugar_nacimiento.requires = IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro',
-                                                  'Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
-                                                  'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales'], error_message='No es una opción válida')
+db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.persona.lugar_nacimiento.requires = IS_IN_SET([	'Amazonas',
+													'Anzoátegui',
+													'Apure',
+													'Aragua',
+													'Barinas',
+													'Bolívar',
+													'Carabobo',
+													'Cojedes',
+													'Delta Amacuro',
+													'Distrito Capital',
+													'Falcón',
+													'Guárico',
+													'Lara',
+													'Mérida',
+													'Miranda',
+													'Monagas',
+													'Nueva Esparta',
+													'Portuguesa',
+												  	'Sucre',
+												  	'Táchira',
+												  	'Trujillo',
+												  	'Vargas',
+												  	'Yaracuy',
+												  	'Zulia',
+												  	'Dependencias Federales'], error_message='No es una opción válida')
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
@@ -209,12 +218,27 @@ db.bombero.iniciales.requires = IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))
 db.bombero.tipo_sangre.requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos')
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
-db.bombero.cargo.requires = IS_IN_SET(['Administrador', 'Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
-									'Inspector en Jefe',
-									'Gerente de Riesgo', 'Gerente de Administración', 'Gerente de Educación', 'Gerente de Operaciones','Gerente de Talento humano',
-									'Sub-gerente de Riesgo', 'Sub-gerente de Administración', 'Sub-gerente de Educación', 'Sub-gerente de Operaciones','Sub-gerente de Talento humano',
-									'Miembro de Riesgo', 'Miembro de Administración', 'Miembro de Educación', 'Miembro de Operaciones','Miembro de Talento humano',
-									'Estudiante'], error_message='Debe seleccionar una opción')
+db.bombero.cargo.requires = IS_IN_SET([	'Administrador', 
+										'Comandante en Jefe', 
+										'Primer comandante', 
+										'Segundo comandante', 
+										'Inspector en Jefe',
+										'Gerente de Riesgo', 
+										'Gerente de Administración', 
+										'Gerente de Educación', 
+										'Gerente de Operaciones',
+										'Gerente de Talento humano',
+										'Sub-gerente de Riesgo', 
+										'Sub-gerente de Administración', 
+										'Sub-gerente de Educación', 
+										'Sub-gerente de Operaciones',
+										'Sub-gerente de Talento humano',
+										'Miembro de Riesgo', 
+										'Miembro de Administración', 
+										'Miembro de Educación', 
+										'Miembro de Operaciones',
+										'Miembro de Talento humano',
+										'Estudiante'], error_message='Debe seleccionar una opción')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
 db.direccion.direccion_tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')
@@ -228,18 +252,18 @@ db.condicion.tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', e
 
 
 db.condicion.descripcion.requires = IS_IN_SET(['Activo', 'Reserva', 'Tesista','Egresado',
-                                               'Excomandante','Comandante', 'Alumno'], error_message='Debe seleccionar una opción')
+											   'Excomandante','Comandante', 'Alumno'], error_message='Debe seleccionar una opción')
 db.rango.tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener sólo carácteres')
 
 db.rango.nombre.requires = IS_IN_SET(['Aspirante','Alumno','Bombero','Distinguido','Cabo Segundo','Cabo Primero','Sargento Segundo',
-                                      'Sargento Primero','Sargento Ayudante','Subteniente','Teniente','Capitán','Mayor'],
-                                      error_message='Debe seleccionar una opción')
+									  'Sargento Primero','Sargento Ayudante','Subteniente','Teniente','Capitán','Mayor'],
+									  error_message='Debe seleccionar una opción')
 
 db.rango.abreviatura.requires = IS_MATCH('^\w+$', error_message='Debe contener solo letras sin espacios')
 
 db.asciende.fecha.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
-                                                     error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
+									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+													 error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
 
 db.condecoracion.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener sólo carácteres')
 
@@ -247,28 +271,28 @@ db.condecoracion.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]
 #No creo que esta deba ir
 
 db.otorgada.fecha.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
-                                                     error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
+									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+													 error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
 
 db.curso.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')
 db.curso.horas.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 db.curso.tipo.requires = IS_IN_SET(['Asistencia a taller, foro, congreso, seminario, charla, coloquio, jornada en la que haya participado como oyente',
-                                    'Asistencia a curso de carácter teórico o alguna actividad anterior en la que haya participado en mesas de trabajo',
-                                    'Asistencia a curso de carácter teórico y práctico','Aprobación de curso de carácter teórico',
-                                    'Aprobación de curso de carácter teórico y práctico','Ponente de taller, foro, congreso, seminario, charla, coloquio, jornada',
-                                    'Monitor en curso de carácter teórico o práctico',
-                                    'Diseñador de Cursos de carácter teórico que hayan sido evaluados satisfactoriamente por personal capacitado',
-                                    'Presentación de un Trabajo de Investigación que haya sido evaluado satisfactoriamente por personal capacitado'],
-                                    error_message='Debe seleccionar una opción')
+									'Asistencia a curso de carácter teórico o alguna actividad anterior en la que haya participado en mesas de trabajo',
+									'Asistencia a curso de carácter teórico y práctico','Aprobación de curso de carácter teórico',
+									'Aprobación de curso de carácter teórico y práctico','Ponente de taller, foro, congreso, seminario, charla, coloquio, jornada',
+									'Monitor en curso de carácter teórico o práctico',
+									'Diseñador de Cursos de carácter teórico que hayan sido evaluados satisfactoriamente por personal capacitado',
+									'Presentación de un Trabajo de Investigación que haya sido evaluado satisfactoriamente por personal capacitado'],
+									error_message='Debe seleccionar una opción')
 
 
 db.estudio.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener solo letras')
 db.estudio.nivel.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener solo letras')
 
 db.completo.fechaInicio.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1993,5,12), maximum=datetime.date.today(), 
-                                                     error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
+									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1993,5,12), maximum=datetime.date.today(), 
+													 error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
 
 db.completo.fechaFin.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-                                 IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
-                                                  error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
+								 IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+												  error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
