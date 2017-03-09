@@ -4,6 +4,7 @@
 
 import re
 import time
+from datetime import *
 
 # -------------------------------------------------------------------------
 # This is a sample controller
@@ -62,28 +63,27 @@ def perfilmodth():
 	usuario=db(db.usuario.id==userid).select().first()
 	tipo=""
 
+	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
 		Field('password', 
 			type='password', 
-			notnull=True, 
-			default=usuario.password, 
+			notnull=True,  
 			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', 
 							error_message='La contraseña debe: \n'+
 												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 						CRYPT()]
 						,
-			label='Clave'),
+			label='Clave nueva'),
 		Field('password_again', 
-			type='password_again', 
+			type='password', 
 			notnull=True, 
-			default=usuario.password, 
 			requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', 
 							error_message='La contraseña debe: \n'+
 												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 						CRYPT()],
-			label='Ingrese la clave de nuevo'))
+			label='Reingrese la nueva clave'))
 	
 	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
 		print db(db.usuario.id==userid).select()
@@ -126,7 +126,7 @@ def perfilmodth():
 			type='date', 
 			notnull=True,
 			default=persona.fecha_nacimiento,
-			requires=IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),
+			requires=[	IS_DATE(	format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.')],
 			label='Fecha de nacimiento (*)'
 			),
 		Field('lugar_nacimiento', 
@@ -245,23 +245,21 @@ def registrousrth1():
 							CRYPT()],
 				label='Clave (*)'),
 		Field('password_again',
-				type='password_again', 
+				type='password', 
 				readable=False, 
 				length=512, 
 				requires=[IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', 
-								error_message='La contraseña debe: \n'+
-												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
+								error_message='El campo debe ser igual al password ingresado'),
 							CRYPT()],
-				label='Ingrese la clave de nuevo (*)'),
-		Field('cedula_letra', 
+				label='Reingrese la clave (*)'),
+		Field('nacionalidad', 
 				type='string',  
 				unique=True, 
 				requires=IS_IN_SET(['V','E'], 
 								error_message='No es una opción válida.'),
 				label='Nacionalidad (*)'),
 		Field('cedula', 
-				type='string',
+				type='integer',
 				length=512, 
 				requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, 
 								error_message='Numero de cedula no valido.'),
@@ -292,8 +290,11 @@ def registrousrth1():
 				label='Segundo apellido'),
 		Field('fecha_nacimiento',
 				type='date',
-				requires=IS_DATE(format=T('%d/%m/%Y'), 
-								error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),
+				requires=[	IS_DATE(	format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),
+							IS_DATE_IN_RANGE(	format=T('%d/%m/%Y'), 
+											minimum=(datetime.date.today() - datetime.timedelta(36500)), 
+											maximum=(datetime.date.today() - datetime.timedelta(6600)), 
+											error_message='Debe tener más de 18 años y menos de 100')],
 				label='Fecha de nacimiento (*)'),
 		Field('lugar_nacimiento',
 				type='string',
@@ -305,7 +306,7 @@ def registrousrth1():
 										'Vargas','Yaracuy','Zulia',
 										'Dependencias Federales','Extranjero'], 
 								error_message='No es una opción válida.'),
-				label='Lugar de nacimiento'),
+				label='Lugar de nacimiento (*)'),
 		Field('genero',
 				type='string',
 				requires=IS_IN_SET(['Masculino','Femenino'],
@@ -328,13 +329,15 @@ def registrousrth1():
 		Field('estado_civil',
 				type='string',
 				requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'),
-				label='Estado civil') 
+				label='Estado civil (*)') 
 		)
 
-	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted and formPersona.vars.password==formPersona.vars.password_again:
 		formPersona.vars = dict((k,v) for k,v in formPersona.vars.iteritems() if v is not None)
 		redirect(URL("default","registrousrth2",vars=formPersona.vars))
-
+	elif formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+		response.flash = 'Las contraseñas ingresadas no son iguales'
+		tipo="danger"
 	elif formPersona.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 		tipo="danger"

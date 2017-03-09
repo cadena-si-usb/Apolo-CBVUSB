@@ -50,8 +50,8 @@ db.define_table('usuario',
 """
 
 db.define_table('persona',
-	Field('cedula', type='string', unique=True),
-    	Field('cedula_letra', type='string', required=True, notnull=True),
+	Field('cedula', type='integer', unique=True),
+    Field('nacionalidad', type='string', required=True, notnull=True),
 	Field('primer_nombre', type='string', required=True, notnull=True),
 	Field('segundo_nombre', type='string'),
 	Field('primer_apellido', type='string', required=True, notnull=True),
@@ -184,7 +184,7 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 
 db.persona.cedula.requires = IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido')
 
-db.persona.cedula_letra.requires = IS_IN_SET(['V','E'], error_message='No es una opción válida')
+db.persona.nacionalidad.requires = IS_IN_SET(['V','E'], error_message='No es una opción válida')
 db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones')
 db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres')

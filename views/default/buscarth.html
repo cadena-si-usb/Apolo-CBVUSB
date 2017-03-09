@@ -27,7 +27,7 @@
 			{{if i==bombero_por_pagina: break}}
 			<tr valign="center" align="center">
 			    <td>{{=row.bombero.carnet}}</td>
-			    <td>{{=row.persona.cedula_letra}}-{{=row.persona.cedula}}</td>
+			    <td>{{=row.persona.nacionalidad}}-{{=row.persona.cedula}}</td>
 			    {{if row.persona.segundo_nombre != None:}}
 	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
 	            {{else:}}
