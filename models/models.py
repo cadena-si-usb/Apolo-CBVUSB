@@ -1,6 +1,8 @@
 #from gluon.tools import Auth, Service, PluginManager
 #from gluon.contrib.login_methods.ldap_auth import ldap_auth
 
+import os
+
 db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
 auth = Auth(db, host_names=myconf.get('host.names'))
@@ -58,7 +60,7 @@ db.define_table('persona',
 	Field('fecha_nacimiento', type='date', notnull=True),
 	Field('lugar_nacimiento', type='string', notnull=True),
 	Field('genero', type='string', notnull=True),
-	Field('imagen', type='upload', uploadfolder='profile-images/'),
+	Field('imagen', type='upload', uploadfolder=os.path.join(request.folder,'static/profile-images')),
 	Field('email_principal', type='string', notnull=True),
 	Field('email_alternativo', type='string'),
 	Field('estado_civil', type='string', notnull=True),

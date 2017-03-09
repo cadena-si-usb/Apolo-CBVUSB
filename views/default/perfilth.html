@@ -5,7 +5,7 @@
         <!-- Foto del usuario-->
         <div class="col-xs-12 col-sm-6 text-center">
             <!-- Sacar imagen de BD -->
-            <img src="{{=URL('profile-images',usuario.persona.imagen)}}" width="200px" height="200px">
+            <img src="{{=URL('static', 'profile-images', args=usuario.persona.imagen)}}" width="200px" height="200px">
         </div>
         <div class="col-xs-12 col-sm-6">
             <!-- Nombre del usuario -->
