@@ -52,8 +52,8 @@ Barra de navegación
   margin-bottom: 0px;
 }
 
-.nav a{
-  font-size: 0.9em !important;
+.main-nav a{
+  font-size: 10pt !important;
 }
 
 .navbar li a,   {
@@ -133,12 +133,12 @@ Carousel
 /*####################
 Iconos de servicios
 #####################*/
-
+/*
 .service-item {
   display: inline-block;
   margin: 2px;
 }
-
+*/
 .wrapper {
   background: #1565C0;
 
@@ -160,6 +160,10 @@ Iconos de servicios
   -moz-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
+}
+
+.wrapper-large {
+  width:350px;
 }
 
 .wrapper:hover {
@@ -209,3 +213,17 @@ Iconos de servicios
   background-clip: padding-box;
 }
 
+
+/*####################
+Magia para el footer
+#####################*/
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}
