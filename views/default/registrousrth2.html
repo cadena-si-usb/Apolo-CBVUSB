@@ -12,17 +12,13 @@
 	    </li>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" data-toggle="tab" href="#pasofinal" role="tab"></a>
+	      <a class="nav-link" data-toggle="tab" href="{{=URL('default','registrousrth_final')}}" role="tab">Etapa 3: Final</a>
 	    </li>
 	</ul>
 	<div class="tab-content">
 		<div class="forms col-sm-6 col-sm-offset-3 tab-pane fade in active" id="paso2" role="tabpanel">
 			<br/><br/>
 	        {{=formBombero}}
-        </div>
-        <div class="forms col-sm-6 col-sm-offset-3 tab-pane fade" id="pasofinal" role="tabpanel">
-			<br/><br/>
-	        <h4 class="alert alert-success" align="center" valign="center">{{=response.flash}}</h4>
         </div>
         <p class="col-sm-6 col-sm-offset-3">Los campos <strong>(*)</strong> son obligatorios.</p>
     </div>

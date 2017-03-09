@@ -21,6 +21,7 @@ def index():
 	if you need a simple wiki simply replace the two lines below with:
 	return auth.wiki()
 	"""
+	T.force('es')
 	return dict()
 
 def user():
@@ -316,7 +317,7 @@ def registrousrth1():
 	return dict(formPersona=formPersona,tipo=tipo)
 
 def registrousrth2():
-
+	T.force('es')
 	usuario=db.usuario._filter_fields(request.vars)
 	persona=db.persona._filter_fields(request.vars)
 	tipo=""
@@ -365,18 +366,25 @@ def registrousrth2():
 		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
 		id_persona=db.persona.insert(**persona)
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
-		tipo= "success"
-		redirect(URL("default","index"))
+		#response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
+		#tipo= "success"
+		redirect(URL("default","registrousrth_final",vars=formBombero.vars,args=id_usuario))
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 		tipo="danger"
 
-	return dict(formBombero=formBombero,tipo=tipo,response=response.flash)
+	return dict(formBombero=formBombero,tipo=tipo)
+
+def registrousrth_final():
+	T.force('es')
+	usuario=db.usuario._filter_fields(request.vars)
+	persona=db.persona._filter_fields(request.vars)
+	username = str(db.usuario[request.args[0]].username)
+	return dict(username=username)
 
 def eliminarusrth():
-
+	T.force('es')
 	tipo = ""
 	error = False
 	bombero_por_pagina = 10
@@ -440,7 +448,7 @@ def eliminarusrth():
 	return dict(tabla=tabla,tipo=tipo,tam_total=tam_total,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
 
 def buscarth():
-	
+	T.force('es')
 	busqueda = request.vars.getlist("buscar") # Busqueda suministrada por el usuario
 	error = False
 	tipo=""

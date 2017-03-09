@@ -1,17 +1,6 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<!-- Mensajes -->
-    {{if not('tipo' in locals()):
-        tipo = "success"}}
-    {{pass}}
-
-    {{if response:}}
-    <div class="row">
-    {{=H4(response,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
-    </div>
-    {{pass}}
-
 <!-- Accesos directos para el usuario  -->
 <div class="container bg-0">
   <div class="row">
