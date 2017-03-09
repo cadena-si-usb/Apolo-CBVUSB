@@ -191,11 +191,7 @@ db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s
 db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres')
 db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres'))
-db.persona.fecha_nacimiento.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), 
-                                                     minimum=(datetime.date.today() - datetime.timedelta(36500)), 
-                                                     maximum=(datetime.date.today() - datetime.timedelta(6600)), 
-                                                     error_message='Debe tener más de 18 años y menos de 100')]
+db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.persona.lugar_nacimiento.requires = IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro',
                                                   'Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
                                                   'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales'], error_message='No es una opción válida')
