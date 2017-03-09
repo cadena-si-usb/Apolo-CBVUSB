@@ -222,7 +222,7 @@ def registrousrth1():
 												'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
 							IS_NOT_IN_DB(db, db.usuario.username, 
 								error_message='Ya existe un usuario con ese nombre.')],
-				label='Nombre de usuario'),
+				label='Nombre de usuario (*)'),
 		Field('password', 
 				type='password', 
 				readable=False, 
@@ -232,42 +232,41 @@ def registrousrth1():
 												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 							CRYPT()],
-				label='Clave'),
+				label='Clave (*)'),
 		Field('cedula_letra', 
-				type='string', 
-				length=512, 
+				type='string',  
 				unique=True, 
 				requires=[IS_IN_SET(['V','E'], 
 								error_message='No es una opción válida')],
-				label='Nacionalidad'),
+				label='Nacionalidad (*)'),
 		Field('cedula', 
 				type='string',
 				length=512, 
 				requires=[IS_INT_IN_RANGE(minimum=1,maximum=100000000, 
 								error_message='Numero de cedula no valido')],
-				label='Cédula'),
+				label='Cédula (*)'),
 		Field('primer_nombre', 
 				type='string',
 				length=512, 
-				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
 								error_message='Debe contener sólo carácteres')],
-				label='Primer nombre'),
+				label='Primer nombre (*)'),
 		Field('segundo_nombre',
 				type='string',
 				length=512, 
-				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
 								error_message='Debe contener sólo carácteres'))],
 				label='Segundo nombre'),
 		Field('primer_apellido',
 				type='string',
 				length=512, 
-				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+				requires=[IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
 								error_message='Debe contener sólo carácteres')],
-				label='Primer apellido'),
+				label='Primer apellido (*)'),
 		Field('segundo_apellido',
 				type='string',
 				length=512, 
-				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', 
+				requires=[IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
 								error_message='Debe contener sólo carácteres'))],
 				label='Segundo apellido'),
 		Field('fecha_nacimiento',
@@ -277,7 +276,6 @@ def registrousrth1():
 				label='Fecha de nacimiento'),
 		Field('lugar_nacimiento',
 				type='string',
-				length=512,
 				requires=[IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas',
 										'Bolívar','Carabobo','Cojedes','Delta Amacuro',
 										'Distrito Capital','Falcón','Guárico','Lara',
@@ -289,10 +287,9 @@ def registrousrth1():
 				label='Lugar de nacimiento'),
 		Field('genero',
 				type='string',
-				length=512,
 				requires=[IS_IN_SET(['Masculino','Femenino'],
 								error_message='No es una opción válida')],
-				label='Género'),
+				label='Género (*)'),
 		Field('imagen',
 				type='string',
 				length=512,
@@ -301,7 +298,7 @@ def registrousrth1():
 				type='string',
 				length=512,
 				requires=[IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')],
-				label='Email principal'),
+				label='Email principal (*)'),
 		Field('email_alternativo',
 				type='string',
 				length=512,
@@ -309,7 +306,6 @@ def registrousrth1():
 				label='Email alternativo'),
 		Field('estado_civil',
 				type='string',
-				length=512,
 				requires=[IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')],
 				label='Estado civil') 
 		)
@@ -331,9 +327,16 @@ def registrousrth2():
 	tipo=""
 
 	formBombero = SQLFORM.factory(
-		Field('carnet', type='integer', unique=True, requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
-		Field('iniciales', type='string', requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))),
-		Field('tipo_sangre', type='string', requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
+		Field('carnet', 
+				type='integer', 
+				unique=True, 
+				requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo')),
+		Field('iniciales', 
+				type='string', 
+				requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))),
+		Field('tipo_sangre', 
+				type='string', 
+				requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
 		)
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
@@ -345,9 +348,9 @@ def registrousrth2():
 		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
 		id_persona=db.persona.insert(**persona)
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-
 		response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
 		tipo= "success"
+		redirect(URL("default","index"))
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
