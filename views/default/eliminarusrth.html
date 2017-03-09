@@ -3,6 +3,16 @@
 <div class="container bg-0">
     <h1 class="text-center">Eliminar usuarios</h1>
     <br /><br />
+    <div align="center">
+        <!-- Navegador de busqueda -->
+        <form action="" method="POST">
+            <!-- Campo de busqueda-->
+            <input class="bg-default" type="text" placeholder="Carnet..." name="buscar" style="font-size:14px;background-color:rgb(235,235,235);height:50px;width:auto;">
+            <!-- Boton de enviar en color azul -->
+            <input type="submit" class="bg-primary" style="font-size:14px;height:50px;width:auto;" value="Enviar" class="bg-1">
+        </form>
+    </div>
+    <br /><br />
     {{if len(tabla)>0:}}
 	<div class="panel panel-primary"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
 		<table class="table table-bordered">

@@ -385,6 +385,7 @@ def registrousrth2():
 def eliminarusrth():
 
 	tipo = ""
+	error = False
 	bombero_por_pagina = 10
 	if len(request.args):				# pagina actual
 		pagina=int(request.args[0])
@@ -412,7 +413,25 @@ def eliminarusrth():
 		tam_total = tam//bombero_por_pagina
 	else:
 		tam_total = tam//bombero_por_pagina +1
-	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+
+	busqueda = request.vars.getlist("buscar")
+	if busqueda != []:
+		user_carnet = busqueda[0]
+		regex = '\d+'
+		if re.match(regex,user_carnet):
+			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+			if len(tabla) == 0:
+				error = True
+		else:
+			error = True
+	else:
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+
+	if error:
+		if busqueda[0] != '':
+			response.flash = 'No hay registro para esta búsqueda.'
+			tipo="danger"
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
 
 	if len(tabla) == 0:
 		response.flash = 'No hay usuarios en el sistema.'
