@@ -48,7 +48,7 @@ def perfilth():
 	else:
 		userid = auth.user.id
 
-	usuario = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
+	usuario = db(db.bombero.id_usuario==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
 	
 	return dict(usuario=usuario)
 
@@ -123,9 +123,12 @@ def perfilmodth():
 			default=persona.genero, 
 			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 			),
-		Field('imagen', type='text',
-			default=persona.imagen
-			),
+		Field('imagen', 
+			type='upload',
+			uploadfolder=os.path.join(request.folder,'static/profile-images'),
+			default='static/images/index.png'),
+			
+			
 		Field('email_principal', 
 			type='string', 
 			notnull=True,
