@@ -419,7 +419,7 @@ def eliminarusrth():
 
 	busqueda = request.vars.getlist("buscar")
 	if busqueda != []:
-		user_carnet = busqueda[0]
+		user_carnet = str(busqueda[0])
 		regex = '\d+'
 		if re.match(regex,user_carnet):
 			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
