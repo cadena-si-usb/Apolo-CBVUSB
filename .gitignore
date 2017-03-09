@@ -152,6 +152,7 @@ applications/*/uploads/*
 applications/*/private/*
 applications/*/*.py[oc]
 applications/*/static/temp
+applications/*/static/profile-images/*
 applications/*/progress.log
 applications/examples/static/epydoc
 applications/examples/static/sphinx
