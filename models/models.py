@@ -57,6 +57,56 @@ db.define_table('servicio',
 	Field('tipo'),
 	migrate="db.servicio")
 
+db.define_table('anade_imagen',
+    Field('bombero', type='reference bombero'),
+    Field('servicio', type='reference servicio'),
+    Field('imagen', type='blob'),
+    migrate="db.anade_imagen")
+
+db.define_table('anade_observacion',
+    Field('bombero', type='reference bombero'),
+    Field('servicio', type='reference servicio'),
+    Field('observacion', type='text'),
+    migrate="db.anade_observacion")
+
+
+db.define_table('comision',
+    Field('servicio', type='reference servicio'),
+    Field('lider', type='reference bombero'),
+    migrate="db.comision")
+
+db.define_table('comision_apoyo',
+    Field('numeroacompanantes', type='integer'),
+    Field('cuerpoodepartamento', type='string', length=40),
+    Field('unidad', type='string', length=30),
+    Field('placaunidad', type='string', length=30),
+    Field('lider', type='reference persona'),
+    Field('servicio', type='reference servicio'),
+    migrate="db.comision_apoyo")
+
+db.define_table('es_acompanante',
+    Field('bombero', type='reference bombero'),
+    Field('comision', type='reference comision'),
+    migrate="db.es_acompanante")
+
+db.define_table('es_afectado',
+    Field('servicio', type='reference servicio'),
+    Field('persona', type='reference persona'),
+    Field('notastratamiento', type='text'),
+    Field('tipo', ),
+    migrate="db.es_afectado")
+
+db.define_table('unidad',
+    Field('nombre', type='string', length=30),
+    Field('activa', type='boolean'),
+    migrate="db.unidad")
+
+db.define_table('unidad_utilizada_por',
+    Field('unidad', type='reference unidad'),
+    Field('conductor', type='reference bombero'),
+    Field('comision', type='reference comision'),
+    migrate="db.unidad_utilizada_por")
+
 db.define_table('condicion',
 	Field('tipo', type='string', required=True, notnull=True),
 	Field('descripcion', type='string', notnull=True),
