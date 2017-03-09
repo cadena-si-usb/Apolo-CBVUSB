@@ -7,18 +7,22 @@
     <title>{{=response.title or request.application}}</title>                                            <!-- Titulo para el navegador -->
     <meta name="application-name" content="{{=request.application}}">                                    <!-- Meta con el titulo -->
     <meta name="google-site-verification" content="">                                                    <!-- Google aceptanos -->
+
+    {{block head_font}}{{end}}
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto" type="text/css">         <!-- Importar fuente Roboto -->
     <link href="https://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet">               <!-- Importar fuente Hammersmith One -->
+
+    {{block head_css}}{{end}}
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>                           <!-- Importar stylesheet de bootstrap -->
     <link rel="stylesheet" href="{{=URL('static','css/custom.css')}}"/>                                  <!-- Importar stylesheet propio -->
     <link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>                              <!-- Importar stylesheet para mensajes de alerta -->
 
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+
+    {{block head_js}}{{end}}
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
 
-    {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
-    {{block head}}{{end}}
     {{# using sidebars need to know what sidebar you want to use
     mc0 = 'col-md-12'
     mc1 = 'col-md-9'
@@ -117,7 +121,6 @@
     </footer>
 
     <!-- The javascript =============================== -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
 
     {{block page_js}}{{end page_js}}
