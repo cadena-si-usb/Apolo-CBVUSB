@@ -5,16 +5,6 @@ from gluon.serializers import json
 # Funciones que conforman las vistas de "Mis servicios"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Vista principal de "Mis Servicios"
-def myservices():
-    # bombero_carnet = request
-    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
-    #return dict(servicios=servicios)
-
-    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db().select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
-
 # Vista para listar "Mis servicios aprovados"
 def msapproved():
     # bombero_carnet = request
@@ -57,7 +47,17 @@ def deleteMyService():
 
 # Vista principal de "Gestionar Servicios"
 def allservices():
-    services = db(db.servicio.Borrador == False).select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Borrador == False) | (db.servicio.Aprueba != None)).select(orderby=~db.servicio.fechaCreacion)
+    return dict(services=services)
+
+# Vista para listar "Mis Servicios"
+def myservices():
+    # bombero_carnet = request
+    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
+    #return dict(servicios=servicios)
+
+    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
+    services = db().select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Todos los servicios aprobados"

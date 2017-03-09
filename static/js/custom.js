@@ -1,13 +1,13 @@
 $(document).ready(function() {
     var comissionsCNT = $("#comissionsCNT"); // ID del contenedor de las comisiones
-    var affectedCNT = $("#affectedCNT");    // ID del contenedor de los afectados
-    var comExtCNT = $("#comExtCNT");    // ID del contenedor de los afectados
+    var affectedCNT = $("#affectedCNT");     // ID del contenedor de los afectados
+    var comExtCNT = $("#comExtCNT");         // ID del contenedor de los afectados
     var addComission = $("#addComission");   // ID del botón para añadir comisiones
     var addAffected = $("#addAffected");     // ID del botón para añadir Afectados
     var addApoyoExt = $("#addApoyoExt");     // ID del botón para añadir Afectados
     var comissionsCount = 1;                 // Contador de comisiones
     var afectadosCount = 1;                  // Contador de afectados
-    var apoyoExtCount = 1;                  // Contador de afectados
+    var apoyoExtCount = 1;                   // Contador de afectados
     var unitsCount = [1];                    // Arreglo para contar las unidades (Por defecto 1)
     var comissionMembersCount = [3];         // Arreglo para contar los acompañantes (Por defecto 3)
     var emailsCount = [1];                   // Arreglo para contar los emails (Por defecto 1)
@@ -283,11 +283,11 @@ $(document).ready(function() {
 
     // Función para el botón para añadir afectados adicionales
     $(addApoyoExt).on('click', function() {
-      apoyoExtCount++;                      // Aumentar el contador de afectados
+      apoyoExtCount++;                         // Aumentar el contador de afectados
       unitExtCount = unitExtCount.concat([1]); // Agregar un nuevo slot contador de emails
 
-      var num1 = apoyoExtCount;             // Variable auxiliar para la sustitucion en el html de abajo
-      var num2 = unitExtCount[num1-1];        // Variable auxiliar para la sustitucion en el html de abajo
+      var num1 = apoyoExtCount;                // Variable auxiliar para la sustitucion en el html de abajo
+      var num2 = unitExtCount[num1-1];         // Variable auxiliar para la sustitucion en el html de abajo
 
       $(comExtCNT).append(
         '<div id="comisionExt'+num1+'" class="col-xs-12 col-sm-12">\

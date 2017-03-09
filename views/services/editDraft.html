@@ -1,7 +1,7 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-{{block head}}
+{{block head_css}}
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
 {{end}}
@@ -43,7 +43,7 @@
             </button>
           </div>
         </div>
-        <div class="row">    
+        <div class="row">
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="startDate">Tipo de Servicio</label>
@@ -113,7 +113,7 @@
         <div class="row">
           <div class="col-xs-6">
             <h3 id="comissionTitle1" name="comissionTitle1">Comisión <kbd>1</kbd></h3>
-            <input type="hidden" name="comissionTitle1" value="comissionTitle1">  
+            <input type="hidden" name="comissionTitle1" value="comissionTitle1">
           </div>
           <div class="col-xs-6 text-right">
             <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-save"></span>
@@ -184,7 +184,7 @@
     <!-- Tab Afectados -->
     <div class="tab-pane fade" id="affected" role="tabpanel">
       <div id="afectado0">
-        <div class="row"> 
+        <div class="row">
           <div class="col-xs-6">
             <h3>Afectado <kbd>1</kbd></h3>
           </div>

@@ -331,3 +331,14 @@ display:none;
   background-position: 50% 50%;
   background-clip: padding-box;
 }
+
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}

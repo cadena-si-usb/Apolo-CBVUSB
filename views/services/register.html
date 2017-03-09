@@ -1,9 +1,14 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-{{block head}}
+{{block head_css}}
+<link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
+{{end}}
+
+{{block head_script}}
+ <script src="{{=URL('static','js/jquery.js')}}"></script>
 {{end}}
 
 <!-- container principal -->
