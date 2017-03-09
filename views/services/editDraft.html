@@ -1,7 +1,7 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-{{block head}}
+{{block head_css}}
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
 {{end}}
@@ -35,17 +35,15 @@
     <div class="tab-content">
       <div class="tab-pane active" id="basicinfo" role="tabpanel">
         <div class="row">
-
           <div class="col-xs-6">
             <h2>Servicio <kbd>{{=service.id}}</kbd></h2>
           </div>
-
           <div class="col-xs-6 text-right">
             <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-save"></span>
             </button>
           </div>
         </div>
-        <div class="row">    
+        <div class="row">
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="startDate">Tipo de Servicio</label>
@@ -111,10 +109,19 @@
     <!-- Tab Comisiones -->
     <div class="tab-pane fade" id="commission" role="tabpanel">
       <div id="instances">
-        <div class="row" id="comisionPrefab1">
-          <div class="col-xs-12">
-            <h3 id="t_Comision1">Comisión #1</h3>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <h3 id="comissionTitle1" name="comissionTitle1">Comisión <kbd>1</kbd></h3>
+            <input type="hidden" name="comissionTitle1" value="comissionTitle1">
           </div>
+          <div class="col-xs-6 text-right">
+            <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-save"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-xs-12 col-sm-6">
             <div class="form-group ui-widget">
               <label for="commissionBoss">Jefe de comisión</label>
@@ -128,9 +135,9 @@
                   <div class="col-xs-4 col-sm-2">
                     <select id="unidadN" class="form-control">
                       <option value="" selected="selected">--</option>
-                      <option value="1">A1</option>
-                      <option value="2">M2</option>
-                      <option value="3">L1</option>
+                      <option value="A1">A1</option>
+                      <option value="M2">M2</option>
+                      <option value="L1">L1</option>
                     </select>
                   </div>
                   <div class="col-xs-8 col-sm-10">
@@ -176,9 +183,17 @@
 
     <!-- Tab Afectados -->
     <div class="tab-pane fade" id="affected" role="tabpanel">
-
       <div id="afectado0">
-        <h3>Afectado #0</h3>
+        <div class="row">
+          <div class="col-xs-6">
+            <h3>Afectado <kbd>1</kbd></h3>
+          </div>
+          <div class="col-xs-6 text-right">
+            <button formnovalidate class="btn-sm btn-link" type="submit" style="color:#1e90ff" onclick="saveDraft()" name="draft" value="true" role="button">Guardar borrador <span class="glyphicon glyphicon-save"></span>
+            </button>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-xs-12">
             <label>Nombre</label>

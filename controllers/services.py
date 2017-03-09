@@ -5,16 +5,6 @@ from gluon.serializers import json
 # Funciones que conforman las vistas de "Mis servicios"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Vista principal de "Mis Servicios"
-def myservices():
-    # bombero_carnet = request
-    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
-    #return dict(servicios=servicios)
-
-    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db().select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
-
 # Vista para listar "Mis servicios aprovados"
 def msapproved():
     # bombero_carnet = request
@@ -57,7 +47,17 @@ def deleteMyService():
 
 # Vista principal de "Gestionar Servicios"
 def allservices():
-    services = db(db.servicio.Borrador == False).select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Borrador == False) | (db.servicio.Aprueba != None)).select(orderby=~db.servicio.fechaCreacion)
+    return dict(services=services)
+
+# Vista para listar "Mis Servicios"
+def myservices():
+    # bombero_carnet = request
+    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
+    #return dict(servicios=servicios)
+
+    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
+    services = db().select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Todos los servicios aprobados"
@@ -87,7 +87,9 @@ def displayService():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Vista principal de "Servicios"
-def index(): return dict()
+def index():
+    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
+    return dict(services=services)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Buscar servicios"
@@ -111,28 +113,46 @@ def obtenerNombreBomberos():
                                 bombero.persona.segundo_apellido)
     return nombreBomberos
 
+def registrarComisiones(request):
+
+    commissionCounter = 1
+
+    # Procesar cada comision agregada
+    while request.vars["comissionTitle"+str(commissionCounter)] is not None:
+
+        # Jefe de comision
+        jefeComision = request.vars["commissionBoss"+str(commissionCounter)]
+
+        # Acompanantes
+        acompanantesCounter = 1
+        acompanantes = list()
+        while request.vars["comissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)] is not None:
+            acompanantes.append(request.vars["comissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)])
+            acompanantesCounter+=1
+
+        # Unidades
+        UnidadesCounter = 1
+        unidades = list()
+        conductores = list()
+        while request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)] is not None:
+            unidades.append(request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)])
+            conductores.append(request.vars["comissionDriver"+str(commissionCounter)+"-"+str(UnidadesCounter)])
+            UnidadesCounter+=1
+
+        commissionCounter+=1
+
 # Vista principal de "Registrar servicio"
 def register():
-   
+
    # Form rellenado y submiteado por usuario
     if request.env.request_method == 'POST':
 
         # Guardar borrador de form
         if request.vars['draft'] is not None:
-            borrador = True        
+            borrador = True
         # Registrar form completo
         else:
             borrador = False
-
-        #print request.vars["jefeComision"]
-        #print request.vars["conductor"]
-        #print request.vars["acompanante"]
-
-        print "JEFES"
-        print request.vars["commissionBoss1"]
-        print request.vars["commissionBoss2"]
-
-
 
         tipoServicio = request.vars['tipo']
         fechaCreacion = request.vars['fechaCreacion']
@@ -140,6 +160,9 @@ def register():
         fechaFinalizacion = request.vars['fechaFinalizacion']
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
+
+        # Registrar datos de comisiones asociadas
+        registrarComisiones(request)
 
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
@@ -149,7 +172,7 @@ def register():
             servicioRegistradoID = db.servicio.id.max()
             servicioRegistradoID = db().select(servicioRegistradoID).first()[servicioRegistradoID]
             redirect(URL('services','editDraft.html',vars=dict(id=servicioRegistradoID)))
-        
+
         # Servicio registrado. Redireccionar a pagina principal
         else:
             redirect(URL('services','index.html'))

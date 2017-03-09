@@ -1,6 +1,19 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
+{{block head_css}}
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"></style>
+{{end}}
+
+{{block head_js}}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="{{=URL('static','js/custom.js')}}"></script>
+{{end}}
+
+{{block head_jquey}}{{end}}
+
 <!-- Tabla de Servicios -->
 <div class="container-fluid">
   <ol class="breadcrumb">
@@ -9,45 +22,39 @@
   </ol>
   <ul class="nav nav-pills">
     <li class="active"><a href="{{=URL('services','allservices.html')}}">Todos</a></li>
-    <li><a href="{{=URL('services','asapproved.html')}}">Aprobados</a></li>
+    <li><a href="{{=URL('services','myservices.html')}}">Mis servicios</a></li>
+    <!--<li><a href="{{=URL('services','asapproved.html')}}">Aprobados</a></li>
     <li><a href="{{=URL('services','aspending.html')}}">Pendentes por aprobación</a></li>
-    <li><a href="{{=URL('services','register.html')}}">Registrar</a></li>
+    <li><a href="{{=URL('services','register.html')}}">Registrar</a></li> -->
   </ul>
   <br/>
 
   <div class="col-xs-10">
     <div class="table-responsive">
-      <table class= "table table-hover">
-        <tr>
-          <th>ID</th>
-          <th>Tipo</th>
-          <th>Descripción</th>
-          <th>Localización</th>
-          <th>Inicio</th>
-          <th>Fin</th>
-        </tr>
-        {{for row in services:}}
-        <tr class='clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
-          <td>{{=row.id}}</td>
-          <td>{{=row.tipo}}</td>
-          <td>{{=row.descripcion}}</td>
-          <td>{{=row.localizacion}}</td>
-          <td>{{=row.fechaCreacion}}</td>
-          <td>{{=row.fechaFinalizacion}}</td>
-        </tr>
-        {{pass}}
-
+      <table class="display service-table">
+        <thead class="bg-1">
+          <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Localización</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{for row in services:}}
+          <tr class='clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
+            <td>{{=row.id}}</td>
+            <td>{{=row.tipo}}</td>
+            <td>{{=row.descripcion}}</td>
+            <td>{{=row.localizacion}}</td>
+            <td>{{=row.fechaCreacion}}</td>
+            <td>{{=row.fechaFinalizacion}}</td>
+          </tr>
+          {{pass}}
+        </tbody>
       </table>
     </div>
   </div>
-
-  <ul class="pagination">
-    <li><a href="#">&laquo;</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">&raquo;</a></li>
-  </ul>
 </div>
