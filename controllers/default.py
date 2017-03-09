@@ -123,9 +123,12 @@ def perfilmodth():
 			default=persona.genero, 
 			requires=IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 			),
-		Field('imagen', type='text',
-			default=persona.imagen
-			),
+		Field('imagen', 
+			type='upload',
+			uploadfolder=os.path.join(request.folder,'static/profile-images'),
+			default='static/images/index.png'),
+			
+			
 		Field('email_principal', 
 			type='string', 
 			notnull=True,
