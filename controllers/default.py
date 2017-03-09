@@ -133,7 +133,33 @@ def perfilmodth():
 			type='string', 
 			notnull=True,
 			default=persona.lugar_nacimiento, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres.'),
+			requires=IS_IN_SET(['Amazonas',
+									'Anzoátegui',
+									'Apure',
+									'Aragua',
+									'Barinas',
+									'Bolívar',
+									'Carabobo',
+									'Cojedes',
+									'Delta Amacuro',
+									'Distrito Capital',
+									'Falcón',
+									'Guárico',
+									'Lara',
+									'Mérida',
+									'Miranda',
+									'Monagas',
+									'Nueva Esparta',
+									'Portuguesa',
+									'Sucre',
+									'Táchira',
+									'Trujillo',
+									'Vargas',
+									'Yaracuy',
+									'Zulia',
+									'Dependencias Federales',
+									'Extranjero'], 
+								error_message='No es una opción válida.'),
 			label='Estado de nacimiento (*)'
 			),
 		Field('genero', 
@@ -290,7 +316,7 @@ def registrousrth1():
 				label='Segundo apellido'),
 		Field('fecha_nacimiento',
 				type='date',
-				requires=IS_DATE(	format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),,
+				requires=IS_DATE(	format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),
 				label='Fecha de nacimiento (*)'),
 		Field('lugar_nacimiento',
 				type='string',
@@ -328,9 +354,9 @@ def registrousrth1():
 								error_message='No es una opción válida.'),
 				label='Género (*)'),
 		Field('imagen',
-				type='string',
-				length=512,
-				label='Imagen de perfil'),
+				type='upload',
+				uploadfolder=os.path.join(request.folder,'static/profile-images'),
+				default='static/images/index.png'),
 		Field('email_principal',
 				type='string',
 				length=512,
@@ -404,6 +430,8 @@ def eliminarusrth():
 
 	tipo = ""
 	error = False
+	userid = auth.user.id
+
 	bombero_por_pagina = 10
 	if len(request.args):				# pagina actual
 		pagina=int(request.args[0])
@@ -437,19 +465,19 @@ def eliminarusrth():
 		user_carnet = str(busqueda[0])
 		regex = '\d+'
 		if re.match(regex,user_carnet):
-			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),orderby=~db.bombero.carnet,limitby=limites)
 			if len(tabla) == 0:
 				error = True
 		else:
 			error = True
 	else:
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+		tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),orderby=~db.bombero.carnet,limitby=limites)
 
 	if error:
 		if busqueda[0] != '':
 			response.flash = 'No hay registro para esta búsqueda.'
 			tipo="danger"
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+		tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),orderby=~db.bombero.carnet,limitby=limites)
 
 	if len(tabla) == 0:
 		response.flash = 'No hay usuarios en el sistema.'
