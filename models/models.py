@@ -1,5 +1,6 @@
 #from gluon.tools import Auth, Service, PluginManager
 #from gluon.contrib.login_methods.ldap_auth import ldap_auth
+import datetime
 
 import os
 
@@ -51,8 +52,8 @@ db.define_table('usuario',
 """
 
 db.define_table('persona',
-	Field('cedula', type='string', unique=True),
-    	Field('cedula_letra', type='string', required=True, notnull=True),
+	Field('cedula', type='integer', unique=True),
+    Field('nacionalidad', type='string', required=True, notnull=True),
 	Field('primer_nombre', type='string', required=True, notnull=True),
 	Field('segundo_nombre', type='string'),
 	Field('primer_apellido', type='string', required=True, notnull=True),
@@ -185,12 +186,16 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 
 db.persona.cedula.requires = IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido')
 
-db.persona.cedula_letra.requires = IS_IN_SET(['V','E'], error_message='No es una opción válida')
-db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
-db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
-db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres')
-db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres'))
-db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.persona.nacionalidad.requires = IS_IN_SET(['V','E'], error_message='No es una opción válida')
+db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones')
+db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones'))
+db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres')
+db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres'))
+db.persona.fecha_nacimiento.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
+                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), 
+                                                     minimum=(datetime.date.today() - datetime.timedelta(36500)), 
+                                                     maximum=(datetime.date.today() - datetime.timedelta(6600)), 
+                                                     error_message='Debe tener más de 18 años y menos de 100')]
 db.persona.lugar_nacimiento.requires = IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro',
                                                   'Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
                                                   'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales'], error_message='No es una opción válida')
@@ -212,35 +217,40 @@ db.bombero.cargo.requires = IS_IN_SET(['Administrador', 'Comandante en Jefe', 'P
 									'Estudiante'], error_message='Debe seleccionar una opción')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
-db.direccion.direccion_tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
-db.direccion.direccion_ciudad.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.direccion.direccion_tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')
+db.direccion.direccion_ciudad.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones')
 
 db.servicio.fechaCreacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.servicio.fechaFinalizacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 db.servicio.fechaLlegada.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
 
-db.condicion.tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.condicion.tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')
 
 
 db.condicion.descripcion.requires = IS_IN_SET(['Activo', 'Reserva', 'Tesista','Egresado',
                                                'Excomandante','Comandante', 'Alumno'], error_message='Debe seleccionar una opción')
-db.rango.tipo.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.rango.tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener sólo carácteres')
 
 db.rango.nombre.requires = IS_IN_SET(['Aspirante','Alumno','Bombero','Distinguido','Cabo Segundo','Cabo Primero','Sargento Segundo',
                                       'Sargento Primero','Sargento Ayudante','Subteniente','Teniente','Capitán','Mayor'],
                                       error_message='Debe seleccionar una opción')
 
-db.rango.abreviatura.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.rango.abreviatura.requires = IS_MATCH('^\w+$', error_message='Debe contener solo letras sin espacios')
 
-db.asciende.fecha.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.asciende.fecha.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
+                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+                                                     error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
 
-db.condecoracion.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.condecoracion.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener sólo carácteres')
 
-db.condecoracion.descripcion.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+#db.condecoracion.descripcion.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-,.]$', error_message='Debe contener sólo carácteres')
+#No creo que esta deba ir
 
-db.otorgada.fecha.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.otorgada.fecha.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
+                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+                                                     error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
 
-db.curso.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.curso.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')
 db.curso.horas.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 db.curso.tipo.requires = IS_IN_SET(['Asistencia a taller, foro, congreso, seminario, charla, coloquio, jornada en la que haya participado como oyente',
                                     'Asistencia a curso de carácter teórico o alguna actividad anterior en la que haya participado en mesas de trabajo',
@@ -252,8 +262,13 @@ db.curso.tipo.requires = IS_IN_SET(['Asistencia a taller, foro, congreso, semina
                                     error_message='Debe seleccionar una opción')
 
 
-db.estudio.nombre.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
-db.estudio.nivel.requires = IS_MATCH('^\w+$', error_message='Debe contener sólo carácteres')
+db.estudio.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener solo letras')
+db.estudio.nivel.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener solo letras')
 
-db.completo.fechaInicio.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
-db.completo.fechaFin.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
+db.completo.fechaInicio.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
+                                    IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1993,5,12), maximum=datetime.date.today(), 
+                                                     error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
+
+db.completo.fechaFin.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
+                                 IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+                                                  error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]

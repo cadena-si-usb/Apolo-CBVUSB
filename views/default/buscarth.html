@@ -7,7 +7,7 @@
         <!-- Navegador de busqueda -->
         <form action="" method="POST">
             <!-- Campo de busqueda-->
-            <input type="text" placeholder="Buscar..." name="buscar" style="font-size:14px;background-color:rgb(235,235,235);height:50px;width:auto;">
+            <input class="bg-default" type="text" placeholder="Buscar..." name="buscar" style="font-size:14px;background-color:rgb(235,235,235);height:50px;width:auto;">
             <!-- Boton de enviar en color azul -->
             <input type="submit" class="bg-primary" style="font-size:14px;height:50px;width:auto;" value="Enviar" class="bg-1">
         </form>
@@ -15,18 +15,19 @@
     <br /><br />
     {{if len(tabla)>0:}}
 	<div class="panel panel-primary"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="table table-bordered">
+		<table class="table table-bordered table-striped">
 			<tr valign="center" align="center" class="bg-primary">
-		        <td class="text-center">CARNET</td>
-			    <td class="text-center">CÉDULA</td>
-			    <td class="text-center">NOMBRE</td>
-			    <td class="text-center">APELLIDOS</td>
-			    <td class="text-center">PERFIL</td>
+		        <td class="text-center bg-primary">CARNET</td>
+			    <td class="text-center bg-primary">CÉDULA</td>
+			    <td class="text-center bg-primary">NOMBRE</td>
+			    <td class="text-center bg-primary">APELLIDOS</td>
+			    <td class="text-center bg-primary">PERFIL</td>
 			</tr>
-			{{for row in tabla:}}
+			{{for i,row in enumerate(tabla):}}
+			{{if i==bombero_por_pagina: break}}
 			<tr valign="center" align="center">
 			    <td>{{=row.bombero.carnet}}</td>
-			    <td>{{=row.persona.cedula}}</td>
+			    <td>{{=row.persona.nacionalidad}}-{{=row.persona.cedula}}</td>
 			    {{if row.persona.segundo_nombre != None:}}
 	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
 	            {{else:}}
@@ -40,7 +41,16 @@
 			    <td><a href="{{=URL('default','perfilth',args=[str(row.bombero.id)])}}">Ver perfil</a></td>
 			</tr>
 			{{pass}}
+			{{pass}}
 		</table>
+	</div> 
+	<div align="center">   
+		<ul class="pagination">
+			<li ><a href="{{=URL('default','buscarth',args=[pagina-1])}}">&laquo;</a></li>
+			{{for j in range(0,tam_total):}}
+			<li><a href="{{=URL('default','buscarth',args=[j])}}"> {{=(j+1)}} </a></li>
+			{{pass}}
+			<li><a href="{{=URL('default','buscarth',args=[pagina+1])}}">&raquo;</a></li>
+		</ul>
 	</div>
-	{{pass}}      
 </div>
