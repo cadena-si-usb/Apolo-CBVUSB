@@ -15,13 +15,13 @@
     <br /><br />
     {{if len(tabla)>0:}}
 	<div class="panel panel-primary"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="table table-bordered">
+		<table class="table table-bordered table-striped">
 			<tr valign="center" align="center" class="bg-primary">
-		        <td class="text-center">CARNET</td>
-			    <td class="text-center">CÉDULA</td>
-			    <td class="text-center">NOMBRES</td>
-			    <td class="text-center">APELLIDOS</td>
-			    <td class="text-center">ELIMINAR</td>
+		        <td class="text-center bg-primary">CARNET</td>
+			    <td class="text-center bg-primary">CÉDULA</td>
+			    <td class="text-center bg-primary">NOMBRES</td>
+			    <td class="text-center bg-primary">APELLIDOS</td>
+			    <td class="text-center bg-primary">ELIMINAR</td>
 			</tr>
 			{{for i,row in enumerate(tabla):}}
 			{{if i==bombero_por_pagina: break}}
