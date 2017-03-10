@@ -43,16 +43,16 @@
         <a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a>
       </li>
       <li class="nav-item navbar-right">
-        <button id="btn-submit" type="button" class="btn  custom-button">Enviar</button>
+        <button id="btn-submit" type="button" class="btn bg-primary">Enviar</button>
       </li>
       <li class="nav-item navbar-right">
-        <button formnovalidate class="btn  custom-button" type="submit" onclick="saveDraft()" name="draft" value="true">
+        <button formnovalidate class="btn bg-primary" type="submit" onclick="saveDraft()" name="draft" value="true">
           Guardar borrador
           <span class="glyphicon glyphicon-save"></span>
         </button>
       </li>
       <li class="nav-item navbar-right">
-        <button type="button" class="btn  custom-button"><span>Cancelar registro</span></button>
+        <button type="button" class="btn bg-primary"><span>Cancelar registro</span></button>
       </li>
     </ul>
 
@@ -181,7 +181,7 @@
                     </div>
                   </div>
                   <div class="col-xs-12 text-right">
-                    <button id="addUnit1" type="button" class="btn  custom-button addUnit top-space-separator">
+                    <button id="addUnit1" type="button" class="btn bg-primary addUnit top-space-separator">
                       <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>
                     </button>
                   </div>
@@ -214,7 +214,7 @@
 
                       </div>
                       <div class="text-right">
-                        <button id="addComissionMember1" type="button" class="btn  custom-button addComissionMember top-space-separator addComissionMember">
+                        <button id="addComissionMember1" type="button" class="btn bg-primary addComissionMember top-space-separator addComissionMember">
                           <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>
                         </button>
                       </div>
@@ -225,7 +225,7 @@
               </div>
 
               <div class="text-center">
-                <button id="addComission" type="button" class="btn  custom-button">
+                <button id="addComission" type="button" class="btn bg-primary">
                   Añadir otro
                   <span class="glyphicon glyphicon-plus-sign"></span>
                 </button>
@@ -333,7 +333,7 @@
             </div>
 
             <div class="text-center">
-              <button id="addAffected" type="button" class="btn  custom-button">
+              <button id="addAffected" type="button" class="btn bg-primary">
                 Añadir otro
                 <span class="glyphicon glyphicon-plus-sign"></span>
               </button>
@@ -342,8 +342,8 @@
 
           <!-- Tab Apoyo Externo -->
           <div class="tab-pane fade" id="externalSupport" role="tabpanel">
-            <div class="row">
-              <div id="comExtCNT">
+            <div id="comExtCNT">
+              <div id="comExt1" class="row">
                 <div class="col-xs-12 col-sm-6">
                   <div id="comisionExt1" class="col-xs-12 col-sm-12">
                     <h3 id="comisionExtTitle1" name="comisionExtTitle1">Comisión Externa <kbd>1</kbd></h3>
@@ -376,7 +376,7 @@
                       </div>
                     </div>
                     <div class="col-xs-12 text-right">
-                      <button id="addUnitExt1" type="button" class="btn  custom-button addUnitExt top-space-separator">
+                      <button id="addUnitExt1" type="button" class="btn bg-primary addUnitExt top-space-separator">
                         <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>
                       </button>
                     </div>
@@ -390,13 +390,13 @@
                   <div class="form-group">
                     <textarea id="affectedNotes1" name="affectedNotes1" class="form-control" data-validation="length" data-validation-length="max 600" rows="9"></textarea>
                   </div>
-                </div>
+                </div>                
               </div>
-            </div>
-            <hr>
+              <hr>
+            </div>            
 
             <div class="text-center">
-              <button id="addApoyoExt" type="button" class="btn  custom-button">
+              <button id="addApoyoExt" type="button" class="btn bg-primary">
                 Añadir otro
                 <span class="glyphicon glyphicon-plus-sign"></span>
               </button>
