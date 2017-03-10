@@ -109,8 +109,7 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=persona.cedula, 
-			requires=[	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Número de cedula no valido'), 
-								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')],			label='Cedula (*)'
+			requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Número de cedula no valido'),			label='Cedula (*)'
 			),
 		Field('primer_nombre', 
 			type='string', 
@@ -142,18 +141,15 @@ def perfilmodth():
 			type='date', 
 			notnull=True,
 			default=persona.fecha_nacimiento,
-			requires=[	IS_DATE(	format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.')],
-			label='Fecha de nacimiento (*)'
+			requires=db.persona.fecha_nacimiento.requires,
+			label='Fecha de nacimiento'
 			),
 		Field('lugar_nacimiento', 
 			type='string', 
 			notnull=True,
 			default=persona.lugar_nacimiento, 
-			requires=IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro',
-                                                  'Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
-                                                  'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales'], 
-                                                  error_message='No es una opción válida'),
-			label='Estado de nacimiento (*)'
+			requires=db.persona.lugar_nacimiento.requires,
+			label='Estado de nacimiento'
 			),
 		Field('genero', 
 			type='string', 
@@ -183,8 +179,8 @@ def perfilmodth():
 			type='string', 
 			notnull=True,
 			default=persona.estado_civil, 
-			requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'),
-			label='Estado civil (*)'
+			requires=db.persona.estado_civil.requires,
+			label='Estado civil'
 			)
 		)
 	
