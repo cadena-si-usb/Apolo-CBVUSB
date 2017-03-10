@@ -162,7 +162,7 @@ def registrarComisiones(request):
         # Guardar comision
         db.comision.insert(
             servicio = request.vars["id"],
-            lider = idBomberos[jefeComision])
+            lider = idBomberos.get(jefeComision))
 
         # Obtener ID de la comision
         comisionID = db.comision.id.max()
@@ -171,14 +171,14 @@ def registrarComisiones(request):
         # Guardar acompanantes
         for acompanante in acompanantes:
             db.es_acompanante.insert(
-                bombero = idBomberos[acompanante],
+                bombero = idBomberos.get(acompanante),
                 comision = comisionID)
 
         # Guardar unidades y conductores
         for unidadComision, conductorComision in zip(unidades,conductores):
             db.unidad_utilizada_por.insert(
-                unidad = idUnidades[unidadComision],
-                conductor = idBomberos[conductorComision],
+                unidad = idUnidades.get(unidadComision),
+                conductor = idBomberos.get(conductorComision),
                 comision = comisionID)
 
 def registrarAfectados(request):
