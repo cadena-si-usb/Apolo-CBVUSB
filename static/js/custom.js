@@ -30,18 +30,23 @@ $(document).ready(function() {
         // Inserción del html
         $(unitCNT).append(
         '<div id="unit'+num1+'-'+num2+'">\
-        <div class="col-xs-4 col-sm-4">\
-          <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
-            <option value="" selected="selected">--</option>\
-            <option value="A1">A1</option>\
-            <option value="M2">M2</option>\
-            <option value="L1">L1</option>\
-          </select>\
-        </div>\
-        <div class="col-xs-8 col-sm-8">\
-          <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver'+num1+'-'+num2+'">\
-        </div>\
-      </div>');
+          <div class="col-xs-4 col-sm-2">\
+            <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
+              <option value="" selected="selected">--</option>\
+              {{for unidad in nombreUnidades:}}\
+                <option value="{{=unidad}}">{{=unidad}}</option>\
+              {{pass}}\
+            </select>\
+          </div>\
+          <div class="col-xs-8 col-sm-10">\
+            <input list="comissionDriver'+num1+'-'+num2+'" name="comissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
+            <datalist id="comissionDriver'+num1+'-'+num2+'">\
+              {{for nombre in nombreBomberos:}}\
+                <option value="{{=nombre}}">\
+              {{pass}}\
+            </datalist>\
+          </div>\
+        </div>');
     });
 
     // Función para los botones para añadir acompañantes
@@ -53,7 +58,13 @@ $(document).ready(function() {
         var num2 = comissionMembersCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
 
         // Inserción del html
-        $(comissionMembersCNT).append('<input type="text" class="form-control" id="comissionMember'+num1+'-'+num2+'" placeholder="Nombre" name="comissionMember'+num1+'-'+num2+'">');
+        $(comissionMembersCNT).append(
+        '<input list="comissionMember'+num1+'-'+num2+'" name="comissionMember'+num1+'-'+num2+'" class="form-control" placeholder="Acompañante de Comisión">\
+          <datalist id="comissionMember'+num1+'-'+num2+'">\
+            {{for nombre in nombreBomberos:}}\
+              <option value="{{=nombre}}">\
+            {{pass}}\
+          </datalist>');
     });
 
     // Función para los botones para añadir emails
@@ -114,57 +125,83 @@ $(document).ready(function() {
         // Inserción del html
         $(comissionsCNT).append(
         '<div id="comission'+num1+'">\
-        <div class="row">\
-          <div class="col-xs-12 col-sm-12">\
-            <h3 id="comissionTitle'+num1+'" name="comissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
-            <input type="hidden" name="comissionTitle'+num1+'" value="comissionTitle'+num1+'">\
-          </div>\
-        </div>\
-        <div class="row">\
-          <div class="col-xs-12 col-sm-3">\
-            <div class="form-group ui-widget">\
-              <label for="commissionBoss'+num1+'">Jefe de comisión *</label>\
-              <input id="commissionBoss'+num1+'" type="text" class="form-control" placeholder="Nombre" name="commissionBoss'+num1+'">\
+          <div class="row">\
+            <div class="col-xs-6">\
+              <h3 id="comissionTitle'+num1+'" name="comissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
+              <input type="hidden" name="comissionTitle'+num1+'" value="comissionTitle'+num1+'">\
             </div>\
-            <label for="unitTitle">Unidades</label>\
-            <div class="row">\
-              <div id="unitsCNT'+num1+'">\
-                <div id="unit'+num1+'-'+num2+'">\
-                  <div class="col-xs-4 col-sm-4">\
-                    <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
-                      <option value="" selected="selected">--</option>\
-                      <option value="A1">A1</option>\
-                      <option value="M2">M2</option>\
-                      <option value="L1">L1</option>\
-                    </select>\
-                  </div>\
-                  <div class="col-xs-8 col-sm-8">\
-                    <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver'+num1+'-'+num2+'">\
+          </div>\
+          <div class="row">\
+            <div class="col-xs-12 col-sm-6">\
+              <div class="form-group ui-widget">\
+                <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
+                <input list="commissionBoss'+num1+'" name="commissionBoss'+num1+'" class="form-control" placeholder="Jefe de Comisión">\
+                <datalist id="commissionBoss'+num1+'">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
+              </div>\
+              <label for="unitTitle">Unidades</label>\
+              <div class="row">\
+                <div id="unitsCNT'+num1+'">\
+                  <div id="unit'+num1+'-'+num2+'">\
+                    <div class="col-xs-4 col-sm-2">\
+                      <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
+                        <option value="" selected="selected">--</option>\
+                        {{for unidad in nombreUnidades:}}\
+                          <option value="{{=unidad}}">{{=unidad}}</option>\
+                        {{pass}}\
+                      </select>\
+                    </div>\
+                    <div class="col-xs-8 col-sm-10">\
+                      <input list="comissionDriver'+num1+'-'+num2+'" name="comissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
+                      <datalist id="comissionDriver'+num1+'-'+num2+'">\
+                        {{for nombre in nombreBomberos:}}\
+                          <option value="{{=nombre}}">\
+                        {{pass}}\
+                      </datalist>\
+                    </div>\
                   </div>\
                 </div>\
+                <div class="col-xs-12 text-right">\
+                  <button id="addUnit'+num1+'" type="button" class="btn btn-default btn-sm addUnit top-space-separator">\
+                    <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>\
+                  </button>\
+                </div>\
               </div>\
-              <div class="col-xs-12 text-right">\
-                <button id="addUnit'+num1+'" type="button" class="btn btn-default btn-sm addUnit top-space-separator">\
-                  <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>\
+            </div>\
+            <div class="col-xs-12 col-sm-6">\
+              <div id="comissionMembersCNT'+num1+'">\
+                <label for="comissionMember'+num1+'">Acompañantes</label>\
+                <input list="comissionMember'+num1+'-1" name="comissionMember'+num1+'-1" class="form-control" placeholder="Acompañante de Comisión">\
+                <datalist id="comissionMember'+num1+'-1">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
+                <input list="comissionMember'+num1+'-2" name="comissionMember'+num1+'-2" class="form-control" placeholder="Acompañante de Comisión">\
+                <datalist id="comissionMember'+num1+'-2">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
+                <input list="comissionMember'+num1+'-3" name="comissionMember'+num1+'-3" class="form-control" placeholder="Acompañante de Comisión">\
+                <datalist id="comissionMember'+num1+'-3">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
+              </div>\
+              <div class="text-right">\
+                <button id="addComissionMember'+num1+'" type="button" class="btn btn-default btn-sm addComissionMember top-space-separator addComissionMember">\
+                  <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
                 </button>\
               </div>\
             </div>\
           </div>\
-          <div class="col-xs-12 col-sm-3">\
-            <div id="comissionMembersCNT'+num1+'">\
-              <label for="comissionMember'+num1+'-'+num2+'">Acompañantes</label>\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-1" placeholder="Nombre" name="comissionMember'+num1+'-1">\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-2" placeholder="Nombre" name="comissionMember'+num1+'-2">\
-              <input type="text" class="form-control" id="comissionMember'+num1+'-3" placeholder="Nombre" name="comissionMember'+num1+'-3">\
-            </div>\
-            <div class="text-right">\
-              <button id="addComissionMember'+num1+'" type="button" class="btn btn-default btn-sm addComissionMember top-space-separator addComissionMember">\
-                <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
-              </button>\
-            </div>\
-          </div>\
         </div>\
-      </div>');
+        <hr>');
     });
 
     // Función para el botón para añadir afectados adicionales
