@@ -105,17 +105,21 @@ def search(): return dict()
 # Obtener nombres de bomberos para autocompletado de registro de comisiones
 def obtenerNombreBomberos():
     bomberos = db(db.bombero.id_persona == db.persona.id).select()
-    nombreBomberos = list()
+    nombreBomberos = dict()
     for bombero in bomberos:
-        nombreBomberos.append(  bombero.persona.primer_nombre    + " " +\
-                                bombero.persona.segundo_nombre   + " " +\
-                                bombero.persona.primer_apellido  + " " +\
-                                bombero.persona.segundo_apellido)
+        nombre =    bombero.persona.primer_nombre    + " " +\
+                    bombero.persona.segundo_nombre   + " " +\
+                    bombero.persona.primer_apellido  + " " +\
+                    bombero.persona.segundo_apellido
+        clave = bombero.bombero.id
+        nombreBomberos[nombre]=clave
+
     return nombreBomberos
 
 def registrarComisiones(request):
 
     commissionCounter = 1
+    nombreBomberos = obtenerNombreBomberos()
 
     # Procesar cada comision agregada
     while request.vars["comissionTitle"+str(commissionCounter)] is not None:
@@ -141,6 +145,26 @@ def registrarComisiones(request):
 
         commissionCounter+=1
 
+        ####################################
+        #### Almacenar en base de datos ####
+        ####################################
+
+        jefeComisionID = nombreBomberos[jefeComision]
+
+        # Guardar comision
+        db.comision.insert(
+            servicio = request.vars["id"],
+            lider = jefeComisionID)
+
+        # Guardar acompanantes
+        comisionID = db.comision.id.max()
+        comisionID = db().select(comisionID).first()[comisionID]
+
+        for acompanante in acompanantes:
+            db.es_acompanante.insert(
+                bombero = nombreBomberos[acompanante],
+                comision = comisionID)
+
 # Vista principal de "Registrar servicio"
 def register():
 
@@ -161,10 +185,11 @@ def register():
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
 
+        # Registrar servicio
+        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
+
         # Registrar datos de comisiones asociadas
         registrarComisiones(request)
-
-        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
         # Borrador guardado. Redireccionar a edicion de borrador para continuar con registro
         if request.vars['draft'] is not None:
