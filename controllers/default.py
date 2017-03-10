@@ -98,20 +98,6 @@ def perfilmodth():
 		tipo="danger"
 
 	formPersona = SQLFORM.factory(
-		Field('nacionalidad', 
-			type='string', 
-			notnull=True, 
-			default=persona.nacionalidad, 
-			requires=IS_IN_SET(['V','E'], error_message='No es una opción válida'),
-			label='Nacionalidad (*)'
-			),
-		Field('cedula', 
-			type='string', 
-			notnull=True, 
-			default=persona.cedula, 
-			requires=[	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Número de cedula no valido'), 
-								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')],			label='Cedula (*)'
-			),
 		Field('primer_nombre', 
 			type='string', 
 			notnull=True, 
@@ -235,15 +221,7 @@ def perfilmodth():
 									'Miembro de Talento humano',
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
-			label='Cargo que ocupa (*)'),
-			Field('rango', 
-			type='string', 
-			notnull=True,
-			default=bombero.rango,
-			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
-										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
-									error_message='Debe seleccionar una opción'),
-			label='Rango (*)'))	#FALTA RANGO
+			label='Cargo que ocupa (*)'))	#FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
@@ -376,14 +354,7 @@ def registrousrth2():
 									'Miembro de Talento humano',
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
-			label='Cargo que ocupa (*)'),
-		Field('rango', 
-			type='string', 
-			unique=True,
-			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
-										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
-									error_message='Debe seleccionar una opción'),
-			label='Rango (*)')
+			label='Cargo que ocupa (*)')
 		)
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
