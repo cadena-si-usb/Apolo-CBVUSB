@@ -183,6 +183,7 @@ $(document).ready(function() {
             <div class="row">\
               <div class="col-xs-6">\
                 <h3>Afectado <kbd>'+num1+'</kbd></h3>\
+                <input type="hidden" name="affectedTitle'+num1+'" value="affectedTitle'+num1+'">\
               </div>\
             </div>\
             <div class="row">\
