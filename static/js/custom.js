@@ -91,7 +91,7 @@ $(document).ready(function() {
       var num2 = emailsCount[num1-1];                    // Variable auxiliar para la sustitucion en el html de abajo
 
       // Inserción del html
-      $(emailCNT).append('<input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" placeholder="josebombero@gmail.com">');
+      $(emailCNT).append('<input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" data-validation="email" placeholder="mail@website.com">');
     });
 
     // Función para los botones para añadir phones
@@ -103,7 +103,7 @@ $(document).ready(function() {
       var num2 = phoneCount[num1-1];                    // Variable auxiliar para la sustitucion en el html de abajo
 
       // Inserción del html
-      $(phoneCNT).append('<input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" placeholder="Teléfono/Celular" name="affectedPhone'+num1+'-'+num2+'">');
+      $(phoneCNT).append('<input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular">');
     });
 
     // Función para los botones para añadir unidades externas
@@ -231,65 +231,39 @@ $(document).ready(function() {
       // Inserción del html
       $(affectedCNT).append(
         '<div id="affected'+num1+'">\
-            <div class="row">\
-              <div class="col-xs-6">\
-                <h3>Afectado <kbd>'+num1+'</kbd></h3>\
-                <input type="hidden" name="affectedTitle'+num1+'" value="affectedTitle'+num1+'">\
+          <div class="row">\
+            <div class="col-xs-12 col-sm-6">\
+              <div class="row">\
+                <div class="col-xs-12 col-sm-12">\
+                  <h3>Afectado <kbd>1</kbd></h3>\
+                  <input type="hidden" name="affectedTitle'+num1+'" value="affectedTitle'+num1+'">\
+                  <label>Nombre *</label>\
+                </div>\
+                <div class="col-xs-6 col-sm-4 form-group">\
+                  <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'" data-validation="required" placeholder="Primer Nombre *">\
+                </div>\
+                <!--<div class="col-xs-6 col-sm-2 form-group">\
+                <label for="affected'+num1+'" class="sr-only"><small>2do Nombre</small></label>\
+                <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" placeholder="Segundo Nombre">\
+              </div>-->\
+              <div class="col-xs-6 col-sm-4 form-group">\
+                <!--  <label for="affected2" class="sr-only">1er Apellido</label>-->\
+                <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" data-validation="required" placeholder="Primer Apellido *">\
+              </div>\
+              <div class="col-xs-6 col-sm-4 form-group">\
+                <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>\
+                <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" placeholder="Segundo Apellido">\
               </div>\
             </div>\
             <div class="row">\
-              <div class="col-xs-12">\
-                <label>Nombre *</label>\
+              <div class="col-xs-12 col-sm-4 form-group">\
+                <label for="affectedCI'+num1+'">Cedula *</label>\
+                <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" data-validation="required" data-validation="number" placeholder="Número de Cedula">\
               </div>\
-              <div class="col-xs-6 col-sm-3">\
-                <div class="form-group">\
-                  <label for="affected'+num1+'" class="sr-only">1er Nombre</label>\
-                  <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'"placeholder="Primer Nombre">\
-                </div>\
-              </div>\
-              <div class="col-xs-6 col-sm-3">\
-                <div class="form-group">\
-                  <label for="affected'+num1+'" class="sr-only"><small>2do Nombre</small></label>\
-                  <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" placeholder="Segundo Nombre">\
-                </div>\
-              </div>\
-              <div class="col-xs-6 col-sm-3">\
-                <div class="form-group">\
-                  <label for="affected2" class="sr-only">1er Apellido</label>\
-                  <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" placeholder="Primer Apellido">\
-                </div>\
-              </div>\
-              <div class="col-xs-6 col-sm-3">\
-                <div class="form-group">\
-                  <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>\
-                  <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" placeholder="Segundo Apellido">\
-                </div>\
-              </div>\
-            </div>\
-            <div class="row">\
-              <div class="col-xs-12 col-sm-6">\
-                <div class="form-group">\
-                  <label for="affectedType'+num1+'">Tipo *</label>\
-                  <select class="form-control" id="affectedType'+num1+'" name="affectedType'+num1+'">\
-                    <option value="" selected="selected">Seleccione tipo de afectado</option>\
-                    <option value="1">Estudiante de la USB</option>\
-                    <option value="2">Profesor de la USB</option>\
-                    <option value="3">Empleado de la USB</option>\
-                    <option value="4">Obrero de la USB</option>\
-                    <option value="5">Externo</option>\
-                  </select>\
-                </div>\
-              </div>\
-              <div class="col-xs-8 col-sm-5">\
-                <div class="form-group">\
-                  <label for="affectedCI'+num1+'">Cédula *</label>\
-                  <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" placeholder="Número de Cedula">\
-                </div>\
-              </div>\
-              <div class="col-xs-4 col-sm-1">\
+              <div class="col-xs-4 col-sm-2">\
                 <div class="form-group">\
                   <label for="affectedGender'+num1+'">Sexo *</label>\
-                  <select class="form-control" id="affectedGender'+num1+'" name="affectedGender'+num1+'">\
+                  <select class="form-control" id="affectedGender'+num1+'" data-validation="required" name="affectedGender'+num1+'">\
                     <option value="?" selected="selected">?</option>\
                     <option value="F">F</option>\
                     <option value="M">M</option>\
@@ -298,38 +272,51 @@ $(document).ready(function() {
               </div>\
             </div>\
             <div class="row">\
-              <div class="col-xs-6 col-sm-6">\
-                <div class="row">\
-                  <div class="col-xs-6">\
-                    <div id="emailsCNT'+num1+'">\
-                      <label for="emailsTitle">Correos Electrónicos</label>\
-                      <input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" placeholder="Correo Electrónico">\
-                    </div>\
-                    <div class="text-right">\
-                      <button id="addAffectedEmail'+num1+'" type="button" class="btn btn-sm btn-default addAffectedEmail top-space-separator">+ <span class="glyphicon glyphicon-envelope"></span></button>\
-                    </div>\
-                  </div>\
-                  <div class="col-xs-6">\
-                    <div id="phonesCNT'+num1+'">\
-                      <label for="phonesTitle">Teléfonos</label>\
-                      <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" placeholder="Teléfono/Celular">\
-                    </div>\
-                    <div class="text-right">\
-                      <button id="addAffectedPhone'+num1+'" type="button" class="btn btn-sm btn-default addAffectedPhone top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>\
-                    </div>\
-                  </div>\
+              <div class="col-xs-12 col-sm-6 form-group">\
+                <label for="affectedType'+num1+'">Tipo *</label>\
+                <select class="form-control" id="affectedType'+num1+'" name="affectedType'+num1+'" data-validation="required">\
+                  <option value="" selected="selected">Seleccione tipo de afectado</option>\
+                  <option value="1">Estudiante de la USB</option>\
+                  <option value="2">Profesor de la USB</option>\
+                  <option value="3">Empleado de la USB</option>\
+                  <option value="4">Obrero de la USB</option>\
+                  <option value="5">Externo</option>\
+                </select>\
+              </div>\
+            </div>\
+            <div class="row">\
+              <div class="col-xs-12 col-sm-6">\
+                <div id="emailsCNT'+num1+'">\
+                  <label for="emailsTitle">Correos Electrónicos</label>\
+                  <input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" data-validation="email" placeholder="mail@website.com">\
+                </div>\
+                <div class="text-right">\
+                  <button id="addAffectedEmail'+num1+'" type="button" class="btn  addAffectedEmail top-space-separator">+ <span class="glyphicon glyphicon-envelope"></span></button>\
                 </div>\
               </div>\
-              <div class="col-xs-6 col-sm-6">\
-                <label>Notas/Tratamiento</label>\
-                <div class="form-group">\
-                  <textarea id="affectedNotes'+num1+'" name="affectedNotes'+num1+'" class="form-control" rows="6"></textarea>\
+              <div class="col-xs-12 col-sm-6">\
+                <div id="phonesCNT'+num1+'">\
+                  <label for="phonesTitle">Teléfonos</label>\
+                  <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular">\
+                </div>\
+                <div class="text-right">\
+                  <button id="addAffectedPhone'+num1+'" type="button" class="btn  addAffectedPhone top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>\
                 </div>\
               </div>\
             </div>\
           </div>\
+          <div class="col-xs-6 col-sm-5 col-sm-offset-1">\
+            <br />\
+            <br />\
+            <br />\
+            <label>Notas/Tratamiento</label>\
+            <div class="form-group">\
+              <textarea id="affectedNotes'+num1+'" name="affectedNotes'+num1+'" class="form-control" data-validation="length" data-validation-length="max700" rows="10"></textarea>\
+            </div>\
+          </div>\
         </div>\
-        <hr>');
+      </div>\
+      <hr>');
     });
 
     // Función para el botón para añadir afectados adicionales
