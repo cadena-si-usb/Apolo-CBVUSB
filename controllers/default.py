@@ -382,8 +382,8 @@ def registrousrth2():
 			unique=True,
 			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
 										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
-									error_message='Debe seleccionar una opción',
-			label='Rango (*)'))
+									error_message='Debe seleccionar una opción'),
+			label='Rango (*)')
 		)
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
