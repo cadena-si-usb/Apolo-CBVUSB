@@ -121,7 +121,7 @@ def perfilmodth():
 		Field('fecha_nacimiento', 
 			type='date', 
 			notnull=True,
-			default=persona.fecha_nacimiento,
+			#default=date(db.persona.fecha_nacimiento.year, db.persona.fecha_nacimiento.month, db.persona.fecha_nacimiento.day),
 			requires=db.persona.fecha_nacimiento.requires,
 			label='Fecha de nacimiento'
 			),
@@ -166,19 +166,28 @@ def perfilmodth():
 			label='Estado civil'
 			)
 		)
-	
+
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
-		print formPersona.vars['imagen'] 
+		print formPersona.vars['imagen']
+		print re.match('^.*\.(jpg|png|jpeg|bmp)$',formPersona.vars['imagen'])
+		print
+		if formPersona.vars['fecha_nacimiento'] == None or formPersona.vars['fecha_nacimiento'] == "":
+			del formPersona.vars['fecha_nacimiento']		
+
 		if formPersona.vars['imagen'] == None or formPersona.vars['imagen'] == "":
 			del formPersona.vars['imagen']
-			print 'Aqui'
+
+		elif re.match('^.*\.(jpg|png|jpeg|bmp)$',formPersona.vars['imagen']) == None:
+			os.remove(os.path.join(request.folder,'static/profile-images',formPersona.vars['imagen']))
+			del formPersona.vars['imagen']
+
 		elif persona.imagen != db.persona.imagen.default:
-			print persona.imagen
 			os.remove(os.path.join(request.folder,'static/profile-images',persona.imagen))
 		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(formPersona.vars))
 		response.flash = 'Cambio realizado satisfactoriamente'
 		tipo="success"
 	elif formPersona.errors:
+		print formPersona.vars
 		response.flash = 'Hay un error en un campo'
 		tipo="danger"
 
