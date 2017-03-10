@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #from gluon.tools import Auth, Service, PluginManager
 #from gluon.contrib.login_methods.ldap_auth import ldap_auth
 import datetime
