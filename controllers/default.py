@@ -146,7 +146,8 @@ def perfilmodth():
 		Field('imagen', 
 			type='upload',
 			uploadfolder=os.path.join(request.folder,'static/profile-images'),
-			default='static/images/index.png'),
+			#default=os.path.join(request.folder,'static/profile-images',persona.imagen)
+			),
 		Field('email_principal', 
 			type='string', 
 			notnull=True,
@@ -170,6 +171,11 @@ def perfilmodth():
 		)
 	
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
+		if formPersona.vars['imagen'] == None:
+			del formPersona.vars['imagen']
+		elif persona.imagen != db.persona.imagen.default:
+			print persona.imagen
+			os.remove(os.path.join(request.folder,'static/profile-images',persona.imagen))
 		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(formPersona.vars))
 		response.flash = 'Cambio realizado satisfactoriamente'
 		tipo="success"
