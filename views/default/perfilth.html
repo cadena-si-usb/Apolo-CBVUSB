@@ -5,57 +5,68 @@
         <!-- Foto del usuario-->
         <div class="col-xs-12 col-sm-6 text-center">
             <!-- Sacar imagen de BD -->
-            <img src="{{=URL('static','images/Apolo.jpg')}}" width="200px" height="200px">
+            <img src="{{=URL('static', 'profile-images', args=usuario.persona.imagen)}}" width="200px" height="200px">
         </div>
         <div class="col-xs-12 col-sm-6">
             <!-- Nombre del usuario -->
-            {{if usuario[0].persona.segundo_nombre == None and usuario[0].persona.segundo_apellido == None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.primer_apellido}}</h1>
-            {{elif usuario[0].persona.segundo_nombre == None and usuario[0].persona.segundo_apellido != None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
-            {{elif usuario[0].persona.segundo_nombre != None and usuario[0].persona.segundo_apellido == None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}}</h1>
-            {{elif usuario[0].persona.segundo_nombre != None and usuario[0].persona.segundo_apellido != None:}}
-            <h1 style="font-size:36px;">{{=usuario[0].persona.primer_nombre}} {{=usuario[0].persona.segundo_nombre}} {{=usuario[0].persona.primer_apellido}} {{=usuario[0].persona.segundo_apellido}}</h1>
+            {{if usuario.persona.segundo_nombre == None and usuario.persona.segundo_apellido == None:}}
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}}</h1>
+            {{elif usuario.persona.segundo_nombre == None and usuario.persona.segundo_apellido != None:}}
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
+            {{elif usuario.persona.segundo_nombre != None and usuario.persona.segundo_apellido == None:}}
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}}</h1>
+            {{elif usuario.persona.segundo_nombre != None and usuario.persona.segundo_apellido != None:}}
+            <h1>{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}} {{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</h1>
             {{pass}}
             <br />
             <!-- Cargo dentro de la organizacion | Rango -->
-            <h4>Administrador | Bombero</h4>
+            <h4>{{=usuario.bombero.cargo}} | {{=usuario.bombero.rango}}</h4>
+            <!--<h4>Activo-Inactivo</h4>-->
         </div>
     </div>
     <br /><br />
     <div class="col-xs-12 col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Datos básicos</h3></div>
-            <table class="table table-bordered table-hover">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Datos básicos</h4></div>
+            <table class="table table-bordered">
                 <tr>
                     <td>Cédula:</td>
-                    <td>{{=usuario[0].persona.cedula}}</td>
+                    <td>{{=usuario.persona.nacionalidad}}-{{=usuario.persona.cedula}}</td>
                 </tr> 
                 <tr>
                     <td>Fecha de nacimiento:</td>
-                    <td>{{=usuario[0].persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
+                    {{if (usuario.persona.fecha_nacimiento) != None:}}
+                    <td>{{=usuario.persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
+                    {{else:}}
+                    <td>-/-/-</td>
+                    {{pass}}
                 </tr>
                 <tr>
                     <td>Sexo:</td>
-                    <td>{{=usuario[0].persona.genero}}</td>
+                    <td>{{=usuario.persona.genero}}</td>
                 </tr>
                 <tr>
                     <td>Tipo de sangre:</td>
-                    <td>{{=usuario[0].bombero.tipo_sangre}}</td>
+                    {{if usuario.bombero.tipo_sangre != None:}}
+                    <td>{{=usuario.bombero.tipo_sangre}}</td>
+                    {{else:}}
+                    <td>-</td>
+                    {{pass}}
                 </tr>
+                <!--
                 <tr>
                     <td>Hijos:</td>
-                    <td>{{=usuario[0].bombero.hijos}}</td>
-                </tr>
+                    <td>{{=usuario.bombero.hijos}}</td>
+                </tr>-->
             </table>
         </div>
         </div>
 
     <div class="col-xs-12 col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Datos de contacto</h3></div>
-            <table class="table table-bordered table-hover">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Datos de contacto</h4></div>
+            <table class="table table-bordered">
+                <!--
                 <tr>
                     <td>Celular:</td>
                     <td>0416-5316622</td>
@@ -67,16 +78,16 @@
                 <tr>
                     <td>Trabajo:</td>
                     <td>0212-5559988</td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td>Email:</td>
-                    <td>{{=usuario[0].persona.email_principal}}</td>
+                    <td>{{=usuario.persona.email_principal}}</td>
                 </tr>
                 <tr>
                     <td>Email alternativo:</td>
-                    {{if (usuario[0].persona.email_alternativo) != None:}}
+                    {{if (usuario.persona.email_alternativo) != None:}}
                     
-                    <td>{{=usuario[0].persona.email_alternativo}}</td>
+                    <td>{{=usuario.persona.email_alternativo}}</td>
                     {{else:}}
                     <td>-</td>
                     {{pass}}
@@ -84,75 +95,49 @@
             </table>
         </div>
         </div>
+    <!--
     <br /><br />
     <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Datos académicos</h3></div>
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <td>Profesión:</td>
-                    <td>-</td>
-                </tr>
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Datos académicos</h4></div>
+            <table class="table table-bordered">
             </table>
         </div>
         </div>
     <br /><br />
     <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Datos de bombero</h3></div>
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <td>Condición:</td>
-                    <td>-</td>
-                </tr> 
-                <tr>
-                    <td>Días de Permiso:</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Horas de trabajo:</td>
-                    <td>0</td>
-                </tr>
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Datos de bombero</h4></div>
+            <table class="table table-bordered">
             </table>
         </div>
         </div>
     <br /><br />
     <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Ascensos</h3></div>
-            <div class="panel-body">Puntaje: 987</div>
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <td>Rango actual:</td>
-                    <td>Bombero</td>
-                    <td>Fecha de ascenso:</td>
-                    <td>2015</td>
-                </tr> 
-                <tr>
-                    <td>Rango anterior:</td>
-                    <td>Estudiante</td>
-                    <td>Fecha de ascenso:</td>
-                    <td>2010</td>
-                </tr>
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Ascensos</h4></div>
+            <div class="panel-body"></div>
+            <table class="table table-bordered">
             </table>
             <div class="panel-footer"><a href="#">Ver más</a></div>
     </div>
     </div>
     <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Premiaciones</h3></div>
-            <table class="table table-bordered table-hover">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Premiaciones</h4></div>
+            <table class="table table-bordered">
             </table>
             <div class="panel-footer"><a href="#">Ver más</a></div>
     </div>
     </div>
     <br /><br />
     <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Actividades</h3></div>
-            <table class="table table-bordered table-hover">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Actividades</h4></div>
+            <table class="table table-bordered">
             </table>
             <div class="panel-footer"><a href="#">Ver más</a></div>
     </div>
     </div>
+    -->
 </main>

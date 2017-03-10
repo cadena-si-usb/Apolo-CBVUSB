@@ -333,7 +333,7 @@ $(document).ready(function() {
             showCancelButton: true,
             confirmButtonColor: "#1565C0",
             confirmButtonText: "Si, enviar!",
-            cancelButtonText: "Aun no termino",
+            cancelButtonText: "Aún no termino",
             closeOnConfirm: false,
             html: false
         }, function(isConfirm) {

@@ -4,7 +4,7 @@ Global
 
 * {
   font-family: 'Roboto', serif;
-  font-size: 9pt;
+  font-size: 10pt;
 }
 
 /*####################
@@ -44,7 +44,7 @@ Barra de navegación
   background: black;
   position: relative;
   z-index: 1;
-  font-size: 12px !important;
+  font-size: 12pt !important;
   line-height: 1.42857143 !important;
   letter-spacing: 4px;
   border: 0px solid transparent;
@@ -182,125 +182,6 @@ Iconos de servicios
   vertical-align: middle;
   line-height: normal;
 }
-
-/*
-ESTO YA NO LO USA EL TEAM PYRONY, HABRA QUE VER SI NO LE JODEMOS NADA A NOS
-
-.services-item{
-  margin:0 0 15px;
-  right:0;
-}
-
-.services-item .services-link{
-  display:block;
-  position:relative;
-  max-width:400px;
-  margin:0 auto;
-}
-
-.services-item .services-link .caption{
-  background:rgba(21, 101, 192, 0.7);
-  position:absolute;
-  width:100%;
-  height:100%;
-  opacity:0;
-  transition:all ease 0.5s;
-  -webkit-transition:all ease 0.5s;
-  -moz-transition:all ease 0.5s;
-}
-
-.services-item .services-link .caption:hover{
-  opacity:1;
-}
-
-.services-item .services-link .caption .caption-content{
-position:absolute;
-width:100%;
-height:20px;
-font-size:20px;
-text-align:center;
-top:50%;
-margin-top:-12px;
-color:white;
-}
-
-.services-item .services-link .caption .caption-content i{
-margin-top:-12px;
-}
-
-.services-item .services-link .caption .caption-content h3, .services-item .services-link .caption .caption-content h4{
-margin:0;
-}
-
-@media (min-width: 767px) {
-.services-item{
-margin:0 0 30px;
-}
-}
-
-.services-modal .modal-content{
-border-radius:0;
-background-clip:border-box;
--webkit-box-shadow:none;
-box-shadow:none;
-border:none;
-min-height:100%;
-padding:100px 0;
-text-align:center;
-}
-
-.services-modal .modal-content h2{
-margin:0;
-font-size:3em;
-}
-
-.services-modal .modal-content img{
-margin-bottom:30px;
-}
-
-.services-modal .modal-content .item-details{
-margin:30px 0;
-}
-
-.services-modal .close-modal{
-position:absolute;
-width:75px;
-height:75px;
-background-color:transparent;
-top:25px;
-right:25px;
-cursor:pointer;
-}
-
-.services-modal .close-modal:hover{
-opacity:0.3;
-}
-
-.services-modal .close-modal .lr{
-height:75px;
-width:1px;
-margin-left:35px;
-background-color:#2C3E50;
-transform:rotate(45deg);
--ms-transform:rotate(45deg);
--webkit-transform:rotate(45deg);
-z-index:1051;
-}
-
-.services-modal .close-modal .lr .rl{
-height:75px;
-width:1px;
-background-color:#2C3E50;
-transform:rotate(90deg);
--ms-transform:rotate(90deg);
--webkit-transform:rotate(90deg);
-z-index:1052;
-}
-
-.services-modal .modal-backdrop{
-opacity:0;
-display:none;
-}*/
 
 .form-textbox{
   height:200px !important;

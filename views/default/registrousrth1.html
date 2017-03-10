@@ -2,8 +2,23 @@
 
 <div class="container bg-0">
 	<h1 class="text-center">Registro de nuevos usuarios</h1>
-	<div class="forms">
-        <h1 class="text-left" style="font-size:30px;">Datos personales</h1>
-            {{=formPersona}}
+	<br/><br/>
+	<ul class="nav nav-pills" role="tablist">
+	    <li class="nav-item active">
+	      <a class="nav-link" data-toggle="tab" href="#paso1" role="tab">Etapa 1: Datos del usuario</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-toggle="tab" href="{{=URL('default','registrousrth2')}}" role="tab">Etapa 2: Datos de bombero</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-toggle="tab" href="#pasofinal" role="tab">Etapa 3: Final</a>
+	    </li>
+	</ul>
+	<div class="tab-content">
+		<div class="forms col-sm-6 col-sm-offset-3 tab-pane fade in active" id="paso1" role="tabpanel">
+			<br/><br/>
+	        {{=formPersona}}
+        </div>
+        <p class="col-sm-6 col-sm-offset-3">Los campos <strong>(*)</strong> son obligatorios.</p>
     </div>
 </div>
