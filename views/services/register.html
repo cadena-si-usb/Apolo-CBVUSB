@@ -2,14 +2,19 @@
 {{extend 'layout.html'}}
 
 {{block head_css}}
-<link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="{{=URL('static', 'css/sweetalert.css')}}"/>
+<link rel="stylesheet" href="{{=URL('static','css/bootstrap-datepicker.min.css')}}"/>
+<link rel="stylesheet" href="{{=URL('static','css/jquery.timepicker.css')}}"/>
+<link rel="stylesheet" href="{{=URL('static', 'css/services/jquery-ui-1.12.1.css')}}">
 {{end}}
 
-{{block head_script}}
- <script src="{{=URL('static','js/jquery.js')}}"></script>
+{{block head_js}}
+<script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{=URL('static','js/jquery.timepicker.min.js')}}"></script>
+<script src="{{=URL('static','js/jquery.datepair.min.js')}}"></script>
 {{end}}
+
+{{block web2py_ajax}}{{end}}
 
 <!-- container principal -->
 <div class="container">
@@ -44,25 +49,29 @@
         <a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a>
       </li>
       <li class="nav-item navbar-right">
-        <button id="btn-submit" type="button" class="btn btn-default btn-sm bg-1">Enviar</button>
+        <button id="btn -submit" type="button" class="btn  custom-button">Enviar</button>
       </li>
       <li class="nav-item navbar-right">
-        <button formnovalidate class="btn btn-default btn-sm" type="submit" onclick="saveDraft()" name="draft" value="true">
+        <button formnovalidate class="btn  custom-button" type="submit" onclick="saveDraft()" name="draft" value="true">
           Guardar borrador
           <span class="glyphicon glyphicon-save"></span>
         </button>
+      </li>
+      <li class="nav-item navbar-right">
+        <button type="button" class="btn  custom-button"><span>Cancelar registro</span></button>
       </li>
     </ul>
 
     <!-- Tab Información Básica -->
     <div class="tab-content top-space-separator">
       <div class="tab-pane active" id="basicinfo" role="tabpanel">
+
+        <div class="col-xs-12 col-sm-6">
         <div class="row">
-          <div class="col-xs-12 col-sm-6">
+          <div class="col-xs-12 col-sm-4">
             <div class="form-group">
-              <label for="startDate">Tipo de Servicio</label>
+              <label for="startDate">Tipo de Servicio *</label>
               <select name="tipo" class="form-control" required="required">
-                <option value="" selected="selected">- - Seleccione el tipo de servicio - -</option>
                 <option value="CM">CM</option>
                 <option value="AME1">AME1</option>
                 <option value="AME2">AME2</option>
@@ -80,49 +89,75 @@
               </select>
             </div>
           </div>
+        </div>
 
-          <div class="col-xs-12 col-sm-3">
-            <div class="form-group">
-              <label for="startDate">Fecha/hora de inicio</label>
-              <input type="datetime-local" class="form-control" id="startDate" name="fechaCreacion" required="required"/>
+        <div class="form-group" id="jqueryExample">
+          <div class="row">
+
+            <div class="col-xs-12 col-sm-12">
+              <label for="startDate">Fecha de Inicio *
+                <input type="text" class="date start form-control" id="startDate" name="fechaCreacion" required="required" placeholder="introduzca una fecha"/>
+              </label>
+              <label for="endDate">Hora de Inicio *
+                <input type="text" class="time start form-control" id="startTime" name="horaCreacion" required="required" placeholder="introduzca una hora"/>
+              </label>
+
             </div>
           </div>
-          <!--
-
-          <div class="form-group">
-          <label for="stadrtDate">Fecha y hora de llegada</label>
-          <input type="datetime-local" class="form-control" id="stadrtDate" name="fechaLlegada" />
-        </div> -->
-
-        <div class="col-xs-12 col-sm-3">
-          <div class="form-group">
-            <label for="endDate">Fecha/hora de fin</label>
-            <input type="datetime-local" class="form-control" id="endDate" name="fechaFinalizacion" required="required"/>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <label for="endDate">Fecha de Fin *
+                <input type="text" class="date end form-control " id="endDate" name="fechaFinalizacion" required="required" placeholder="introduzca una fecha"/>
+              </label>
+              <label for="endDate">Hora de Fin *
+                <input type="text" class="time end form-control" id="endTime" name="horaFinalizacion" required="required" placeholder="introduzca una hora"/>
+              </label>
+            </div>
           </div>
+
+          <script>
+          // initialize input widgets first
+          $('#jqueryExample .time').timepicker({
+            'showDuration': true,
+            'timeFormat': 'g:ia'
+          });
+
+          $('#jqueryExample .date').datepicker({
+            'format': 'm/d/yyyy',
+            'autoclose': true
+          });
+
+          // initialize datepair
+          $('#jqueryExample').datepair();
+          </script>
+
         </div>
-      </div>
 
-      <div class="form-group">
-        <label for="description">Descripción</label>
-        <textarea id="description" class="form-control" rows="5" name="descripcion" required="required"></textarea>
       </div>
+      <div class="col-xs-12 col-sm-6">
 
-      <div class="form-group">
-        <label for="address">Dirección</label>
-        <textarea id="address" class="form-control" rows="2" name="localizacion" required="required"></textarea>
-      </div>
+        <div class="form-group">
+          <label for="description">Descripción *</label>
+          <textarea id="description" class="form-control" rows="5" name="descripcion" required="required"></textarea>
+        </div>
 
-      <div class="form-group">
-        <label for="location">Ubicación en el mapa</label>
-        <div class="container-fluid">
-          <!--<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>-->
+        <div class="form-group">
+          <label for="address">Dirección *</label>
+          <textarea id="address" class="form-control" rows="2" name="localizacion" required="required"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Ubicación en el mapa</label>
+          <div class="container-fluid">
+            <!--<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=15+Springfield+Way,+Hythe,+CT21+5SH&aq=t&sll=52.8382,-2.327815&sspn=8.047465,13.666992&ie=UTF8&hq=&hnear=15+Springfield+Way,+Hythe+CT21+5SH,+United+Kingdom&t=m&z=14&ll=51.077429,1.121722&output=embed"></iframe>-->
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Tab Comisiones -->
     <div class="tab-pane fade" id="commission" role="tabpanel">
-      
+
       <div id="comissionsCNT">
         <div id="comission1">
           <div class="row">
@@ -142,7 +177,7 @@
                     <option value="{{=nombre}}">
                   {{pass}}
                 </datalist>
-             
+
               </div>
               <label for="unitTitle">Unidades</label>
               <div class="row">
@@ -169,7 +204,7 @@
                   </div>
                 </div>
                 <div class="col-xs-12 text-right">
-                  <button id="addUnit1" type="button" class="btn btn-default btn-sm addUnit top-space-separator">
+                  <button id="addUnit1" type="button" class="btn  custom-button addUnit top-space-separator">
                     <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>
                   </button>
                 </div>
@@ -178,7 +213,7 @@
             <div class="col-xs-12 col-sm-6">
               <div id="comissionMembersCNT1">
                 <label for="comissionMember1-1">Acompañantes</label>
-                
+
                 <input list="comissionMember1-1" name="comissionMember1-1" class="form-control" placeholder="Acompañante de Comisión">
                 <datalist id="comissionMember1-1">
                   {{for nombre in nombreBomberos:}}
@@ -202,7 +237,7 @@
 
               </div>
               <div class="text-right">
-                <button id="addComissionMember1" type="button" class="btn btn-default btn-sm addComissionMember top-space-separator addComissionMember">
+                <button id="addComissionMember1" type="button" class="btn  custom-button addComissionMember top-space-separator addComissionMember">
                   <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>
                 </button>
               </div>
@@ -213,8 +248,8 @@
       </div>
 
       <div class="text-center">
-        <button id="addComission" type="button" class="btn btn-default btn-sm">
-          Agregar Comisión
+        <button id="addComission" type="button" class="btn  custom-button">
+          Añadir otro
           <span class="glyphicon glyphicon-plus-sign"></span>
         </button>
       </div>
@@ -226,44 +261,44 @@
       <div id="affectedCNT">
         <div id="affected1">
           <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
               <h3>Afectado <kbd>1</kbd></h3>
               <input type="hidden" name="affectedTitle1" value="affectedTitle1">
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <label>Nombre</label>
+              <label>Nombre *</label>
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label for="affected1" class="sr-only">1er Nombre</label>
-                <input type="text" class="form-control" id="affectedFirstName1" name="affectedFirstName1"placeholder="José">
+                <input type="text" class="form-control" id="affectedFirstName1" name="affectedFirstName1"placeholder="Primer Nombre">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label for="affected1" class="sr-only"><small>2do Nombre</small></label>
-                <input type="text" class="form-control" id="affectedSecondName1" name="affectedSecondName1" placeholder="Manuel">
+                <input type="text" class="form-control" id="affectedSecondName1" name="affectedSecondName1" placeholder="Segundo Nombre">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label for="affected2" class="sr-only">1er Apellido</label>
-                <input type="text" class="form-control" id="affectedFirstSurname1" name="affectedFirstSurname1" placeholder="Pérez">
+                <input type="text" class="form-control" id="affectedFirstSurname1" name="affectedFirstSurname1" placeholder="Primer Apellido">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>
-                <input type="text" class="form-control" id="affectedSecondSurname1" name="affectedSecondSurname1" placeholder="Rodríguez">
+                <input type="text" class="form-control" id="affectedSecondSurname1" name="affectedSecondSurname1" placeholder="Segundo Apellido">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="form-group">
-                <label for="affectedType1">Tipo</label>
+                <label for="affectedType1">Tipo *</label>
                 <select class="form-control" id="affectedType1" name="affectedType1">
                   <option value="" selected="selected">Seleccione tipo de afectado</option>
                   <option value="1">Estudiante de la USB</option>
@@ -276,13 +311,13 @@
             </div>
             <div class="col-xs-8 col-sm-5">
               <div class="form-group">
-                <label for="affectedCI1">Cédula</label>
-                <input type="text" class="form-control" id="affectedCI1" name="affectedCI1" placeholder="21.123.123">
+                <label for="affectedCI1">Cedula *</label>
+                <input type="text" class="form-control" id="affectedCI1" name="affectedCI1" placeholder="Número de Cedula">
               </div>
             </div>
             <div class="col-xs-4 col-sm-1">
               <div class="form-group">
-                <label for="affectedGender1">Sexo</label>
+                <label for="affectedGender1">Sexo *</label>
                 <select class="form-control" id="affectedGender1" name="affectedGender1">
                   <option value="?" selected="selected">?</option>
                   <option value="F">F</option>
@@ -293,30 +328,29 @@
           </div>
           <div class="row">
             <div class="col-xs-6 col-sm-6">
-              <h3>Información de contacto</h3>
               <div class="row">
                 <div class="col-xs-6">
                   <div id="emailsCNT1">
-                    <label for="emailsTitle">Emails</label>
-                    <input type="email" class="form-control" id="affectedEmail1-1" name="affectedEmail1-1" placeholder="josebombero@gmail.com">
+                    <label for="emailsTitle">Correos Electrónicos</label>
+                    <input type="email" class="form-control" id="affectedEmail1-1" name="affectedEmail1-1" placeholder="Correo Electrónico">
                   </div>
                   <div class="text-right">
-                    <button id="addAffectedEmail1" type="button" class="btn btn-sm btn-default addAffectedEmail top-space-separator">+ <span class="glyphicon glyphicon-envelope"></span></button>
+                    <button id="addAffectedEmail1" type="button" class="btn  addAffectedEmail top-space-separator">+ <span class="glyphicon glyphicon-envelope"></span></button>
                   </div>
                 </div>
                 <div class="col-xs-6">
                   <div id="phonesCNT1">
                     <label for="phonesTitle">Teléfonos</label>
-                    <input type="tel" class="form-control" id="affectedPhone1-1" name="affectedPhone1-1" placeholder="0424-8412323">
+                    <input type="tel" class="form-control" id="affectedPhone1-1" name="affectedPhone1-1" placeholder="Teléfono/Celular">
                   </div>
                   <div class="text-right">
-                    <button id="addAffectedPhone1" type="button" class="btn btn-sm btn-default addAffectedPhone top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>
+                    <button id="addAffectedPhone1" type="button" class="btn  addAffectedPhone top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-xs-6 col-sm-6">
-              <h3>Notas/Tratamiento</h3>
+              <label>Notas/Tratamiento</label>
               <div class="form-group">
                 <textarea id="affectedNotes1" name="affectedNotes1" class="form-control" rows="6"></textarea>
               </div>
@@ -327,8 +361,8 @@
       </div>
 
       <div class="text-center">
-        <button id="addAffected" type="button" class="btn btn-default btn-sm">
-          Agregar Afectado
+        <button id="addAffected" type="button" class="btn  custom-button">
+          Añadir otro
           <span class="glyphicon glyphicon-plus-sign"></span>
         </button>
       </div>
@@ -341,19 +375,30 @@
           <div id="comisionExt1" class="col-xs-12 col-sm-12">
             <h3 id="comisionExtTitle1" name="comisionExtTitle1">Comisión Externa <kbd>1</kbd></h3>
             <input type="hidden" name="comisionExtTitle1" value="comisionExtTitle1">
-            <div class="form-group ui-widget col-xs-12 col-sm-8">
+
+            <div class="form-group ui-widget col-xs-12 col-sm-12">
               <label for="cuerpoDepartamento1">Cuerpo o Departamento</label>
-              <input id="cuerpoDepartamento1" type="text" class="form-control" placeholder="Don Quijote" name="cuerpoDepartamento1">
+              <input id="cuerpoDepartamento1" type="text" class="form-control" placeholder="Nombre del Departamento" name="cuerpoDepartamento1">
             </div>
-            <div class="col-xs-12 col-sm-4">
+
+            <div class="form-group ui-widget col-xs-12 col-sm-7">
+              <label for="jefe1">Jefe</label>
+              <input id="jefe1" type="text" class="form-control" placeholder="Nombre" name="jefe1">
+            </div>
+
+            <div class="col-xs-12 col-sm-5">
               <label for="cuerpoDepartamento1">Número de acompañantes</label>
+<<<<<<< HEAD
               <input id="numAcomp1" type="text" class="form-control" placeholder="Don Quijote" name="numAcomp1">
+=======
+              <input id="cuerpoDepartamento1" type="text" class="form-control" placeholder="Número" name="cuerpoDepartamento1">
+>>>>>>> 591697e002ff14a44bf83ecba4491df66a860c41
             </div>
             <div id="unitExtCNT1">
               <div id="unitExt1-1">
                 <div class="col-xs-6 col-sm-6">
                   <label for="unitExtValue1-1">Unidades</label>
-                  <input id="unitExtValue1-1" type="text" class="form-control" placeholder="Don Quijote" name="unitExtValue1-1">
+                  <input id="unitExtValue1-1" type="text" class="form-control" placeholder="Unidad" name="unitExtValue1-1">
                 </div>
                 <div class="col-xs-6 col-sm-6">
                   <label for="unitExtValue1-1">Placa Unidad</label>
@@ -362,47 +407,31 @@
               </div>
             </div>
             <div class="col-xs-12 text-right">
-              <button id="addUnitExt1" type="button" class="btn btn-default btn-sm addUnitExt top-space-separator">
+              <button id="addUnitExt1" type="button" class="btn  custom-button addUnitExt top-space-separator">
                 <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>
               </button>
             </div>
           </div>
-        </div>
       </div>
+    </div>
       <hr>
 
       <div class="text-center">
-        <button id="addApoyoExt" type="button" class="btn btn-default btn-sm">
-          Agregar Apoyo Externo
+        <button id="addApoyoExt" type="button" class="btn  custom-button">
+          Añadir otro
           <span class="glyphicon glyphicon-plus-sign"></span>
         </button>
       </div>
     </div>
-
-    <!-- Tab Enviar
-    <div class="tab-pane fade" id="enviar" role="tabpanel">
-    <div class="row">
-    <div class="col-xs-12">
-    <p class=""><strong>¿Estás seguro de querer enviar?</strong> Asegúrate de haber llenado todos los campos pertinentes.</p>
-    <button type="submit" class="btn btn-default" form="registro" method="post" name="submitButton" value="registrar" onclick="registerService()">Enviar</button>
   </div>
-</div>
-</div>-->
-</div>
 </form>
-<div style="float: right;">
-  <a href={{=URL('services','index.html')}}>
-    <button type="button" class="btn btn-default btn-sm">Cancelar registro</button>
-  </a>
-</div>
-</div>
 
 <!-- Google Maps -->
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>-->
 
 {{block page_js}}
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{=URL('static', 'js/services/jquery-1.12.4.js')}}"></script>
+<script src="{{=URL('static', 'js/services/jquery-ui-1.12.1.min.js')}}"></script>
 <script>
 {{=ASSIGNJS(nombres = nombreBomberos)}}
 </script>

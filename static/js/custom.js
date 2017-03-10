@@ -11,7 +11,7 @@ $(document).ready(function() {
     var unitsCount = [1];                    // Arreglo para contar las unidades (Por defecto 1)
     var comissionMembersCount = [3];         // Arreglo para contar los acompañantes (Por defecto 3)
     var emailsCount = [1];                   // Arreglo para contar los emails (Por defecto 1)
-    var phoneCount = [1];                    // Arreglo para contar los telefonos (Por defecto 1)
+    var phoneCount = [1];                    // Arreglo para contar los Teléfonos (Por defecto 1)
     var unitExtCount = [1];                  // Arreglo para contar las unidades externas (Por defecto 1)
 
     // Función para hacer clickeables las filas de las tablas y redirigir al href correspondiente
@@ -29,17 +29,22 @@ $(document).ready(function() {
 
         // Inserción del html
         $(unitCNT).append(
-        '<div id="unit'+num1+'-'+num2+'" name="unit'+num1+'-'+num2+'">\
+        '<div id="unit'+num1+'-'+num2+'">\
           <div class="col-xs-4 col-sm-2">\
             <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
               <option value="" selected="selected">--</option>\
-              <option value="1">A1</option>\
-              <option value="2">M2</option>\
-              <option value="3">L1</option>\
+              {{for unidad in nombreUnidades:}}\
+                <option value="{{=unidad}}">{{=unidad}}</option>\
+              {{pass}}\
             </select>\
           </div>\
           <div class="col-xs-8 col-sm-10">\
-            <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver'+num1+'-'+num2+'">\
+            <input list="comissionDriver'+num1+'-'+num2+'" name="comissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
+            <datalist id="comissionDriver'+num1+'-'+num2+'">\
+              {{for nombre in nombreBomberos:}}\
+                <option value="{{=nombre}}">\
+              {{pass}}\
+            </datalist>\
           </div>\
         </div>');
     });
@@ -53,7 +58,13 @@ $(document).ready(function() {
         var num2 = comissionMembersCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
 
         // Inserción del html
-        $(comissionMembersCNT).append('<input type="text" class="form-control" id="comissionMember'+num1+'-'+num2+'" placeholder="Sancho Panza" name="comissionMember'+num1+'-'+num2+'">');
+        $(comissionMembersCNT).append(
+        '<input list="comissionMember'+num1+'-'+num2+'" name="comissionMember'+num1+'-'+num2+'" class="form-control" placeholder="Acompañante de Comisión">\
+          <datalist id="comissionMember'+num1+'-'+num2+'">\
+            {{for nombre in nombreBomberos:}}\
+              <option value="{{=nombre}}">\
+            {{pass}}\
+          </datalist>');
     });
 
     // Función para los botones para añadir emails
@@ -77,7 +88,7 @@ $(document).ready(function() {
       var num2 = phoneCount[num1-1];                    // Variable auxiliar para la sustitucion en el html de abajo
 
       // Inserción del html
-      $(phoneCNT).append('<input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" placeholder="0424-8412323" name="affectedPhone'+num1+'-'+num2+'">');
+      $(phoneCNT).append('<input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" placeholder="Teléfono/Celular" name="affectedPhone'+num1+'-'+num2+'">');
     });
 
     // Función para los botones para añadir unidades externas
@@ -90,10 +101,10 @@ $(document).ready(function() {
 
       // Inserción del html
       $(unitExtCNT).append(
-      '<div id="unitExt1-1">\
+      '<div id="unitExt'+num1+'-'+num2+'">\
         <div class="col-xs-6 col-sm-6">\
           <label for="unitExtValue'+num1+'-'+num2+'">Unidades</label>\
-          <input id="unitExtValue'+num1+'-'+num2+'" type="text" class="form-control" placeholder="Don Quijote" name="unitExtValue'+num1+'-'+num2+'">\
+          <input id="unitExtValue'+num1+'-'+num2+'" type="text" class="form-control" placeholder="Unidad" name="unitExtValue'+num1+'-'+num2+'">\
         </div>\
         <div class="col-xs-6 col-sm-6">\
           <label for="unitExtValue'+num1+'-'+num2+'">Placa Unidad</label>\
@@ -115,7 +126,7 @@ $(document).ready(function() {
         $(comissionsCNT).append(
         '<div id="comission'+num1+'">\
           <div class="row">\
-            <div class="col-xs-12">\
+            <div class="col-xs-6">\
               <h3 id="comissionTitle'+num1+'" name="comissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
               <input type="hidden" name="comissionTitle'+num1+'" value="comissionTitle'+num1+'">\
             </div>\
@@ -124,22 +135,32 @@ $(document).ready(function() {
             <div class="col-xs-12 col-sm-6">\
               <div class="form-group ui-widget">\
                 <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
-                <input id="commissionBoss'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="commissionBoss'+num1+'">\
+                <input list="commissionBoss'+num1+'" name="commissionBoss'+num1+'" class="form-control" placeholder="Jefe de Comisión">\
+                <datalist id="commissionBoss'+num1+'">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
               </div>\
-              <label for="unitTitle'+num1+'">Unidades</label>\
+              <label for="unitTitle">Unidades</label>\
               <div class="row">\
                 <div id="unitsCNT'+num1+'">\
-                  <div id="unit'+num1+'-'+num2+'" name="unit'+num1+'-'+num2+'">\
+                  <div id="unit'+num1+'-'+num2+'">\
                     <div class="col-xs-4 col-sm-2">\
                       <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
                         <option value="" selected="selected">--</option>\
-                        <option value="1">A1</option>\
-                        <option value="2">M2</option>\
-                        <option value="3">L1</option>\
+                        {{for unidad in nombreUnidades:}}\
+                          <option value="{{=unidad}}">{{=unidad}}</option>\
+                        {{pass}}\
                       </select>\
                     </div>\
                     <div class="col-xs-8 col-sm-10">\
-                      <input id="comissionDriver'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="comissionDriver'+num1+'-'+num2+'">\
+                      <input list="comissionDriver'+num1+'-'+num2+'" name="comissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
+                      <datalist id="comissionDriver'+num1+'-'+num2+'">\
+                        {{for nombre in nombreBomberos:}}\
+                          <option value="{{=nombre}}">\
+                        {{pass}}\
+                      </datalist>\
                     </div>\
                   </div>\
                 </div>\
@@ -152,10 +173,25 @@ $(document).ready(function() {
             </div>\
             <div class="col-xs-12 col-sm-6">\
               <div id="comissionMembersCNT'+num1+'">\
-                <label for="comissionMember'+num1+'-'+num2+'">Acompañantes</label>\
-                <input type="text" class="form-control" id="comissionMember'+num1+'-1" placeholder="Sancho Panza" name="comissionMember'+num1+'-1">\
-                <input type="text" class="form-control" id="comissionMember'+num1+'-2" placeholder="Sancho Panza" name="comissionMember'+num1+'-2">\
-                <input type="text" class="form-control" id="comissionMember'+num1+'-3" placeholder="Sancho Panza" name="comissionMember'+num1+'-3">\
+                <label for="comissionMember'+num1+'">Acompañantes</label>\
+                <input list="comissionMember'+num1+'-1" name="comissionMember'+num1+'-1" class="form-control" placeholder="Acompañante de Comisión">\
+                <datalist id="comissionMember'+num1+'-1">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
+                <input list="comissionMember'+num1+'-2" name="comissionMember'+num1+'-2" class="form-control" placeholder="Acompañante de Comisión">\
+                <datalist id="comissionMember'+num1+'-2">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
+                <input list="comissionMember'+num1+'-3" name="comissionMember'+num1+'-3" class="form-control" placeholder="Acompañante de Comisión">\
+                <datalist id="comissionMember'+num1+'-3">\
+                  {{for nombre in nombreBomberos:}}\
+                    <option value="{{=nombre}}">\
+                  {{pass}}\
+                </datalist>\
               </div>\
               <div class="text-right">\
                 <button id="addComissionMember'+num1+'" type="button" class="btn btn-default btn-sm addComissionMember top-space-separator addComissionMember">\
@@ -164,8 +200,8 @@ $(document).ready(function() {
               </div>\
             </div>\
           </div>\
+        </div>\
         <hr>');
-
     });
 
     // Función para el botón para añadir afectados adicionales
@@ -188,37 +224,37 @@ $(document).ready(function() {
             </div>\
             <div class="row">\
               <div class="col-xs-12">\
-                <label>Nombre</label>\
+                <label>Nombre *</label>\
               </div>\
               <div class="col-xs-6 col-sm-3">\
                 <div class="form-group">\
                   <label for="affected'+num1+'" class="sr-only">1er Nombre</label>\
-                  <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'"placeholder="José">\
+                  <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'"placeholder="Primer Nombre">\
                 </div>\
               </div>\
               <div class="col-xs-6 col-sm-3">\
                 <div class="form-group">\
                   <label for="affected'+num1+'" class="sr-only"><small>2do Nombre</small></label>\
-                  <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" placeholder="Manuel">\
+                  <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" placeholder="Segundo Nombre">\
                 </div>\
               </div>\
               <div class="col-xs-6 col-sm-3">\
                 <div class="form-group">\
                   <label for="affected2" class="sr-only">1er Apellido</label>\
-                  <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" placeholder="Pérez">\
+                  <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" placeholder="Primer Apellido">\
                 </div>\
               </div>\
               <div class="col-xs-6 col-sm-3">\
                 <div class="form-group">\
                   <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>\
-                  <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" placeholder="Rodríguez">\
+                  <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" placeholder="Segundo Apellido">\
                 </div>\
               </div>\
             </div>\
             <div class="row">\
               <div class="col-xs-12 col-sm-6">\
                 <div class="form-group">\
-                  <label for="affectedType'+num1+'">Tipo</label>\
+                  <label for="affectedType'+num1+'">Tipo *</label>\
                   <select class="form-control" id="affectedType'+num1+'" name="affectedType'+num1+'">\
                     <option value="" selected="selected">Seleccione tipo de afectado</option>\
                     <option value="1">Estudiante de la USB</option>\
@@ -231,13 +267,13 @@ $(document).ready(function() {
               </div>\
               <div class="col-xs-8 col-sm-5">\
                 <div class="form-group">\
-                  <label for="affectedCI'+num1+'">Cédula</label>\
-                  <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" placeholder="21.123.123">\
+                  <label for="affectedCI'+num1+'">Cédula *</label>\
+                  <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" placeholder="Número de Cedula">\
                 </div>\
               </div>\
               <div class="col-xs-4 col-sm-1">\
                 <div class="form-group">\
-                  <label for="affectedGender'+num1+'">Sexo</label>\
+                  <label for="affectedGender'+num1+'">Sexo *</label>\
                   <select class="form-control" id="affectedGender'+num1+'" name="affectedGender'+num1+'">\
                     <option value="?" selected="selected">?</option>\
                     <option value="F">F</option>\
@@ -248,12 +284,11 @@ $(document).ready(function() {
             </div>\
             <div class="row">\
               <div class="col-xs-6 col-sm-6">\
-                <h3>Información de contacto</h3>\
                 <div class="row">\
                   <div class="col-xs-6">\
                     <div id="emailsCNT'+num1+'">\
-                      <label for="emailsTitle">Emails</label>\
-                      <input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" placeholder="josebombero@gmail.com">\
+                      <label for="emailsTitle">Correos Electrónicos</label>\
+                      <input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" placeholder="Correo Electrónico">\
                     </div>\
                     <div class="text-right">\
                       <button id="addAffectedEmail'+num1+'" type="button" class="btn btn-sm btn-default addAffectedEmail top-space-separator">+ <span class="glyphicon glyphicon-envelope"></span></button>\
@@ -262,7 +297,7 @@ $(document).ready(function() {
                   <div class="col-xs-6">\
                     <div id="phonesCNT'+num1+'">\
                       <label for="phonesTitle">Teléfonos</label>\
-                      <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" placeholder="0424-8412323">\
+                      <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" placeholder="Teléfono/Celular">\
                     </div>\
                     <div class="text-right">\
                       <button id="addAffectedPhone'+num1+'" type="button" class="btn btn-sm btn-default addAffectedPhone top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>\
@@ -271,7 +306,7 @@ $(document).ready(function() {
                 </div>\
               </div>\
               <div class="col-xs-6 col-sm-6">\
-                <h3>Notas/Tratamiento</h3>\
+                <label>Notas/Tratamiento</label>\
                 <div class="form-group">\
                   <textarea id="affectedNotes'+num1+'" name="affectedNotes'+num1+'" class="form-control" rows="6"></textarea>\
                 </div>\
@@ -292,35 +327,38 @@ $(document).ready(function() {
 
       $(comExtCNT).append(
         '<div id="comisionExt'+num1+'" class="col-xs-12 col-sm-12">\
-          <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
-          <input type="hidden" name="comisionExtTitle'+num1+'" value="comisionExtTitle'+num1+'">\
-          <div class="form-group ui-widget col-xs-12 col-sm-8">\
-            <label for="cuerpoDepartamento'+num1+'">Cuerpo o Departamento</label>\
-            <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="cuerpoDepartamento'+num1+'">\
-          </div>\
-          <div class="col-xs-12 col-sm-4">\
-            <label for="numAcomp'+num1+'">Número de acompañantes</label>\
-            <input id="numAcomp'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="numAcomp'+num1+'">\
-          </div>\
-          <div id="unitExtCNT'+num1+'">\
-            <div id="unitExt'+num1+'-'+num2+'">\
-              <div class="col-xs-6 col-sm-6">\
-                <label for="unitExtValue'+num1+'-'+num2+'">Unidades</label>\
-                <input id="unitExtValue'+num1+'-'+num2+'" type="text" class="form-control" placeholder="Don Quijote" name="unitExtValue'+num1+'-'+num2+'">\
-              </div>\
-              <div class="col-xs-6 col-sm-6">\
-                <label for="unitExtValue'+num1+'-'+num2+'">Placa Unidad</label>\
-                <input id="unitExtPlaca'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="unitExtPlaca'+num1+'-'+num2+'">\
-              </div>\
+        <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
+        <input type="hidden" name="comisionExtTitle'+num1+'" value="comisionExtTitle'+num1+'">\
+        <div class="form-group ui-widget col-xs-12 col-sm-12">\
+          <label for="cuerpoDepartamento'+num1+'">Cuerpo o Departamento</label>\
+          <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Nombre del Departamento" name="cuerpoDepartamento'+num1+'">\
+        </div>\
+        <div class="form-group ui-widget col-xs-12 col-sm-7">\
+          <label for="jefe'+num1+'">Jefe</label>\
+          <input id="jefe'+num1+'" type="text" class="form-control" placeholder="Nombre" name="jefe'+num1+'">\
+        </div>\
+        <div class="col-xs-12 col-sm-5">\
+          <label for="cuerpoDepartamento'+num1+'">Número de acompañantes</label>\
+          <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Número" name="cuerpoDepartamento'+num1+'">\
+        </div>\
+        <div id="unitExtCNT'+num1+'">\
+          <div id="unitExt'+num1+'-'+num2+'">\
+            <div class="col-xs-6 col-sm-6">\
+              <label for="unitExtValue'+num1+'-'+num2+'">Unidades</label>\
+              <input id="unitExtValue'+num1+'-'+num2+'" type="text" class="form-control" placeholder="Unidad" name="unitExtValue'+num1+'-'+num2+'">\
+            </div>\
+            <div class="col-xs-6 col-sm-6">\
+              <label for="unitExtValue'+num1+'-'+num2+'">Placa Unidad</label>\
+              <input id="unitExtPlaca'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="unitExtPlaca'+num1+'-'+num2+'">\
             </div>\
           </div>\
-          <div class="col-xs-12 text-right">\
-            <button id="addUnitExt'+num1+'" type="button" class="btn btn-default btn-sm addUnitExt top-space-separator">\
-              <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>\
-            </button>\
-          </div>\
         </div>\
-        ');
+        <div class="col-xs-12 text-right">\
+          <button id="addUnitExt'+num1+'" type="button" class="btn btn-default btn-sm addUnitExt top-space-separator">\
+            <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>\
+          </button>\
+        </div>\
+      </div>');
     });
 
     // Función para popUp al momento de enviar un servicio
@@ -334,7 +372,7 @@ $(document).ready(function() {
             showCancelButton: true,
             confirmButtonColor: "#1565C0",
             confirmButtonText: "Si, enviar!",
-            cancelButtonText: "Aun no termino",
+            cancelButtonText: "Aún no termino",
             closeOnConfirm: false,
             html: false
         }, function(isConfirm) {

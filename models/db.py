@@ -6,7 +6,7 @@
 # -------------------------------------------------------------------------
 
 if request.global_settings.web2py_version < "2.14.1":
-    raise HTTP(500, "Requires web2py 2.13.3 or newer")
+	raise HTTP(500, "Requires web2py 2.13.3 or newer")
 
 # -------------------------------------------------------------------------
 # if SSL/HTTPS is properly configured and you want all HTTP requests to
@@ -25,28 +25,28 @@ from gluon.contrib.appconfig import AppConfig
 myconf = AppConfig(reload=True)
 
 if not request.env.web2py_runtime_gae:
-    # ---------------------------------------------------------------------
-    # if NOT running on Google App Engine use SQLite or other DB
-    # ---------------------------------------------------------------------
-    db = DAL(myconf.get('db.uri'),
-             pool_size=myconf.get('db.pool_size'),
-             migrate_enabled=myconf.get('db.migrate'),
-             check_reserved=['all'])
+	# ---------------------------------------------------------------------
+	# if NOT running on Google App Engine use SQLite or other DB
+	# ---------------------------------------------------------------------
+	db = DAL(myconf.get('db.uri'),
+			 pool_size=myconf.get('db.pool_size'),
+			 migrate_enabled=myconf.get('db.migrate'),
+			 check_reserved=['all'])
 else:
-    # ---------------------------------------------------------------------
-    # connect to Google BigTable (optional 'google:datastore://namespace')
-    # ---------------------------------------------------------------------
-    db = DAL('google:datastore+ndb')
-    # ---------------------------------------------------------------------
-    # store sessions and tickets there
-    # ---------------------------------------------------------------------
-    session.connect(request, response, db=db)
-    # ---------------------------------------------------------------------
-    # or store session in Memcache, Redis, etc.
-    # from gluon.contrib.memdb import MEMDB
-    # from google.appengine.api.memcache import Client
-    # session.connect(request, response, db = MEMDB(Client()))
-    # ---------------------------------------------------------------------
+	# ---------------------------------------------------------------------
+	# connect to Google BigTable (optional 'google:datastore://namespace')
+	# ---------------------------------------------------------------------
+	db = DAL('google:datastore+ndb')
+	# ---------------------------------------------------------------------
+	# store sessions and tickets there
+	# ---------------------------------------------------------------------
+	session.connect(request, response, db=db)
+	# ---------------------------------------------------------------------
+	# or store session in Memcache, Redis, etc.
+	# from gluon.contrib.memdb import MEMDB
+	# from google.appengine.api.memcache import Client
+	# session.connect(request, response, db = MEMDB(Client()))
+	# ---------------------------------------------------------------------
 
 # -------------------------------------------------------------------------
 # by default give a view/generic.extension to all actions from localhost
@@ -84,13 +84,30 @@ from gluon.tools import Auth, Service, PluginManager
 
 # host names must be a list of allowed host names (glob syntax allowed)
 auth = Auth(db, host_names=myconf.get('host.names'))
+auth.define_tables(username=True, signature=False)
 service = Service()
 plugins = PluginManager()
+
+#from gluon.contrib.login_methods.ldap_auth import ldap_auth
+"""
+auth.settings.login_methods.append(ldap_auth(
+	server='localhost',
+	base_dn='ou=users,dc=login,dc=com',
+	manage_user=True,
+	user_firstname_attrib='cn:1',
+	user_lastname_attrib='cn:2',
+	user_mail_attrib='mail',
+	manage_groups=True,
+	db=db,
+	group_dn='ou=Groups,dc=domain,dc=com',
+	group_name_attrib='cn',
+	group_member_attrib='memberUid',
+	group_filterstr='objectClass=*'))
+"""
 
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables
 # -------------------------------------------------------------------------
-auth.define_tables(username=False, signature=False)
 
 # -------------------------------------------------------------------------
 # configure email
@@ -105,6 +122,7 @@ mail.settings.ssl = myconf.get('smtp.ssl') or False
 # -------------------------------------------------------------------------
 # configure auth policy
 # -------------------------------------------------------------------------
+#auth.settings.actions_disabled.append('register')
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True

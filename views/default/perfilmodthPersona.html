@@ -1,0 +1,24 @@
+{{extend 'layout.html'}}
+<div class="container bg-0">
+	<h2 align="center">Modificar Perfil</h2>
+	<br/><br/>
+	<ul class="nav nav-tabs" role="tablist">
+	    <li class="nav-item">
+	      <a class="nav-link" data-toggle="tab" href="{{=URL('default','perfilmodthUsuario')}}" role="tab">Datos del usuario</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" data-toggle="tab" href="#datopersonal" role="tab">Datos personales</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-toggle="tab" href="{{=URL('default','perfilmodthBombero')}}" role="tab">Datos de bombero</a>
+	    </li>
+	</ul>
+	<br/><br/>
+	<div class="tab-content">
+		<div class="tab-pane active" id="datopersonal" role="tabpanel">
+			<div class="forms">
+				{{=formPersona}}
+			</div>
+		</div>
+	</div>
+</div>
