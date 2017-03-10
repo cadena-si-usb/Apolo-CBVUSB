@@ -42,8 +42,10 @@
 
 	<body class="Site">
 		{{if auth.user != None: 
-				if auth.user.disable == True:
-					URL('default','userblocked')
+				user = db(db.usuario.id==auth.user.id).select().first()
+				if user.disable == True:
+					print 'hola'
+					redirect(URL('default','userblocked'))
 					}}
 
 		{{pass}}

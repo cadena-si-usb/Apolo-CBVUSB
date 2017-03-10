@@ -12,6 +12,9 @@ from datetime import *
 # - user is required for authentication and authorization
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
+def userblocked():
+	return dict()
+
 
 def index():
 	"""
@@ -21,7 +24,7 @@ def index():
 	if you need a simple wiki simply replace the two lines below with:
 	return auth.wiki()
 	"""
-	T.force('es')
+	T.force('es')					
 	return dict()
 
 def user():
@@ -403,7 +406,13 @@ def eliminarusrth():
 			response.flash = '¡El usuario '+username+' ha sido eliminado satisfactoriamente!'
 			tipo = "success"
 			"""
-			db()
+			bombero = db(db.bombero.id==id_bombero).select().first()
+			usuario = db(db.usuario.id==bombero.id_usuario).select().first()
+
+			print usuario.disable
+			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
+			response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
+			tipo = "success"
 
 	tam = db(db.persona).count()
 	if (tam%bombero_por_pagina==0):
