@@ -267,7 +267,7 @@ db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe
 db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'))
 
 db.bombero.carnet.requires = [IS_INT_IN_RANGE(1, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='Ya existe el carnet en el sistema')]
-db.bombero.iniciales.requires = IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))
+db.bombero.iniciales.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑ]{2,4}$', error_message='Debe estar entre 2 y 4 caracteres'))
 db.bombero.tipo_sangre.requires = IS_EMPTY_OR(IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')

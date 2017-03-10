@@ -141,6 +141,7 @@
 'Debe contener solo letras o guiones': 'Debe contener solo letras o guiones',
 'Debe contener sólo carácteres': 'Debe contener sólo carácteres',
 'Debe contener sólo carácteres.': 'Debe contener sólo carácteres.',
+'Debe estar entre 2 y 4 caracteres': 'Debe estar entre 2 y 4 caracteres',
 'Debe seleccionar una opción': 'Debe seleccionar una opción',
 'Debe ser del siguiente formato: dd/mm/yyyy.': 'Debe ser del siguiente formato: dd/mm/yyyy.',
 'Debe ser no vacío y contener solo letras o guiones': 'Debe ser no vacío y contener solo letras o guiones',
