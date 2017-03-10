@@ -150,6 +150,7 @@
 'Debe ser positivo.': 'Debe ser positivo.',
 'Debe ser un formato válido: png, jpg, jpeg o bmp': 'Debe ser un formato válido: png, jpg, jpeg o bmp',
 'Debe tener un formato válido. EJ: example@org.com': 'Debe tener un formato válido. EJ: example@org.com',
+'Debe tener una edad entre 18 y 100 años': 'Debe tener una edad entre 18 y 100 años',
 'Debug': 'Depurar',
 'defines tables': 'definir tablas',
 'Delete': 'Eliminar',

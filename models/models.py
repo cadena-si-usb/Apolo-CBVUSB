@@ -2,7 +2,7 @@
 
 #from gluon.tools import Auth, Service, PluginManager
 #from gluon.contrib.login_methods.ldap_auth import ldap_auth
-import datetime
+from datetime import *
 
 import os
 
@@ -232,7 +232,9 @@ db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s
 db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
 db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios'))
-db.persona.fecha_nacimiento.requires = IS_EMPTY_OR(IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'))
+db.persona.fecha_nacimiento.requires = IS_EMPTY_OR([IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
+										IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date.today()-timedelta(36500), maximum=date.today()-timedelta(6600), 
+													 error_message='Debe tener una edad entre 18 y 100 años')])
 db.persona.lugar_nacimiento.requires = IS_EMPTY_OR(IS_IN_SET([	'Amazonas',
 													'Anzoátegui',
 													'Apure',
@@ -259,12 +261,12 @@ db.persona.lugar_nacimiento.requires = IS_EMPTY_OR(IS_IN_SET([	'Amazonas',
 												  	'Zulia',
 												  	'Dependencias Federales'], error_message='No es una opción válida'))
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
-db.persona.imagen.requires = IS_EMPTY_OR(IS_MATCH('^.*\.(jpg|png|jpeg|bmp)$', error_message='Debe ser un formato válido: png, jpg, jpeg o bmp'))
+#db.persona.imagen.filename.requires = IS_EMPTY_OR(IS_MATCH('^.*\.(jpg|png|jpeg|bmp)$', error_message='Debe ser un formato válido: png, jpg, jpeg o bmp'))
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
 db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'))
 
-db.bombero.carnet.requires = [IS_INT_IN_RANGE(0, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='Ya existe el carnet en el sistema')]
+db.bombero.carnet.requires = [IS_INT_IN_RANGE(1, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='Ya existe el carnet en el sistema')]
 db.bombero.iniciales.requires = IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))
 db.bombero.tipo_sangre.requires = IS_EMPTY_OR(IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
@@ -327,7 +329,7 @@ db.rango.nombre.requires = IS_IN_SET(['Aspirante','Alumno','Bombero','Distinguid
 db.rango.abreviatura.requires = IS_MATCH('^\w+$', error_message='Debe contener solo letras sin espacios')
 
 db.asciende.fecha.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date(1998,5,15), maximum=date.today(), 
 													 error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
 
 db.condecoracion.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener sólo carácteres')
@@ -336,7 +338,7 @@ db.condecoracion.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]
 #No creo que esta deba ir
 
 db.otorgada.fecha.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date(1998,5,15), maximum=date.today(), 
 													 error_message='Introduzca una fecha entre 15/5/1998 y hoy.')]
 
 db.curso.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')
@@ -355,9 +357,9 @@ db.estudio.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', err
 db.estudio.nivel.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener solo letras')
 
 db.completo.fechaInicio.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1993,5,12), maximum=datetime.date.today(), 
+									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date(1993,5,12), maximum=date.today(), 
 													 error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
 
 db.completo.fechaFin.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-								 IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=datetime.date(1998,5,15), maximum=datetime.date.today(), 
+								 IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date(1998,5,15), maximum=date.today(), 
 												  error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
