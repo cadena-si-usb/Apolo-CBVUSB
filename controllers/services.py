@@ -278,7 +278,7 @@ def registrarApoyoExterno(request):
             cuerpoodepartamento = cuerpoDeptExt,
             unidad = unitExt,
             placaunidad = unitExtPlaca,
-            lider = 1, # ??????  
+            lider = 1, # ?????? No esta campo en form
             servicio = request.vars["id"])
 
         comisionCounter+=1
