@@ -4,9 +4,9 @@ var borrador;
 function validateForm() {
 
     // Si se esta guardando borrador entonces saltar validacion
-    if (borrador) {
-        return true;
-    }
+    //if (borrador) {
+    //    return true;
+    //}
 
     var tipo = document.forms["registro"]["tipo"].value;
     var fechaCreacion = document.forms["registro"]["fechaCreacion"].value;
@@ -14,6 +14,9 @@ function validateForm() {
     var fechaRegreso  = document.forms["registro"]["fechaFinalizacion"].value;
     var descripcion  = document.forms["registro"]["descripcion"].value;
     var localizacion  = document.forms["registro"]["localizacion"].value;
+
+    var horaCreacion = document.forms["registro"]["horaCreacion"].value;
+    var horaRegreso = document.forms["registro"]["horaFinalizacion"].value;
 
     // Verificar no nulidad de campos
     if (tipo == "") {
@@ -36,15 +39,26 @@ function validateForm() {
         alert("ALERTA: Ingrese localización de servicio")
         return false
     }
-
-    //if (fechaCreacion > fechaRegreso) {
-    //    alert("ALERTA: Fecha de inicio debe debe ser menor o igual a fecha de finalización.");
-    //    return false;
-    //}
-    //if (fechaLlegada > fechaRegreso) {
-    //    alert("ALERTA: Fecha de llegada debe debe ser menor o igual a fecha de regreso.");
-    //    return false;
-    //}
+    if (horaCreacion == "") {
+        alert("ALERTA: Ingrese hora de creacion de servicio")
+        return false
+    }
+   if (horaRegreso == "") {
+        alert("ALERTA: Ingrese hora de regreso de servicio")
+        return false
+    }
+    if (fechaCreacion > fechaRegreso) {
+        alert("ALERTA: Fecha de inicio debe debe ser menor o igual a fecha de finalización.");
+        return false;
+    }
+    if (horaCreacion > horaRegreso) {
+        alert("ALERTA: Hora de llegada debe debe ser menor o igual a hora de regreso.");
+        return false;
+    }
+    if (fechaCreacion < "01/01/1983") {
+        alert("ALERTA: Fecha de creacion debe ser posterior a 1982.");
+        return false;
+    }
 }
 
 // Colocar en falso para pasar por proceso de validacion de form
