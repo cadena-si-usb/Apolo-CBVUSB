@@ -240,6 +240,31 @@ def registrarAfectados(request):
 
         affectedCounter+=1
 
+def registrarApoyoExterno(request):
+
+    comisionCounter = 1
+
+    # Procesar cada afectado agregado
+    while request.vars["comisionExtTitle"+str(comisionCounter)] is not None:
+
+        cuerpoDeptExt = request.vars["cuerpoDepartamento"+str(comisionCounter)]
+        numAcompanantes = request.vars["numAcomp"+str(comisionCounter)]
+
+        unitExt = request.vars["unitExtValue"+str(comisionCounter)+"-1"]
+        unitExtPlaca = request.vars["unitExtPlaca"+str(comisionCounter)+"-1"]
+
+        # Registrar como afectado
+        db.comision_apoyo.insert(
+            numeroacompanantes = numAcompanantes,
+            cuerpoodepartamento = cuerpoDeptExt,
+            unidad = unitExt,
+            placaunidad = unitExtPlaca,
+            lider = 1, # ??????  
+            servicio = request.vars["id"])
+
+        comisionCounter+=1
+
+
 # Vista principal de "Registrar servicio"
 def register():
 
@@ -263,10 +288,10 @@ def register():
         # Registrar servicio
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
-        # Registrar datos de comisiones asociadas
+        # Registrar datos de comisiones, afectados y apoyo externo
         registrarComisiones(request)
-
         registrarAfectados(request)
+        registrarApoyoExterno(request)
 
         # Borrador guardado. Redireccionar a edicion de borrador para continuar con registro
         if request.vars['draft'] is not None:

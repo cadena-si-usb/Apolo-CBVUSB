@@ -299,8 +299,8 @@ $(document).ready(function() {
             <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="cuerpoDepartamento'+num1+'">\
           </div>\
           <div class="col-xs-12 col-sm-4">\
-            <label for="cuerpoDepartamento'+num1+'">Número de acompañantes</label>\
-            <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="cuerpoDepartamento'+num1+'">\
+            <label for="numAcomp'+num1+'">Número de acompañantes</label>\
+            <input id="numAcomp'+num1+'" type="text" class="form-control" placeholder="Don Quijote" name="numAcomp'+num1+'">\
           </div>\
           <div id="unitExtCNT'+num1+'">\
             <div id="unitExt'+num1+'-'+num2+'">\
