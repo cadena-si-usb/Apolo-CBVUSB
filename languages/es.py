@@ -222,6 +222,7 @@
 'failed to reload module because:': 'no es posible recargar el módulo por:',
 'FAQ': 'FAQ',
 'File': 'Archivo',
+'file': 'file',
 'file "%(filename)s" created': 'archivo "%(filename)s" creado',
 'file "%(filename)s" deleted': 'archivo "%(filename)s" eliminado',
 'file "%(filename)s" uploaded': 'archivo "%(filename)s" subido',

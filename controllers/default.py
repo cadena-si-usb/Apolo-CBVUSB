@@ -174,8 +174,10 @@ def perfilmodth():
 		)
 	
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
-		if formPersona.vars['imagen'] == None:
+		print formPersona.vars['imagen'] 
+		if formPersona.vars['imagen'] == None or formPersona.vars['imagen'] == "":
 			del formPersona.vars['imagen']
+			print 'Aqui'
 		elif persona.imagen != db.persona.imagen.default:
 			print persona.imagen
 			os.remove(os.path.join(request.folder,'static/profile-images',persona.imagen))
