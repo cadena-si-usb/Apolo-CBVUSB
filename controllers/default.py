@@ -92,13 +92,6 @@ def perfilmodth():
 		tipo="danger"
 
 	formPersona = SQLFORM.factory(
-		Field('nacionalidad', 
-			type='string', 
-			notnull=True, 
-			default=persona.nacionalidad, 
-			requires=db.persona.nacionalidad.requires,
-			label='Nacionalidad (*)'
-			),
 		Field('primer_nombre', 
 			type='string', 
 			notnull=True, 
@@ -150,6 +143,7 @@ def perfilmodth():
 			type='upload',
 			uploadfolder=os.path.join(request.folder,'static/profile-images'),
 			#default=os.path.join(request.folder,'static/profile-images',persona.imagen)
+			requires=db.persona.imagen.requires
 			),
 		Field('email_principal', 
 			type='string', 
@@ -393,9 +387,9 @@ def eliminarusrth():
 
 	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 
-	if request.args:
+	if len(request.args) > 1:
 		
-		id_bombero = int(request.args[0])
+		id_bombero = int(request.args[1])
 		
 		if not db(db.bombero.id==id_bombero).isempty():
 			"""
