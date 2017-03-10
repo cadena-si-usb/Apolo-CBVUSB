@@ -1,0 +1,320 @@
+timestamp: 2017-03-09T19:40:17.723856
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    username CHAR(128),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2017-03-09T19:40:17.841035
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2017-03-09T19:40:17.900107
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2017-03-09T19:40:17.975095
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2017-03-09T19:40:18.050999
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2017-03-09T19:40:18.135095
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2017-03-09T19:40:18.446551
+CREATE TABLE usuario(
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(128),
+    last_name VARCHAR(128),
+    email VARCHAR(512),
+    username VARCHAR(128),
+    password VARCHAR(512),
+    registration_key VARCHAR(512),
+    reset_password_key VARCHAR(512),
+    registration_id VARCHAR(512)
+);
+success!
+timestamp: 2017-03-09T19:40:18.787494
+CREATE TABLE auth_group(
+    id SERIAL PRIMARY KEY,
+    role VARCHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2017-03-09T19:40:18.870661
+CREATE TABLE auth_membership(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES usuario (id) ON DELETE CASCADE  ,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2017-03-09T19:40:18.953567
+CREATE TABLE auth_permission(
+    id SERIAL PRIMARY KEY,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE  ,
+    name VARCHAR(512),
+    table_name VARCHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2017-03-09T19:40:19.091700
+CREATE TABLE auth_event(
+    id SERIAL PRIMARY KEY,
+    time_stamp TIMESTAMP,
+    client_ip VARCHAR(512),
+    user_id INTEGER REFERENCES usuario (id) ON DELETE CASCADE  ,
+    origin VARCHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2017-03-09T19:40:19.213375
+CREATE TABLE auth_cas(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES usuario (id) ON DELETE CASCADE  ,
+    created_on TIMESTAMP,
+    service VARCHAR(512),
+    ticket VARCHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2017-03-09T19:40:19.321378
+CREATE TABLE persona(
+    id SERIAL PRIMARY KEY,
+    cedula INTEGER UNIQUE,
+    nacionalidad VARCHAR(512) NOT NULL,
+    primer_nombre VARCHAR(512) NOT NULL,
+    segundo_nombre VARCHAR(512),
+    primer_apellido VARCHAR(512) NOT NULL,
+    segundo_apellido VARCHAR(512),
+    fecha_nacimiento DATE NOT NULL,
+    lugar_nacimiento VARCHAR(512) NOT NULL,
+    genero VARCHAR(512) NOT NULL,
+    imagen VARCHAR(512),
+    email_principal VARCHAR(512) NOT NULL,
+    email_alternativo VARCHAR(512),
+    estado_civil VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:19.438335
+CREATE TABLE numero(
+    id SERIAL PRIMARY KEY,
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    codigo_telefono INTEGER NOT NULL,
+    numero_telefono INTEGER NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:19.556164
+CREATE TABLE direccion(
+    id SERIAL PRIMARY KEY,
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    direccion_descripcion VARCHAR(512) NOT NULL,
+    direccion_tipo VARCHAR(512) NOT NULL,
+    direccion_ciudad VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:19.749063
+CREATE TABLE bombero(
+    id SERIAL PRIMARY KEY,
+    carnet INTEGER NOT NULL UNIQUE,
+    imagen_perfil TEXT,
+    iniciales VARCHAR(512),
+    tipo_sangre VARCHAR(512),
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    cargo VARCHAR(512) NOT NULL DEFAULT 'Administrador',
+    hijos INTEGER
+);
+success!
+timestamp: 2017-03-09T19:40:19.965148
+CREATE TABLE servicio(
+    id SERIAL PRIMARY KEY,
+    Registra INTEGER REFERENCES bombero (id) ON DELETE CASCADE  NOT NULL ,
+    Borrador CHAR(1) NOT NULL DEFAULT 'T',
+    Aprueba INTEGER REFERENCES bombero (id) ON DELETE CASCADE  ,
+    fechaCreacion TIMESTAMP,
+    fechaFinalizacion TIMESTAMP,
+    fechaLlegada TIMESTAMP,
+    descripcion VARCHAR(512),
+    localizacion VARCHAR(512),
+    tipo VARCHAR(512)
+);
+success!
+timestamp: 2017-03-09T19:40:20.064714
+CREATE TABLE anade_imagen(
+    id SERIAL PRIMARY KEY,
+    bombero INTEGER REFERENCES bombero (id) ON DELETE CASCADE  ,
+    servicio INTEGER REFERENCES servicio (id) ON DELETE CASCADE  ,
+    imagen BYTEA
+);
+success!
+timestamp: 2017-03-09T19:40:20.172650
+CREATE TABLE anade_observacion(
+    id SERIAL PRIMARY KEY,
+    bombero INTEGER REFERENCES bombero (id) ON DELETE CASCADE  ,
+    servicio INTEGER REFERENCES servicio (id) ON DELETE CASCADE  ,
+    observacion TEXT
+);
+success!
+timestamp: 2017-03-09T19:40:20.272693
+CREATE TABLE comision(
+    id SERIAL PRIMARY KEY,
+    servicio INTEGER REFERENCES servicio (id) ON DELETE CASCADE  ,
+    lider INTEGER REFERENCES bombero (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2017-03-09T19:40:20.361764
+CREATE TABLE comision_apoyo(
+    id SERIAL PRIMARY KEY,
+    numeroacompanantes INTEGER,
+    cuerpoodepartamento VARCHAR(40),
+    unidad VARCHAR(30),
+    placaunidad VARCHAR(30),
+    lider INTEGER REFERENCES persona (id) ON DELETE CASCADE  ,
+    servicio INTEGER REFERENCES servicio (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2017-03-09T19:40:20.437058
+CREATE TABLE es_acompanante(
+    id SERIAL PRIMARY KEY,
+    bombero INTEGER REFERENCES bombero (id) ON DELETE CASCADE  ,
+    comision INTEGER REFERENCES comision (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2017-03-09T19:40:20.511946
+CREATE TABLE es_afectado(
+    id SERIAL PRIMARY KEY,
+    servicio INTEGER REFERENCES servicio (id) ON DELETE CASCADE  ,
+    persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  ,
+    notastratamiento TEXT,
+    tipo VARCHAR(512)
+);
+success!
+timestamp: 2017-03-09T19:40:20.620851
+CREATE TABLE unidad(
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(30),
+    activa CHAR(1)
+);
+success!
+timestamp: 2017-03-09T19:40:20.670253
+CREATE TABLE unidad_utilizada_por(
+    id SERIAL PRIMARY KEY,
+    unidad INTEGER REFERENCES unidad (id) ON DELETE CASCADE  ,
+    conductor INTEGER REFERENCES bombero (id) ON DELETE CASCADE  ,
+    comision INTEGER REFERENCES comision (id) ON DELETE CASCADE  
+);
+success!
+timestamp: 2017-03-09T19:40:20.736843
+CREATE TABLE condicion(
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(512) NOT NULL,
+    descripcion VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:20.828745
+CREATE TABLE rango(
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(512) NOT NULL,
+    tipo VARCHAR(512) NOT NULL,
+    abreviatura VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:20.929014
+CREATE TABLE asciende(
+    id SERIAL PRIMARY KEY,
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    rango INTEGER REFERENCES rango (id) ON DELETE CASCADE  NOT NULL ,
+    fecha DATE NOT NULL,
+    documento VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:21.112454
+CREATE TABLE condecoracion(
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(512) NOT NULL,
+    descripcion VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:21.212638
+CREATE TABLE otorgada(
+    id SERIAL PRIMARY KEY,
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    condecoracion INTEGER REFERENCES condecoracion (id) ON DELETE CASCADE  NOT NULL ,
+    fecha DATE NOT NULL,
+    documento VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:21.395593
+CREATE TABLE curso(
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(512) NOT NULL,
+    horas INTEGER NOT NULL,
+    tipo VARCHAR(512) NOT NULL,
+    escuela VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:21.520389
+CREATE TABLE estudio(
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(512) NOT NULL,
+    nivel VARCHAR(512) NOT NULL,
+    escuela VARCHAR(512) NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:21.620192
+CREATE TABLE completo(
+    id SERIAL PRIMARY KEY,
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    estudio INTEGER REFERENCES estudio (id) ON DELETE CASCADE  NOT NULL ,
+    fechaInicio DATE NOT NULL,
+    fechaFin DATE NOT NULL
+);
+success!
+timestamp: 2017-03-09T19:40:21.779641
+CREATE TABLE asiste(
+    id SERIAL PRIMARY KEY,
+    id_persona INTEGER REFERENCES persona (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    id_usuario INTEGER REFERENCES usuario (id) ON DELETE CASCADE  NOT NULL  UNIQUE,
+    curso INTEGER REFERENCES estudio (id) ON DELETE CASCADE  NOT NULL ,
+    fecha DATE NOT NULL,
+    imagen VARCHAR(512) NOT NULL
+);
+success!
