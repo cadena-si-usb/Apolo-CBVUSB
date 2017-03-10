@@ -11,7 +11,7 @@ db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 auth = Auth(db, host_names=myconf.get('host.names'))
 auth.settings.table_user_name = 'usuario'
 auth.settings.extra_fields['usuario']= [ Field('disable', type='boolean', default=False) ]
-auth.define_tables(username=True, signature=False, migrate=True)
+auth.define_tables(username=True, signature=False, migrate=True, fake_migrate=True)
 service = Service()
 plugins = PluginManager()
 
