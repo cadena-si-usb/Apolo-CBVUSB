@@ -393,6 +393,7 @@ def eliminarusrth():
 		id_bombero = int(request.args[0])
 		
 		if not db(db.bombero.id==id_bombero).isempty():
+			"""
 			bombero = db(db.bombero.id==id_bombero).select().first()
 			username = str(db.usuario[bombero.id_usuario].username)
 			id_usuario = bombero.id_usuario
@@ -401,6 +402,8 @@ def eliminarusrth():
 			db(db.usuario.id==id_usuario).delete()
 			response.flash = '¡El usuario '+username+' ha sido eliminado satisfactoriamente!'
 			tipo = "success"
+			"""
+			db()
 
 	tam = db(db.persona).count()
 	if (tam%bombero_por_pagina==0):
