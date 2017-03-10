@@ -6,7 +6,7 @@ from datetime import datetime
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Vista para listar "Mis servicios aprovados"
-
+@auth.requires_login()
 def msapproved():
     # bombero_carnet = request
     #servicios = db(db.bombero.carnet == bombero_carnet)._select()
@@ -17,7 +17,7 @@ def msapproved():
     return dict(services=services)
 
 # Vista para listar "Mis servicios pendientes por aprovación"
-
+@auth.requires_login()
 def mspending():
     # bombero_carnet = request
     #servicios = db(db.bombero.carnet == bombero_carnet)._select()
@@ -28,7 +28,7 @@ def mspending():
     return dict(services=services)
 
 # Vista para listar "Mis servicios guardados en borradores"
-
+@auth.requires_login()
 def msdraft():
     # bombero_carnet = request
     #servicios = db(db.bombero.carnet == bombero_carnet)._select()
@@ -39,7 +39,7 @@ def msdraft():
     return dict(services=services)
 
 # Botón para eliminar un servicio en cualquier vista de "Mis servicios"
-
+@auth.requires_login()
 def deleteMyService():
     serviceId = request.vars.row_id
     db(db.servicio.id == serviceId).delete()
@@ -50,13 +50,13 @@ def deleteMyService():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Vista principal de "Gestionar Servicios"
-
+@auth.requires_login()
 def allservices():
     services = db((db.servicio.Borrador == False) | (db.servicio.Aprueba != None)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Mis Servicios"
-
+@auth.requires_login()
 def myservices():
     # bombero_carnet = request
     #servicios = db(db.bombero.carnet == bombero_carnet)._select()
@@ -67,26 +67,26 @@ def myservices():
     return dict(services=services)
 
 # Vista para listar "Todos los servicios aprobados"
-
+@auth.requires_login()
 def asapproved():
     services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Todos los servicios pendientes por aprobación"
-
+@auth.requires_login()
 def aspending():
     services = db((db.servicio.Aprueba == None) & (db.servicio.Borrador == False)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Botón para eliminar un servicio en cualquier vista de "Gestionar servicios"
-
+@auth.requires_login()
 def deleteService():
     serviceId = request.vars.row_id
     db(db.servicio.id == serviceId).delete()
     redirect(URL('services','allservices'))
 
 # Vista para visualizar servicio
-
+@auth.requires_login()
 def displayService():
     serviceId = request.vars.id
     service = db(db.servicio.id == serviceId).select()[0]
@@ -97,7 +97,7 @@ def displayService():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Vista principal de "Servicios"
-
+@auth.requires_login()
 def index():
     services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
@@ -107,7 +107,7 @@ def index():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Vista principal de "Buscar servicios"
-
+@auth.requires_login()
 def search(): return dict()
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,7 +115,7 @@ def search(): return dict()
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # Obtener nombres de bomberos para autocompletado de registro de comisiones
-
+@auth.requires_login()
 def obtenerNombreBomberos():
     bomberos = db(db.bombero.id_persona == db.persona.id).select()
     nombreBomberos = dict()
@@ -128,7 +128,7 @@ def obtenerNombreBomberos():
     return nombreBomberos
 
 # Obtener nombres de unidades para autocompletado de registro de unidades de comisiones
-
+@auth.requires_login()
 def obtenerNombreUnidades():
     unidades = db().select(db.unidad.ALL)
     nombreUnidades = dict()
@@ -139,7 +139,7 @@ def obtenerNombreUnidades():
 
     return nombreUnidades
 
-
+@auth.requires_login()
 def registrarComisiones(request):
 
     commissionCounter = 1
@@ -196,7 +196,7 @@ def registrarComisiones(request):
                 conductor = idBomberos.get(conductorComision),
                 comision = comisionID)
 
-
+@auth.requires_login()
 def registrarAfectados(request):
 
     affectedCounter = 1
@@ -258,7 +258,7 @@ def registrarAfectados(request):
 
         affectedCounter+=1
 
-
+@auth.requires_login()
 def registrarApoyoExterno(request):
 
     comisionCounter = 1
@@ -283,12 +283,12 @@ def registrarApoyoExterno(request):
 
         comisionCounter+=1
 
-
+@auth.requires_login()
 def convertDateTime(fecha, hora):
     return datetime.strptime(fecha + " " + hora, '%m/%d/%Y %I:%M%p')
 
 # Vista principal de "Registrar servicio"
-
+@auth.requires_login()
 def register():
 
    # Form rellenado y submiteado por usuario
@@ -354,7 +354,7 @@ def register():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Editar borrador"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+@auth.requires_login()
 def editDraft():
 
     if request.env.request_method == 'POST':
@@ -392,22 +392,22 @@ def editDraft():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 @cache.action()
-
+@auth.requires_login()
 def download():
     """
     allows downloading of uploaded files
-
+@auth.requires_login()
 http://..../[app]/
     default/download/[filename]
     """
     return response.download(request, db)
 
 
-
+@auth.requires_login()
 def call():
     """
     exposes services. for example:
-
+@auth.requires_login()
 http://..../[app]/
     default/call/jsonrpc
     decorate with @services.jsonrpc the functions to expose
