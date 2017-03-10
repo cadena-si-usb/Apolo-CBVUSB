@@ -183,6 +183,63 @@ def registrarComisiones(request):
                 conductor = idBomberos[conductorComision],
                 comision = comisionID)
 
+def registrarAfectados(request):
+
+    affectedCounter = 1
+
+    # Procesar cada afectado agregado
+    while request.vars["affectedTitle"+str(affectedCounter)] is not None:
+
+        # Nombres del afectado
+        nombre1 = request.vars["affectedFirstName"+str(affectedCounter)]
+        nombre2 = request.vars["affectedSecondName"+str(affectedCounter)]
+
+        # Apellidos del afectado
+        apellido1 = request.vars["affectedFirstSurname"+str(affectedCounter)]
+        apellido2 = request.vars["affectedSecondSurname"+str(affectedCounter)]
+
+        tipoAfectado = request.vars["affectedType"+str(affectedCounter)]      
+
+        cedulaAfectado = request.vars["affectedCI"+str(affectedCounter)]
+
+        sexo = request.vars["affectedGender"+str(affectedCounter)]
+
+        notasYtratamiento = request.vars["affectedNotes"+str(affectedCounter)]
+
+        emailPrincipal = request.vars["affectedEmail"+str(affectedCounter)+"-1"]
+        emailAlternativo = request.vars["affectedEmail"+str(affectedCounter)+"-2"]
+
+        # Registrar como persona si no esta registrado
+        registrado = False  
+        for i in db(db.persona.cedula == cedulaAfectado).select():
+            registrado = True
+
+        if not registrado:
+            db.persona.insert(
+                cedula = cedulaAfectado,
+                primer_nombre = nombre1,
+                segundo_nombre = nombre2,
+                primer_apellido = apellido1,
+                segundo_apellido = apellido2,
+                fecha_nacimiento = "01/01/0001",
+                lugar_nacimiento = "Desconocido",
+                genero = sexo,
+                email_principal = emailPrincipal,
+                email_alternativo = emailAlternativo,
+                estado_civil = "soltero")
+
+        # Obtener ID de la persona
+        personaID = db(db.persona.cedula == cedulaAfectado).select().first()["id"]        
+
+        # Registrar como afectado
+        db.es_afectado.insert(
+            servicio = request.vars["id"],
+            persona = personaID,
+            notastratamiento = notasYtratamiento,
+            tipo = tipoAfectado)
+
+        affectedCounter+=1
+
 # Vista principal de "Registrar servicio"
 def register():
 
@@ -208,6 +265,8 @@ def register():
 
         # Registrar datos de comisiones asociadas
         registrarComisiones(request)
+
+        registrarAfectados(request)
 
         # Borrador guardado. Redireccionar a edicion de borrador para continuar con registro
         if request.vars['draft'] is not None:
