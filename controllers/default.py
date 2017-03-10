@@ -51,6 +51,10 @@ def perfilth():
 		userid = auth.user.id
 
 	usuario = db(db.bombero.id_usuario==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
+
+	if usuario is None:
+		usuario = db(db.bombero.id_usuario==auth.user.id).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
+
 	
 	return dict(usuario=usuario)
 
@@ -287,8 +291,8 @@ def registrousrth1():
 		Field('cedula', 
 				type='integer',
 				length=512, 
-				requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, 
-								error_message='Numero de cedula no valido.'),
+				requires=[	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Número de cedula no valido'), 
+								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')],
 				label='Cédula (*)'),
 		Field('primer_nombre', 
 				type='string',
