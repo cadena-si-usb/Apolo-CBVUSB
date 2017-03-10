@@ -118,7 +118,7 @@ def perfilmodth():
 		Field('segundo_apellido', 
 			type='string',
 			default=persona.segundo_apellido, 
-			requires=db.persona.segundo_apellido,
+			requires=db.persona.segundo_apellido.requires,
 			label='Segundo apellido'
 			),
 		Field('fecha_nacimiento', 
