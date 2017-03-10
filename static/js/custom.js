@@ -398,4 +398,3 @@ $(document).ready(function() {
             }
         }
 });
-});

@@ -53,6 +53,9 @@ def perfilth():
 
 	usuario = db(db.bombero.id_usuario==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
 	
+	if usuario is None:
+		usuario = db(db.bombero.id_usuario==auth.user.id).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
+
 	return dict(usuario=usuario)
 
 @auth.requires_login()
@@ -116,8 +119,9 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=persona.cedula, 
-			requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'),
-			label='Cedula (*)'
+			requires=[	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Número de cedula no valido'), 
+								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')],			
+								label='Cedula (*)'
 			),
 		Field('primer_nombre', 
 			type='string', 
@@ -308,8 +312,8 @@ def registrousrth1():
 		Field('cedula', 
 				type='integer',
 				length=512, 
-				requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, 
-								error_message='Numero de cedula no valido.'),
+				requires=[	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Número de cedula no valido'), 
+								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')],
 				label='Cédula (*)'),
 		Field('primer_nombre', 
 				type='string',
@@ -339,8 +343,8 @@ def registrousrth1():
 		formPersona.vars = dict((k,v) for k,v in formPersona.vars.iteritems() if v is not None)
 		redirect(URL("default","registrousrth2",vars=formPersona.vars))
 	elif formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
-		response.flash = 'Las contraseñas ingresadas no son iguales'
 		tipo="danger"
+		response.flash = 'Las contraseñas ingresadas no son iguales'
 	elif formPersona.errors:
 		tipo="danger"
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
@@ -404,8 +408,7 @@ def registrousrth2():
 		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
 		id_persona=db.persona.insert(**persona)
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		#response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
-		#tipo= "success"
+
 		redirect(URL("default","registrousrth_final",vars=formBombero.vars,args=id_usuario))
 
 	elif formBombero.errors:
@@ -414,7 +417,6 @@ def registrousrth2():
 
 	return dict(formBombero=formBombero,tipo=tipo)
 
-#@auth.requires_login()
 def registrousrth_final():
 	T.force('es')
 	usuario=db.usuario._filter_fields(request.vars)
@@ -427,6 +429,8 @@ def eliminarusrth():
 	T.force('es')
 	tipo = ""
 	error = False
+	userid = auth.user.id
+
 	bombero_por_pagina = 10
 	if len(request.args):				# pagina actual
 		pagina=int(request.args[0])
@@ -460,14 +464,13 @@ def eliminarusrth():
 		user_carnet = str(busqueda[0])
 		regex = '\d+'
 		if re.match(regex,user_carnet):
-			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
-			
+			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),orderby=~db.bombero.carnet,limitby=limites)
 			if len(tabla) == 0:
 				error = True
 		else:
 			error = True
 	else:
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+		tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),
 										distinct=db.bombero.carnet,
 										orderby=~db.bombero.carnet,
 										limitby=limites)
@@ -476,7 +479,7 @@ def eliminarusrth():
 		if busqueda[0] != '':
 			response.flash = 'No hay registro para esta búsqueda.'
 			tipo="danger"
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+		tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),
 										distinct=db.bombero.carnet,
 										orderby=~db.bombero.carnet,
 										limitby=limites)

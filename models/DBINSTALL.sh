@@ -4,6 +4,8 @@ sudo apt-get -y install python-psycopg2
 #echo "ALTER USER postgres WITH PASSWORD '$password';" > first.sql
 #psql postgres -f first.sql
 rm ~/.psql_history 2> /dev/null
+rm -f ../databases/*
+sudo -u postgres dropdb cbvusb
 sudo -u postgres createuser -PE -s cbvusb
 sudo -u postgres createdb -O cbvusb -E UTF8 cbvusb
 #read -s -p "Por favor ingrese su contraseña para la base de datos del sistema Apolo: " password
