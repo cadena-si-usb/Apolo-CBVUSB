@@ -83,10 +83,13 @@ def perfilmodth():
 			requires=db.usuario.password.requires,
 			label='Reingrese la nueva clave'))
 	
-	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
+	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted and formUsuario.vars.password==formUsuario.vars.password_again:
 		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
 		response.flash = 'Cambio de contraseña realizado satisfactoriamente.'
 		tipo="success"
+	elif formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
+		tipo="danger"
+		response.flash = 'Las contraseñas ingresadas no son iguales'
 	elif formUsuario.errors:
 		response.flash = 'Hay un error en un campo.'
 		tipo="danger"
@@ -115,7 +118,7 @@ def perfilmodth():
 		Field('segundo_apellido', 
 			type='string',
 			default=persona.segundo_apellido, 
-			requires=db.persona.segundo_apellido,
+			requires=db.persona.segundo_apellido.requires,
 			label='Segundo apellido'
 			),
 		Field('fecha_nacimiento', 

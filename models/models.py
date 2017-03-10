@@ -225,13 +225,13 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 								CRYPT()]
 
 db.persona.cedula.requires = [	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'), 
-								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')]
+								IS_NOT_IN_DB(db,db.persona.cedula, error_message='Ya la cédula existe en el sistema')]
 
 db.persona.nacionalidad.requires = IS_IN_SET(['V','E'], error_message='No es una opción válida')
 db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
-db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios'))
+db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras, guiones o espacios'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
-db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios'))
+db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras, guiones o espacios'))
 db.persona.fecha_nacimiento.requires = IS_EMPTY_OR([IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
 										IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date.today()-timedelta(36500), maximum=date.today()-timedelta(6600), 
 													 error_message='Debe tener una edad entre 18 y 100 años')])
@@ -267,7 +267,7 @@ db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe
 db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'))
 
 db.bombero.carnet.requires = [IS_INT_IN_RANGE(1, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='Ya existe el carnet en el sistema')]
-db.bombero.iniciales.requires = IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))
+db.bombero.iniciales.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑ]{2,4}$', error_message='Debe estar entre 2 y 4 caracteres'))
 db.bombero.tipo_sangre.requires = IS_EMPTY_OR(IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
