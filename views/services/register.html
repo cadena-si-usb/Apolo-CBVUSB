@@ -151,9 +151,9 @@
                     <div class="col-xs-4 col-sm-2">
                       <select id="unitValue1-1" class="form-control" name="unitValue1-1">
                         <option value="" selected="selected">--</option>
-                        <option value="A1">A1</option>
-                        <option value="M2">M2</option>
-                        <option value="L1">L1</option>
+                        {{for unidad in nombreUnidades:}}
+                          <option value="{{=unidad}}">{{=unidad}}</option>
+                        {{pass}}
                       </select>
                     </div>
                     <div class="col-xs-8 col-sm-10">

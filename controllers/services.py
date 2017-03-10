@@ -112,14 +112,26 @@ def obtenerNombreBomberos():
                     bombero.persona.primer_apellido  + " " +\
                     bombero.persona.segundo_apellido
         clave = bombero.bombero.id
-        nombreBomberos[nombre]=clave
+        nombreBomberos[nombre] = clave
 
     return nombreBomberos
+
+# Obtener nombres de unidades para autocompletado de registro de unidades de comisiones
+def obtenerNombreUnidades():
+    unidades = db().select(db.unidad.ALL)
+    nombreUnidades = dict()
+    for unidad in unidades:
+        nombre = unidad.nombre
+        clave = unidad.id
+        nombreUnidades[nombre] = clave
+
+    return nombreUnidades
 
 def registrarComisiones(request):
 
     commissionCounter = 1
-    nombreBomberos = obtenerNombreBomberos()
+    idBomberos = obtenerNombreBomberos()
+    idUnidades = obtenerNombreUnidades()
 
     # Procesar cada comision agregada
     while request.vars["comissionTitle"+str(commissionCounter)] is not None:
@@ -149,20 +161,26 @@ def registrarComisiones(request):
         #### Almacenar en base de datos ####
         ####################################
 
-        jefeComisionID = nombreBomberos[jefeComision]
-
         # Guardar comision
         db.comision.insert(
             servicio = request.vars["id"],
-            lider = jefeComisionID)
+            lider = idBomberos[jefeComision])
 
-        # Guardar acompanantes
+        # Obtener ID de la comision
         comisionID = db.comision.id.max()
         comisionID = db().select(comisionID).first()[comisionID]
 
+        # Guardar acompanantes
         for acompanante in acompanantes:
             db.es_acompanante.insert(
-                bombero = nombreBomberos[acompanante],
+                bombero = idBomberos[acompanante],
+                comision = comisionID)
+
+        # Guardar unidades y conductores
+        for unidadComision, conductorComision in zip(unidades,conductores):
+            db.unidad_utilizada_por.insert(
+                unidad = idUnidades[unidadComision],
+                conductor = idBomberos[conductorComision],
                 comision = comisionID)
 
 # Vista principal de "Registrar servicio"
@@ -216,8 +234,9 @@ def register():
 
         # Obtener nombres de bomberos para autocompletado de registro de comisiones
         nombreBomberos = obtenerNombreBomberos()
+        nombreUnidades = obtenerNombreUnidades()
 
-        return dict(nuevoServicioId=ultimoServicioId + 1, nombreBomberos=nombreBomberos)
+        return dict(nuevoServicioId=ultimoServicioId + 1, nombreBomberos=nombreBomberos, nombreUnidades=nombreUnidades)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Editar borrador"
