@@ -108,9 +108,7 @@ def obtenerNombreBomberos():
     nombreBomberos = dict()
     for bombero in bomberos:
         nombre =    bombero.persona.primer_nombre    + " " +\
-                    bombero.persona.segundo_nombre   + " " +\
-                    bombero.persona.primer_apellido  + " " +\
-                    bombero.persona.segundo_apellido
+                    bombero.persona.primer_apellido
         clave = bombero.bombero.id
         nombreBomberos[nombre] = clave
 
