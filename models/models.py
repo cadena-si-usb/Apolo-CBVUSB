@@ -225,7 +225,7 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 								CRYPT()]
 
 db.persona.cedula.requires = [	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'), 
-								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')]
+								IS_NOT_IN_DB(db,db.persona.cedula, error_message='Ya la cédula existe en el sistema')]
 
 db.persona.nacionalidad.requires = IS_IN_SET(['V','E'], error_message='No es una opción válida')
 db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
