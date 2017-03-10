@@ -47,11 +47,6 @@ function validateForm() {
     //}
 }
 
-// Funcion de autocompletado de nombres de bomberos
-$( function() {
-    $( "#commissionBoss" ).autocomplete({source: nombres});
-});
-
 // Colocar en falso para pasar por proceso de validacion de form
 function regirterService() {
     borrador = false;
