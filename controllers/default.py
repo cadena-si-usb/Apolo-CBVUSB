@@ -364,11 +364,28 @@ def eliminarusrth():
 	userid = auth.user.id
 
 	bombero_por_pagina = 10
+	tam = db(db.bombero).count()
+	if (tam%bombero_por_pagina==0):
+		tam_total = tam//bombero_por_pagina
+	else:
+		tam_total = tam//bombero_por_pagina +1
+
 	if len(request.args):				# pagina actual
-		pagina=int(request.args[0])
+		if int(request.args[0])<0:
+			pagina=0
+		else:
+			pagina = int(request.args[0])
 	else: 
 		pagina=0
-	print pagina
+
+	if pagina >= tam_total:
+				pagina = tam_total-1
+				if pagina < 0:
+					pagina = 0
+
+	if pagina >= tam_total:
+		pagina = tam_total
+
 	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 
 	if request.args:
@@ -429,17 +446,27 @@ def buscarth():
 	error = False
 	tipo=""
 	bombero_por_pagina = 10
-	if len(request.args):				# pagina actual
-		pagina=int(request.args[0])
-	else: 
-		pagina=0
 
-	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 	tam = db(db.bombero).count()
 	if (tam%bombero_por_pagina==0):
 		tam_total = tam//bombero_por_pagina
 	else:
 		tam_total = tam//bombero_por_pagina +1
+
+	if len(request.args):				# pagina actual
+		if int(request.args[0])<0:
+			pagina=0
+		else:
+			pagina = int(request.args[0])
+	else: 
+		pagina=0
+
+	if pagina >= tam_total:
+		pagina = tam_total-1
+		if pagina < 0:
+			pagina = 0
+
+	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 
 	if busqueda != []:
 		palabra = str(busqueda[0]) + '%'

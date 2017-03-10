@@ -1,15 +1,15 @@
 {{extend 'layout.html'}}
 
 <div class="container bg-0">
-    <h1 class="text-center">Eliminar usuarios</h1>
+    <h1 class="text-center">Deshabilitar usuarios</h1>
     <br /><br />
     <div align="center">
         <!-- Navegador de busqueda -->
         <form action="" method="POST">
             <!-- Campo de busqueda-->
-            <input class="bg-default" type="text" placeholder="Carnet..." name="buscar" style="font-size:14px;background-color:rgb(235,235,235);height:50px;width:auto;">
+            <input class="bg-default" type="text" placeholder="Carnet..." name="buscar" style="font-size:12pt;background-color:rgb(235,235,235);height:40px;width:auto;">
             <!-- Boton de enviar en color azul -->
-            <input type="submit" class="bg-primary" style="font-size:14px;height:50px;width:auto;" value="Enviar" class="bg-1">
+            <input type="submit" class="bg-primary" style="font-size:10pt;height:40px;width:auto;" value="Enviar" class="bg-1">
         </form>
     </div>
     <br /><br />
@@ -21,7 +21,7 @@
 			    <td class="text-center bg-primary">CÉDULA</td>
 			    <td class="text-center bg-primary">NOMBRES</td>
 			    <td class="text-center bg-primary">APELLIDOS</td>
-			    <td class="text-center bg-primary">ELIMINAR</td>
+			    <td class="text-center bg-primary">DESHABILITAR</td>
 			</tr>
 			{{for i,row in enumerate(tabla):}}
 			{{if i==bombero_por_pagina: break}}
@@ -38,7 +38,7 @@
 	            {{else:}}
 	            <td>{{=row.persona.primer_apellido}}</td>
 	            {{pass}}
-			    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Eliminar</a></td>
+			    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Deshabilitar</a></td>
 			</tr>
 			{{pass}}
 			{{pass}}
