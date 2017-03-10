@@ -51,13 +51,13 @@ db.define_table('persona',
 	Field('segundo_nombre', type='string'),
 	Field('primer_apellido', type='string', required=True, notnull=True),
 	Field('segundo_apellido', type='string'),
-	Field('fecha_nacimiento', type='date', notnull=True),
-	Field('lugar_nacimiento', type='string', notnull=True),
+	Field('fecha_nacimiento', type='date'),
+	Field('lugar_nacimiento', type='string'),
 	Field('genero', type='string', notnull=True),
 	Field('imagen', type='upload', uploadfolder=os.path.join(request.folder,'static/profile-images'),default='static/images/index.png'),
 	Field('email_principal', type='string', notnull=True),
 	Field('email_alternativo', type='string'),
-	Field('estado_civil', type='string', notnull=True),
+	Field('estado_civil', type='string'),
 	migrate="db.persona")
 
 db.define_table('numero',
@@ -79,11 +79,12 @@ db.define_table('bombero',
 	Field('carnet', type='integer', required=True, notnull=True, unique=True),
 	Field('imagen_perfil', type='text'),
 	Field('iniciales', type='string'),
-	Field('tipo_sangre', type='string', required=True),
+	Field('tipo_sangre', type='string'),
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
 	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
 	Field('cargo', type='string', notnull=True, default='Administrador'),
 	Field('hijos', type='integer', default=0),
+	Field('rango', type='string', default=0),
 	migrate="db.bombero")
 
 db.define_table('servicio',
@@ -233,8 +234,8 @@ db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s
 db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras o guiones'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres')
 db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo carácteres'))
-db.persona.fecha_nacimiento.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy')
-db.persona.lugar_nacimiento.requires = IS_IN_SET([	'Amazonas',
+db.persona.fecha_nacimiento.requires = IS_EMPTY_OR(IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'))
+db.persona.lugar_nacimiento.requires = IS_EMPTY_OR(IS_IN_SET([	'Amazonas',
 													'Anzoátegui',
 													'Apure',
 													'Aragua',
@@ -258,15 +259,15 @@ db.persona.lugar_nacimiento.requires = IS_IN_SET([	'Amazonas',
 												  	'Vargas',
 												  	'Yaracuy',
 												  	'Zulia',
-												  	'Dependencias Federales'], error_message='No es una opción válida')
+												  	'Dependencias Federales'], error_message='No es una opción válida'))
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida')
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
-db.persona.estado_civil.requires = IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida')
+db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'))
 
 db.bombero.carnet.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 db.bombero.iniciales.requires = IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4))
-db.bombero.tipo_sangre.requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos')
+db.bombero.tipo_sangre.requires = IS_EMPTY_OR(IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.cargo.requires = IS_IN_SET([	'Administrador', 
@@ -290,6 +291,20 @@ db.bombero.cargo.requires = IS_IN_SET([	'Administrador',
 										'Miembro de Operaciones',
 										'Miembro de Talento humano',
 										'Estudiante'], error_message='Debe seleccionar una opción')
+db.bombero.rango.requires = IS_IN_SET([	'Aspirante',
+										'Alumno',
+										'Bombero',
+										'Distinguido',
+										'Cabo Segundo',
+										'Cabo Primero',
+										'Sargento Segundo',
+									  	'Sargento Primero',
+									  	'Sargento Ayudante',
+									  	'Subteniente',
+									  	'Teniente',
+									  	'Capitán',
+									  	'Mayor'],
+									  error_message='Debe seleccionar una opción')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser positivo')
 
 db.direccion.direccion_tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras')

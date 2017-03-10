@@ -201,7 +201,7 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=bombero.tipo_sangre,
-			requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'),
+			requires = db.bombero.tipo_sangre.requires,
 			label='Tipo de sangre (*)'),
 		Field('iniciales', 
 			type='iniciales', 
@@ -240,9 +240,7 @@ def perfilmodth():
 			type='string', 
 			notnull=True,
 			default=bombero.rango,
-			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
-										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
-									error_message='Debe seleccionar una opción'),
+			requires= db.bombero.rango.requires,
 			label='Rango (*)'))	#FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:

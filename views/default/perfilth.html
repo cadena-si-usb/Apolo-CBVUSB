@@ -20,7 +20,7 @@
             {{pass}}
             <br />
             <!-- Cargo dentro de la organizacion | Rango -->
-            <h4>{{=usuario.bombero.cargo}} | Bombero</h4>
+            <h4>{{=usuario.bombero.cargo}} | {{=usuario.bombero.rango}}</h4>
         </div>
     </div>
     <br /><br />
@@ -34,7 +34,11 @@
                 </tr> 
                 <tr>
                     <td>Fecha de nacimiento:</td>
+                    {{if usuario.persona.fecha_nacimiento != None:}}
                     <td>{{=usuario.persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
+                    {{else:}}
+                    <td>-</td>
+                    {{pass}}
                 </tr>
                 <tr>
                     <td>Sexo:</td>
@@ -42,7 +46,11 @@
                 </tr>
                 <tr>
                     <td>Tipo de sangre:</td>
+                    {{if usuario.persona.tipo_sangre != None:}}
                     <td>{{=usuario.bombero.tipo_sangre}}</td>
+                    {{else:}}
+                    <td>-</td>
+                    {{pass}}
                 </tr>
                 <tr>
                     <td>Hijos:</td>
