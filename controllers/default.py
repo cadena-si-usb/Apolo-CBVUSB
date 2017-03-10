@@ -353,11 +353,7 @@ def registrousrth2():
 		Field('rango', 
 			type='string', 
 			unique=True,
-<<<<<<< HEAD
-			requires= db.bombero.rango.requires,
-=======
 			requires= db.rango.requires,
->>>>>>> origin/B-NOS-old
 			label='Rango (*)')
 		)
 
