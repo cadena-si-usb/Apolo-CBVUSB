@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from gluon.serializers import json
+from datetime import datetime
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de "Mis servicios"
@@ -215,6 +216,7 @@ def registrarAfectados(request):
         if not registrado:
             db.persona.insert(
                 cedula = cedulaAfectado,
+                nacionalidad = "Desconocido",
                 primer_nombre = nombre1,
                 segundo_nombre = nombre2,
                 primer_apellido = apellido1,
@@ -227,7 +229,10 @@ def registrarAfectados(request):
                 estado_civil = "soltero")
 
         # Obtener ID de la persona
-        personaID = db(db.persona.cedula == cedulaAfectado).select().first()["id"]        
+        try:
+            personaID = db(db.persona.cedula == cedulaAfectado).select().first()["id"]        
+        except:
+            personaID = None
 
         # Registrar como afectado
         db.es_afectado.insert(
@@ -262,6 +267,8 @@ def registrarApoyoExterno(request):
 
         comisionCounter+=1
 
+def convertDateTime(fecha, hora):
+    return datetime.strptime(fecha + " " + hora, '%m/%d/%Y %I:%M%p')
 
 # Vista principal de "Registrar servicio"
 def register():
@@ -277,13 +284,19 @@ def register():
             borrador = False
 
         tipoServicio = request.vars['tipo']
+        horaCreacion = request.vars['horaCreacion']
         fechaCreacion = request.vars['fechaCreacion']
+        horaLlegada = request.vars['horaLlegada']
         fechaLlegada = request.vars['fechaLlegada']
         fechaFinalizacion = request.vars['fechaFinalizacion']
+        horaFinalizacion = request.vars['horaFinalizacion']
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
 
         # Registrar servicio
+        fechaCreacion = convertDateTime(fechaCreacion,horaCreacion)
+        #fechaLlegada = convertDateTime(fechaLlegada,horaLlegada)
+        fechaFinalizacion = convertDateTime(fechaFinalizacion,horaFinalizacion)
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
         # Registrar datos de comisiones, afectados y apoyo externo

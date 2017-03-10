@@ -37,10 +37,10 @@ function validateForm() {
         return false
     }
 
-    if (fechaCreacion > fechaRegreso) {
-        alert("ALERTA: Fecha de inicio debe debe ser menor o igual a fecha de finalización.");
-        return false;
-    }
+    //if (fechaCreacion > fechaRegreso) {
+    //    alert("ALERTA: Fecha de inicio debe debe ser menor o igual a fecha de finalización.");
+    //    return false;
+    //}
     //if (fechaLlegada > fechaRegreso) {
     //    alert("ALERTA: Fecha de llegada debe debe ser menor o igual a fecha de regreso.");
     //    return false;
