@@ -157,6 +157,16 @@ applications/*/progress.log
 applications/examples/static/epydoc
 applications/examples/static/sphinx
 applications/admin/cron/cron.master
+/databases/*
+/sessions/*
+/errors/*
+/cache/*
+/uploads/*
+/private/*
+/*.py[oc]
+/static/temp
+/static/profile-images/*
+/progress.log
 HOWTO-web2py-devel
 *.sublime-project
 *.sublime-workspace
