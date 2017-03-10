@@ -374,6 +374,8 @@ def eliminarusrth():
 
 	if pagina >= tam_total:
 				pagina = tam_total-1
+				if pagina < 0:
+					pagina = 0
 
 	if pagina >= tam_total:
 		pagina = tam_total
@@ -454,10 +456,9 @@ def buscarth():
 		pagina=0
 
 	if pagina >= tam_total:
-				pagina = tam_total-1
-
-	if pagina >= tam_total:
-		pagina = tam_total
+		pagina = tam_total-1
+		if pagina < 0:
+			pagina = 0
 
 	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 
