@@ -227,3 +227,8 @@ Magia para el footer
 .Site-content {
   flex: 1;
 }
+
+.custom-button {
+  background-color: #1565C0;
+  color: white;
+}
