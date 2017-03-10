@@ -11,7 +11,7 @@ db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 auth = Auth(db, host_names=myconf.get('host.names'))
 auth.settings.table_user_name = 'usuario'
 auth.settings.extra_fields['usuario']= [ Field('disable', type='boolean', default=False) ]
-auth.define_tables(username=True, signature=False, migrate=True, fake_migrate=True)
+auth.define_tables(username=True, signature=False)
 service = Service()
 plugins = PluginManager()
 
@@ -223,10 +223,6 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 																										'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 								CRYPT()]
-
-
-
-
 
 db.persona.cedula.requires = [	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'), 
 								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')]
