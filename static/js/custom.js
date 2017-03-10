@@ -14,6 +14,21 @@ $(document).ready(function() {
     var phoneCount = [1];                    // Arreglo para contar los Teléfonos (Por defecto 1)
     var unitExtCount = [1];                  // Arreglo para contar las unidades externas (Por defecto 1)
 
+
+    // initialize input widgets first
+    $('#jqueryExample .time').timepicker({
+      'showDuration': true,
+      'timeFormat': 'g:ia'
+    });
+
+    $('#jqueryExample .date').datepicker({
+      'format': 'm/d/yyyy',
+      'autoclose': true
+    });
+
+    // initialize datepair
+    $('#jqueryExample').datepair();
+
     // Función para hacer clickeables las filas de las tablas y redirigir al href correspondiente
     $(".clickable-row").on('click', function() {
         window.location = $(this).data("href");

@@ -8,12 +8,6 @@
 <link rel="stylesheet" href="{{=URL('static', 'css/services/jquery-ui-1.12.1.css')}}">
 {{end}}
 
-{{block head_js}}
-<script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>
-<script src="{{=URL('static','js/jquery.timepicker.min.js')}}"></script>
-<script src="{{=URL('static','js/jquery.datepair.min.js')}}"></script>
-{{end}}
-
 {{block web2py_ajax}}{{end}}
 
 <!-- container principal -->
@@ -114,23 +108,6 @@
               </label>
             </div>
           </div>
-
-          <script>
-          // initialize input widgets first
-          $('#jqueryExample .time').timepicker({
-            'showDuration': true,
-            'timeFormat': 'g:ia'
-          });
-
-          $('#jqueryExample .date').datepicker({
-            'format': 'm/d/yyyy',
-            'autoclose': true
-          });
-
-          // initialize datepair
-          $('#jqueryExample').datepair();
-          </script>
-
         </div>
 
       </div>
@@ -434,4 +411,7 @@
 <script src="{{=URL('static','js/services/register.js')}}"></script>         <!-- Script para form de registro de servicio -->
 <script src="{{=URL('static','js/custom.js')}}"></script>
 <script src="{{=URL('static','js/sweetalert.min.js')}}"></script>
+<script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{=URL('static','js/jquery.timepicker.min.js')}}"></script>
+<script src="{{=URL('static','js/jquery.datepair.min.js')}}"></script>
 {{end}}
