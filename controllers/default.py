@@ -411,7 +411,12 @@ def eliminarusrth():
 
 			print usuario.disable
 			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
-			response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
+			print usuario.disable
+			if usuario.disable:
+				response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
+			else:
+				response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
+
 			tipo = "success"
 
 	tam = db(db.persona).count()

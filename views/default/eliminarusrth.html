@@ -38,7 +38,13 @@
 	            {{else:}}
 	            <td>{{=row.persona.primer_apellido}}</td>
 	            {{pass}}
+	            {{	user=db(db.usuario.id==row.bombero.id_usuario).select().first()
+	            	
+	            	if user.disable:}}
+			    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Habilitar</a></td>
+			    {{else:}}
 			    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Deshabilitar</a></td>
+			    {{pass}}
 			</tr>
 			{{pass}}
 			{{pass}}
