@@ -20,8 +20,12 @@
             {{pass}}
             <br />
             <!-- Cargo dentro de la organizacion | Rango -->
+<<<<<<< HEAD
             <h4>{{=usuario.bombero.cargo}} | </h4>
             <!--<h4>Activo-Inactivo</h4>-->
+=======
+            <h4>{{=usuario.bombero.cargo}} | {{=usuario.bombero.rango}}</h4>
+>>>>>>> origin/B-NOS-old
         </div>
     </div>
     <br /><br />
@@ -35,10 +39,16 @@
                 </tr> 
                 <tr>
                     <td>Fecha de nacimiento:</td>
+<<<<<<< HEAD
                     {{if (usuario.persona.fecha_nacimiento) != None:}}
                     <td>{{=usuario.persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
                     {{else:}}
                     <td>-/-/-</td>
+=======
+                    {{if usuario.persona.fecha_nacimiento != None:}}
+                    {{else:}}
+                    <td>-</td>
+>>>>>>> origin/B-NOS-old
                     {{pass}}
                 </tr>
                 <tr>
@@ -47,7 +57,11 @@
                 </tr>
                 <tr>
                     <td>Tipo de sangre:</td>
+<<<<<<< HEAD
                     {{if (usuario.bombero.tipo_sangre) != None:}}
+=======
+                    {{if usuario.bombero.tipo_sangre != None:}}
+>>>>>>> origin/B-NOS-old
                     <td>{{=usuario.bombero.tipo_sangre}}</td>
                     {{else:}}
                     <td>-</td>
