@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #from gluon.tools import Auth, Service, PluginManager
 #from gluon.contrib.login_methods.ldap_auth import ldap_auth
 import datetime
@@ -54,7 +56,7 @@ db.define_table('persona',
 	Field('fecha_nacimiento', type='date'),
 	Field('lugar_nacimiento', type='string'),
 	Field('genero', type='string', notnull=True),
-	Field('imagen', type='upload', uploadfolder=os.path.join(request.folder,'static/profile-images'),default='static/images/index.png'),
+	Field('imagen', type='upload', uploadfolder=os.path.join(request.folder,'static/profile-images'),default='index.png'),
 	Field('email_principal', type='string', notnull=True),
 	Field('email_alternativo', type='string'),
 	Field('estado_civil', type='string'),
