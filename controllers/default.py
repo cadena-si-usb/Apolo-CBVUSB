@@ -378,9 +378,7 @@ def registrousrth2():
 		Field('rango', 
 			type='string', 
 			unique=True,
-			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
-										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
-									error_message='Debe seleccionar una opción'),
+			requires= db.bombero.rango.requires,
 			label='Rango (*)')
 		)
 
