@@ -21,6 +21,7 @@ def index():
 	if you need a simple wiki simply replace the two lines below with:
 	return auth.wiki()
 	"""
+	T.force('es')
 	return dict()
 
 def user():
@@ -65,6 +66,16 @@ def perfilmodth():
 
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
+		Field('username', 
+				type='string',  
+				notnull=True, 
+				requires=[IS_MATCH('^\w{6,16}', 
+								error_message='El nombre de usuario debe:'+
+												'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
+												'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
+							IS_NOT_IN_DB(db, db.usuario.username, 
+								error_message='Ya existe un usuario con ese nombre.')],
+				label='Nombre de usuario (*)'),
 		Field('password', 
 			type='password', 
 			notnull=True,  
@@ -74,7 +85,7 @@ def perfilmodth():
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 						CRYPT()]
 						,
-			label='Clave nueva'),
+			label='Clave nueva (*)'),
 		Field('password_again', 
 			type='password', 
 			notnull=True, 
@@ -83,11 +94,9 @@ def perfilmodth():
 												'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
 												'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 						CRYPT()],
-			label='Reingrese la nueva clave'))
+			label='Reingrese la nueva clave (*)'))
 	
 	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
-		print db(db.usuario.id==userid).select()
-		print (formUsuario.vars)
 		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
 		response.flash = 'Cambio de contraseña realizado satisfactoriamente.'
 		tipo="success"
@@ -96,6 +105,20 @@ def perfilmodth():
 		tipo="danger"
 
 	formPersona = SQLFORM.factory(
+		Field('nacionalidad', 
+			type='string', 
+			notnull=True, 
+			default=persona.nacionalidad, 
+			requires=IS_IN_SET(['V','E'], error_message='No es una opción válida'),
+			label='Nacionalidad (*)'
+			),
+		Field('cedula', 
+			type='string', 
+			notnull=True, 
+			default=persona.cedula, 
+			requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'),
+			label='Cedula (*)'
+			),
 		Field('primer_nombre', 
 			type='string', 
 			notnull=True, 
@@ -133,7 +156,10 @@ def perfilmodth():
 			type='string', 
 			notnull=True,
 			default=persona.lugar_nacimiento, 
-			requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener sólo carácteres.'),
+			requires=IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas','Bolívar','Carabobo','Cojedes','Delta Amacuro',
+                                                  'Distrito Capital','Falcón','Guárico','Lara','Mérida','Miranda','Monagas','Nueva Esparta','Portuguesa',
+                                                  'Sucre','Táchira','Trujillo','Vargas','Yaracuy','Zulia','Dependencias Federales'], 
+                                                  error_message='No es una opción válida'),
 			label='Estado de nacimiento (*)'
 			),
 		Field('genero', 
@@ -178,6 +204,18 @@ def perfilmodth():
 		tipo="danger"
 
 	formBombero = SQLFORM.factory(
+		Field('tipo_sangre', 
+			type='string', 
+			notnull=True, 
+			default=bombero.tipo_sangre,
+			requires = IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'),
+			label='Tipo de sangre (*)'),
+		Field('iniciales', 
+			type='iniciales', 
+			notnull=True, 
+			default=bombero.iniciales,
+			requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4)),
+			label='Iniciales (*)'),
 		Field('cargo', 
 			type='string', 
 			notnull=True, 
@@ -204,7 +242,15 @@ def perfilmodth():
 									'Miembro de Talento humano',
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
-			label='Cargo que ocupa'))
+			label='Cargo que ocupa (*)'),
+			Field('rango', 
+			type='string', 
+			notnull=True,
+			default=bombero.rango,
+			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
+										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
+									error_message='Debe seleccionar una opción'),
+			label='Rango (*)'))	#FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
@@ -219,6 +265,7 @@ def perfilmodth():
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)	
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
+#@auth.requires_login()
 def registrousrth1():
 	T.force('es')
 	tipo=""
@@ -270,66 +317,22 @@ def registrousrth1():
 				requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
 								error_message='Debe contener sólo carácteres.'),
 				label='Primer nombre (*)'),
-		Field('segundo_nombre',
-				type='string',
-				length=512, 
-				requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
-								error_message='Debe contener sólo carácteres.')),
-				label='Segundo nombre'),
 		Field('primer_apellido',
 				type='string',
 				length=512, 
 				requires=IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
 								error_message='Debe contener sólo carácteres.'),
 				label='Primer apellido (*)'),
-		Field('segundo_apellido',
-				type='string',
-				length=512, 
-				requires=IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', 
-								error_message='Debe contener sólo carácteres.')),
-				label='Segundo apellido'),
-		Field('fecha_nacimiento',
-				type='date',
-				requires=[	IS_DATE(	format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy.'),
-							IS_DATE_IN_RANGE(	format=T('%d/%m/%Y'), 
-											minimum=(datetime.date.today() - datetime.timedelta(36500)), 
-											maximum=(datetime.date.today() - datetime.timedelta(6600)), 
-											error_message='Debe tener más de 18 años y menos de 100')],
-				label='Fecha de nacimiento (*)'),
-		Field('lugar_nacimiento',
-				type='string',
-				requires=IS_IN_SET(['Amazonas','Anzoátegui','Apure','Aragua','Barinas',
-										'Bolívar','Carabobo','Cojedes','Delta Amacuro',
-										'Distrito Capital','Falcón','Guárico','Lara',
-										'Mérida','Miranda','Monagas','Nueva Esparta',
-										'Portuguesa','Sucre','Táchira','Trujillo',
-										'Vargas','Yaracuy','Zulia',
-										'Dependencias Federales','Extranjero'], 
-								error_message='No es una opción válida.'),
-				label='Lugar de nacimiento (*)'),
 		Field('genero',
 				type='string',
 				requires=IS_IN_SET(['Masculino','Femenino'],
 								error_message='No es una opción válida.'),
 				label='Género (*)'),
-		Field('imagen',
-				type='string',
-				length=512,
-				label='Imagen de perfil'),
 		Field('email_principal',
 				type='string',
 				length=512,
 				requires=IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'),
-				label='Email principal (*)'),
-		Field('email_alternativo',
-				type='string',
-				length=512,
-				requires=IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com')),
-				label='Email alternativo'),
-		Field('estado_civil',
-				type='string',
-				requires=IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'),
-				label='Estado civil (*)') 
+				label='Email principal (*)')
 		)
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted and formPersona.vars.password==formPersona.vars.password_again:
@@ -339,13 +342,14 @@ def registrousrth1():
 		response.flash = 'Las contraseñas ingresadas no son iguales'
 		tipo="danger"
 	elif formPersona.errors:
-		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 		tipo="danger"
+		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
 	return dict(formPersona=formPersona,tipo=tipo)
 
+#@auth.requires_login()
 def registrousrth2():
-
+	T.force('es')
 	usuario=db.usuario._filter_fields(request.vars)
 	persona=db.persona._filter_fields(request.vars)
 	tipo=""
@@ -356,14 +360,39 @@ def registrousrth2():
 				unique=True, 
 				requires=IS_INT_IN_RANGE(0, error_message='Debe ser positivo.'),
 				label='Carnet (*)'),
-		Field('iniciales', 
-				type='string', 
-				requires=IS_EMPTY_OR(IS_LENGTH(minsize=2,maxsize=4)),
-				label='Iniciales (*)'),
-		Field('tipo_sangre', 
-				type='string', 
-				requires=IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos.'),
-				label='Tipo de Sangre (*)')
+		Field('cargo', 
+			type='string', 
+			unique=True, 
+			requires = IS_IN_SET(['Administrador', 
+									'Comandante en Jefe', 
+									'Primer comandante', 
+									'Segundo comandante', 
+									'Inspector en Jefe', 
+									'Gerente de Riesgo', 
+									'Gerente de Administración', 
+									'Gerente de Educación', 
+									'Gerente de Operaciones',
+									'Gerente de Talento humano',
+									'Sub-Gerente de Riesgo', 
+									'Sub-Gerente de Administración', 
+									'Sub-Gerente de Educación', 
+									'Sub-Gerente de Operaciones',
+									'Sub-Gerente de Talento humano',
+									'Miembro de Riesgo', 
+									'Miembro de Administración', 
+									'Miembro de Educación', 
+									'Miembro de Operaciones',
+									'Miembro de Talento humano',
+									'Estudiante'
+									], error_message='Debe seleccionar una opción.'),
+			label='Cargo que ocupa (*)'),
+		Field('rango', 
+			type='string', 
+			unique=True,
+			requires= IS_IN_SET(['Comandante en Jefe', 'Primer comandante', 'Segundo comandante', 
+										'Inspector en Jefe', 'Bombero' 'Estudiante'], 
+									error_message='Debe seleccionar una opción',
+			label='Rango (*)'))
 		)
 
 	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
@@ -375,9 +404,9 @@ def registrousrth2():
 		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
 		id_persona=db.persona.insert(**persona)
 		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		tipo= "success"
-		response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
-		redirect(URL("default","index",args=db.usuario[id_usuario]))
+		#response.flash = '¡El usuario '+str(db.usuario[id_usuario].username)+' ha sido registrado satisfactoriamente!'
+		#tipo= "success"
+		redirect(URL("default","registrousrth_final",vars=formBombero.vars,args=id_usuario))
 
 	elif formBombero.errors:
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
@@ -385,8 +414,17 @@ def registrousrth2():
 
 	return dict(formBombero=formBombero,tipo=tipo)
 
-def eliminarusrth():
+#@auth.requires_login()
+def registrousrth_final():
+	T.force('es')
+	usuario=db.usuario._filter_fields(request.vars)
+	persona=db.persona._filter_fields(request.vars)
+	username = str(db.usuario[request.args[0]].username)
+	return dict(username=username)
 
+@auth.requires_login()
+def eliminarusrth():
+	T.force('es')
 	tipo = ""
 	error = False
 	bombero_por_pagina = 10
@@ -423,18 +461,25 @@ def eliminarusrth():
 		regex = '\d+'
 		if re.match(regex,user_carnet):
 			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id))
+			
 			if len(tabla) == 0:
 				error = True
 		else:
 			error = True
 	else:
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+										distinct=db.bombero.carnet,
+										orderby=~db.bombero.carnet,
+										limitby=limites)
 
 	if error:
 		if busqueda[0] != '':
 			response.flash = 'No hay registro para esta búsqueda.'
 			tipo="danger"
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+										distinct=db.bombero.carnet,
+										orderby=~db.bombero.carnet,
+										limitby=limites)
 
 	if len(tabla) == 0:
 		response.flash = 'No hay usuarios en el sistema.'
@@ -444,7 +489,7 @@ def eliminarusrth():
 
 @auth.requires_login()
 def buscarth():
-	
+	T.force('es')
 	busqueda = request.vars.getlist("buscar") # Busqueda suministrada por el usuario
 	error = False
 	tipo=""
@@ -453,7 +498,7 @@ def buscarth():
 		pagina=int(request.args[0])
 	else: 
 		pagina=0
-	print pagina
+
 	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 	tam = db(db.bombero).count()
 	if (tam%bombero_por_pagina==0):
@@ -480,9 +525,8 @@ def buscarth():
 						db.bombero.iniciales.ilike(palabra)
 						).select(
 								join=db.bombero.on(
-													(db.bombero.id_persona == db.persona.id) & 
-													(db.persona.id == db.usuario.id) & 
-													(db.bombero.id == db.usuario.id)),
+													(db.bombero.id_persona == db.persona.id) &
+													(db.bombero.id_usuario == db.usuario.id)),
 								distinct=db.bombero.carnet,
 								orderby=~db.bombero.carnet,
 								limitby=limites) # =~ se refiere al orden descendente
@@ -492,13 +536,19 @@ def buscarth():
 		else:
 			error = True
 	else:
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+										distinct=db.bombero.carnet,
+										orderby=~db.bombero.carnet,
+										limitby=limites)
 
 	if error:
 		if busqueda[0] != '':
 			response.flash = 'No hay registro para esta búsqueda.'
 			tipo="danger"
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),orderby=~db.bombero.carnet,limitby=limites)
+		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+										distinct=db.bombero.carnet,
+										orderby=~db.bombero.carnet,	
+										limitby=limites)
 
 	return dict(tabla=tabla,tam_total=tam_total,tipo=tipo,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
 	

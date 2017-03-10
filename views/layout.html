@@ -27,12 +27,14 @@
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
 
-    {{block head_js}}{{end}}
+    <!--
+    {{block head_js}}
     <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+    {{end}}
 
     {{block head_jquey}}
     <script src="{{=URL('static','js/jquery.js')}}"></script>
-    {{end}}
+    {{end}}-->
 
     {{include 'web2py_ajax.html'}}
 
@@ -94,7 +96,7 @@
                   <li><a href="{{=URL('default','perfilth')}}">Ver Perfil</a></li>
                   <li><a href="{{=URL('default','perfilmodth')}}">Modificar Perfil</a></li>
                   <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
-                  <li><a href="{{=URL('default','eliminarusrth')}}">Eliminar Usuario</a></li>
+                  <li><a href="{{=URL('default','eliminarusrth')}}">Desactivar Usuario</a></li>
                   <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
                 </ul>
               </li>
@@ -113,7 +115,6 @@
       </nav>
     </div>
 
-    {{tipo="success"}}
     <!-- Mensajes -->
     {{if not('tipo' in locals()):
         tipo = "success"}}
@@ -122,15 +123,10 @@
     {{if response.flash:}}
     <div class="row">
     {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
-      <!--h4 title="Cerrar" class="w2p_flash alert alert-warning col-sm-6 col-sm-offset-3" style="width: 50%;height: auto;">
-        {{=response.flash}}
-      </h4-->
     </div>
     {{pass}}
 
-    <div style="padding: auto;">
     {{include}}
-    </div>
 
     <!-- Footer -->
     <footer class="footer bg-4 top-space-separator">
