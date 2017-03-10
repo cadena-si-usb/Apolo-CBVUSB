@@ -10,7 +10,8 @@ db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
 auth = Auth(db, host_names=myconf.get('host.names'))
 auth.settings.table_user_name = 'usuario'
-auth.define_tables(username=True, signature=False)
+auth.settings.extra_fields['usuario']= [ Field('disable', type='boolean', default=False) ]
+auth.define_tables(username=True, signature=False, migrate="db.usuario")
 service = Service()
 plugins = PluginManager()
 
@@ -29,6 +30,7 @@ plugins = PluginManager()
 #	group_filterstr='objectClass=*'))
 
 auth.settings.actions_disabled.append('register')
+auth.settings.actions_disabled.append('request_reset_password')
 
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables
@@ -50,9 +52,9 @@ db.define_table('persona',
 	Field('cedula', type='integer', unique=True),
 	Field('nacionalidad', type='string', required=True, notnull=True),
 	Field('primer_nombre', type='string', required=True, notnull=True),
-	Field('segundo_nombre', type='string'),
+	Field('segundo_nombre', type='string', default=""),
 	Field('primer_apellido', type='string', required=True, notnull=True),
-	Field('segundo_apellido', type='string'),
+	Field('segundo_apellido', type='string', default=""),
 	Field('fecha_nacimiento', type='date'),
 	Field('lugar_nacimiento', type='string'),
 	Field('genero', type='string', notnull=True),
@@ -64,14 +66,12 @@ db.define_table('persona',
 
 db.define_table('numero',
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
 	Field('codigo_telefono', type='integer', length=4, notnull=True),
 	Field('numero_telefono', type='integer', length=7, notnull=True),
 	migrate="db.numero")
 
 db.define_table('direccion',
 	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
-	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
 	Field('direccion_descripcion', type='string', notnull=True),
 	Field('direccion_tipo', type='string', notnull=True),
 	Field('direccion_ciudad', type='string', notnull=True),
@@ -214,19 +214,15 @@ db.define_table('asiste',
 
 
 # REQUIRES de la DB
-db.usuario.username.requires = [IS_MATCH('^\w{6,16}', error_message='El nombre de usuario debe:'+
+db.usuario.username.requires = [IS_MATCH('^\w{6,16}$', error_message='El nombre de usuario debe:'+
 																	'\n\t- Contener unicamente los caracteres: a-z, A-Z, 0-9 y _'+
 																	'\n\t- Debe tener una longitud de entre 6 y 16 caracteres.'),
 								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]
 
 db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,24}$', error_message='La contraseña debe: \n'+
 																										'\n\t- Contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\-+=`|(){}[]<>.?/'+
-																										'\n\t- Debe tener una longitud entre 8 y 24 caracteres.'),
+																										'\n\t- Debe tener una longitud entre 4 y 24 caracteres.'),
 								CRYPT()]
-
-
-
-
 
 db.persona.cedula.requires = [	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'), 
 								IS_NOT_IN_DB(db,'persona.cedula', error_message='Ya la cédula existe en el sistema')]

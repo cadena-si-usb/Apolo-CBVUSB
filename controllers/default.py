@@ -12,6 +12,9 @@ from datetime import *
 # - user is required for authentication and authorization
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
+def userblocked():
+	return dict()
+
 
 def index():
 	"""
@@ -21,7 +24,7 @@ def index():
 	if you need a simple wiki simply replace the two lines below with:
 	return auth.wiki()
 	"""
-	T.force('es')
+	T.force('es')					
 	return dict()
 
 def user():
@@ -146,7 +149,8 @@ def perfilmodth():
 		Field('imagen', 
 			type='upload',
 			uploadfolder=os.path.join(request.folder,'static/profile-images'),
-			default='static/images/index.png'),
+			#default=os.path.join(request.folder,'static/profile-images',persona.imagen)
+			),
 		Field('email_principal', 
 			type='string', 
 			notnull=True,
@@ -170,6 +174,13 @@ def perfilmodth():
 		)
 	
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
+		print formPersona.vars['imagen'] 
+		if formPersona.vars['imagen'] == None or formPersona.vars['imagen'] == "":
+			del formPersona.vars['imagen']
+			print 'Aqui'
+		elif persona.imagen != db.persona.imagen.default:
+			print persona.imagen
+			os.remove(os.path.join(request.folder,'static/profile-images',persona.imagen))
 		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(formPersona.vars))
 		response.flash = 'Cambio realizado satisfactoriamente'
 		tipo="success"
@@ -358,11 +369,28 @@ def eliminarusrth():
 	userid = auth.user.id
 
 	bombero_por_pagina = 10
+	tam = db(db.bombero).count()
+	if (tam%bombero_por_pagina==0):
+		tam_total = tam//bombero_por_pagina
+	else:
+		tam_total = tam//bombero_por_pagina +1
+
 	if len(request.args):				# pagina actual
-		pagina=int(request.args[0])
+		if int(request.args[0])<0:
+			pagina=0
+		else:
+			pagina = int(request.args[0])
 	else: 
 		pagina=0
-	print pagina
+
+	if pagina >= tam_total:
+				pagina = tam_total-1
+				if pagina < 0:
+					pagina = 0
+
+	if pagina >= tam_total:
+		pagina = tam_total
+
 	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 
 	if request.args:
@@ -370,6 +398,7 @@ def eliminarusrth():
 		id_bombero = int(request.args[0])
 		
 		if not db(db.bombero.id==id_bombero).isempty():
+			"""
 			bombero = db(db.bombero.id==id_bombero).select().first()
 			username = str(db.usuario[bombero.id_usuario].username)
 			id_usuario = bombero.id_usuario
@@ -377,6 +406,19 @@ def eliminarusrth():
 			db(db.persona.id==id_persona).delete()
 			db(db.usuario.id==id_usuario).delete()
 			response.flash = '¡El usuario '+username+' ha sido eliminado satisfactoriamente!'
+			tipo = "success"
+			"""
+			bombero = db(db.bombero.id==id_bombero).select().first()
+			usuario = db(db.usuario.id==bombero.id_usuario).select().first()
+
+			print usuario.disable
+			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
+			print usuario.disable
+			if usuario.disable:
+				response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
+			else:
+				response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
+
 			tipo = "success"
 
 	tam = db(db.persona).count()
@@ -423,17 +465,27 @@ def buscarth():
 	error = False
 	tipo=""
 	bombero_por_pagina = 10
-	if len(request.args):				# pagina actual
-		pagina=int(request.args[0])
-	else: 
-		pagina=0
 
-	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 	tam = db(db.bombero).count()
 	if (tam%bombero_por_pagina==0):
 		tam_total = tam//bombero_por_pagina
 	else:
 		tam_total = tam//bombero_por_pagina +1
+
+	if len(request.args):				# pagina actual
+		if int(request.args[0])<0:
+			pagina=0
+		else:
+			pagina = int(request.args[0])
+	else: 
+		pagina=0
+
+	if pagina >= tam_total:
+		pagina = tam_total-1
+		if pagina < 0:
+			pagina = 0
+
+	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
 
 	if busqueda != []:
 		palabra = str(busqueda[0]) + '%'

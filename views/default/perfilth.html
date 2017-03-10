@@ -30,11 +30,11 @@
             <div class="panel-heading"><h4>Datos básicos</h4></div>
             <table class="table table-bordered">
                 <tr>
-                    <td>Cédula:</td>
+                    <td><span style="color:black;" class="glyphicon glyphicon-credit-card"></span>  Cédula:</td>
                     <td>{{=usuario.persona.nacionalidad}}-{{=usuario.persona.cedula}}</td>
                 </tr> 
                 <tr>
-                    <td>Fecha de nacimiento:</td>
+                    <td><span style="color:black;" class="glyphicon glyphicon-calendar"></span>  Fecha de nacimiento:</td>
                     {{if (usuario.persona.fecha_nacimiento) != None:}}
                     <td>{{=usuario.persona.fecha_nacimiento.strftime("%d/%m/%Y")}}</td>
                     {{else:}}
@@ -42,11 +42,11 @@
                     {{pass}}
                 </tr>
                 <tr>
-                    <td>Sexo:</td>
+                    <td><span style="color:black;" class="glyphicon glyphicon-user"></span>  Sexo:</td>
                     <td>{{=usuario.persona.genero}}</td>
                 </tr>
                 <tr>
-                    <td>Tipo de sangre:</td>
+                    <td><span style="color:black;" class="glyphicon glyphicon-tint"></span>  Tipo de sangre:</td>
                     {{if usuario.bombero.tipo_sangre != None:}}
                     <td>{{=usuario.bombero.tipo_sangre}}</td>
                     {{else:}}
@@ -80,11 +80,11 @@
                     <td>0212-5559988</td>
                 </tr>-->
                 <tr>
-                    <td>Email:</td>
+                    <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email:</td>
                     <td>{{=usuario.persona.email_principal}}</td>
                 </tr>
                 <tr>
-                    <td>Email alternativo:</td>
+                    <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email alternativo:</td>
                     {{if (usuario.persona.email_alternativo) != None:}}
                     
                     <td>{{=usuario.persona.email_alternativo}}</td>

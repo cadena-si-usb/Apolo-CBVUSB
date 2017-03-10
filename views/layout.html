@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{=T.accepted_language or 'en'}}">
-  <head>
+<head>
     <meta charset="utf-8">                                                                               <!-- Codificación utf-8 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}"> <!-- Compattibilidad con navegadores -->
     <meta name="viewport" content="width=device-width, initial-scale=1">                                 <!-- Responsive :) -->
@@ -34,105 +34,113 @@
     (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
   </head>
 
-  <body class="Site">
-      <div class="bottom-space-separator">
-        <!-- Banner -->
-        <div class="container">
-          <a href="{{=URL('default','index')}}" title="Ir al inicio">
-            <img class="img-responsive img-center" src="{{=URL('static','images/banner-legacy-medium.png')}}" alt="Banner">
-          </a>
-        </div>
+	<body class="Site">
+		{{if auth.user != None: 
+				user = db(db.usuario.id==auth.user.id).select().first()
+				if user.disable == True:
+					print 'hola'
+					redirect(URL('default','userblocked'))
+					}}
 
-        <!-- Barra de navegación -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation"><div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Navegación</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
+		{{pass}}
+		{{pass}}
 
-          <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav main-nav">
-              <li><a href="#">Educación</a></li>
-              <li class="dropdown">
-                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{=URL('default','index')}}">Guardias</a></li>
-                  <li><a href="{{=URL('services','index')}}">Servicios</a></li>
-                  <li><a href="{{=URL('default','index')}}">Estadísticas</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Talento Humano<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{=URL('default','buscarth.html')}}">Buscar</a></li>
-                </ul>
-              </li>
-              <li><a href="{{=URL('default','index')}}">Administración</a></li>
-              <li><a href="{{=URL('default','index')}}">Riesgos</a></li>
-              {{if  auth.user != None:}}
-              <li class="dropdown">
-                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=auth.user.username}}<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{=URL('default','perfilth')}}">Ver Perfil</a></li>
-                  <li><a href="{{=URL('default','perfilmodth')}}">Modificar Perfil</a></li>
-                  <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
-                  <li><a href="{{=URL('default','eliminarusrth')}}">Desactivar Usuario</a></li>
-                  <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
-                </ul>
-              </li>
-              {{else:}}
-              <li class="dropdown">
-                <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{{=URL('default/user','login')}}">Iniciar sesión</a></li>
-                  <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
-                </ul>
-              </li>
-              {{pass}}
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+			<div class="bottom-space-separator">
+				<!-- Banner -->
+				<div class="container">
+					<a href="{{=URL('default','index')}}" title="Ir al inicio">
+						<img class="img-responsive img-center" src="{{=URL('static','images/banner-legacy-medium.png')}}" alt="Banner">
+					</a>
+				</div>
 
-    <!-- Mensajes -->
-    {{if not('tipo' in locals()):
-        tipo = "success"}}
-    {{pass}}
+				<!-- Barra de navegación -->
+				<nav class="navbar navbar-default navbar-static-top" role="navigation"><div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="sr-only">Navegación</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
 
-    {{if response.flash:}}
-    <div class="row">
-    {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
-      <!--h4 title="Cerrar" class="w2p_flash alert alert-warning col-sm-6 col-sm-offset-3" style="width: 50%;height: auto;">
-        {{=response.flash}}
-      </h4-->
-    </div>
-    {{pass}}
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav main-nav">
+							<li><a href="#">Educación</a></li>
+							<li class="dropdown">
+								<a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{=URL('services','index')}}">Servicios</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Talento Humano<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{=URL('default','buscarth.html')}}">Buscar</a></li>
+								</ul>
+							</li>
+							<li><a href="{{=URL('default','index')}}">Administración</a></li>
+							<li><a href="{{=URL('default','index')}}">Riesgos</a></li>
+							{{if  auth.user != None:}}
+							<li class="dropdown">
+								<a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=auth.user.username}}<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{=URL('default','perfilth')}}">Ver Perfil</a></li>
+									<li><a href="{{=URL('default','perfilmodth')}}">Modificar Perfil</a></li>
+									<li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
+									<li><a href="{{=URL('default','eliminarusrth')}}">Desactivar Usuario</a></li>
+									<li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
+								</ul>
+							</li>
+							{{else:}}
+							<li class="dropdown">
+								<a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="{{=URL('default/user','login')}}">Iniciar sesión</a></li>
+									<li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
+								</ul>
+							</li>
+							{{pass}}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
 
-    <main class="Site-content">
-      {{include}}
-    </main>
+		<!-- Mensajes -->
+		{{if not('tipo' in locals()):
+				tipo = "success"}}
+		{{pass}}
 
-    <!-- Footer -->
-    <footer class="footer bg-4 top-space-separator">
-      <div class="container-fluid">
-        <div class="col-xs-12">
-            <h5>Contáctanos:</h5>
-            <h6><span class="glyphicon glyphicon-map-marker"></span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</h6>
-            <h6><span class="glyphicon glyphicon-phone"></span> Teléfono: (+58) 212 906-3909</h6>
-            <h6><span class="glyphicon glyphicon-envelope"></span> Correo electrónico: extension.bomberos@usb.ve</h6>
-        </div>
-        <br>
-        <div class="text-center">
-        <div class="copyright">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
-        <br>
-        </div>
-      </div>
-    </footer>
+		{{if response.flash:}}
+		<div class="row">
+		{{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
+			<!--h4 title="Cerrar" class="w2p_flash alert alert-warning col-sm-6 col-sm-offset-3" style="width: 50%;height: auto;">
+				{{=response.flash}}
+			</h4-->
+		</div>
+		{{pass}}
+
+		<main class="Site-content">
+			{{include}}
+		</main>
+
+		<!-- Footer -->
+		<footer class="footer bg-4 top-space-separator">
+			<div class="container-fluid">
+				<div class="col-xs-12">
+						<h5>Contáctanos:</h5>
+						<h6><span class="glyphicon glyphicon-map-marker"></span> Dirección: Pabellón 1. Apartado 0900. Valle de Sartenejas. Baruta. Edo Miranda.</h6>
+						<h6><span class="glyphicon glyphicon-phone"></span> Teléfono: (+58) 212 906-3909</h6>
+						<h6><span class="glyphicon glyphicon-envelope"></span> Correo electrónico: extension.bomberos@usb.ve</h6>
+				</div>
+				<br>
+				<div class="text-center">
+				<div class="copyright">{{=T('Copyright')}} &#169; {{=request.now.year}}</div>
+				<br>
+				</div>
+			</div>
+		</footer>
 
     <!-- The javascript =============================== -->
     {{block page_js}}{{end page_js}}
@@ -143,5 +151,5 @@
     <script type="text/javascript">analytics.initialize({'Google Analytics':{trackingId:'{{=response.google_analytics_id}}'}});</script>
     {{pass}}
 
-  </body>
+	</body>
 </html>
