@@ -34,15 +34,10 @@
 
 + "Descargar web2py"
 + Clonar el repositorio:
-
-```git clone https://github.com/cadena-si-usb/Apolo-CBVUSB apolo```
+```[bash]git clone https://github.com/cadena-si-usb/Apolo-CBVUSB apolo```
 + Mover la carpeta "apolo" en "web2py/applications/"
-
-'''mv apolo web2py/applications/```
+```[bash]mv apolo web2py/applications/```
 + Ir a "web2py/applications/apolo/" y ejecutar el script de instalación:
-
-```cd web2py/applications/apolo/
-   sudo ./DBINSTALL.sh```
-
+```[bash]cd web2py/applications/apolo/```
+```[bash]  sudo ./DBINSTALL.sh```
 + Ingresar "1234" cuando solicite la contraseña para crear el nuevo role
-
