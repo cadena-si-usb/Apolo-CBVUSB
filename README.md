@@ -1,7 +1,7 @@
 #[Apolo](apolo.bomberos.usb.ve "Ir a apolo")
-**Sistema para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar**
+*Sistema de gestión para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar (CBVUSB)*
 
-###Autores
+##Autores
 
 1. Pyrony:
    + Carlos Serrada
@@ -25,22 +25,38 @@
    + Génesis Kufatty
    + Salvador Covelo
 
-###Estado del proyecto
+##Estado del proyecto
+20% del sistema completado.
 
-###Especificaciones técnicas
+##Especificaciones técnicas
+1. Requeirmientos del sistema
+   + Python v2.7.x
 
-###Instalación:
+2. Versiones de los componentes
+   + Bootstrap v3.3.5             (incluido)
+   + Bootstrap datePicker v1.7.0  (incluido)
+   + Jquery v3.1.1                (incluido)
+   + Jquery dataTables v1.10.13   (incluido)
+   + Jquery datePair v0.4.15      (incluido)
+   + Jquery formValidator v2.3.55 (incluido)
+   + Jquery timePicker v1.11.10   (incluido)
+   + Jquery UI v1.12.1            (incluido)
+   + SweetAlert                   (incluido)
 
-+ "Descargar web2py. Puede hacerlo haciendo click [aquí](http://www.web2py.com/init/default/download "Descargar web2py").
-+ Clonar el repositorio:
+##Instalación:
+
++ Descargar web2py. Puede hacerlo haciendo click [aquí](http://www.web2py.com/init/default/download "Descargar web2py").
++ Extraer la carpeta contenida en el comprimido de web2py en su home.
++ Abrir un terminal.
++ Clonar el repositorio.
 ```bash
 git clone https://github.com/cadena-si-usb/Apolo-CBVUSB apolo
 ```
-+ Mover la carpeta "apolo" en "web2py/applications/":
++ Mover la carpeta "apolo" en "web2py/applications/".
 ```bash
 mv apolo web2py/applications/
 ```
-+ Ir a "web2py/applications/apolo/" y ejecutar el script de instalación:
++ Ir a "web2py/applications/apolo/" y ejecutar el script de instalación.
 ```bash
 cd web2py/applications/apolo/
 sudo ./DBINSTALL.sh
