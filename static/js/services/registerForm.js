@@ -242,39 +242,53 @@ $(document).ready(function() {
     var num2 = unitExtCount[num1-1];         // Variable auxiliar para la sustitucion en el html de abajo
 
     $(comExtCNT).append(
-      '<div id="comisionExt'+num1+'" class="col-xs-12 col-sm-12">\
-      <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
-      <input type="hidden" name="comisionExtTitle'+num1+'" value="comisionExtTitle'+num1+'">\
-      <div class="form-group ui-widget col-xs-12 col-sm-12">\
-        <label for="cuerpoDepartamento'+num1+'">Cuerpo o Departamento</label>\
-        <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Nombre del Departamento" name="cuerpoDepartamento'+num1+'">\
-      </div>\
-      <div class="form-group ui-widget col-xs-12 col-sm-7">\
-        <label for="jefe'+num1+'">Jefe</label>\
-        <input id="jefe'+num1+'" type="text" class="form-control" placeholder="Nombre" name="jefe'+num1+'">\
-      </div>\
-      <div class="col-xs-12 col-sm-5">\
-        <label for="cuerpoDepartamento'+num1+'">Número de acompañantes</label>\
-        <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Número" name="cuerpoDepartamento'+num1+'">\
-      </div>\
-      <div id="unitExtCNT'+num1+'">\
-        <div id="unitExt'+num1+'-'+num2+'">\
-          <div class="col-xs-6 col-sm-6">\
-            <label for="unitExtValue'+num1+'-'+num2+'">Unidades</label>\
-            <input id="unitExtValue'+num1+'-'+num2+'" type="text" class="form-control" placeholder="Unidad" name="unitExtValue'+num1+'-'+num2+'">\
+    '<div id="comExt'+num1+'" class="row">\
+      <div class="col-xs-12 col-sm-6">\
+        <div id="comisionExt'+num1+'" class="col-xs-12 col-sm-12">\
+          <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
+          <input type="hidden" name="comisionExtTitle'+num1+'" value="comisionExtTitle'+num1+'">\
+          <div class="form-group ui-widget col-xs-12 col-sm-12">\
+            <label for="cuerpoDepartamento'+num1+'">Cuerpo o Departamento</label>\
+            <input id="cuerpoDepartamento'+num1+'" type="text" class="form-control" placeholder="Nombre del Departamento" name="cuerpoDepartamento'+num1+'">\
           </div>\
-          <div class="col-xs-6 col-sm-6">\
-            <label for="unitExtValue'+num1+'-'+num2+'">Placa Unidad</label>\
-            <input id="unitExtPlaca'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="unitExtPlaca'+num1+'-'+num2+'">\
+          <div class="form-group ui-widget col-xs-12 col-sm-7">\
+            <label for="jefe'+num1+'">Jefe</label>\
+            <input id="jefe'+num1+'" type="text" class="form-control" placeholder="Nombre" name="jefe'+num1+'">\
+          </div>\
+          <div class="col-xs-12 col-sm-5">\
+            <label for="cuerpoDepartamento'+num1+'">Número de acompañantes</label>\
+            <input id="numAcomp'+num1+'" type="text" class="form-control" data-validation="length" data-validation-length="max4" data-validation="number" placeholder="Número" name="numAcomp'+num1+'">\
+          </div>\
+          <div id="unitExtCNT'+num1+'">\
+            <div id="unitExt'+num1+'-'+num2+'">\
+              <div class="col-xs-6 col-sm-6">\
+                <label for="unitExtValue'+num1+'-'+num2+'">Unidades</label>\
+                <input id="unitExtValue'+num1+'-'+num2+'" type="text" class="form-control" placeholder="Unidad" name="unitExtValue'+num1+'-'+num2+'">\
+              </div>\
+              <div class="col-xs-6 col-sm-6">\
+                <label for="unitExtValue'+num1+'-'+num2+'">Placa Unidad</label>\
+                <input id="unitExtPlaca'+num1+'-'+num2+'" type="text" class="form-control col-xs-6" placeholder="Conductor" name="unitExtPlaca'+num1+'-'+num2+'">\
+              </div>\
+            </div>\
+          </div>\
+          <div class="col-xs-12 text-right">\
+            <button id="addUnitExt'+num1+'" type="button" class="btn bg-primary addUnitExt top-space-separator">\
+              <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>\
+            </button>\
           </div>\
         </div>\
       </div>\
-      <div class="col-xs-12 text-right">\
-        <button id="addUnitExt'+num1+'" type="button" class="btn btn-default btn-sm addUnitExt top-space-separator">\
-          <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>\
-        </button>\
+      <div class="col-xs-6 col-sm-5 col-sm-offset-1">\
+        <br />\
+        <br />\
+        <br />\
+        <label>Comentario</label>\
+        <div class="form-group">\
+          <textarea id="affectedNotes'+num1+'" name="affectedNotes'+num1+'" class="form-control" data-validation="length" data-validation-length="max 600" rows="9"></textarea>\
+        </div>\
       </div>\
-    </div>');
+    </div>\
+    <hr>');
   });
 
   // Función para popUp al momento de enviar un servicio
