@@ -66,18 +66,6 @@ def myservices():
     services = db().select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
-# Vista para listar "Todos los servicios aprobados"
-@auth.requires_login()
-def asapproved():
-    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
-
-# Vista para listar "Todos los servicios pendientes por aprobación"
-@auth.requires_login()
-def aspending():
-    services = db((db.servicio.Aprueba == None) & (db.servicio.Borrador == False)).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
-
 # Botón para eliminar un servicio en cualquier vista de "Gestionar servicios"
 @auth.requires_login()
 def deleteService():
@@ -147,7 +135,7 @@ def registrarComisiones(request):
     idUnidades = obtenerNombreUnidades()
 
     # Procesar cada comision agregada
-    while request.vars["comissionTitle"+str(commissionCounter)] is not None:
+    while request.vars["commissionTitle"+str(commissionCounter)] is not None:
 
         # Jefe de comision
         jefeComision = request.vars["commissionBoss"+str(commissionCounter)]
@@ -155,8 +143,8 @@ def registrarComisiones(request):
         # Acompanantes
         acompanantesCounter = 1
         acompanantes = list()
-        while request.vars["comissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)] is not None:
-            acompanantes.append(request.vars["comissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)])
+        while request.vars["commissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)] is not None:
+            acompanantes.append(request.vars["commissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)])
             acompanantesCounter+=1
 
         # Unidades
@@ -165,7 +153,7 @@ def registrarComisiones(request):
         conductores = list()
         while request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)] is not None:
             unidades.append(request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)])
-            conductores.append(request.vars["comissionDriver"+str(commissionCounter)+"-"+str(UnidadesCounter)])
+            conductores.append(request.vars["commissionDriver"+str(commissionCounter)+"-"+str(UnidadesCounter)])
             UnidadesCounter+=1
 
         commissionCounter+=1
@@ -212,7 +200,7 @@ def registrarAfectados(request):
         apellido1 = request.vars["affectedFirstSurname"+str(affectedCounter)]
         apellido2 = request.vars["affectedSecondSurname"+str(affectedCounter)]
 
-        tipoAfectado = request.vars["affectedType"+str(affectedCounter)]      
+        tipoAfectado = request.vars["affectedType"+str(affectedCounter)]
 
         cedulaAfectado = request.vars["affectedCI"+str(affectedCounter)]
 
@@ -224,7 +212,7 @@ def registrarAfectados(request):
         emailAlternativo = request.vars["affectedEmail"+str(affectedCounter)+"-2"]
 
         # Registrar como persona si no esta registrado
-        registrado = False  
+        registrado = False
         for i in db(db.persona.cedula == cedulaAfectado).select():
             registrado = True
 
@@ -245,7 +233,7 @@ def registrarAfectados(request):
 
         # Obtener ID de la persona
         try:
-            personaID = db(db.persona.cedula == cedulaAfectado).select().first()["id"]        
+            personaID = db(db.persona.cedula == cedulaAfectado).select().first()["id"]
         except:
             personaID = None
 

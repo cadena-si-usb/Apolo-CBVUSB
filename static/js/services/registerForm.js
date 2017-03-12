@@ -1,70 +1,40 @@
 $(document).ready(function() {
-    var comissionsCNT = $("#comissionsCNT"); // ID del contenedor de las comisiones
-    var affectedCNT = $("#affectedCNT");     // ID del contenedor de los afectados
-    var comExtCNT = $("#comExtCNT");         // ID del contenedor de los afectados
-    var addComission = $("#addComission");   // ID del botón para añadir comisiones
-    var addAffected = $("#addAffected");     // ID del botón para añadir Afectados
-    var addApoyoExt = $("#addApoyoExt");     // ID del botón para añadir Afectados
-    var comissionsCount = 1;                 // Contador de comisiones
-    var afectadosCount = 1;                  // Contador de afectados
-    var apoyoExtCount = 1;                   // Contador de afectados
-    var unitsCount = [1];                    // Arreglo para contar las unidades (Por defecto 1)
-    var comissionMembersCount = [3];         // Arreglo para contar los acompañantes (Por defecto 3)
-    var emailsCount = [1];                   // Arreglo para contar los emails (Por defecto 1)
-    var phoneCount = [1];                    // Arreglo para contar los Teléfonos (Por defecto 1)
-    var unitExtCount = [1];                  // Arreglo para contar las unidades externas (Por defecto 1)
+    var commissionsCNT = $("#commissionsCNT"); // ID del contenedor de las comisiones
+    var affectedCNT = $("#affectedCNT");       // ID del contenedor de los afectados
+    var comExtCNT = $("#comExtCNT");           // ID del contenedor de los afectados
+    var addCommission = $("#addCommission");   // ID del botón para añadir comisiones
+    var addAffected = $("#addAffected");       // ID del botón para añadir Afectados
+    var addApoyoExt = $("#addApoyoExt");       // ID del botón para añadir Afectados
+    var commissionsCount = 1;                  // Contador de comisiones
+    var afectadosCount = 1;                    // Contador de afectados
+    var apoyoExtCount = 1;                     // Contador de afectados
+    var unitsCount =[1];
+    var commissionMembersCount = [3];          // Arreglo para contar los acompañantes (Por defecto 3)
+    var emailsCount = [1];                     // Arreglo para contar los emails (Por defecto 1)
+    var phoneCount = [1];                      // Arreglo para contar los Teléfonos (Por defecto 1)
+    var unitExtCount = [1];                    // Arreglo para contar las unidades externas (Por defecto 1)
 
-    // Función para los botones para añadir unidades
-    $("body").on("click","button.addUnit", function() {
-        var num1 = parseInt(this.id.match(/\d+/g), 10 ); // Obtener el número de la comisión a la que corresponde la unidad
-        var unitCNT = "#unitsCNT" + num1;                // Generar el identificador al contenedor de la unidad correspondiente
-
-        unitsCount[num1-1]++;                            // Aumentar el contador de unidades para la comisión permitente
-        var num2 = unitsCount[num1-1];                   // Variable auxiliar para la sustitucion en el html de abajo
-
-        // Inserción del html
-        $(unitCNT).append(
-        '<div id="unit'+num1+'-'+num2+'">\
-          <div class="col-xs-4 col-sm-2">\
-            <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
-              <option value="" selected="selected">--</option>\
-              {{for unidad in nombreUnidades:}}\
-                <option value="{{=unidad}}">{{=unidad}}</option>\
-              {{pass}}\
-            </select>\
-          </div>\
-          <div class="col-xs-8 col-sm-10">\
-            <input list="comissionDriver'+num1+'-'+num2+'" name="comissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
-            <datalist id="comissionDriver'+num1+'-'+num2+'">\
-              {{for nombre in nombreBomberos:}}\
-                <option value="{{=nombre}}">\
-              {{pass}}\
-            </datalist>\
-          </div>\
-        </div>');
-    });
+    // obtiene el div unidad en su estado inicial
+    //var $commissionMember = $('datalist[id^="commissionMember1-1"]:last');
+    //$commissionMember.prop('outerHTML');
+    //alert($clone);
 
     // Función para los botones para añadir acompañantes
-    $("body").on("click","button.addComissionMember", function() {
-        var num1 = parseInt(this.id.match(/\d+/g), 10 );         // Obtener el número de la comisión al que corresponde el acompañante
-        var comissionMembersCNT = "#comissionMembersCNT" + num1; // Generar el identificador al contenedor del acompañante
+    $("body").on("click","button.addCommissionMember", function() {
+        var num1 = parseInt(this.id.match(/\d+/g), 10 );            // Obtener el número de la comisión al que corresponde el acompañante
+        var commissionMembersCNT = "#commissionMembersCNT" + num1;  // Generar el identificador al contenedor del acompañante
 
-        comissionMembersCount[num1-1]++;                         // Aumentar el contador de acompañantes para la comisión permitente
-        var num2 = comissionMembersCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
+        commissionMembersCount[num1-1]++;                           // Aumentar el contador de acompañantes para la comisión permitente
+        var num2 = commissionMembersCount[num1-1];                  // Variable auxiliar para la sustitucion en el html de abajo
 
         // Inserción del html
-        $(comissionMembersCNT).append(
-        '<input list="comissionMember'+num1+'-'+num2+'" name="comissionMember'+num1+'-'+num2+'" class="form-control" placeholder="Acompañante de Comisión">\
-          <datalist id="comissionMember'+num1+'-'+num2+'">\
-            {{for nombre in nombreBomberos:}}\
-              <option value="{{=nombre}}">\
-            {{pass}}\
-          </datalist>');
+        $(commissionMembersCNT).append(
+        '<input list="firefighterList" name="commissionMember'+num1+'-'+num2+'" class="form-control" placeholder="Acompañante de Comisión">');
     });
 
     // Función para los botones para añadir emails
     $("body").on("click","button.addAffectedEmail", function() {
-      var num1 = parseInt(this.id.match(/\d+/g), 10 );  // Obtener el número del afectado al que corresponde el email
+      var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del afectado al que corresponde el email
       var emailCNT = "#emailsCNT" + num1;                // Generar el identificador al contenedor de la unidad correspondiente
 
       emailsCount[num1-1]++;                             // Aumentar el contador de emails para el afectado permitente
@@ -76,11 +46,11 @@ $(document).ready(function() {
 
     // Función para los botones para añadir phones
     $("body").on("click","button.addAffectedPhone", function() {
-      var num1 = parseInt(this.id.match(/\d+/g), 10 );  // Obtener el número del afectado al que corresponde el phone
+      var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del afectado al que corresponde el phone
       var phoneCNT = "#phonesCNT" + num1;                // Generar el identificador al contenedor de la unidad correspondiente
 
-      phoneCount[num1-1]++;                             // Aumentar el contador de phones para el afectado permitente
-      var num2 = phoneCount[num1-1];                    // Variable auxiliar para la sustitucion en el html de abajo
+      phoneCount[num1-1]++;                              // Aumentar el contador de phones para el afectado permitente
+      var num2 = phoneCount[num1-1];                     // Variable auxiliar para la sustitucion en el html de abajo
 
       // Inserción del html
       $(phoneCNT).append('<input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular">');
@@ -88,11 +58,11 @@ $(document).ready(function() {
 
     // Función para los botones para añadir unidades externas
     $("body").on("click","button.addUnitExt", function() {
-      var num1 = parseInt(this.id.match(/\d+/g), 10 );  // Obtener el número del afectado al que corresponde el phone
-      var unitExtCNT = "#unitExtCNT" + num1;                // Generar el identificador al contenedor de la unidad correspondiente
+      var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del afectado al que corresponde el phone
+      var unitExtCNT = "#unitExtCNT" + num1;             // Generar el identificador al contenedor de la unidad correspondiente
 
-      unitExtCount[num1-1]++;                             // Aumentar el contador de phones para el afectado permitente
-      var num2 = unitExtCount[num1-1];                    // Variable auxiliar para la sustitucion en el html de abajo
+      unitExtCount[num1-1]++;                            // Aumentar el contador de phones para el afectado permitente
+      var num2 = unitExtCount[num1-1];                   // Variable auxiliar para la sustitucion en el html de abajo
 
       // Inserción del html
       $(unitExtCNT).append(
@@ -109,94 +79,64 @@ $(document).ready(function() {
     });
 
     // Función para el botón para añadir nuevas comisiones
-    $(addComission).on('click', function() {
-        comissionsCount++;                                          // Aumentar el contador de comisiones
-        unitsCount = unitsCount.concat([1]);                        // Agregar un nuevo slot contador de unidades
-        comissionMembersCount = comissionMembersCount.concat([3]);  // Agregar un nuevo slot contador de acompañantes
+    $(addCommission).on('click', function() {
+        commissionsCount++;                                           // Aumentar el contador de comisiones
+        unitsCount = unitsCount.concat([1]);                          // Agregar un nuevo slot contador de unidades
+        commissionMembersCount = commissionMembersCount.concat([3]);  // Agregar un nuevo slot contador de acompañantes
 
-        var num1 = comissionsCount;                                 // Variable auxiliar para la sustitucion en el html de abajo
-        var num2 = unitsCount[num1-1];                              // Variable auxiliar para la sustitucion en el html de abajo
+        var num1 = commissionsCount;                                  // Variable auxiliar para la sustitucion en el html de abajo
+        var num2 = unitsCount[num1-1];                                // Variable auxiliar para la sustitucion en el html de abajo
 
         // Inserción del html
-        $(comissionsCNT).append(
-        '<div id="comission'+num1+'">\
+        $(commissionsCNT).append(
+        '<div id="commission'+num1+'">\
           <div class="row">\
             <div class="col-xs-12">\
-              <h3 id="comissionTitle'+num1+'" name="comissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
-              <input type="hidden" name="comissionTitle'+num1+'" value="comissionTitle'+num1+'">\
+              <h3 id="commissionTitle'+num1+'" name="commissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
+              <input type="hidden" name="commissionTitle'+num1+'" value="commissionTitle'+num1+'">\
             </div>\
           </div>\
           <div class="row">\
             <div class="col-xs-12 col-sm-4">\
               <div class="form-group ui-widget">\
                 <label for="commissionBoss'+num1+'">Jefe de comisión *</label>\
-                <input list="commissionBoss'+num1+'" name="commissionBoss'+num1+'" class="form-control" data-validation="required" placeholder="Jefe de Comisión">\
-                <datalist id="commissionBoss'+num1+'">\
-                  {{for nombre in nombreBomberos:}}\
-                  <option value="{{=nombre}}">\
-                    {{pass}}\
-                  </datalist>\
-                </div>\
-                <label for="unitTitle">Unidades</label>\
-                <div class="row">\
-                  <div id="unitsCNT'+num1+'">\
-                    <div id="unit'+num1+'-'+num2+'">\
-                      <div class="col-xs-4 col-sm-2">\
-                        <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
-                          <option value="" selected="selected">--</option>\
-                          {{for unidad in nombreUnidades:}}\
-                          <option value="{{=unidad}}">{{=unidad}}</option>\
-                          {{pass}}\
-                        </select>\
-                      </div>\
-                      <div class="col-xs-8 col-sm-10">\
-                        <input list="comissionDriver'+num1+'-'+num2+'" name="comissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
-                        <datalist id="comissionDriver'+num1+'-'+num2+'">\
-                          {{for nombre in nombreBomberos:}}\
-                          <option value="{{=nombre}}">\
-                            {{pass}}\
-                          </datalist>\
-                        </div>\
-                      </div>\
-                    </div>\
-                    <div class="col-xs-12 text-right">\
-                      <button id="addUnit'+num1+'" type="button" class="btn bg-primary addUnit top-space-separator">\
-                        <small>Añadir unidad <span class="glyphicon glyphicon-wrench"></span></small>\
-                      </button>\
-                    </div>\
-                  </div>\
-                </div>\
-                <div class="col-xs-12 col-sm-4">\
-                  <div id="comissionMembersCNT'+num1+'">\
-                    <label for="comissionMember'+num1+'-'+num2+'">Acompañantes</label>\
-                    <input list="comissionMember'+num1+'-1" name="comissionMember'+num1+'-1" class="form-control" placeholder="Acompañante de Comisión">\
-                    <datalist id="comissionMember'+num1+'-1">\
-                      {{for nombre in nombreBomberos:}}\
-                      <option value="{{=nombre}}">\
+                <input list="firefighterList" name="commissionBoss'+num1+'" class="form-control" data-validation="required" placeholder="Jefe de Comisión">\
+              </div>\
+              <label for="unitTitle">Unidades</label>\
+              <div class="row">\
+                <div id="unitsCNT'+num1+'">\
+                  <div id="unit'+num1+'-'+num2+'">\
+                    <div class="col-xs-4 col-sm-2">\
+                      <select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">\
+                        <option value="" selected="selected">--</option>\
+                        {{for unidad in nombreUnidades:}}\
+                        <option value="{{=unidad}}">{{=unidad}}</option>\
                         {{pass}}\
-                      </datalist>\
-                      <input list="comissionMember'+num1+'-2" name="comissionMember'+num1+'-2" class="form-control" placeholder="Acompañante de Comisión">\
-                      <datalist id="comissionMember'+num1+'-2">\
-                        {{for nombre in nombreBomberos:}}\
-                        <option value="{{=nombre}}">\
-                          {{pass}}\
-                        </datalist>\
-                        <input list="comissionMember'+num1+'-3" name="comissionMember'+num1+'-3" class="form-control" placeholder="Acompañante de Comisión">\
-                        <datalist id="comissionMember'+num1+'-3">\
-                          {{for nombre in nombreBomberos:}}\
-                          <option value="{{=nombre}}">\
-                            {{pass}}\
-                          </datalist>\
-                        </div>\
-                        <div class="text-right">\
-                          <button id="addComissionMember'+num1+'" type="button" class="btn bg-primary addComissionMember top-space-separator addComissionMember">\
-                            <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
-                          </button>\
-                        </div>\
-                      </div>\
+                      </select>\
+                    </div>\
+                    <div class="col-xs-8 col-sm-10">\
+                      <input list="firefighterList" name="commissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
+                     </div>\
                     </div>\
                   </div>\
-                  <hr>');
+                </div>\
+              </div>\
+              <div class="col-xs-12 col-sm-4">\
+                <div id="commissionMembersCNT'+num1+'">\
+                  <label for="commissionMember'+num1+'">Acompañantes</label>\
+                  <input list="firefighterList" name="commissionMember'+num1+'-1" class="form-control" placeholder="Acompañante de Comisión">\
+                  <input list="firefighterList" name="commissionMember'+num1+'-2" class="form-control" placeholder="Acompañante de Comisión">\
+                  <input list="firefighterList" name="commissionMember'+num1+'-3" class="form-control" placeholder="Acompañante de Comisión">\
+                </div>\
+                <div class="text-right">\
+                  <button id="addCommissionMember'+num1+'" type="button" class="btn bg-primary addCommissionMember top-space-separator addCommissionMember">\
+                    <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
+                  </button>\
+                </div>\
+              </div>\
+            </div>\
+          </div>\
+          <hr>');
     });
 
     // Función para el botón para añadir afectados adicionales
