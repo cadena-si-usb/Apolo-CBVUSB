@@ -4,27 +4,27 @@
 
 **Autores**
 
-+ Pyrony:
-   * Carlos Serrada
-   * Mathias San Miguel
-   * Augusto Hidalgo
-   * Rubmary Rojas
-   * José Acevedo
-   * Juan Ortiz
-   * Pablo Betancourt
-   * Jonathan Reyes
-   * Irina Marcano
+1. Pyrony:
+   + Carlos Serrada
+   + Mathias San Miguel
+   + Augusto Hidalgo
+   + Rubmary Rojas
+   + José Acevedo
+   + Juan Ortiz
+   + Pablo Betancourt
+   + Jonathan Reyes
+   + Irina Marcano
 
-+ NOS (Number One Software):
-   * Christian Oliveros
-   * Alexander Romero
-   * Lalezka Duque
-   * Marcos Jota
-   * Daniel Valera
-   * Carlos Infante
-   * Midaysa Palacios
-   * Génesis Kufatty
-   * Salvador Covelo
+2. NOS (Number One Software):
+   + Christian Oliveros
+   + Alexander Romero
+   + Lalezka Duque
+   + Marcos Jota
+   + Daniel Valera
+   + Carlos Infante
+   + Midaysa Palacios
+   + Génesis Kufatty
+   + Salvador Covelo
 
 **Estado del proyecto**
 
@@ -32,12 +32,15 @@
 
 **Instalación:**
 
-+ "Descargar web2py"
++ "Descargar web2py. Puede hacerlo haciendo click [aquí]("http://www.web2py.com/", "web2py").
 + Clonar el repositorio:
-```[bash]git clone https://github.com/cadena-si-usb/Apolo-CBVUSB apolo```
+
+```[shell]git clone https://github.com/cadena-si-usb/Apolo-CBVUSB apolo```
 + Mover la carpeta "apolo" en "web2py/applications/"
-```[bash]mv apolo web2py/applications/```
+
+```[shell]mv apolo web2py/applications/```
 + Ir a "web2py/applications/apolo/" y ejecutar el script de instalación:
-```[bash]cd web2py/applications/apolo/```
-```[bash]  sudo ./DBINSTALL.sh```
+
+```[shell]cd web2py/applications/apolo/```
+```[shell]  sudo ./DBINSTALL.sh```
 + Ingresar "1234" cuando solicite la contraseña para crear el nuevo role
