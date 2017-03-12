@@ -1,7 +1,7 @@
 #[Apolo](apolo.bomberos.usb.ve "Ir a apolo")
-*Sistema para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar*
+**Sistema para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar**
 
-#Autores
+###Autores
 
 1. Pyrony:
    + Carlos Serrada
@@ -25,11 +25,11 @@
    + Génesis Kufatty
    + Salvador Covelo
 
-#Estado del proyecto
+###Estado del proyecto
 
-#Especificaciones técnicas
+###Especificaciones técnicas
 
-#Instalación:
+###Instalación:
 
 + "Descargar web2py. Puede hacerlo haciendo click [aquí](http://www.web2py.com/init/default/download "Descargar web2py").
 + Clonar el repositorio:
