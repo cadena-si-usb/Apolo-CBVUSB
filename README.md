@@ -2,19 +2,9 @@
 
 ## Sistema para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar
 
-
-**Instrucciones:**
-
-+ Crear una app en web2py llamada "Apolo"
-+ Copiar la carpeta "Apolo" del repo en "web2py/applications/"
-+ Darle que si cuando pregunte si quiere combinar las carpetas
-+ Seleccionar reeamplazar todo cuando lo solicite
-
-
 **Autores**
 
 + Pyrony:
-
    * Carlos Serrada
    * Mathias San Miguel
    * Augusto Hidalgo
@@ -26,7 +16,6 @@
    * Irina Marcano
 
 + NOS (Number One Software):
-
    * Christian Oliveros
    * Alexander Romero
    * Lalezka Duque
@@ -36,3 +25,20 @@
    * Midaysa Palacios
    * Génesis Kufatty
    * Salvador Covelo
+
+**Estado del proyecto**
+
+**Especificaciones técnicas**
+
+**Instalación:**
+
++ "Descargar web2py"
++ Clonar el repositorio:
+```git clone https://github.com/cadena-si-usb/Apolo-CBVUSB apolo'''
++ Mover la carpeta "apolo" en "web2py/applications/"
+'''mv apolo web2py/applications/```
++ Ir a "web2py/applications/apolo/" y ejecutar el script de instalación:
+```cd web2py/applications/apolo/
+   sudo ./DBINSTALL.sh```
++ Ingresar "1234" cuando solicite la contraseña para crear el nuevo role
+
