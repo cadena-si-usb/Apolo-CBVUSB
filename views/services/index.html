@@ -2,7 +2,7 @@
 {{extend 'layout.html'}}
 
 {{block head_js}}
-  <script src="{{=URL('static','js/custom.js')}}"></script>
+  <script src="{{=URL('static','js/services/rows.js')}}"></script>
 {{end}}
 
 <div class="container-fluid">
@@ -49,7 +49,7 @@
             <tbody>
               {{for i in range(len(services)):}}
               {{if i == 10: break}}
-              <tr class='clickable-row' data-href={{=URL('services','displayService', vars=dict(id=services[i].id))}}>
+              <tr class='clickeable clickable-row' data-href={{=URL('services','displayService', vars=dict(id=services[i].id))}}>
                 <td>{{=services[i].id}}</td>
                 <td>{{=services[i].tipo}}</td>
                 <td>{{=services[i].descripcion}}</td>

@@ -213,7 +213,6 @@ Iconos de servicios
   background-clip: padding-box;
 }
 
-
 /*####################
 Magia para el footer
 #####################*/
@@ -231,4 +230,13 @@ Magia para el footer
 .custom-button {
   background-color: #1565C0;
   color: white;
+}
+
+/*####################
+Hand pointer (Manito)
+#####################*/
+
+.clickeable {
+  cursor: pointer;
+  cursor: hand;
 }
