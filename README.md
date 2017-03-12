@@ -1,4 +1,4 @@
-#[Apolo](apolo.bomberos.usb.ve "Ir a apolo")
+#[Apolo](http://apolo.bomberos.usb.ve "Ir a apolo")
 *Sistema de gestión para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar (CBVUSB)*
 
 ##Autores
