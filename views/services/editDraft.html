@@ -356,17 +356,6 @@
 
 {{block page_js}}
 <script>{{=ASSIGNJS(nombres = nombreBomberos)}}</script>                         <!-- Script para vconectar con la base de nombre de bomberos -->
-<script src="{{=URL('static','js/services/jquery-ui-1.12.1.min.js')}}"></script> <!-- No se -->
-<script src="{{=URL('static','js/services/registerValidation.js')}}"></script>   <!-- Script para validar el form de registro de servicio -->
-<script src="{{=URL('static','js/services/registerForm.js')}}"></script>         <!-- Script para efectos en el form de registro de servicio -->
-<script src="{{=URL('static','js/services/editDraft.js')}}"></script>            <!-- Script para form de registro de borrador (funciones extra) -->
-<script src="{{=URL('static','js/sweetalert.min.js')}}"></script>                <!-- Script para mensajes de alerta -->
-<script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>      <!-- Script para el calendario -->
-<script src="{{=URL('static','js/jquery.timepicker.min.js')}}"></script>         <!-- Script para el selector de hora -->
-<script src="{{=URL('static','js/jquery.datepair.min.js')}}"></script>           <!-- Script para parear las fechas -->
-<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>     <!-- Script para validar campos del formulario -->
-<script>$.validate({form : '#registro', lang: 'es', });</script>                 <!-- Script para configurar el script anterior xD -->
-
 <script>
 {{=ASSIGNJS(tipoS = service.tipo)}}
 {{if service.fechaCreacion is not None:}}
@@ -380,7 +369,16 @@
 {{=ASSIGNJS(fechaFinalizacionS = None)}}
 {{pass}}
 </script>
-
+<script src="{{=URL('static','js/services/jquery-ui-1.12.1.min.js')}}"></script> <!-- No se -->
+<script src="{{=URL('static','js/services/registerValidation.js')}}"></script>   <!-- Script para validar el form de registro de servicio -->
+<script src="{{=URL('static','js/services/registerForm.js')}}"></script>         <!-- Script para efectos en el form de registro de servicio -->
+<script src="{{=URL('static','js/services/editDraft.js')}}"></script>            <!-- Script para form de registro de borrador (funciones extra) -->
+<script src="{{=URL('static','js/sweetalert.min.js')}}"></script>                <!-- Script para mensajes de alerta -->
+<script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>      <!-- Script para el calendario -->
+<script src="{{=URL('static','js/jquery.timepicker.min.js')}}"></script>         <!-- Script para el selector de hora -->
+<script src="{{=URL('static','js/jquery.datepair.min.js')}}"></script>           <!-- Script para parear las fechas -->
+<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>     <!-- Script para validar campos del formulario -->
+<script>$.validate({form : '#registro', lang: 'es', });</script>                 <!-- Script para configurar el script anterior xD -->
 <!-- Google Maps -->
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>-->
 {{end}}
