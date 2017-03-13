@@ -24,7 +24,7 @@ def mspending():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db((db.servicio.Aprueba == None) & (db.servicio.Borrador == False)).select(orderby=~db.servicio.fechaCreacion)
+    services = db(((db.servicio.Borrador == False) & db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Mis servicios guardados en borradores"
@@ -35,7 +35,7 @@ def msdraft():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db(db.servicio.Borrador == True).select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Borrador == True) & (db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Botón para eliminar un servicio en cualquier vista de "Mis servicios"
@@ -52,7 +52,7 @@ def deleteMyService():
 # Vista principal de "Gestionar Servicios"
 @auth.requires_login()
 def allservices():
-    services = db((db.servicio.Borrador == False) | (db.servicio.Aprueba != None)).select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Mis Servicios"
@@ -63,7 +63,7 @@ def myservices():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db().select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Botón para eliminar un servicio en cualquier vista de "Gestionar servicios"
