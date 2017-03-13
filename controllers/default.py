@@ -370,99 +370,28 @@ def registrousrth_final():
 @auth.requires_login()
 def eliminarusrth():
 	T.force('es')
-	tipo = ""
-	error = False
 	userid = auth.user.id
 
-	bombero_por_pagina = 10
-	tam = db(db.bombero).count()
-	if (tam%bombero_por_pagina==0):
-		tam_total = tam//bombero_por_pagina
-	else:
-		tam_total = tam//bombero_por_pagina +1
-
-	if len(request.args):				# pagina actual
-		if int(request.args[0])<0:
-			pagina=0
-		else:
-			pagina = int(request.args[0])
-	else: 
-		pagina=0
-
-	if pagina >= tam_total:
-				pagina = tam_total-1
-				if pagina < 0:
-					pagina = 0
-
-	if pagina >= tam_total:
-		pagina = tam_total
-
-	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
-
-	if len(request.args) > 1:
+	if len(request.args) > 0:
 		
-		id_bombero = int(request.args[1])
+		id_bombero = int(request.args[0])
 		
 		if not db(db.bombero.id==id_bombero).isempty():
-			"""
-			bombero = db(db.bombero.id==id_bombero).select().first()
-			username = str(db.usuario[bombero.id_usuario].username)
-			id_usuario = bombero.id_usuario
-			id_persona = bombero.id_persona
-			db(db.persona.id==id_persona).delete()
-			db(db.usuario.id==id_usuario).delete()
-			response.flash = '¡El usuario '+username+' ha sido eliminado satisfactoriamente!'
-			tipo = "success"
-			"""
 			bombero = db(db.bombero.id==id_bombero).select().first()
 			usuario = db(db.usuario.id==bombero.id_usuario).select().first()
 
-			print usuario.disable
 			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
-			print usuario.disable
 			if usuario.disable:
 				response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
 			else:
 				response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
 
 			tipo = "success"
-
-	tam = db(db.persona).count()
-	if (tam%bombero_por_pagina==0):
-		tam_total = tam//bombero_por_pagina
-	else:
-		tam_total = tam//bombero_por_pagina +1
-
-	busqueda = request.vars.getlist("buscar")
-	if busqueda != []:
-		user_carnet = str(busqueda[0])
-		regex = '\d+'
-		if re.match(regex,user_carnet):
-			tabla = db(db.bombero.carnet==user_carnet).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),orderby=~db.bombero.carnet,limitby=limites)
-			if len(tabla) == 0:
-				error = True
-		else:
-			error = True
-	else:
-		tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),
-										distinct=db.bombero.carnet,
-										orderby=~db.bombero.carnet,
-										limitby=limites)
-
-	if error:
-		if busqueda[0] != '':
-			response.flash = 'No hay registro para esta búsqueda.'
-			tipo="danger"
-		tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.id_usuario!=userid)),
-										distinct=db.bombero.carnet,
-										orderby=~db.bombero.carnet,
-										limitby=limites)
-
-	if len(tabla) == 0:
-		response.flash = 'No hay usuarios en el sistema.'
-		tipo="warning"
-
-	return dict(tabla=tabla,tipo=tipo,tam_total=tam_total,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
+	tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & 
+										(db.bombero.id_usuario!=userid)),
+									distinct=db.bombero.carnet,
+									orderby=~db.bombero.carnet)
+	return dict(tabla=tabla)
 
 @auth.requires_login()
 def buscarth():
@@ -470,81 +399,8 @@ def buscarth():
 	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
 										distinct=db.bombero.carnet,
 										orderby=~db.bombero.carnet)
-	"""
-	busqueda = request.vars.getlist("buscar") # Busqueda suministrada por el usuario
-	error = False
-	tipo=""
-	bombero_por_pagina = 10
-
-	tam = db(db.bombero).count()
-	if (tam%bombero_por_pagina==0):
-		tam_total = tam//bombero_por_pagina
-	else:
-		tam_total = tam//bombero_por_pagina +1
-
-	if len(request.args):				# pagina actual
-		if int(request.args[0])<0:
-			pagina=0
-		else:
-			pagina = int(request.args[0])
-	else: 
-		pagina=0
-
-	if pagina >= tam_total:
-		pagina = tam_total-1
-		if pagina < 0:
-			pagina = 0
-
-	limites = (pagina*bombero_por_pagina,(pagina+1)*bombero_por_pagina+1) #(min,max)
-
-	if busqueda != []:
-		palabra = str(busqueda[0]) + '%'
-		# Expresion regular de las palabras en castellano, sin simbolos y numeros.
-		regex = '[a-zA-ZñÑáéíóúÁÉÍÓÚ]+'
-		if re.match(regex,palabra):
-			# Query que busca todas las personas cuyo primer nombre, segundo nombre,
-			# primer apellido, segundo apellido o nombre de usuario coincidan con
-			# la busqueda suministrada por el usuario. Esta busqueda es case
-			# insensitive
-
-			tabla = db(
-						db.persona.primer_nombre.ilike(palabra)|
-						db.persona.segundo_nombre.ilike(palabra)|
-						db.persona.primer_apellido.ilike(palabra)|
-						db.persona.segundo_apellido.ilike(palabra)|
-						db.usuario.username.ilike(palabra)|
-						db.bombero.iniciales.ilike(palabra)
-						).select(
-								join=db.bombero.on(
-													(db.bombero.id_persona == db.persona.id) &
-													(db.bombero.id_usuario == db.usuario.id)),
-								distinct=db.bombero.carnet,
-								orderby=~db.bombero.carnet,
-								limitby=limites) # =~ se refiere al orden descendente
-
-			if len(tabla) == 0:
-				error = True
-		else:
-			error = True
-	else:
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
-										distinct=db.bombero.carnet,
-										orderby=~db.bombero.carnet,
-										limitby=limites)
-
-	if error:
-		if busqueda[0] != '':
-			response.flash = 'No hay registro para esta búsqueda.'
-			tipo="danger"
-		tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
-										distinct=db.bombero.carnet,
-										orderby=~db.bombero.carnet,	
-										limitby=limites)
-
-
-	return dict(tabla=tabla,tam_total=tam_total,tipo=tipo,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
-	"""
 	return dict(tabla=tabla)
+
 @cache.action()
 def download():
 	"""

@@ -1,62 +1,57 @@
 {{extend 'layout.html'}}
 
-<div class="container bg-0">
-    <h1 class="text-center">Deshabilitar usuarios</h1>
+{{block head_css}}
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"></style>
+{{end}}
+
+{{block head_js}}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="{{=URL('static','js/custom.js')}}"></script>
+{{end}}
+
+{{block head_jquey}}{{end}}
+
+<div class="container-fluid">
+    <h1 class="text-center">Deshabilitar/Habilitar usuarios</h1>
     <br /><br />
-    <div align="center">
-        <!-- Navegador de busqueda -->
-        <form action="" method="POST">
-            <!-- Campo de busqueda-->
-            <input class="bg-default" type="text" placeholder="Carnet..." name="buscar" style="font-size:12pt;background-color:rgb(235,235,235);height:40px;width:auto;">
-            <!-- Boton de enviar en color azul -->
-            <input type="submit" class="bg-primary" style="font-size:10pt;height:40px;width:auto;" value="Enviar" class="bg-1">
-        </form>
-    </div>
-    <br /><br />
-    {{if len(tabla)>0:}}
-	<div class="panel panel-primary"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="table table-bordered table-striped">
-			<tr valign="center" align="center" class="bg-primary">
-		        <td class="text-center bg-primary">CARNET</td>
-			    <td class="text-center bg-primary">CÉDULA</td>
-			    <td class="text-center bg-primary">NOMBRES</td>
-			    <td class="text-center bg-primary">APELLIDOS</td>
-			    <td class="text-center bg-primary">DESHABILITAR</td>
-			</tr>
-			{{for i,row in enumerate(tabla):}}
-			{{if i==bombero_por_pagina: break}}
-			<tr valign="center" align="center">
-			    <td>{{=row.bombero.carnet}}</td>
-			    <td>{{=row.persona.nacionalidad}}-{{=row.persona.cedula}}</td>
-			    {{if row.persona.segundo_nombre != None:}}
-	            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
-	            {{else:}}
-	            <td>{{=row.persona.primer_nombre}}</td>
-	            {{pass}}
-	            {{if row.persona.segundo_apellido != None:}}
-	            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
-	            {{else:}}
-	            <td>{{=row.persona.primer_apellido}}</td>
-	            {{pass}}
-	            {{	user=db(db.usuario.id==row.bombero.id_usuario).select().first()
-	            	
-	            	if user.disable:}}
-			    <td><a href="{{=URL('default','eliminarusrth',args=[pagina,str(row.bombero.id)])}}">Habilitar</a></td>
-			    {{else:}}
-			    <td><a href="{{=URL('default','eliminarusrth',args=[pagina,str(row.bombero.id)])}}">Deshabilitar</a></td>
-			    {{pass}}
-			</tr>
-			{{pass}}
-			{{pass}}
+	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
+		<table class="display eliminarth-table">
+			<thead class="bg-1">
+				<tr>
+			        <td class="text-center">Carnet</td>
+				    <td class="text-center">Cédula</td>
+				    <td class="text-center">Nombres</td>
+				    <td class="text-center">Apellidos</td>
+				    <td class="text-center"></td>
+				</tr>
+			</thead>
+			<tbody>
+				{{for row in tabla:}}
+				<tr align="center">
+				    <td>{{=row.bombero.carnet}}</td>
+				    <td>{{=row.persona.nacionalidad}}-{{=row.persona.cedula}}</td>
+				    {{if row.persona.segundo_nombre != None:}}
+		            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
+		            {{else:}}
+		            <td>{{=row.persona.primer_nombre}}</td>
+		            {{pass}}
+		            {{if row.persona.segundo_apellido != None:}}
+		            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
+		            {{else:}}
+		            <td>{{=row.persona.primer_apellido}}</td>
+		            {{pass}}
+		            {{	user=db(db.usuario.id==row.bombero.id_usuario).select().first()
+		            	
+		            	if user.disable:}}
+				    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Habilitar</a></td>
+				    {{else:}}
+				    <td><a href="{{=URL('default','eliminarusrth',args=[str(row.bombero.id)])}}">Deshabilitar</a></td>
+				    {{pass}}
+				</tr>
+				{{pass}}
+			</tbody>
 		</table>
-	</div>
-	<div align="center">   
-		<ul class="pagination">
-			<li ><a href="{{=URL('default','eliminarusrth',args=[pagina-1])}}">&laquo;</a></li>
-			{{for j in range(0,tam_total):}}
-			<li><a href="{{=URL('default','eliminarusrth',args=[j])}}"> {{=(j+1)}} </a></li>
-			{{pass}}
-			<li><a href="{{=URL('default','eliminarusrth',args=[pagina+1])}}">&raquo;</a></li>
-		</ul>
 	</div>
 </div>
