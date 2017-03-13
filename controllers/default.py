@@ -467,6 +467,10 @@ def eliminarusrth():
 @auth.requires_login()
 def buscarth():
 	T.force('es')
+	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+										distinct=db.bombero.carnet,
+										orderby=~db.bombero.carnet)
+	"""
 	busqueda = request.vars.getlist("buscar") # Busqueda suministrada por el usuario
 	error = False
 	tipo=""
@@ -537,8 +541,10 @@ def buscarth():
 										orderby=~db.bombero.carnet,	
 										limitby=limites)
 
+
 	return dict(tabla=tabla,tam_total=tam_total,tipo=tipo,pagina=pagina,bombero_por_pagina=bombero_por_pagina)
-	
+	"""
+	return dict(tabla=tabla)
 @cache.action()
 def download():
 	"""

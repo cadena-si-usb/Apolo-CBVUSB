@@ -344,6 +344,7 @@ $(document).ready(function() {
                 }
         });
     });
+    // Tabla para buscar servicios en operaciones
     $('.service-table').dataTable( {
         searching: true,
         "language": {
@@ -354,6 +355,34 @@ $(document).ready(function() {
             "emptyTable":     "No hay servicios para mostrar",
             "lengthMenu":     "Resultados por página: _MENU_",
             "zeroRecords":    "No se han encontrado coincidencias de servicios",
+            "info":           "Página _PAGE_ de _PAGES_",
+            "infoFiltered":   "(Filtrado de _MAX_ registros en total)",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "paginate": {
+                "first":    "Primero",
+                "last":     "Último",
+                "next":     "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending":  ": Ordenar columna de manera ascendente",
+                "sortDescending": ": Ordenar columna de manera descendente"
+            }
+        }
+    });
+    // Tabla para buscar usuarios en talento humano
+    $('.buscarth-table').dataTable( {
+        searching: true,
+        "language": {
+            "decimal":        "",
+            "infoEmpty":      "",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "emptyTable":     "No hay registros para esta búsqueda.",
+            "lengthMenu":     "Resultados por página: _MENU_",
+            "zeroRecords":    "No hay registros para esta búsqueda.",
             "info":           "Página _PAGE_ de _PAGES_",
             "infoFiltered":   "(Filtrado de _MAX_ registros en total)",
             "loadingRecords": "Cargando...",
