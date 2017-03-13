@@ -33,15 +33,15 @@
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
-      <li class="nav-item navbar-right"><button id="btn-submit" type="button" class="btn bg-primary">Enviar</button></li>
+      <li class="nav-item navbar-right"><button id="btn-submit" type="button" class="btn bg-primary"><span>Enviar </span></button></li>
       <li class="nav-item navbar-right">
         <button formnovalidate class="btn bg-primary" type="submit" onclick="saveDraft()" name="draft" value="true">
-          Guardar borrador
+          <span>Guardar borrador </span>
           <span class="glyphicon glyphicon-save"></span>
         </button>
       </li>
       <li class="nav-item navbar-right">
-        <button type="button" class="btn bg-primary"><span>Cancelar registro</span></button>
+        <button class="btn bg-primary" type="button" onclick="cancelRegister()" name="cancel" value="true"><span>Cancelar registro</span></button>
       </li>
     </ul>
 
