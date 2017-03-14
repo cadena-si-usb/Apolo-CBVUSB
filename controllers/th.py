@@ -196,6 +196,7 @@ def perfilmodth():
 									'Miembro de Educación', 
 									'Miembro de Operaciones',
 									'Miembro de Talento humano',
+									'Miembro de Comandancia'
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
 			label='Cargo que ocupa (*)'),
@@ -241,11 +242,6 @@ def registrousrth1():
 				length=512, 
 				requires=db.usuario.password.requires,
 				label='Reingrese la clave (*)'),
-		Field('nacionalidad', 
-				type='string',  
-				unique=True, 
-				requires=db.persona.nacionalidad.requires,
-				label='Nacionalidad (*)'),
 		Field('cedula', 
 				type='integer',
 				length=512, 

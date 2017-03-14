@@ -50,7 +50,7 @@ mail.settings.ssl = myconf.get('smtp.ssl') or False
 
 db.define_table('persona',
 	Field('cedula', type='integer', unique=True),
-	Field('nacionalidad', type='string', required=True, notnull=True),
+	Field('nacionalidad', type='string', required=True, notnull=True, default='V'),
 	Field('primer_nombre', type='string', required=True, notnull=True),
 	Field('segundo_nombre', type='string', default=""),
 	Field('primer_apellido', type='string', required=True, notnull=True),
@@ -227,11 +227,11 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 db.persona.cedula.requires = [	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'), 
 								IS_NOT_IN_DB(db,db.persona.cedula, error_message='Ya la cédula existe en el sistema')]
 
-db.persona.nacionalidad.requires = IS_IN_SET(['V','E'], error_message='No es una opción válida')
-db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
-db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras, guiones o espacios'))
-db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
-db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener solo letras, guiones o espacios'))
+db.persona.nacionalidad.requires = IS_IN_SET(['E'], error_message='No es una opción válida')
+db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
+db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe contener solo letras, guiones o espacios'))
+db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
+db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe contener solo letras, guiones o espacios'))
 db.persona.fecha_nacimiento.requires = IS_EMPTY_OR([IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
 										IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date.today()-timedelta(36500), maximum=date.today()-timedelta(6600), 
 													 error_message='Debe tener una edad entre 18 y 100 años')])
@@ -291,6 +291,7 @@ db.bombero.cargo.requires = IS_IN_SET([	'Administrador',
 										'Miembro de Educación', 
 										'Miembro de Operaciones',
 										'Miembro de Talento humano',
+										'Miembro de Comandancia',
 										'Estudiante'], error_message='Debe seleccionar una opción')
 db.bombero.rango.requires = IS_IN_SET([	'Aspirante',
 										'Alumno',

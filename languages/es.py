@@ -139,6 +139,7 @@
 'db': 'db',
 'DB Model': 'DB Model',
 'Debe contener solo letras o guiones': 'Debe contener solo letras o guiones',
+'Debe contener solo letras, guiones o espacios': 'Debe contener solo letras, guiones o espacios',
 'Debe contener sólo carácteres': 'Debe contener sólo carácteres',
 'Debe contener sólo carácteres.': 'Debe contener sólo carácteres.',
 'Debe estar entre 2 y 4 caracteres': 'Debe estar entre 2 y 4 caracteres',
