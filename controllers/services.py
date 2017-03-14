@@ -26,7 +26,7 @@ def mspending():
     #return dict(servicios=servicios)
 
     ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db(((db.servicio.Borrador == False) & db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Borrador == False) & (db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Mis servicios guardados en borradores"
