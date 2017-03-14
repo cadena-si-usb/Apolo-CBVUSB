@@ -20,8 +20,8 @@ def insertarBombero(username,password,cedula,PN,SN,PA,SA,FN,LN,G,I,emP,emA,EC,ca
         imagen_perfil = I,
         iniciales = inic,
         tipo_sangre = tipoS,
-        id_persona = id_persona[len(id_persona)-1],
-        id_usuario = id_usuario[len(id_persona)-1])
+        id_persona = 1,#id_persona[len(id_persona)-1],
+        id_usuario = 1)#id_usuario[len(id_persona)-1])
 
 def insertarServicio(fechaCreacion, fechaLlegada, fechaFinalizacion, descripcion, localizacion, tipo, borrador=True, aprueba=None):
     db.servicio.insert(
@@ -45,5 +45,14 @@ def testCase():
     insertarServicio('2017/02/10 12:30','2017/02/10 15:40','2017/02/10 15:40','Rescate de búho perdido en salón de clases.','USB, ENE, piso 1, aula 110','RES2',False)
     insertarServicio('2017/02/21 18:15','2017/02/22 19:45','2017/02/22 19:45','Ocurrió incendio en árbol adyacente a lagunna de los patos.','USB, laguna de los patos.','IDV',True)
     insertarServicio('2017/01/17 14:35','2017/01/17 20:45','2017/01/17 20:45','Liberación de gases tóxicos en entrada del edificio de QYP.','USB, QYP, Entrada sur.','MP',True)
+
+
+    #db.unidad.insert(id=1,nombre='-Ninguna-')
+    #db.unidad.insert(id=2,nombre='A1')
+    #db.unidad.insert(id=3,nombre='A2')
+    #db.unidad.insert(id=4,nombre='L1')
+    #db.unidad.insert(id=5,nombre='L2')
+    #db.unidad.insert(id=6,nombre='M1')
+    #db.unidad.insert(id=7,nombre='M2')
 
 #testCase()
