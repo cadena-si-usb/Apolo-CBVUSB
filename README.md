@@ -62,3 +62,4 @@ cd web2py/applications/apolo/
 sudo ./DBINSTALL.sh
 ```
 + Ingresar "1234" cuando solicite la contraseña para crear el nuevo role
++ Mover la carpeta "web2py/aplications/apolo/site-packages/" a "web2py/"
