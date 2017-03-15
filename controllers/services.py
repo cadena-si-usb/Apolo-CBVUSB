@@ -78,8 +78,65 @@ def deleteService():
 @auth.requires_login()
 def displayService():
     serviceId = request.vars.id
+    nombreBomberos = obtenerNombreBomberos()
+
+    # Info basica del servicio
     service = db(db.servicio.id == serviceId).select()[0]
-    return dict(service=service)
+
+    # Comisiones del servicio
+    comisionCounter = 1
+    comisiones = list()
+    comisionRows = db(db.comision.servicio == serviceId).select()
+    for comisionRow in comisionRows:
+        comision = dict()
+
+        # Jefe de comision
+        bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
+        comision['jefe'] = nombreBombero(bomberoRow.id_persona)       
+
+        # Unidad
+        unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
+        if unidadUtilizadaRow.unidad is None:
+            comision["unidad"] = None
+        else:
+            unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
+            comision["unidad"] = unidadRow.nombre
+            bomberoRow = unidadUtilizadaRow.conductor
+            comision["conductor"] = nombreBombero(bomberoRow.id_persona)
+
+        # Acompanantes
+        acompanantes = list()
+        esAcompananteSet = db(db.es_acompanante.comision == comisionRow.id).select()
+        for esAcompananteRow in esAcompananteSet:
+            bomberoRow = esAcompananteRow.bombero
+            nombre = nombreBombero(bomberoRow.id_persona)
+            acompanantes.append(nombre)
+
+        comision["acompanantes"] = acompanantes
+        comision["numero"] = comisionCounter
+        comisiones.append(comision)
+        comisionCounter += 1
+
+    return dict(service=service,comisiones=comisiones)
+
+def nombreBombero(id):
+    personaRow = db(db.persona.id == id).select()[0]
+    
+    # 1er nombre
+    nombre = personaRow.primer_nombre
+    
+    # 2do nombre
+    if personaRow.segundo_nombre is not None:
+        nombre += " " + personaRow.segundo_nombre
+    
+    # 1er apellido
+    nombre += " " + personaRow.primer_apellido        
+
+    # 2do nombre
+    if personaRow.segundo_apellido is not None:
+        nombre += " " + personaRow.segundo_apellido
+    
+    return nombre
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista principal (Servicios)
@@ -304,6 +361,7 @@ def register():
         fechaCreacion = convertDateTime(fechaCreacion,horaCreacion)
         #fechaLlegada = convertDateTime(fechaLlegada,horaLlegada)
         fechaFinalizacion = convertDateTime(fechaFinalizacion,horaFinalizacion)
+        
         insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
         # Registrar datos de comisiones, afectados y apoyo externo
