@@ -132,10 +132,13 @@ def perfilmodth():
 			default=persona.estado_civil, 
 			requires=db.persona.estado_civil.requires,
 			label='Estado civil'
-			)
+			),
 		)
 
+	#print formPersona
+
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
+
 		if formPersona.vars['fecha_nacimiento'] == None or formPersona.vars['fecha_nacimiento'] == "":
 			del formPersona.vars['fecha_nacimiento']		
 
@@ -155,6 +158,7 @@ def perfilmodth():
 		response.flash = 'Cambio realizado satisfactoriamente'
 		
 	elif formPersona.errors:
+		
 		tipo="danger"
 		response.flash = 'Hay un error en un campo'
 		
@@ -268,6 +272,8 @@ def registrousrth1():
 			requires=db.persona.email_principal.requires,
 			label='Email principal (*)')
 		)
+
+	#print formPersona
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted and formPersona.vars.password==formPersona.vars.password_again:
 		formPersona.vars = dict((k,v) for k,v in formPersona.vars.iteritems() if v is not None)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from gluon.tools import Auth, Service, PluginManager
-from gluon.contrib.login_methods.ldap_auth import ldap_auth
+#from gluon.tools import Auth, Service, PluginManager
+#from gluon.contrib.login_methods.ldap_auth import ldap_auth
 from datetime import *
 
 import os
@@ -9,17 +9,26 @@ import os
 db = DAL("postgres://cbvusb:1234@localhost/cbvusb")
 
 auth = Auth(db, host_names=myconf.get('host.names'))
+auth.settings.table_user_name = 'usuario'
+auth.settings.extra_fields['usuario']= [ Field('disable', type='boolean', default=False) ]
+auth.define_tables(username=True, signature=False, migrate="db.usuario")
 service = Service()
 plugins = PluginManager()
 
-auth.settings.login_methods.append(ldap_auth(
-	server='localhost',
-	base_dn='ou=Users,dc=login,dc=com'))
+#auth.settings.login_methods.append(ldap_auth(
+#	server='localhost',
+#	base_dn='ou=Users,dc=login,dc=com',
+#	manage_user=True,
+#	user_firstname_attrib='cn:1',
+#	user_lastname_attrib='cn:2',
+#	user_mail_attrib='mail',
+#	manage_groups=True,
+#	db=db,
+#	group_dn='ou=Groups,dc=domain,dc=com',
+#	group_name_attrib='cn',
+#	group_member_attrib='memberUid',
+#	group_filterstr='objectClass=*'))
 
-auth.settings.table_user_name = 'usuario'
-auth.settings.extra_fields['usuario']= [Field('disable', type='boolean', default=False),
-										Field('confirmed', type='boolean', default=False)]
-auth.define_tables(username=True, signature=False, migrate="db.usuario")
 auth.settings.actions_disabled.append('register')
 auth.settings.actions_disabled.append('request_reset_password')
 
@@ -73,11 +82,11 @@ db.define_table('bombero',
 	Field('imagen_perfil', type='text'),
 	Field('iniciales', type='string'),
 	Field('tipo_sangre', type='string'),
-	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True), 
 	Field('id_usuario', type='reference usuario', required=True, notnull=True, unique=True),
-	Field('cargo', type='string', notnull=True, default='Estudiante'),
+	Field('cargo', type='string', notnull=True, default='Administrador'),
 	Field('hijos', type='integer', default=0),
-	Field('rango', type='string', default='Aspirante'),
+	Field('rango', type='string', default=0),
 	migrate="db.bombero")
 
 db.define_table('servicio',
