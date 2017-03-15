@@ -135,10 +135,12 @@ def perfilmodth():
 			)
 		)
 
+	#print formPersona
+
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
-		print formPersona.vars['imagen']
-		print re.match('^.*\.(jpg|png|jpeg|bmp)$',formPersona.vars['imagen'])
-		print
+		#print formPersona.vars['imagen']
+		#print re.match('^.*\.(jpg|png|jpeg|bmp)$',formPersona.vars['imagen'])
+		#print
 		if formPersona.vars['fecha_nacimiento'] == None or formPersona.vars['fecha_nacimiento'] == "":
 			del formPersona.vars['fecha_nacimiento']		
 
@@ -155,7 +157,7 @@ def perfilmodth():
 		response.flash = 'Cambio realizado satisfactoriamente'
 		tipo="success"
 	elif formPersona.errors:
-		print formPersona.vars
+		#print formPersona.vars
 		response.flash = 'Hay un error en un campo'
 		tipo="danger"
 
@@ -200,7 +202,7 @@ def perfilmodth():
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
 			label='Cargo que ocupa (*)'),
-			Field('rango', 
+		Field('rango', 
 			type='string', 
 			notnull=True,
 			default=bombero.rango,
@@ -267,6 +269,8 @@ def registrousrth1():
 				requires=db.persona.email_principal.requires,
 				label='Email principal (*)')
 		)
+
+	#print formPersona
 
 	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted and formPersona.vars.password==formPersona.vars.password_again:
 		formPersona.vars = dict((k,v) for k,v in formPersona.vars.iteritems() if v is not None)
