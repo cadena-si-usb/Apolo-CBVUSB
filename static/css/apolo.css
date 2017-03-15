@@ -240,3 +240,8 @@ Hand pointer (Manito)
   cursor: pointer;
   cursor: hand;
 }
+
+
+span.help-block {
+  color: red;
+}
