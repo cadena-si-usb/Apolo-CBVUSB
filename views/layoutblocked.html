@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="{{=T.accepted_language or 'en'}}">
+<html class="no-js" lang="{{=T.accepted_language or 'es'}}">
   <head>
     <meta charset="utf-8">                                                                               <!-- Codificación utf-8 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}"> <!-- Compattibilidad con navegadores -->
@@ -9,7 +9,7 @@
     <meta name="google-site-verification" content="">                                                    <!-- Google aceptanos -->
 
     {{block head_font}}{{end}}
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto" type="text/css">         <!-- Importar fuente Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" type="text/css">         <!-- Importar fuente Roboto -->
 
     {{block head_css}}{{end}}
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>                           <!-- Importar stylesheet de bootstrap -->
@@ -42,7 +42,7 @@
         <!-- Banner -->
         <div class="container">
           <a href="{{=URL('default','index')}}" title="Ir al inicio">
-            <img class="img-responsive img-center" src="{{=URL('static','images/banner-legacy-medium.png')}}" alt="Banner">
+            <img class="img-responsive img-center" src="{{=URL('static','images/banner-blanco-negro.png')}}" alt="Banner">
           </a>
         </div>
 
@@ -80,10 +80,10 @@
               <li class="dropdown">
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=auth.user.username}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="{{=URL('default','perfilth')}}">Ver Perfil</a></li>
-                  <li><a href="{{=URL('default','perfilmodth')}}">Modificar Perfil</a></li>
-                  <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
-                  <li><a href="{{=URL('default','eliminarusrth')}}">Desactivar Usuario</a></li>
+                  <li><a href="{{=URL('th','perfilth')}}">Ver Perfil</a></li>
+                  <li><a href="{{=URL('th','perfilmodth')}}">Modificar Perfil</a></li>
+                  <li><a href="{{=URL('th','registrousrth1')}}">Registrar Usuario</a></li>
+                  <li><a href="{{=URL('th','eliminarusrth')}}">Deshabilitar/<br/>Habilitar Usuarios</a></li>
                   <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
                 </ul>
               </li>
@@ -92,7 +92,7 @@
                 <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{=URL('default/user','login')}}">Iniciar sesión</a></li>
-                  <li><a href="{{=URL('default','registrousrth1')}}">Registrar Usuario</a></li>
+                  <li><a href="{{=URL('th','registrousrth1')}}">Registrar Usuario</a></li>
                 </ul>
               </li>
               {{pass}}
@@ -110,9 +110,6 @@
     {{if response.flash:}}
     <div class="row">
     {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
-      <!--h4 title="Cerrar" class="w2p_flash alert alert-warning col-sm-6 col-sm-offset-3" style="width: 50%;height: auto;">
-        {{=response.flash}}
-      </h4-->
     </div>
     {{pass}}
 
