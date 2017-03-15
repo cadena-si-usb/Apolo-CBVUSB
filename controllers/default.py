@@ -171,24 +171,30 @@ def perfilmodth():
 		)
 
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
-		print formPersona.vars['imagen']
-		print re.match('^.*\.(jpg|png|jpeg|bmp)$',formPersona.vars['imagen'])
-		print
+
 		if formPersona.vars['fecha_nacimiento'] == None or formPersona.vars['fecha_nacimiento'] == "":
-			del formPersona.vars['fecha_nacimiento']		
+			del formPersona.vars['fecha_nacimiento']
+			response.flash = 'Cambio realizado satisfactoriamente'
+			tipo="success"			
 
 		if formPersona.vars['imagen'] == None or formPersona.vars['imagen'] == "":
 			del formPersona.vars['imagen']
+			response.flash = 'Cambio realizado satisfactoriamente'
+			tipo="success"
 
 		elif re.match('^.*\.(jpg|png|jpeg|bmp)$',formPersona.vars['imagen']) == None:
 			os.remove(os.path.join(request.folder,'static/profile-images',formPersona.vars['imagen']))
 			del formPersona.vars['imagen']
+			response.flash = 'Debe ser un formato de imagen: jpg, jpeg, png, bmp'
+			tipo="danger"
 
 		elif persona.imagen != db.persona.imagen.default:
 			os.remove(os.path.join(request.folder,'static/profile-images',persona.imagen))
+			response.flash = 'Cambio realizado satisfactoriamente'
+			tipo="success"
+
 		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(formPersona.vars))
-		response.flash = 'Cambio realizado satisfactoriamente'
-		tipo="success"
+		
 	elif formPersona.errors:
 		print formPersona.vars
 		response.flash = 'Hay un error en un campo'
