@@ -37,8 +37,15 @@
     {{if auth.user != None:
       user = db(db.usuario.id==auth.user.id).select().first()
       if user.disable == True:
-        print 'hola'
         redirect(URL('default','userblocked'))
+    }}
+    {{pass}}
+    {{pass}}
+
+    {{if auth.user != None:
+      user = db(db.usuario.id==auth.user.id).select().first()
+      if user.confirmed == False:
+        redirect(URL('default','usernotconfirmed'))
     }}
     {{pass}}
     {{pass}}

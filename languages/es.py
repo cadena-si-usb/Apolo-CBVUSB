@@ -298,6 +298,7 @@
 'languages': 'lenguajes',
 'Languages': 'Lenguajes',
 'languages updated': 'lenguajes actualizados',
+'Las contraseñas deben ser iguales': 'Las contraseñas deben ser iguales',
 'Last name': 'Apellido',
 'Last saved on:': 'Guardado en:',
 'Layout': 'Layout',

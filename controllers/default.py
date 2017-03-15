@@ -5,15 +5,99 @@
 import time
 from datetime import *
 
+from gluon.tools import Auth, Service, PluginManager
+from gluon.contrib.login_methods.ldap_auth import ldap_auth
+from datetime import *
+
 # -------------------------------------------------------------------------
 # This is a sample controller
 # - index is the default action of any application
 # - user is required for authentication and authorization
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
-def userblocked():
-	return dict()
+def usernotconfirmed():
+	T.force('es')
+	tipo = ""
 
+	formConfirmar = SQLFORM.factory(
+		Field('password', 
+			type='password', 
+			readable=False, 
+			length=512, 
+			requires=db.usuario.password.requires,
+			label='Clave'
+			),
+		Field('password_again',
+			type='password', 
+			readable=False, 
+			length=512, 
+			requires=db.usuario.password.requires,
+			label='Reingrese la clave'
+			),
+		Field('cedula', 
+			type='integer',
+			length=512, 
+			requires=db.persona.cedula.requires,
+			label='Cédula'
+			),
+		Field('primer_nombre', 
+			type='string', 
+			notnull=True, 
+			default=auth.user.first_name, 
+			requires=db.persona.primer_nombre.requires,
+			label='Primer nombre'
+			),
+		Field('primer_apellido', 
+			type='string', 
+			notnull=True, 
+			default=auth.user.last_name, 
+			requires=db.persona.primer_apellido.requires,
+			label='Primer apellido'
+			),
+		Field('genero', 
+			type='string', 
+			notnull=True,
+			requires=db.persona.genero.requires,
+			label='Género'
+			),
+		Field('email_principal', 
+			type='string', 
+			notnull=True,
+			default=auth.user.email, 
+			requires=db.persona.email_principal.requires,
+			label='Email principal'
+			),
+		Field('carnet', 
+			type='integer', 
+			unique=True, 
+			requires=db.bombero.carnet.requires,
+			label='Carnet'
+			)
+		)
+
+	if formConfirmar.process(session=None, formname='confirmar', keepvalues=True).accepted and formConfirmar.vars.password==formConfirmar.vars.password_again:
+		
+		db(db.usuario.id==auth.user.id).update( first_name=formConfirmar.vars.primer_nombre, last_name=formConfirmar.vars.primer_apellido, confirmed=True, **db.usuario._filter_fields(formConfirmar.vars))
+		id_persona = db.persona.insert( **db.persona._filter_fields(formConfirmar.vars))
+		db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(formConfirmar.vars))
+		
+		tipo="success"
+		response.flash = 'La solicitud de confirmación fue enviada exitosamente, le será notificado el resultado'
+
+	elif formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+		tipo="danger"
+		response.flash = 'Las contraseñas ingresadas no son iguales'
+
+	elif formConfirmar.errors:
+
+		tipo="danger"
+		response.flash = 'Todos los campos deben ser llenados'
+
+	return dict(form=formConfirmar, tipo=tipo)
+
+def userblocked():
+	T.force('es')
+	return dict()
 
 def index():
 	"""
