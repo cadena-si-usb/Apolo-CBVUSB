@@ -65,7 +65,7 @@ db.define_table('persona',
 	migrate="db.persona")
 
 db.define_table('numero',
-	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+	Field('id_persona', type='reference persona', required=True, notnull=True),
 	Field('codigo_telefono', type='integer', length=4, notnull=True),
 	Field('numero_telefono', type='integer', length=7, notnull=True),
 	migrate="db.numero")

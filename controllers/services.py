@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gluon.serializers import json
 from datetime import datetime
-from emailManager import emailManager
+#from emailManager import emailManager
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de "Mis servicios"
@@ -118,7 +118,36 @@ def displayService():
         comisiones.append(comision)
         comisionCounter += 1
 
-    return dict(service=service,comisiones=comisiones)
+    # Afectados del servicio
+    afectadoCounter = 1
+    afectados = list()
+    afectadoRows = db(db.es_afectado.servicio == serviceId).select()
+    for afectadoRow in afectadoRows:
+        
+        afectado = dict()
+        afectado["notastratamiento"] = afectadoRow.notastratamiento
+        afectado["tipo"] = afectadoRow.tipo
+        
+        personaRow = db(db.persona.id == afectadoRow.persona).select()[0]
+        afectado["cedula"] = personaRow.cedula
+        afectado["primer_nombre"] = personaRow.primer_nombre
+        afectado["segundo_nombre"] = personaRow.segundo_nombre
+        afectado["primer_apellido"] = personaRow.primer_apellido
+        afectado["segundo_apellido"] = personaRow.segundo_apellido
+        afectado["sexo"] = personaRow.genero
+        afectado["email_principal"] = personaRow.email_principal
+        afectado["email_alternativo"] = personaRow.email_alternativo
+
+        afectado["numeros"] = list()
+        numeroRows = db(db.numero.id_persona == personaRow.id).select()
+        for numeroRow in numeroRows:
+            afectado["numeros"].append(str(numeroRow.codigo_telefono)+"-"+str(numeroRow.numero_telefono))
+
+        afectado["counter"] = afectadoCounter
+        afectados.append(afectado)
+        afectadoCounter += 1
+
+    return dict(service=service,comisiones=comisiones,afectados=afectados)
 
 def nombreBombero(id):
     personaRow = db(db.persona.id == id).select()[0]
@@ -302,6 +331,16 @@ def registrarAfectados(request):
             persona = personaID,
             notastratamiento = notasYtratamiento,
             tipo = tipoAfectado)
+
+        # Telefonos
+        telfCounter = 1
+        while request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)] is not None:
+            telf = request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)].split("-")
+            db.numero.insert(
+                id_persona = personaID,
+                codigo_telefono = telf[0],
+                numero_telefono = telf[1])
+            telfCounter += 1
 
         affectedCounter+=1
 
