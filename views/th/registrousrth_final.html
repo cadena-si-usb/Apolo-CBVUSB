@@ -20,8 +20,11 @@
 		<div class="forms col-sm-6 col-sm-offset-3 tab-pane fade in active" id="paso1" role="tabpanel" align="center">
 			<br/><br/>
 	        <h4 class="alert alert-success" align="center" valign="center">¡El usuario {{=username}} ha sido registrado exitosamente!</h4>
-	        <form enctype="multipart/form-data" action="{{=URL('default','index')}}" method="post">
+	        <form class="col-xs-12 col-sm-6" enctype="multipart/form-data" action="{{=URL('default','index')}}" method="post">
 				<input class="bg-1" type="submit" value="Continuar"/>
+			</form>
+			<form class="col-xs-12 col-sm-6" enctype="multipart/form-data" action="{{=URL('th','registrousrth1')}}" method="post">
+				<input class="bg-1" type="submit" value="Registrar otro usuario"/>
 			</form>
         </div>
     </div>
