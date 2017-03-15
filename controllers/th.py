@@ -132,7 +132,7 @@ def perfilmodth():
 			default=persona.estado_civil, 
 			requires=db.persona.estado_civil.requires,
 			label='Estado civil'
-			)
+			),
 		)
 
 	#print formPersona
