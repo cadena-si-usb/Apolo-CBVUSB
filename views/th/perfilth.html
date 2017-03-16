@@ -20,7 +20,11 @@
             {{pass}}
             <br />
             <!-- Cargo dentro de la organizacion | Rango -->
+            {{if usuario.bombero.rango:}}
             <h4>{{=usuario.bombero.cargo}} | {{=usuario.bombero.rango}}</h4>
+            {{else:}}
+            <h4>{{=usuario.bombero.cargo}} | -</h4>
+            {{pass}}
         </div>
     </div>
     <br /><br />
@@ -31,7 +35,11 @@
                 <table class="table table-bordered">
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-credit-card"></span>  Cédula:</td>
+                        {{if usuario.persona.cedula:}}
                         <td>{{=usuario.persona.nacionalidad}}-{{=usuario.persona.cedula}}</td>
+                        {{else:}}
+                        <td>-</td>
+                        {{pass}}
                     </tr> 
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-calendar"></span>  Fecha de nacimiento:</td>

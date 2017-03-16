@@ -3,11 +3,12 @@
 # psql -U cbvusb -h localhost -W
 
 import time
-from datetime import *
+import gluon
+import datetime
 
 from gluon.tools import Auth, Service, PluginManager
 from gluon.contrib.login_methods.ldap_auth import ldap_auth
-from datetime import *
+#import gluon.validators
 
 # -------------------------------------------------------------------------
 # This is a sample controller
@@ -15,7 +16,7 @@ from datetime import *
 # - user is required for authentication and authorization
 # - download is for downloading files uploaded in the db (does streaming)
 # -------------------------------------------------------------------------
-def usernotconfirmed():
+def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA NOTIFICAR
 	T.force('es')
 	tipo = ""
 
@@ -73,24 +74,26 @@ def usernotconfirmed():
 			requires=db.bombero.carnet.requires,
 			label='Carnet'
 			)
-		)
+		) 
 
 	if formConfirmar.process(session=None, formname='confirmar', keepvalues=True).accepted and formConfirmar.vars.password==formConfirmar.vars.password_again:
 		
-		db(db.usuario.id==auth.user.id).update( first_name=formConfirmar.vars.primer_nombre, last_name=formConfirmar.vars.primer_apellido, confirmed=True, **db.usuario._filter_fields(formConfirmar.vars))
+		db(db.usuario.id==auth.user.id).update( first_name=formConfirmar.vars.primer_nombre, last_name=formConfirmar.vars.primer_apellido, **db.usuario._filter_fields(formConfirmar.vars))
 		id_persona = db.persona.insert( **db.persona._filter_fields(formConfirmar.vars))
 		db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(formConfirmar.vars))
 		
 		tipo="success"
 		response.flash = 'La solicitud de confirmación fue enviada exitosamente, le será notificado el resultado'
 
-	elif formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+	elif formConfirmar.process(session=None, formname='confirmar', keepvalues=True).accepted:
 		tipo="danger"
 		response.flash = 'Las contraseñas ingresadas no son iguales'
 
 	elif formConfirmar.errors:
 
 		tipo="danger"
+		print formConfirmar.vars.password
+		print formConfirmar.vars.password_again
 		response.flash = 'Todos los campos deben ser llenados'
 
 	return dict(form=formConfirmar, tipo=tipo)
@@ -98,6 +101,30 @@ def usernotconfirmed():
 def userblocked():
 	T.force('es')
 	return dict()
+
+def confirmar():
+	T.force('es')
+
+	if request.args:
+		opcion = request.args[0]
+		id_bombero = request.args[1]
+		bombero = db(db.bombero.id==id_bombero).select().first()
+
+		if opcion == 'editar':
+			redirect(URL("default","editar"))
+
+		if opcion == 'eliminar':
+			db(db.persona.id == bombero.id_persona).delete()
+			bombero.delete()
+
+		if opcion == 'confirmar':
+			db(db.usuario.id==bombero.id_usuario).update(confirmed=True)
+
+	else:
+		tabla = db(db.usuario).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+										distinct=db.bombero.carnet,
+										orderby=~db.bombero.carnet)
+	return dict(tabla=tabla)
 
 def index():
 	"""

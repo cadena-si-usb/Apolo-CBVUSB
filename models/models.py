@@ -69,7 +69,7 @@ db.define_table('direccion',
 	migrate="db.direccion")
 		
 db.define_table('bombero', 
-	Field('carnet', type='integer', required=True, notnull=True, unique=True),
+	Field('carnet', type='integer', required=True, default=0),
 	Field('imagen_perfil', type='text'),
 	Field('iniciales', type='string'),
 	Field('tipo_sangre', type='string'),
@@ -217,8 +217,7 @@ db.usuario.password.requires = [IS_MATCH('^[\w~!@#$%^&*\-+=`|(){}[\]<>\.\?\/]{4,
 
 db.persona.cedula.requires = [	IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Numero de cedula no valido'), 
 								IS_NOT_IN_DB(db,db.persona.cedula, error_message='Ya la cédula existe en el sistema')]
-
-db.persona.nacionalidad.requires = IS_IN_SET(['E'], error_message='No es una opción válida')
+db.persona.nacionalidad.requires = IS_IN_SET(['V'], error_message='No es una opción válida')
 db.persona.primer_nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
 db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe contener solo letras, guiones o espacios'))
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
@@ -262,8 +261,7 @@ db.bombero.iniciales.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑ]{2,4}$', erro
 db.bombero.tipo_sangre.requires = IS_EMPTY_OR(IS_IN_SET(['A+','A-','B+','B-','AB+','AB-','O+','O-'], error_message='Debe ser alguno de los tipos válidos'))
 db.bombero.id_persona.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
-db.bombero.cargo.requires = IS_IN_SET([	'Administrador', 
-										'Comandante en Jefe', 
+db.bombero.cargo.requires = IS_IN_SET([	'Comandante en Jefe', 
 										'Primer comandante', 
 										'Segundo comandante', 
 										'Inspector en Jefe',
@@ -344,14 +342,18 @@ db.curso.tipo.requires = IS_IN_SET(['Asistencia a taller, foro, congreso, semina
 									'Presentación de un Trabajo de Investigación que haya sido evaluado satisfactoriamente por personal capacitado'],
 									error_message='Debe seleccionar una opción')
 
-
 db.estudio.nombre.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener solo letras')
 db.estudio.nivel.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$', error_message='Debe contener solo letras')
 
 db.completo.fechaInicio.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
 									IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date(1993,5,12), maximum=date.today(), 
 													 error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
-
 db.completo.fechaFin.requires = [IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
 								 IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date(1998,5,15), maximum=date.today(), 
 												  error_message='Introduzca una fecha entre 12/5/1993 y hoy.')]
+
+# INSERCIÓN DEL Administrador
+if not db(db.usuario.username == 'admin').select():
+	id_usuario = db.usuario.insert(username='admin', password=CRYPT()('admin')[0], first_name='Apolo', last_name='Bomberos', email='apolo.cbvusb@gmail.com', confirmed=True)
+	id_persona = db.persona.insert(cedula=-1, primer_nombre='Apolo', primer_apellido='Bomberos', email_principal='apolo.cbvusb@gmail.com', genero='Masculino')
+	db.bombero.insert( carnet=-1, cargo='Administrador', id_persona=id_persona, id_usuario=id_usuario)
