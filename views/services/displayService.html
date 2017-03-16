@@ -29,7 +29,7 @@
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
-    {{if service.Borrador and service.Aprueba == None:}}
+    {{if not service.aprobado:}}
       <li class="nav-item navbar-right">
         <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">
           Editar servicio <span class="glyphicon glyphicon-edit"></span>
@@ -56,22 +56,22 @@
         <div class="row">
           <div class="col-xs-6 col-sm-6">
             <label for="startDate">Fecha de Inicio</label>
-            <p>{{=service.fechaCreacion.date()}}</p>
+            <p>{{=service.fechaCreacion}}</p>
           </div>
           <div class="col-xs-6 col-sm-6">
             <label for="endDate">Hora de Inicio</label>
-            <p>{{=service.fechaCreacion.time()}}</p>
+            <p>{{=service.horaCreacion}}</p>
           </div>
         </div>
 
         <div class="row">
           <div class="col-xs-6 col-sm-6">
             <label for="endDate">Fecha de Fin</label>
-              <p>{{=service.fechaFinalizacion.date()}}</p>
+              <p>{{=service.fechaFinalizacion}}</p>
           </div>
           <div class="col-xs-6 col-sm-6">
             <label for="endDate">Hora de Fin</label>
-              <p>{{=service.fechaFinalizacion.time()}}</p>
+              <p>{{=service.horaFinalizacion}}</p>
           </div>
         </div>
       

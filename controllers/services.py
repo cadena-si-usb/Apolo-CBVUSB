@@ -75,16 +75,9 @@ def deleteService():
     db(db.servicio.id == serviceId).delete()
     redirect(URL('services','allservices'))
 
-# Vista para visualizar servicio
+# Comisiones del servicio
 @auth.requires_login()
-def displayService():
-    serviceId = request.vars.id
-    nombreBomberos = obtenerNombreBomberos()
-
-    # Info basica del servicio
-    service = db(db.servicio.id == serviceId).select()[0]
-
-    # Comisiones del servicio
+def obtenerComisiones(serviceId):
     comisionCounter = 1
     comisiones = list()
     comisionRows = db(db.comision.servicio == serviceId).select()
@@ -118,7 +111,11 @@ def displayService():
         comisiones.append(comision)
         comisionCounter += 1
 
-    # Afectados del servicio
+    return comisiones
+
+# Afectados del servicio
+@auth.requires_login()
+def obtenerAfectados(serviceId):
     afectadoCounter = 1
     afectados = list()
     afectadoRows = db(db.es_afectado.servicio == serviceId).select()
@@ -151,7 +148,12 @@ def displayService():
         afectados.append(afectado)
         afectadoCounter += 1
 
-    # Comisiones de apoyo
+    return afectados
+
+
+# Comisiones de apoyo
+@auth.requires_login()
+def obtenerApoyoExterno(serviceId):
     externoCounter = 1
     externos = list()
     externoRows = db(db.comision_apoyo.servicio == serviceId).select()
@@ -169,6 +171,26 @@ def displayService():
 
         externos.append(externo)
         externoCounter += 1
+
+    return externos
+
+# Vista para visualizar servicio
+@auth.requires_login()
+def displayService():
+    serviceId = request.vars.id
+    nombreBomberos = obtenerNombreBomberos()
+
+    # Info basica del servicio
+    service = db(db.servicio.id == serviceId).select()[0]
+
+    # Comisiones del servicio
+    comisiones = obtenerComisiones(serviceId)
+
+    # Afectados del servicio
+    afectados = obtenerAfectados(serviceId)
+
+    # Comisiones de apoyo
+    externos = obtenerApoyoExterno(serviceId)
 
     return dict(service=service,comisiones=comisiones,afectados=afectados,externos=externos)
 
@@ -398,10 +420,6 @@ def registrarApoyoExterno(request):
 
         comisionCounter+=1
 
-@auth.requires_login()
-def convertDateTime(fecha, hora):
-    return datetime.strptime(fecha + " " + hora, '%m/%d/%Y %I:%M%p')
-
 # Vista principal de "Registrar servicio"
 @auth.requires_login()
 def register():
@@ -421,17 +439,12 @@ def register():
         fechaCreacion = request.vars['fechaCreacion']
         horaLlegada = request.vars['horaLlegada']
         fechaLlegada = request.vars['fechaLlegada']
-        fechaFinalizacion = request.vars['fechaFinalizacion']
         horaFinalizacion = request.vars['horaFinalizacion']
+        fechaFinalizacion = request.vars['fechaFinalizacion']
         descripcionServicio = request.vars['descripcion']
         localizacionServicio = request.vars['localizacion']
-
-        # Registrar servicio
-        fechaCreacion = convertDateTime(fechaCreacion,horaCreacion)
-        #fechaLlegada = convertDateTime(fechaLlegada,horaLlegada)
-        fechaFinalizacion = convertDateTime(fechaFinalizacion,horaFinalizacion)
         
-        insertarServicio(fechaCreacion,fechaLlegada,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
+        insertarServicio(horaCreacion,fechaCreacion,horaFinalizacion,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
 
         # Registrar datos de comisiones, afectados y apoyo externo
         registrarComisiones(request)
@@ -478,8 +491,9 @@ def editDraft():
         servicio = db(db.servicio.id == request.vars['id']).select().first()
         servicio.id = request.vars['id']
         servicio.tipo = request.vars['tipo']
+        servicio.horaCreacion = request.vars['horaCreacion']
         servicio.fechaCreacion = request.vars['fechaCreacion']
-        servicio.fechaLlegada = request.vars['fechaLlegada']
+        servicio.horaFinalizacion = request.vars['horaFinalizacion']
         servicio.fechaFinalizacion = request.vars['fechaFinalizacion']
         servicio.descripcion = request.vars['descripcion']
         servicio.localizacion = request.vars['localizacion']
@@ -501,7 +515,16 @@ def editDraft():
 
         nombreBomberos = obtenerNombreBomberos()
 
-        return dict(service=service, nombreBomberos=nombreBomberos)
+        # Comisiones del servicio
+        comisiones = obtenerComisiones(serviceId)
+    
+        # Afectados del servicio
+        afectados = obtenerAfectados(serviceId)
+    
+        # Comisiones de apoyo
+        externos = obtenerApoyoExterno(serviceId)
+
+        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Aprobar Servicio"
