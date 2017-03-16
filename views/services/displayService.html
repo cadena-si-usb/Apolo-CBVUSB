@@ -208,41 +208,35 @@
 
 
     <!-- Tab Apoyo Externo -->
-    <!--<div class="tab-pane fade" id="externalSupport" role="tabpanel">
-      <div id="comExtCNT">
-        <div id="comExt1" class="row">
+    <div class="tab-pane fade" id="externalSupport" role="tabpanel">
+      {{for externo in externos:}}
+        <div class="row">
           <div class="col-xs-12 col-sm-6">
-            <div id="comisionExt1" class="col-xs-12 col-sm-12">
-              <h3 id="comisionExtTitle1" name="comisionExtTitle1">Comisión Externa <kbd>1</kbd></h3>
-              <input type="hidden" name="comisionExtTitle1" value="comisionExtTitle1">
-              <div class="form-group ui-widget col-xs-12 col-sm-12">
-                <label for="cuerpoDepartamento1">Cuerpo o Departamento</label>
-                <input id="cuerpoDepartamento1" type="text" class="form-control" placeholder="Nombre del Departamento" name="cuerpoDepartamento1">
+            <div class="col-xs-12 col-sm-12">
+              <h3 id="comisionExtTitle1" name="comisionExtTitle1">Comisión Externa <kbd>{{=externo["counter"]}}</kbd></h3>
+              <div class="col-xs-12 col-sm-12">
+                <label>Cuerpo o Departamento</label>
+                <p>{{=externo["cuerpoDepartamento"]}}</p>
               </div>
-              <div class="form-group ui-widget col-xs-12 col-sm-7">
-                <label for="jefe1">Jefe</label>
-                <input id="jefe1" type="text" class="form-control" placeholder="Nombre" name="jefe1">
+              <div class="col-xs-12 col-sm-7">
+                <label>Jefe</label>
+                <p>{{=externo["jefe"]}}</p>
               </div>
               <div class="col-xs-12 col-sm-5">
-                <label for="cuerpoDepartamento1">Número de acompañantes</label>
-                <input id="numAcomp1" type="text" class="form-control" data-validation="length" data-validation-length="max4" data-validation="number" placeholder="Número" name="numAcomp1">
+                <label>Número de acompañantes</label>
+                <p>{{=externo["numAcomp"]}}</p>
               </div>
               <div id="unitExtCNT1">
                 <div id="unitExt1-1">
                   <div class="col-xs-6 col-sm-6">
-                    <label for="unitExtValue1-1">Unidades</label>
-                    <input id="unitExtValue1-1" type="text" class="form-control" placeholder="Unidad" name="unitExtValue1-1">
+                    <label for="unitExtValue1-1">Unidad</label>
+                    <p>{{=externo["unidad"]}}</p>
                   </div>
                   <div class="col-xs-6 col-sm-6">
                     <label for="unitExtValue1-1">Placa Unidad</label>
-                    <input id="unitExtPlaca1-1" type="text" class="form-control col-xs-6" placeholder="Conductor" name="unitExtPlaca1-1">
+                    <p>{{=externo["placa"]}}</p>
                   </div>
                 </div>
-              </div>
-              <div class="col-xs-12 text-right">
-                <button id="addUnitExt1" type="button" class="btn bg-primary addUnitExt top-space-separator">
-                  <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>
-                </button>
               </div>
             </div>
           </div>
@@ -251,21 +245,14 @@
             <br />
             <br />
             <label>Comentario</label>
-            <div class="form-group">
-              <textarea id="affectedNotes1" name="affectedNotes1" class="form-control" data-validation="length" data-validation-length="max 600" rows="9"></textarea>
-            </div>
+            <p>{{=externo["comentario"]}}</p>
           </div>
         </div>
         <hr>
-      </div>
-      <div class="text-center">
-        <button id="addApoyoExt" type="button" class="btn bg-primary">
-          Añadir otro apoyo externo
-          <span class="glyphicon glyphicon-plus-sign"></span>
-        </button>
-      </div>
+      {{pass}}
     </div>
-  </div>-->
+
+  </div>
 
 
 </div>

@@ -128,7 +128,11 @@ def displayService():
         afectado["notastratamiento"] = afectadoRow.notastratamiento
         afectado["tipo"] = afectadoRow.tipo
         
-        personaRow = db(db.persona.id == afectadoRow.persona).select()[0]
+        try:
+            personaRow = db(db.persona.id == afectadoRow.persona).select()[0]
+        except:
+            continue
+
         afectado["cedula"] = personaRow.cedula
         afectado["primer_nombre"] = personaRow.primer_nombre
         afectado["segundo_nombre"] = personaRow.segundo_nombre
@@ -147,7 +151,26 @@ def displayService():
         afectados.append(afectado)
         afectadoCounter += 1
 
-    return dict(service=service,comisiones=comisiones,afectados=afectados)
+    # Comisiones de apoyo
+    externoCounter = 1
+    externos = list()
+    externoRows = db(db.comision_apoyo.servicio == serviceId).select()
+    for externoRow in externoRows:
+        
+        externo = dict()
+        
+        externo["cuerpoDepartamento"] = externoRow.cuerpoodepartamento
+        externo["jefe"] = externoRow.lider
+        externo["numAcomp"] = externoRow.numeroacompanantes
+        externo["unidad"] = externoRow.unidad
+        externo["placa"] = externoRow.placaunidad
+        externo["comentario"] = externoRow.comentario
+        externo["counter"] = externoCounter
+
+        externos.append(externo)
+        externoCounter += 1
+
+    return dict(service=service,comisiones=comisiones,afectados=afectados,externos=externos)
 
 def nombreBombero(id):
     personaRow = db(db.persona.id == id).select()[0]
@@ -321,7 +344,7 @@ def registrarAfectados(request):
 
         # Obtener ID de la persona
         try:
-            personaID = db(db.persona.cedula == cedulaAfectado).select().first()["id"]
+            personaID = db(db.persona.cedula == cedulaAfectado).select()[0]["id"]
         except:
             personaID = None
 
@@ -335,7 +358,9 @@ def registrarAfectados(request):
         # Telefonos
         telfCounter = 1
         while request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)] is not None:
+            request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)]
             telf = request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)].split("-")
+            telf.append("")
             db.numero.insert(
                 id_persona = personaID,
                 codigo_telefono = telf[0],
@@ -358,13 +383,17 @@ def registrarApoyoExterno(request):
         unitExt = request.vars["unitExtValue"+str(comisionCounter)+"-1"]
         unitExtPlaca = request.vars["unitExtPlaca"+str(comisionCounter)+"-1"]
 
+        jefe = request.vars["jefe"+str(comisionCounter)]
+        # comentario = request.vars["comentario"+str(comisionCounter)]
+
         # Registrar como afectado
         db.comision_apoyo.insert(
             numeroacompanantes = numAcompanantes,
             cuerpoodepartamento = cuerpoDeptExt,
             unidad = unitExt,
             placaunidad = unitExtPlaca,
-            lider = 1, # ?????? No esta campo en form
+            lider = jefe,
+            comentario = "PENDIENTE",
             servicio = request.vars["id"])
 
         comisionCounter+=1

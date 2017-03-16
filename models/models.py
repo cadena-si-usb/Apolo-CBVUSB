@@ -65,13 +65,13 @@ db.define_table('persona',
 	migrate="db.persona")
 
 db.define_table('numero',
-	Field('id_persona', type='reference persona', required=True, notnull=True),
-	Field('codigo_telefono', type='integer', length=4, notnull=True),
-	Field('numero_telefono', type='integer', length=7, notnull=True),
+	Field('id_persona', type='reference persona'),
+	Field('codigo_telefono', type='integer', length=4),
+	Field('numero_telefono', type='integer', length=7),
 	migrate="db.numero")
 
 db.define_table('direccion',
-	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+	Field('id_persona', type='reference persona', required=True, notnull=True),
 	Field('direccion_descripcion', type='string', notnull=True),
 	Field('direccion_tipo', type='string', notnull=True),
 	Field('direccion_ciudad', type='string', notnull=True),
@@ -124,7 +124,8 @@ db.define_table('comision_apoyo',
     Field('cuerpoodepartamento', type='string', length=40),
     Field('unidad', type='string', length=30),
     Field('placaunidad', type='string', length=30),
-    Field('lider', type='reference persona'),
+    Field('lider', type='string'),
+    Field('comentario', type='string'),
     Field('servicio', type='reference servicio'),
     migrate="db.comision_apoyo")
 
