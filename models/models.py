@@ -264,7 +264,7 @@ db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.cargo.requires = IS_IN_SET([	'Comandante en Jefe', 
 										'Primer comandante', 
 										'Segundo comandante', 
-										'Inspector en Jefe',
+										'Inspector',
 										'Gerente de Riesgo', 
 										'Gerente de Administración', 
 										'Gerente de Educación', 
