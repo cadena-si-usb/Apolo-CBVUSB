@@ -38,7 +38,6 @@ mail.settings.tls = myconf.get('smtp.tls') or False
 mail.settings.ssl = myconf.get('smtp.ssl') or False
 
 # auth.enable_record_versioning(db)
-
 db.define_table('persona',
 	Field('cedula', type='integer', unique=True),
 	Field('nacionalidad', type='string', required=True, notnull=True, default='V'),
@@ -264,7 +263,7 @@ db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.cargo.requires = IS_IN_SET([	'Comandante en Jefe', 
 										'Primer comandante', 
 										'Segundo comandante', 
-										'Inspector en Jefe',
+										'Inspector',
 										'Gerente de Riesgo', 
 										'Gerente de Administración', 
 										'Gerente de Educación', 

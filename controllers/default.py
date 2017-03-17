@@ -92,9 +92,6 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 			)
 		)
 
-	bombero = db(db.bombero.id_usuario==auth.user.id).select()
-	print type(formConfirmar)
-
 	if formConfirmar.process(session=None, formname='confirmar', keepvalues=True).accepted:
 		if formConfirmar.vars.password==formConfirmar.vars.password_again:
 			if len(bombero) == 0:
