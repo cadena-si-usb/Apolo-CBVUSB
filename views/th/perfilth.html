@@ -51,7 +51,11 @@
                     </tr>
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-user"></span>  Sexo:</td>
+                        {{if (usuario.persona.genero) != None:}}
                         <td>{{=usuario.persona.genero}}</td>
+                        {{else:}}
+                        <td>-/-/-</td>
+                        {{pass}}
                     </tr>
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-tint"></span>  Tipo de sangre:</td>
@@ -106,21 +110,30 @@
             </div>
         </div>
         </div>
+    
+    <br /><br />
+    <div class="col-xs-12">
+        <div class="panel">
+            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos de bombero</h4></div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td><span style="color:black;" class="glyphicon glyphicon-credit-card"></span>  Carnet:</td>
+                        {{if usuario.bombero.carnet:}}
+                        <td>{{=usuario.bombero.carnet}}</td>
+                        {{else:}}
+                        <td>-</td>
+                        {{pass}}
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </div>
     <!--
     <br /><br />
     <div class="col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos académicos</h4></div>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                </table>
-            </div>
-        </div>
-        </div>
-    <br /><br />
-    <div class="col-xs-12">
-        <div class="panel">
-            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos de bombero</h4></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
                 </table>

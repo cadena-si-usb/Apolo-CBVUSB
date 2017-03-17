@@ -251,7 +251,7 @@ def perfilmodth():
 			length=512, 
 			requires=db.usuario.password.requires,
 			label='Reingrese la clave (*)'),"""     # HAY QUE GENERARLO RANDOM
-def registrousrth1():
+def registrousrth():
 	T.force('es')
 	tipo=""
 	formUsuario = SQLFORM.factory(
