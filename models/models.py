@@ -222,8 +222,8 @@ db.persona.segundo_nombre.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíó�
 db.persona.primer_apellido.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe ser no vacío y contener solo letras, guiones o espacios')
 db.persona.segundo_apellido.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ]([a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+[\s-]?[a-zA-ZñÑáéíóúÁÉÍÓÚ\s][a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+)*$', error_message='Debe contener solo letras, guiones o espacios'))
 db.persona.fecha_nacimiento.requires = IS_EMPTY_OR([IS_DATE(format=T('%d/%m/%Y'), error_message='Debe ser del siguiente formato: dd/mm/yyyy'),
-										IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date.today()-timedelta(36500), maximum=date.today()-timedelta(6600), 
-													 error_message='Debe tener una edad entre 18 y 100 años')])
+										IS_DATE_IN_RANGE(format=T('%d/%m/%Y'), minimum=date.today()-timedelta(36500), maximum=date.today()-timedelta(6000), 
+													 error_message='Debe tener una edad entre 17 y 100 años')])
 db.persona.lugar_nacimiento.requires = IS_EMPTY_OR(IS_IN_SET([	'Amazonas',
 													'Anzoátegui',
 													'Apure',

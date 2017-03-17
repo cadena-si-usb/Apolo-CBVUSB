@@ -41,10 +41,14 @@
 		            {{	user=db(db.usuario.id==row.bombero.id_usuario).select().first()
 		            	
 		            	if user.disable:}}
-				    <td><a href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}">Habilitar</a></td>
+		            <td><a class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" role="button">Habilitar</a></td>
+		            {{else:}}
+		            <td><a class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" role="button">Deshabilitar</a></td>
+		            {{pass}}
+				    <!--<td><a href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}">Habilitar</a></td>
 				    {{else:}}
 				    <td><a href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}">Deshabilitar</a></td>
-				    {{pass}}
+				    {{pass}}-->
 				</tr>
 				{{pass}}
 			</tbody>

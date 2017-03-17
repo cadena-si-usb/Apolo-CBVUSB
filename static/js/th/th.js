@@ -7,6 +7,7 @@ $(document).ready(function() {
     $('.buscarth-table').dataTable( {
         searching: true,
         "language": {
+            caseInsen: false,
             "decimal":        "",
             "infoEmpty":      "",
             "infoPostFix":    "",
@@ -19,6 +20,7 @@ $(document).ready(function() {
             "loadingRecords": "Cargando...",
             "processing":     "Procesando...",
             "search":         "Buscar:",
+            "searchPlaceholder": "Buscar...",
             "paginate": {
                 "first":    "Primero",
                 "last":     "Último",
@@ -34,6 +36,7 @@ $(document).ready(function() {
     $('.eliminarth-table').dataTable( {
         searching: true,
         "language": {
+            caseInsen: false,
             "decimal":        "",
             "infoEmpty":      "",
             "infoPostFix":    "",
@@ -46,6 +49,7 @@ $(document).ready(function() {
             "loadingRecords": "Cargando...",
             "processing":     "Procesando...",
             "search":         "Buscar:",
+            "searchPlaceholder": "Buscar...",
             "paginate": {
                 "first":    "Primero",
                 "last":     "Último",
