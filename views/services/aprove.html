@@ -1,0 +1,53 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+{{block head_css}}
+  <link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}"></style>
+{{end}}
+
+{{block head_js}}
+  <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+  <script src="{{=URL('static','js/services/tables.js')}}"></script>
+  <script src="{{=URL('static','js/services/rows.js')}}"></script>
+{{end}}
+
+<!-- Tabla de Servicios -->
+<div class="container-fluid">
+  
+  <ol class="breadcrumb">
+    <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
+    <li class="active">Aprobar Servicios</li>
+  </ol>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Servicios Pendientes por Aprobación</h3>
+      <div class="table-responsive">
+        <table class="display service-table">
+          <thead class="bg-primary">
+            <tr>
+              <th>ID</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+              <th>Localización</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{for row in services:}}
+            <tr class='clickeable clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
+              <td>{{=row.id}}</td>
+              <td>{{=row.tipo}}</td>
+              <td>{{=row.descripcion}}</td>
+              <td>{{=row.localizacion}}</td>
+              <td>{{=row.fechaCreacion}}</td>
+              <td>{{=row.fechaFinalizacion}}</td>
+            </tr>
+            {{pass}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
