@@ -361,6 +361,7 @@
 'next 100 rows': '100 filas siguientes',
 'NO': 'NO',
 'No databases in this application': 'No hay bases de datos en esta aplicación',
+'No es un número de teléfono válido': 'No es un número de teléfono válido',
 'No es una opción válida': 'No es una opción válida',
 'No es una opción válida.': 'No es una opción válida.',
 'No Interaction yet': 'No hay interacción',

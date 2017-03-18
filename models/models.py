@@ -252,7 +252,7 @@ db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe
 db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'))
 
 db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido')
-db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(minimun=1000000,maximum=10000000, error_message='No es un número de teléfono válido')
+db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(1000000,10000000, error_message='No es un número de teléfono válido')
 
 db.bombero.carnet.requires = [IS_INT_IN_RANGE(1, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='El carnet ya existe en el sistema.')]
 db.bombero.iniciales.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑ]{2,4}$', error_message='Debe estar entre 2 y 4 caracteres.'))
