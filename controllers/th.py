@@ -335,7 +335,7 @@ def eliminarusrth():
 @auth.requires_login()
 def buscarth():
 	T.force('es')
-	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+	tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.carnet!="-1")),
 										distinct=db.bombero.carnet,
 										orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
