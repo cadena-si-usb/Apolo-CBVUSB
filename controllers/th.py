@@ -81,7 +81,7 @@ def perfilmodth():
 			notnull=True, 
 			default=persona.primer_nombre, 
 			requires=db.persona.primer_nombre.requires,
-			label='Primer nombre (*)'
+			label='Primer nombre *'
 			),
 		Field('segundo_nombre', 
 			type='string',
@@ -94,7 +94,7 @@ def perfilmodth():
 			notnull=True, 
 			default=persona.primer_apellido, 
 			requires=db.persona.primer_apellido.requires,
-			label='Primer apellido (*)'
+			label='Primer apellido *'
 			),
 		Field('segundo_apellido', 
 			type='string',
@@ -121,7 +121,7 @@ def perfilmodth():
 			notnull=True,
 			default=persona.genero, 
 			requires=db.persona.genero.requires,
-			label='Género (*)'
+			label='Género *'
 			),
 		Field('imagen', 
 			type='upload',
@@ -134,7 +134,7 @@ def perfilmodth():
 			notnull=True,
 			default=persona.email_principal, 
 			requires=db.persona.email_principal.requires,
-			label='Email principal (*)'
+			label='Email principal *'
 			),
 		Field('email_alternativo', 
 			type='string',
@@ -217,13 +217,13 @@ def perfilmodth():
 									'Miembro de Comandancia'
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
-			label='Cargo que ocupa (*)'),
+			label='Cargo que ocupa *'),
 		Field('rango', 
 			type='string', 
 			notnull=True,
 			default=bombero.rango,
 			requires= db.bombero.rango.requires,
-			label='Rango (*)')) #FALTA RANGO
+			label='Rango *')) #FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
@@ -244,13 +244,13 @@ def perfilmodth():
 			readable=False, 
 			length=512, 
 			requires=db.usuario.password.requires,
-			label='Clave (*)'),
+			label='Clave *'),
 		Field('password_again',
 			type='password', 
 			readable=False, 
 			length=512, 
 			requires=db.usuario.password.requires,
-			label='Reingrese la clave (*)'),"""     # HAY QUE GENERARLO RANDOM
+			label='Reingrese la clave *'),"""     # HAY QUE GENERARLO RANDOM
 def registrousrth():
 	T.force('es')
 	tipo=""
@@ -260,22 +260,22 @@ def registrousrth():
 			length=512, 
 			unique=True, 
 			requires=db.usuario.username.requires,
-			label='Nombre de usuario (*)'),
+			label='Nombre de usuario *'),
 		Field('first_name', 
 			type='string',
 			length=512, 
 			requires=db.persona.primer_nombre.requires,
-			label='Primer nombre (*)'),
+			label='Primer nombre *'),
 		Field('last_name',
 			type='string',
 			length=512, 
 			requires=db.persona.primer_apellido.requires,
-			label='Primer apellido (*)'),
+			label='Primer apellido *'),
 		Field('email',
 			type='string',
 			length=512,
 			requires=db.usuario.email,
-			label='Email principal (*)')
+			label='Email principal *')
 		)
 
 	if formUsuario.process(session=None, formname='Persona', keepvalues=True).accepted:

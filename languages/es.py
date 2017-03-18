@@ -138,6 +138,7 @@
 'Date and Time': 'Fecha y Hora',
 'db': 'db',
 'DB Model': 'DB Model',
+'Debe contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/ Además debe tener una longitud entre 4 y 24 caracteres.': 'Debe contener cualquiera de los siguientes caracteres: a-z A-Z 0-9 _!@#$%^&*\\-+=`|(){}[]<>.?/ Además debe tener una longitud entre 4 y 24 caracteres.',
 'Debe contener solo letras o guiones': 'Debe contener solo letras o guiones',
 'Debe contener solo letras, guiones o espacios': 'Debe contener solo letras, guiones o espacios',
 'Debe contener sólo carácteres': 'Debe contener sólo carácteres',
