@@ -245,10 +245,13 @@ Hand pointer (Manito)
   Letras rojas en errores de SQLFORM
 ######################################*/
 
-
 div#username__error.error, div#password__error.error, 
 div#password_again__error.error
 {
+  color: red;
+}
+
+div#first_name__error.error, div#last_name__error.error{
   color: red;
 }
 
@@ -267,4 +270,8 @@ div#iniciales__error.error, div#cargo__error.error,
 div#rango__error.error
 {
   color: red;
+}
+
+label#usuario_remember_me__label {
+  display: none;
 }

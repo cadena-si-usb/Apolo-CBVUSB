@@ -1,13 +1,17 @@
 {{extend 'layout.html'}}
 
 {{block head_css}}
-  <link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}"></style>
+<link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+<link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>
 {{end}}
 
 {{block head_js}}
-  <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
-  <script src="{{=URL('static','js/th/th.js')}}"></script>
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/sweetalert.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
 {{end}}
+
+{{block web2py_ajax}}{{end}}
 
 <div class="container-fluid">
 	<h1 class="text-center">Usuarios para confirmar</h1>
@@ -44,9 +48,11 @@
 		            {{pass}}
 		            <td>{{=row.bombero.cargo}}</td>
 		            <td>{{=row.bombero.rango}}</td>
-		            <td><a href="{{=URL('default','confirmar',args=['editar',str(row.bombero.id)])}}">Editar</a></td>
-				    <td><a href="{{=URL('default','confirmar',args=['eliminar',str(row.bombero.id)])}}">Eliminar</a></td>
-				    <td><a href="{{=URL('default','confirmar',args=['confirmar',str(row.bombero.id)])}}">Confirmar</a></td>
+		            <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['editar',str(row.bombero.id)])}}" type="button"><span>Editar</span></button></td>
+
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['eliminar',str(row.bombero.id)])}}" type="button" id="btn-submit-eliminar"><span>Eliminar</span></td>
+
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['confirmar',str(row.bombero.id)])}}" type="button" id="btn-submit-confirmar"><span>Confirmar</span></td>
 				    {{pass}}
 				</tr>
 				{{pass}}
