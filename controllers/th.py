@@ -147,8 +147,7 @@ def perfilmodth():
 			notnull=True,
 			default=persona.estado_civil, 
 			requires=db.persona.estado_civil.requires,
-			label='Estado civil'
-			)
+			label='Estado civil')
 		)
 
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:

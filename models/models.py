@@ -58,7 +58,7 @@ db.define_table('telefono',
 	Field('id_persona', type='reference persona', required=True, notnull=True),
 	Field('codigo_telefono', type='integer', length=4, notnull=True),
 	Field('numero_telefono', type='integer', length=7, notnull=True),
-	Field('tipo', type='string', notnull=True)
+	Field('tipo_telefono', type='string', notnull=True),
 	migrate="db.telefono")
 
 db.define_table('direccion',
@@ -245,21 +245,17 @@ db.persona.lugar_nacimiento.requires = IS_EMPTY_OR(IS_IN_SET([	'Amazonas',
 												  	'Vargas',
 												  	'Yaracuy',
 												  	'Zulia',
-												  	'Dependencias Federales'], error_message='No es una opción válida.'))
+												  	'Dependencias Federales',
+												  	'Extranjero'], error_message='No es una opción válida.'))
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida.')
 db.persona.imagen.requires = IS_EMPTY_OR(IS_IMAGE(extensions=('jpeg', 'png', 'jpg', 'bmp'), error_message='Debe ser un formato válido: png, jpg, jpeg o bmp.')) #IS_EMPTY_OR(IS_MATCH('^.*\.(jpg|png|jpeg|bmp)$', error_message='Debe ser un formato válido: png, jpg, jpeg o bmp'))
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
 db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'))
 
-<<<<<<< HEAD
-#db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido.')
-#db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(minimun=1000000,maximum=10000000, error_message='No es un número de teléfono válido.')
-=======
 db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido')
 db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(1000000,10000000, error_message='No es un número de teléfono válido')
-db.telefono.tipo = IS_IN_SET(['Casa','Trabajo','Celular'], error_message='Debe escoger una opción')
->>>>>>> origin/B-NOS-old
+db.telefono.tipo_telefono.requires = IS_IN_SET(['Casa','Trabajo','Celular'], error_message='Debe escoger una opción')
 
 db.bombero.carnet.requires = [IS_INT_IN_RANGE(1, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='El carnet ya existe en el sistema.')]
 db.bombero.iniciales.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑ]{2,4}$', error_message='Debe estar entre 2 y 4 caracteres.'))
