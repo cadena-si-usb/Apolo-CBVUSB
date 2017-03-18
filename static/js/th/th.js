@@ -3,6 +3,7 @@ $(document).ready(function() {
     $(".clickable-row").on('click', function() {
         window.location = $(this).data("href");
     });
+
     // Tabla para buscar usuarios en talento humano
     $('.buscarth-table').dataTable( {
         searching: true,
@@ -192,5 +193,21 @@ $(document).ready(function() {
             });
         }
     });
+    });
+
+    var tlfsCont = [1];
+
+    // Función para los botones para añadir phones
+    $("body").on("click","button.agregartlf", function() {
+    var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
+    var tlfs = "#tlf" + num1;                         // Generar el identificador al contenedor de la unidad correspondiente
+
+    tlfsCont[num1-1]++;                                // Aumentar el contador de telefonos para el usuario
+    var num2 = tlfsCont[num1-1];                           // Variable auxiliar para la sustitucion en el html de abajo
+
+    // Inserción del html
+    $(tlfs).append(
+        '<div class="col-xs-12 col-sm-9 col-sm-offset-3"><input type="tel" class="form-control" id="tlf'+num1+'-'+num2+'" name="tlf'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()"></div>'
+        );
     });
 });

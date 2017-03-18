@@ -32,8 +32,8 @@
   middle_column = {0: mc0, 1: mc1, 2: mc2}[
   (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
 </head>
-
   <body class="Site">
+    {{T.force('es')}}
     {{if auth.user != None:
       user = db(db.usuario.id==auth.user.id).select().first()
       if user.disable == True:
@@ -50,11 +50,11 @@
     {{pass}}
     {{pass}}
 
-    <div class="bottom-space-separator">
+    <div class="bottom-space-separator bg-4">
       <!-- Banner -->
       <div class="container">
         <a href="{{=URL('default','index')}}" title="Ir al inicio">
-          <img class="img-responsive img-center" src="{{=URL('static','images/banner.png')}}" alt="Banner">
+          <img class="img-responsive img-center" src="{{=URL('static','images/banner-negro.png')}}" alt="Banner">
         </a>
       </div>
 
@@ -91,10 +91,10 @@
               <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=auth.user.username}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{{=URL('th','perfilth')}}">Ver Perfil</a></li>
-                <li><a href="{{=URL('th','perfilmodth')}}">Modificar Perfil</a></li>
-                <li><a href="{{=URL('th','registrousrth')}}">Registrar Usuario</a></li>
-                <li><a href="{{=URL('th','eliminarusrth')}}">Deshabilitar Usuario</a></li>
-                <li><a href="{{=URL('default','confirmar')}}">Confirmar Usuario</a></li>
+                <li><a href="{{=URL('th','perfilmodth')}}">Modificar <br/> Perfil</a></li>
+                <li><a href="{{=URL('th','registrousrth')}}">Registrar <br/> Usuario</a></li>
+                <li><a href="{{=URL('th','eliminarusrth')}}">Gestionar <br/> Usuarios</a></li>
+                <li><a href="{{=URL('default','confirmar')}}">Gestionar <br/> Registros</a></li>
                 <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
               </ul>
             </li>
