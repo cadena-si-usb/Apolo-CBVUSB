@@ -1,0 +1,277 @@
+/*####################
+Global
+#####################*/
+
+* {
+  font-family: 'Roboto', serif;
+  font-size: 10pt;
+}
+
+/*####################
+Varios
+#####################*/
+
+.bottom-space-separator {
+  margin-bottom: 1em;
+}
+
+.top-space-separator {
+  margin-top: 1em;
+}
+
+/*####################
+Imágenes
+#####################*/
+
+.img-center {
+  margin:0 auto;
+}
+
+/*####################
+Barra de navegación
+#####################*/
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.navbar {
+  background: black;
+  position: relative;
+  z-index: 1;
+  font-size: 12pt !important;
+  line-height: 1.42857143 !important;
+  letter-spacing: 4px;
+  border: 0px solid transparent;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.main-nav a{
+  font-size: 10pt !important;
+}
+
+.navbar li a,   {
+  color: white !important;
+}
+
+.navbar .navbar-brand {
+  color: black !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+  color: white !important;
+  background: #1565C0 !important;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+  color: black !important;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+  color: white;
+  background-color: black;
+}
+
+/*####################
+Varios
+#####################*/
+
+/* Fondo blanco con letras negras */
+.bg-0 {
+  background-color: white;
+  color: black;
+}
+
+/* Fondo azul con letras blancas */
+.bg-1 {
+  background-color: #1565C0;
+  color: white;
+}
+
+/* Fondo gris (gradiente) con letras blancas */
+.bg-2 {
+  background-image: linear-gradient(180deg, #e0e0e0, white);
+  color: white;
+}
+
+/* Fondo negro con letras blancas */
+.bg-3 {
+  background-color: black; /* Green */
+  color: white;
+}
+
+/* Fondo negro con letras blancas y +*/
+.bg-4 {
+  background-color: black;
+  color: white;
+  line-height: 80%;
+}
+
+/*####################
+Carousel
+#####################*/
+
+.carousel {
+  width: 100%;
+  max-height: 700px;
+  min-height: 250px;
+}
+
+.carousel .item img {
+  width: 100%;
+  max-height: 700px;
+  min-height: 250px;
+}
+
+/*####################
+Iconos de servicios
+#####################*/
+/*
+.service-item {
+  display: inline-block;
+  margin: 2px;
+}
+*/
+.wrapper {
+  background: #1565C0;
+
+  display:block;
+  width:280px;
+  height:180px;
+
+  color: white;
+
+  line-height: 180px;
+  text-align: center;
+
+  border: 5px solid #1565C0;
+  border-radius: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.wrapper-large {
+  width:350px;
+}
+
+.wrapper:hover {
+  background: white;
+  border-color: #1565C0;
+  color: #1565C0;
+}
+
+.text {
+  font-family: 'Hammersmith One', sans-serif;
+  font-size: 40px;
+  font-weight: 600;
+  text-transform: capitalize;
+
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.form-textbox{
+  height:200px !important;
+  width:450px !important;
+  font-size:14px !important;
+}
+
+.form-search{
+  width:450px !important;
+  background-color: #f9f9f9;
+}
+
+.card-item{
+  margin-bottom:15px;
+  border:double;
+}
+
+.card-item:hover{
+  background:rgba(237,237,237,0.9);
+  opacity:.9;
+}
+
+.text-on-image {
+  background:rgba(22,22,22,0.9);
+  color: #fff;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-clip: padding-box;
+}
+
+/*####################
+Magia para el footer
+#####################*/
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
+}
+
+.custom-button {
+  background-color: #1565C0;
+  color: white;
+}
+
+/*####################
+Hand pointer (Manito)
+#####################*/
+
+.clickeable {
+  cursor: pointer;
+  cursor: hand;
+}
+
+/*####################################
+  Letras rojas en errores de SQLFORM
+######################################*/
+
+div#username__error.error, div#password__error.error, 
+div#password_again__error.error
+{
+  color: red;
+}
+
+div#first_name__error.error, div#last_name__error.error{
+  color: red;
+}
+
+div#primer_nombre__error.error, div#segundo_nombre__error.error, 
+div#primer_apellido__error.error, div#segundo_apellido__error.error,
+div#cedula__error.error, div#fecha_nacimiento__error.error,
+div#genero__error.error, div#email_principal__error.error,
+div#email_alternativo__error.error, div#lugar_nacimiento__error.error,
+div#estado_civil__error.error, div#imagen__error.error
+{
+  color: red;
+}
+
+div#carnet__error.error, div#tipo_sangre__error.error,
+div#iniciales__error.error, div#cargo__error.error,
+div#rango__error.error
+{
+  color: red;
+}
+
+label#usuario_remember_me__label {
+  display: none;
+}

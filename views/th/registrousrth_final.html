@@ -1,0 +1,16 @@
+{{extend 'layout.html'}}
+
+<div class="container-fluid">
+	<h1 class="text-center">Registro de nuevos usuarios</h1>
+	<br/><br/>
+	<div class="col-sm-6 col-sm-offset-3" align="center">
+	    <h4 class="alert alert-success" align="center" valign="center">¡El usuario {{=username}} ha sido registrado exitosamente!</h4>
+	    <br/><br/>
+	    <form class="col-xs-12 col-sm-6" enctype="multipart/form-data" action="{{=URL('default','index')}}" method="post">
+			<input class="bg-1" type="submit" value="Ir al inicio"/>
+		</form>
+		<form class="col-xs-12 col-sm-6" enctype="multipart/form-data" action="{{=URL('th','registrousrth1')}}" method="post">
+			<input class="bg-1" type="submit" value="Registrar otro usuario"/>
+		</form>
+    </div>
+</div>

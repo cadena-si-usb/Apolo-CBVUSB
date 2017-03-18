@@ -1,0 +1,38 @@
+{{extend 'layout.html'}}
+
+<div class="container-fluid">
+	<h1 align="center">Modificar perfil</h1>
+	<br/><br/>
+	<div class="row">
+		<ul class="nav nav-pills col-sm-6 col-sm-offset-3" role="tablist">
+		    <li class="nav-item active">
+		      <a class="nav-link" data-toggle="tab" href="#datopersonal" role="tab">Datos personales</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="tab" href="#datobombero" role="tab">Datos de bombero</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="tab" href="#datousuario" role="tab">Cambiar contraseña</a>
+		    </li>
+		</ul>
+	</div>
+	<br/><br/>
+	<div class="tab-content">
+		<div class=" col-sm-6 col-sm-offset-3 tab-pane fade in active" id="datopersonal" role="tabpanel">
+			<div class="forms">
+				{{=formPersona}}
+			</div>
+		</div>
+		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datobombero" role="tabpanel">
+			<div class="forms">
+				{{=formBombero}}
+			</div>
+		</div>
+		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datousuario" role="tabpanel">
+			<div class="forms">
+				{{=formUsuario}}
+			</div>
+		</div>
+		<p class="col-sm-6 col-sm-offset-3">Los campos <strong>(*)</strong> son obligatorios.</p>
+	</div>
+</div>

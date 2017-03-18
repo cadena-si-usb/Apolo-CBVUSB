@@ -1,18 +1,18 @@
 {{extend 'layout.html'}}
 
-<div class="container">
-    <h2 align="center">
+<div class="container-fluid col-sm-6 col-sm-offset-3">
+    <h1 class="col-sm-offset-3 text-center">
     {{=('Registrarse') if request.args(0) == 'register' else ('Iniciar Sesión') if request.args(0) == 'login' else (request.args(0).replace('_',' ').title())}}
-    </h2>
-    <br/><br/>
-    <div id="web2py_user_form" class="col-sm-6 col-sm-offset-3">
+    </h1>
+    <br/><br/><br/>
+    <div id="web2py_user_form" align="center">
         {{
         if request.args(0)=='login':
             if not 'register' in auth.settings.actions_disabled:
-                form.add_button(('Registrarse'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-primary')
+                form.add_button(('Registrarse'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn bg-1')
             pass
             if not 'request_reset_password' in auth.settings.actions_disabled:
-                form.add_button(('¿Olvidaste tu contraseña?'),URL(args='request_reset_password'),_class='btn btn-primary')
+                form.add_button(('¿Olvidaste tu contraseña?'),URL(args='request_reset_password'),_class='btn bg-1')
             pass
         pass
         =form

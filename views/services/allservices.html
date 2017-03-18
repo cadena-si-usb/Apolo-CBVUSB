@@ -2,37 +2,31 @@
 {{extend 'layout.html'}}
 
 {{block head_css}}
-  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"></style>
+  <link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}"></style>
 {{end}}
 
 {{block head_js}}
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script src="{{=URL('static','js/custom.js')}}"></script>
+  <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+  <script src="{{=URL('static','js/services/tables.js')}}"></script>
+  <script src="{{=URL('static','js/services/rows.js')}}"></script>
 {{end}}
-
-{{block head_jquey}}{{end}}
 
 <!-- Tabla de Servicios -->
 <div class="container-fluid">
   <ol class="breadcrumb">
     <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
-    <li class="active">Todos los servicios</li>
+    <li class="active">Ver todos</li>
   </ol>
   <ul class="nav nav-pills">
     <li class="active"><a href="{{=URL('services','allservices.html')}}">Todos</a></li>
     <li><a href="{{=URL('services','myservices.html')}}">Mis servicios</a></li>
-    <!--<li><a href="{{=URL('services','asapproved.html')}}">Aprobados</a></li>
-    <li><a href="{{=URL('services','aspending.html')}}">Pendentes por aprobación</a></li>
-    <li><a href="{{=URL('services','register.html')}}">Registrar</a></li> -->
   </ul>
   <br/>
 
-  <div class="col-xs-10">
+  <div class="col-xs-11">
     <div class="table-responsive">
       <table class="display service-table">
-        <thead class="bg-1">
+        <thead class="bg-primary">
           <tr>
             <th>ID</th>
             <th>Tipo</th>
@@ -44,7 +38,7 @@
         </thead>
         <tbody>
           {{for row in services:}}
-          <tr class='clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
+          <tr class='clickeable clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
             <td>{{=row.id}}</td>
             <td>{{=row.tipo}}</td>
             <td>{{=row.descripcion}}</td>
