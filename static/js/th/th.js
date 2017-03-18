@@ -207,7 +207,22 @@ $(document).ready(function() {
 
     // Inserción del html
     $(tlfs).append(
-        '<div class="col-xs-12 col-sm-9 col-sm-offset-3"><input type="tel" class="form-control" id="tlf'+num1+'-'+num2+'" name="tlf'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()"></div>'
+        '<div class="col-xs-12 col-sm-9 col-sm-offset-3">\
+            <div class="col-xs-12 col-sm-4">\
+                <select name="codtlf'+num1+'-'+num2+'" class="form-control" data-validation="required">\
+                    <option value="">Seleccionar</option>\
+                    <option value="0212">0212</option>\
+                    <option value="0412">0412</option>\
+                    <option value="0414">0414</option>\
+                    <option value="0416">0416</option>\
+                    <option value="0424">0424</option>\
+                    <option value="0426">0426</option>\
+                </select>\
+            </div>\
+            <div class="col-xs-12 col-sm-8">\
+                <input type="tel" class="form-control" id="tlf'+num1+'-'+num2+'" name="tlf'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()">\
+            </div>\
+        </div>'
         );
     });
 });
