@@ -1,5 +1,18 @@
 {{extend 'layout.html'}}
 
+{{block head_css}}
+<link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+<link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>
+{{end}}
+
+{{block head_js}}
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/sweetalert.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
+{{end}}
+
+{{block web2py_ajax}}{{end}}
+
 <div class="container-fluid">
 	<h1 align="center">Modificar perfil</h1>
 	<br/><br/>
@@ -7,6 +20,9 @@
 		<ul class="nav nav-pills col-sm-6 col-sm-offset-3" role="tablist">
 		    <li class="nav-item active">
 		      <a class="nav-link" data-toggle="tab" href="#datopersonal" role="tab">Datos personales</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="tab" href="#datocontacto" role="tab">Datos de contacto</a>
 		    </li>
 		    <li class="nav-item">
 		      <a class="nav-link" data-toggle="tab" href="#datobombero" role="tab">Datos de bombero</a>
@@ -18,16 +34,33 @@
 	</div>
 	<br/><br/>
 	<div class="tab-content">
-		<div class=" col-sm-6 col-sm-offset-3 tab-pane fade in active" id="datopersonal" role="tabpanel">
+		<div class="col-sm-6 col-sm-offset-3 tab-pane fade in active" id="datopersonal" role="tabpanel">
 			<div class="forms">
 				{{=formPersona}}
 			</div>
 		</div>
+
+		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
+			<div class="form-horizontal" enctype="multipart/form-data" method="POST" id="tlf1">
+                     <label class="control-label col-sm-3" for="tlf1-1">Teléfonos *</label>
+                     <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+                     	<input type="tel" class="form-control" id="tlf1-1" name="tlf1-1" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()">
+                     </div>
+            </div>
+            <div class="text-right">
+                <button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 form-group">
+            	<input class="btn btn-primary" value="Enviar" type="submit">
+            </div>
+		</div>
+
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datobombero" role="tabpanel">
 			<div class="forms">
 				{{=formBombero}}
 			</div>
 		</div>
+
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datousuario" role="tabpanel">
 			<div class="forms">
 				{{=formUsuario}}
