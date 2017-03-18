@@ -30,7 +30,10 @@
 
 ##Especificaciones técnicas
 1. Requeirmientos del sistema
+   + PostgreSQL 9.X
    + Python v2.7.x
+   + Libreria python-ldap
+   + Libreia psycopg2
 
 2. Versiones de los componentes
    + Bootstrap v3.3.5             (incluido)
@@ -62,4 +65,4 @@ cd web2py/applications/apolo/
 sudo ./DBINSTALL.sh
 ```
 + Ingresar "1234" cuando solicite la contraseña para crear el nuevo role
-+ Mover la carpeta "web2py/aplications/apolo/site-packages/" a "web2py/"
++ Mover la carpeta "web2py/aplications/apolo/site-packages/" a "web2py/", o hacer un enlace simbólico

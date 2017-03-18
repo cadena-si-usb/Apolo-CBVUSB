@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gluon.serializers import json
 from datetime import datetime
-from emailManager import emailManager
+#from emailManager import emailManager Mientras no se use esta comentado xD
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de "Mis servicios"
