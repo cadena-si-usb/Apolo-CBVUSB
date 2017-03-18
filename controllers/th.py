@@ -281,6 +281,11 @@ def registrousrth():
 	if formUsuario.process(session=None, formname='Persona', keepvalues=True).accepted:
 		password = random_password()
 		print password
+		mail.send(to=[formUsuario.vars.email], subject='Creación de usuario',
+			message='Acaba de ser creado un usuario para usted en el sistema Apolo. El usuario posee las siguientes credenciales:\n\n'+
+					'username: '+formUsuario.vars.username+'\n'
+					'password: '+password+'\n\n'+
+					'Bienvenido a Apolo. CBVUSB.')
 		password =  CRYPT()(password)[0]
 		id_usuario = db.usuario.insert( password=password, **db.usuario._filter_fields(formUsuario.vars))
 		redirect(URL("th","registrousrth_final",args=id_usuario))
@@ -294,11 +299,6 @@ def registrousrth():
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
 	return dict(formUsuario=formUsuario,tipo=tipo)
-
-def registrousrth2():
-	T.force('es')
-
-	return dict()
 
 def registrousrth_final():
 	T.force('es')

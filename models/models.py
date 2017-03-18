@@ -21,7 +21,7 @@ auth.settings.extra_fields['usuario']= [Field('disable', type='boolean', default
 										Field('confirmed', type='boolean', default=False)]
 auth.define_tables(username=True, signature=False, migrate="db.usuario")
 auth.settings.actions_disabled.append('register')
-auth.settings.actions_disabled.append('request_reset_password')
+#auth.settings.actions_disabled.append('request_reset_password')
 
 # -------------------------------------------------------------------------
 # create all tables needed by auth if not custom tables
@@ -31,9 +31,9 @@ auth.settings.actions_disabled.append('request_reset_password')
 # configure email
 # -------------------------------------------------------------------------
 mail = auth.settings.mailer
-mail.settings.server = 'logging' if request.is_local else myconf.get('smtp.server')
-mail.settings.sender = myconf.get('smtp.sender')
-mail.settings.login = myconf.get('smtp.login')
+mail.settings.server = 'smtp.gmail.com:465'
+mail.settings.sender = 'apolo.cbvusb@gmail.com'
+mail.settings.login = 'apolo.cbvusb:0800responsable'
 mail.settings.tls = myconf.get('smtp.tls') or False
 mail.settings.ssl = myconf.get('smtp.ssl') or False
 
