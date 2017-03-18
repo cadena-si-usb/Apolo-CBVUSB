@@ -116,7 +116,7 @@ $(document).ready(function() {
     });
     });
 
-    // Mensaje pop-Up para habilitar un usuario
+    // Mensaje pop-Up para deshabilitar un usuario
     $('#btn-submit-deshabilitar').on('click',function(e){
     e.preventDefault();
     var href = $(this).attr('href');

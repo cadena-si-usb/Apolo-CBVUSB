@@ -268,3 +268,7 @@ div#rango__error.error
 {
   color: red;
 }
+
+label#usuario_remember_me__label {
+  display: none;
+}
