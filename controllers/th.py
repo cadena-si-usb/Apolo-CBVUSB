@@ -320,11 +320,11 @@ def eliminarusrth():
 
 			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
 
-			tipo = "success"
-			if usuario.disable:
-				response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
-			else:
-				response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
+			#tipo = "success"
+			#if usuario.disable:
+			#	response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
+			#else:
+			#	response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
 
 	tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & 
 										(db.bombero.id_usuario!=userid)),

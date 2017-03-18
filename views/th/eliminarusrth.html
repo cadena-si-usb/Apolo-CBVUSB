@@ -1,13 +1,17 @@
 {{extend 'layout.html'}}
 
 {{block head_css}}
-  <link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}"></style>
+<link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+<link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>
 {{end}}
 
 {{block head_js}}
-  <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
-  <script src="{{=URL('static','js/th/th.js')}}"></script>
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/sweetalert.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
 {{end}}
+
+{{block web2py_ajax}}{{end}}
 
 <div class="container-fluid">
     <h1 class="text-center">Deshabilitar/Habilitar usuarios</h1>
@@ -41,14 +45,10 @@
 		            {{	user=db(db.usuario.id==row.bombero.id_usuario).select().first()
 		            	
 		            	if user.disable:}}
-		            <td><a class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" role="button">Habilitar</a></td>
+		            <td><button class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" type="button" id="btn-submit-habilitar"><span>Habilitar</span></button></td>
 		            {{else:}}
-		            <td><a class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" role="button">Deshabilitar</a></td>
+		            <td><button class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" type="button" id="btn-submit-deshabilitar"><span>Deshabilitar</span></button></td>
 		            {{pass}}
-				    <!--<td><a href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}">Habilitar</a></td>
-				    {{else:}}
-				    <td><a href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}">Deshabilitar</a></td>
-				    {{pass}}-->
 				</tr>
 				{{pass}}
 			</tbody>

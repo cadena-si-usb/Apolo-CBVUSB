@@ -89,4 +89,56 @@ $(document).ready(function() {
             }
         }
     });
+
+    // Mensaje pop-Up para habilitar un usuario
+    $('#btn-submit-habilitar').on('click',function(e){
+    e.preventDefault();
+    var href = $(this).attr('href');
+    swal({
+        title: "¿Estás seguro de que quieres habilitar a este usuario?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1565C0",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        html: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            window.location.href = href;
+            swal({
+                title: "Usuario habilitado",
+                type: "success",
+                showConfirmButton: false,
+                html: false
+            });
+        }
+    });
+    });
+
+    // Mensaje pop-Up para habilitar un usuario
+    $('#btn-submit-deshabilitar').on('click',function(e){
+    e.preventDefault();
+    var href = $(this).attr('href');
+    swal({
+        title: "¿Estás seguro de que quieres deshabilitar a este usuario?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1565C0",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        html: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            window.location.href = href;
+            swal({
+                title: "Usuario deshabilitado",
+                type: "success",
+                showConfirmButton: false,
+                html: false
+            });
+        }
+    });
+    });
 });
