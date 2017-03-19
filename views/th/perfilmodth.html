@@ -41,8 +41,8 @@
 		</div>
 
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
-			<div class="form-horizontal" enctype="multipart/form-data" method="POST" id="tlf1">
-				<div class="form-group">
+			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="tlf">
+				<div class="form-group" id="tlf1">
                     <label class="control-label col-sm-3">Teléfonos</label>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
@@ -58,13 +58,13 @@
 	                    </div>
 	                </div>
                 </div>
-            </div>
+            </form>
             <div class="text-right" style="padding-bottom:5%;">
                 <button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator"><span>Agregar otro teléfono</span></button>
             </div>
 
-            <div class="form-horizontal" enctype="multipart/form-data" method="POST" id="dir1">
-				<div class="form-group">
+            <form class="form-horizontal" enctype="multipart/form-data" method="POST" id="direccion">
+				<div class="form-group" id="dir1">
 	            	<label class="control-label col-sm-3" for="direccion_tipo1-1">Dirección</label>
 	            	<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
@@ -83,26 +83,104 @@
 	                	<input type="dir_d" class="form-control" id="direccion_descripcion1-1" name="direccion_descripcion1-1" data-validation="string" data-validation="required" placeholder="Descripción...">
 	                </div>
 	            </div>
-            </div>
+            </form>
             <div class="text-right" style="padding-bottom:5%;">
             	<button id="agregardireccion1" type="button" class="btn btn-primary agregardireccion top-space-separator"><span>Agregar otra dirección</span></button>
             </div>
    
-            <div class="col-sm-9 col-sm-offset-3 form-group">
+            <div class="col-sm-9 col-sm-offset-3">
             	<input class="btn btn-primary" value="Enviar" type="submit">
             </div>
 		</div>
 
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datobombero" role="tabpanel">
-			<div class="forms">
-				{{=formBombero}}
-			</div>
+			<form class="form-horizontal" enctype="multipart/form-data" method="post" id="tabla_bombero">
+				<div id="agregarcarnet">
+					<div id="no_table_iniciales__row" class="form-group">
+						<label if="no_table_iniciales__label" class="control-label col-sm-3" for="no_table_iniciales">Iniciales</label>
+						<div class="col-sm-9">
+							<input id="no_table_iniciales" class="form-control string" type="text" name="iniciales">
+						</div>
+					</div>
+
+					<div id="no_table_tipo_sangre__row" class="form-group">
+						<label id="no_table_tipo_sangre__label" class="control-label col-sm-3" for="no_table_tipo_sangre">Tipo de Sangre</label>
+						<div class="col-sm-9">
+							<select id="no_table_tipo_sangre_label" class="generic-widget form-control" name="tipo_sangre">
+								<option value="">Tipo de Sangre</option>
+								<option value="A+">A+</option>
+								<option value="A-">A-</option>
+								<option value="B+">B+</option>
+								<option value="B-">B-</option>
+								<option value="AB+">AB+</option>
+								<option value="AB-">AB-</option>
+								<option value="O+">O+</option>
+								<option value="O-">O-</option>
+							</select> 
+						</div>
+					</div>
+
+					<div id="no_table_rango__row" class="form-group">
+						<label id="no_table_rango" class="control-label col-sm-3" for="no_table_rango">Rango *</label>
+						<div class="col-sm-9">
+							<select id="no_table_rango" class="generic-widget form-control" name="rango">
+								<option value="">Rango</option>
+								<option value="Alumno">Alumno</option>
+								<option value="Bombero">Bombero</option>
+								<option value="Distinguido">Distinguido</option>
+								<option value="Cabo Segundo">Cabo Segundo</option>
+								<option value="Cabo Primero">Cabo Primero</option>
+								<option value="Sargento Segundo">Sargento Segundo</option>
+								<option value="Sargento Primero">Sargento Primero</option>
+								<option value="Sargento Ayudante">Sargento Ayudante</option>
+								<option value="Subteniente">Subteniente</option>
+								<option value="Teniente">Teniente</option>
+								<option value="Capitán">Capitán</option>
+								<option value="Mayor">Mayor</option>
+							</select>
+						</div>
+					</div>
+
+					<div id="no_table_cargo__row" class="form-group">
+						<label id="no_table_cargo__label" class="control-label col-sm-3" for="no_table_cargo">Cargo que ocupa *</label>
+						<div class="col-sm-9">
+							<select name="no_table_cargo" id="no_table_cargo" class="generic-widget form-control" name="cargo">
+								<option value="">Cargo</option>
+								<option value="Comandante en Jefe">Comandante en Jefe</option>
+								<option value="Primer comandante">Primer Comandante</option>
+								<option value="Segundo comandante">Segundo Comandante</option>
+								<option value="Inspector">Inspector</option>
+								<option value="Gerente de Riesgo">Gerente de Riesgo</option>
+								<option value="Gerente de Administración">Gerente de Administración</option>
+								<option value="Gerente de Educación">Gerente de Educación</option>
+								<option value="Gerente de Operaciones">Gerente de Operaciones</option>
+								<option value="Gerente de Talento Humano">Gerente de Talento Humano</option>
+								<option value="Sub-Gerente de Riesgo">Sub-Gerente de Riesgo</option>
+								<option value="Sub-Gerente de Administración">Sub-Gerente de Administración</option>
+								<option value="Sub-Gerente de Educación">Sub-Gerente de Educación</option>
+								<option value="Sub-Gerente de Operaciones">Sub-Gerente de Operaciones</option>
+								<option value="Sub-Gerente de Talento Humano">Sub-Gerente de Talento Humano</option>
+								<option value="Miembro de Riesgo">Miembro de Riesgo</option>
+								<option value="Miembro de Administración">Miembro de Administración</option>
+								<option value="Miembro de Educación">Miembro de Educación</option>
+								<option value="Miembro de Operaciones">Miembro de Operaciones</option>
+								<option value="Miembro de Talento Humano">Miembro de Talento Humano</option>
+								<option value="Miembro de Comandancia">Miembro de Comandancia</option>
+								<option value="Estudiante">Estudiante</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-9 col-sm-offset-3">
+            		<input class="btn btn-primary" value="Enviar" type="submit">
+            	</div>
+				<!--{{=formBombero}}-->
+			</form>
 		</div>
 
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datousuario" role="tabpanel">
-			<div class="forms">
-				{{=formUsuario}}
-			</div>
+			{{=formUsuario}}
 		</div>
 		<p class="col-sm-6 col-sm-offset-3">Los campos <strong>(*)</strong> son obligatorios.</p>
 	</div>
