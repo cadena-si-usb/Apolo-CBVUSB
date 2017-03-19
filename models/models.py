@@ -247,12 +247,13 @@ db.persona.lugar_nacimiento.requires = IS_EMPTY_OR(IS_IN_SET([	'Amazonas',
 												  	'Vargas',
 												  	'Yaracuy',
 												  	'Zulia',
-												  	'Dependencias Federales'], error_message='No es una opción válida.'))
+												  	'Dependencias Federales',
+												  	'Extranjero'], error_message='No es una opción válida.'))
 db.persona.genero.requires = IS_IN_SET(['Masculino','Femenino'], error_message='No es una opción válida.')
 db.persona.imagen.requires = IS_EMPTY_OR(IS_IMAGE(extensions=('jpeg', 'png', 'jpg', 'bmp'), error_message='Debe ser un formato válido: png, jpg, jpeg o bmp.')) #IS_EMPTY_OR(IS_MATCH('^.*\.(jpg|png|jpeg|bmp)$', error_message='Debe ser un formato válido: png, jpg, jpeg o bmp'))
 db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com') # Restricción de que sea el institucional
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
-db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida'))
+db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'))
 
 db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido')
 db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(1000000,10000000, error_message='No es un número de teléfono válido')

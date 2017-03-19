@@ -197,7 +197,7 @@ $(document).ready(function() {
 
     var tlfsCont = [1];
 
-    // Función para los botones para añadir phones
+    // Función para los botones para añadir telefonos
     $("body").on("click","button.agregartlf", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
     var tlfs = "#tlf" + num1;                         // Generar el identificador al contenedor de la unidad correspondiente
@@ -207,7 +207,58 @@ $(document).ready(function() {
 
     // Inserción del html
     $(tlfs).append(
-        '<div class="col-xs-12 col-sm-9 col-sm-offset-3"><input type="tel" class="form-control" id="tlf'+num1+'-'+num2+'" name="tlf'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()"></div>'
+        '<div class="form-horizontal" enctype="multipart/form-data" method="POST" id="tlf'+num2+'">\
+            <div class="form-group">\
+                <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
+                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
+                        <select name="tipotlf'+num1+'-'+num2+'" class="form-control" data-validation="required">\
+                            <option value="">Tipo</option>\
+                            <option value="Casa">Casa</option>\
+                            <option value="Trabajo">Trabajo</option>\
+                            <option value="Otro">Otro</option>\
+                        </select>\
+                    </div>\
+                    <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
+                        <input type="tel" class="form-control" id="tlf'+num1+'-'+num2+'" name="tlf'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
+                    </div>\
+                </div>\
+            </div>\
+         </div>'
+        );
+    });
+
+    var dirsCont = [1];
+
+    // Función para los botones para añadir direcciones
+    $("body").on("click","button.agregardireccion", function() {
+    var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
+    var dirs = "#dir" + num1;                         // Generar el identificador al contenedor de la unidad correspondiente
+
+    dirsCont[num1-1]++;                                // Aumentar el contador de telefonos para el usuario
+    var num2 = dirsCont[num1-1];                         // Variable auxiliar para la sustitucion en el html de abajo
+
+    // Inserción del html
+    $(dirs).append(
+        '<div class="form-horizontal" enctype="multipart/form-data" method="POST" id="dir'+num2+'">\
+            <div class="form-group">\
+                <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
+                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
+                        <select id="direccion_tipo'+num1+'-'+num2+'" name="direccion_tipo'+num1+'-'+num2+'" class="form-control"  data-validation="string" data-validation="required">\
+                            <option value="">Tipo</option>\
+                            <option value="Casa">Casa</option>\
+                            <option value="Trabajo">Trabajo</option>\
+                            <option value="Otro">Otro</option>\
+                        </select>\
+                    </div>\
+                    <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
+                        <input type="dir_c" class="form-control" id="direccion_ciudad'+num1+'-'+num2+'" name="direccion_ciudad'+num1+'-'+num2+'" data-validation="string" data-validation="required" placeholder="Ciudad...">\
+                    </div>\
+                </div>\
+                <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
+                    <input type="dir_d" class="form-control" id="direccion_descripcion'+num1+'-'+num2+'" name="direccion_descripcion'+num1+'-'+num2+'" data-validation="string" data-validation="required" placeholder="Descripción...">\
+                </div>\
+            </div>\
+         </div>'
         );
     });
 });
