@@ -220,10 +220,20 @@ $(document).ready(function() {
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
                         <input type="tel" class="form-control" id="tlf'+num1+'-'+num2+'" name="tlf'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
                     </div>\
+                    <div class="text-right" id="quitartlf'+num2+'">\
+                        <button id="quitartlf'+num1+'-'+num2+'" type="button" class="btn btn-primary quitartlf top-space-separator"><span>Eliminar Teléfono</span></button>\
+                    </div>\
                 </div>\
             </div>'
         );
     });
+
+    $("body").on("click","button.quitartlf", function() {
+        var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
+        var tag_eliminar = "#tlf"+tlfsCont[num1-1];
+        $(tag_eliminar).remove();
+        tlfsCont[num1-1]--;
+    });   
 
     var dirsCont = [1];
 
@@ -253,10 +263,20 @@ $(document).ready(function() {
                 </div>\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
                     <input type="dir_d" class="form-control" id="direccion_descripcion'+num1+'-'+num2+'" name="direccion_descripcion'+num1+'-'+num2+'" data-validation="string" data-validation="required" placeholder="Descripción...">\
+                    <div class="text-right" id="quitardireccion'+num2+'">\
+                        <button id="quitardireccion'+num1+'-'+num2+'" type="button" class="btn btn-primary quitardireccion top-space-separator"><span>Eliminar Dirección</span></button>\
+                    </div>\
                 </div>\
             </div>'
         );
     });
+
+    $("body").on("click","button.quitardireccion", function() {
+        var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
+        var tag_eliminar = "#dir"+dirsCont[num1-1];
+        $(tag_eliminar).remove();
+        dirsCont[num1-1]--;
+    }); 
 
     // Funcion para ingresar carnet solo cuando tu cargo no es estudiante
     $("select[name=no_table_cargo]").change(function(){
