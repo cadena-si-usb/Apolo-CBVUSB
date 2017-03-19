@@ -32,10 +32,9 @@
   middle_column = {0: mc0, 1: mc1, 2: mc2}[
   (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
 </head>
-
   <body class="Site">
 
-    <div class="bottom-space-separator">
+    <div class="bottom-space-separator bg-4">
       <!-- Banner -->
       <div class="container">
         <a href="{{=URL('default','index')}}" title="Ir al inicio">
@@ -78,13 +77,13 @@
                 <li><a href="{{=URL('th','perfilth')}}">Ver Perfil</a></li>
                 <li><a href="{{=URL('th','perfilmodth')}}">Modificar <br/> Perfil</a></li>
                 <li><a href="{{=URL('th','registrousrth')}}">Registrar <br/> Usuario</a></li>
-                <li><a href="{{=URL('th','eliminarusrth')}}">Gesionar <br/> Usuarios</a></li>
-                <li><a href="{{=URL('th','confirmar')}}">Gestionar <br/> Registros</a></li>
+                <li><a href="{{=URL('th','eliminarusrth')}}">Gestionar <br/> Usuarios</a></li>
+                <li><a href="{{=URL('default','confirmar')}}">Gestionar <br/> Registros</a></li>
                 <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
               </ul>
             </li>
             {{else:}}
-            <li><a href="{{=URL('default/user','login')}}">Iniciar sesión</a></li>
+            <li><a href="{{=URL('default/user','login')}}">Iniciar Sesión</a></li>
             {{pass}}
           </ul>
         </div>
@@ -95,9 +94,8 @@
   <!-- Mensajes -->
   {{if not('tipo' in locals()): tipo = "success"}}{{pass}}
   {{if response.flash:}}
-  <div class="row">
-    {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
-  </div>
+  {{=DIV(CENTER(H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")),_class="row")
+  }}
   {{pass}}
 
   <!-- Contenido que extenderá el layout en cada vista -->

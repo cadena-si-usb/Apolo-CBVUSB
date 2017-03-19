@@ -360,7 +360,7 @@ if not db(db.usuario.username == 'admin').select():
 	estudiante 	= 	auth.add_group(role='Estudiante', description='description')
 	bombero 	=	auth.add_group(role='Bombero', description='description')
 	gerencia   	=	auth.add_group(role='Gerencia', description='description')
-	inspectoria	=	auth.add_group(role='Inspectoría', description='description')
+	inspectoria	=	auth.add_group(role='Inspectoria', description='description')
 	comandancia	=	auth.add_group(role='Comandancia', description='description')
 	admin	  	=	auth.add_group(role='Administrador', description='description')
 

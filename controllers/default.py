@@ -166,7 +166,22 @@ def confirmar():
 
 def actualizar_permisos( id_usuario, cargo ):
 
-	estudiante = 
+	estudiante 	= '^Estudiante$'
+	bombero		= '^Miembro.*$'
+	gerencia	= '^.*[Gg]erente.*$'
+	inspector	= '^Inspector$'
+	comandancia = '^.*[Cc]omandante$'
+
+	if re.match(estudiante, cargo):
+		auth.add_membership(auth.id_group('Estudiante'), id_usuario)
+	elif re.match(bombero, cargo):
+		auth.add_membership(auth.id_group('Bombero'), id_usuario)
+	elif re.match(gerencia, cargo):
+		auth.add_membership(auth.id_group('Gerencia'), id_usuario)
+	elif re.match(inspector, cargo):
+		auth.add_membership(auth.id_group('Inspectoria'), id_usuario)
+	elif re.match(comandancia, cargo):
+		auth.add_membership(auth.id_group('Comandancia'), id_usuario)
 
 def editarnoconfirmado():
 	T.force('es')
