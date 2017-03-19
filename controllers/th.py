@@ -239,18 +239,6 @@ def perfilmodth():
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)  
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
-"""     Field('password', 
-			type='password', 
-			readable=False, 
-			length=512, 
-			requires=db.usuario.password.requires,
-			label='Clave *'),
-		Field('password_again',
-			type='password', 
-			readable=False, 
-			length=512, 
-			requires=db.usuario.password.requires,
-			label='Reingrese la clave *'),"""     # HAY QUE GENERARLO RANDOM
 def registrousrth():
 	T.force('es')
 	tipo=""

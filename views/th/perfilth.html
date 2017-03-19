@@ -36,7 +36,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-credit-card"></span>  Cédula:</td>
-                        {{if usuario.persona.cedula:}}
+                        {{if usuario.persona.cedula and usuario.persona.cedula!=-1:}}
                         <td>{{=usuario.persona.nacionalidad}}-{{=usuario.persona.cedula}}</td>
                         {{else:}}
                         <td>-</td>
@@ -121,7 +121,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-credit-card"></span>  Carnet:</td>
-                        {{if usuario.bombero.carnet:}}
+                        {{if usuario.bombero.carnet and usuario.bombero.carnet!=-1:}}
                         <td>{{=usuario.bombero.carnet}}</td>
                         {{else:}}
                         <td>-</td>

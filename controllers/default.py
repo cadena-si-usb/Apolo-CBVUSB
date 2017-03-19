@@ -23,6 +23,8 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 	default_cedula = ""
 	default_genero = ""
 	default_carnet = ""
+	default_cargo  = ""
+	default_rango  = ""
 
 	bombero = db(db.bombero.id_usuario==auth.user.id).select()
 
@@ -32,6 +34,8 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 		default_cedula = persona.cedula
 		default_genero = persona.genero
 		default_carnet = bombero.first().carnet
+		default_cargo  = bombero.first().cargo
+		default_rango  = bombero.first().rango
 
 	formConfirmar = SQLFORM.factory(
 		Field('password', 
@@ -82,6 +86,20 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 			default=auth.user.email, 
 			requires=db.persona.email_principal.requires,
 			label='Email principal'
+			),
+		Field('rango', 
+			type='string', 
+			notnull=True,
+			default=default_rango, 
+			requires=db.bombero.rango.requires,
+			label='Rango'
+			),
+		Field('cargo', 
+			type='string', 
+			notnull=True,
+			default=default_cargo, 
+			requires=db.bombero.cargo.requires,
+			label='Cargo'
 			),
 		Field('carnet', 
 			type='integer', 
@@ -155,13 +173,6 @@ def editarnoconfirmado():
 	usuario = db(db.usuario.id==bombero.id_usuario).select().first()
 
 	formEditar = SQLFORM.factory(
-		Field('carnet', 
-			type='integer', 
-			unique=True,
-			default=bombero.carnet,
-			requires=db.bombero.carnet.requires,
-			label='Carnet'
-			),
 		Field('cedula', 
 			type='integer',
 			length=512, 
@@ -196,6 +207,27 @@ def editarnoconfirmado():
 			default=usuario.email, 
 			requires=db.persona.email_principal.requires,
 			label='Email principal'
+			),
+		Field('rango', 
+			type='string', 
+			notnull=True,
+			default=default_rango, 
+			requires=db.bombero.rango.requires,
+			label='Rango'
+			),
+		Field('cargo', 
+			type='string', 
+			notnull=True,
+			default=default_cargo, 
+			requires=db.bombero.cargo.requires,
+			label='Cargo'
+			),
+		Field('carnet', 
+			type='integer', 
+			unique=True, 
+			default=default_carnet,
+			requires=db.bombero.carnet.requires,
+			label='Carnet'
 			)
 		)
 		

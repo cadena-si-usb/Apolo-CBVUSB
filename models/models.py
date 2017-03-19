@@ -20,6 +20,8 @@ auth.settings.table_user_name = 'usuario'
 auth.settings.extra_fields['usuario']= [Field('disable', type='boolean', default=False),
 										Field('confirmed', type='boolean', default=False)]
 auth.define_tables(username=True, signature=False, migrate="db.usuario")
+
+auth.settings.create_user_groups = None
 auth.settings.actions_disabled.append('register')
 #auth.settings.actions_disabled.append('request_reset_password')
 
@@ -58,11 +60,10 @@ db.define_table('telefono',
 	Field('id_persona', type='reference persona', required=True, notnull=True),
 	Field('codigo_telefono', type='integer', length=4, notnull=True),
 	Field('numero_telefono', type='integer', length=7, notnull=True),
-	Field('tipo', type='string', notnull=True)
 	migrate="db.telefono")
 
 db.define_table('direccion',
-	Field('id_persona', type='reference persona', required=True, notnull=True, unique=True),
+	Field('id_persona', type='reference persona', required=True, notnull=True),
 	Field('direccion_descripcion', type='string', notnull=True),
 	Field('direccion_tipo', type='string', notnull=True),
 	Field('direccion_ciudad', type='string', notnull=True),
@@ -103,7 +104,6 @@ db.define_table('anade_observacion',
     Field('servicio', type='reference servicio'),
     Field('observacion', type='text'),
     migrate="db.anade_observacion")
-
 
 db.define_table('comision',
     Field('servicio', type='reference servicio'),
@@ -205,6 +205,8 @@ db.define_table('asiste',
 
 
 # REQUIRES de la DB
+db.auth_group.requires = IS_NOT_IN_DB(db, db.auth_group.role, error_message='Ya existe ese grupo')
+
 db.usuario.username.requires = [IS_MATCH('^\w{6,16}$', error_message='Debe contener únicamente los caracteres: a-z, A-Z, 0-9 y _. Además debe tener una longitud de entre 6 y 16 caracteres.'),
 								IS_NOT_IN_DB(db, db.usuario.username, error_message='Ya existe un usuario con ese nombre.')]
 
@@ -254,7 +256,6 @@ db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Di
 
 db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido')
 db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(1000000,10000000, error_message='No es un número de teléfono válido')
-db.telefono.tipo = IS_IN_SET(['Casa','Trabajo','Celular'], error_message='Debe escoger una opción')
 
 db.bombero.carnet.requires = [IS_INT_IN_RANGE(1, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='El carnet ya existe en el sistema.')]
 db.bombero.iniciales.requires = IS_EMPTY_OR(IS_MATCH('^[a-zA-ZñÑ]{2,4}$', error_message='Debe estar entre 2 y 4 caracteres.'))
@@ -298,7 +299,7 @@ db.bombero.rango.requires = IS_IN_SET([	'Aspirante',
 									  error_message='Debe seleccionar una opción.')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser número positivo.')
 
-db.direccion.direccion_tipo.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$', error_message='Debe contener solo letras.')
+db.direccion.direccion_tipo.requires = IS_IN_SET(['Casa','Trabajo','Otro'], error_message='Debe seleccionar una opción')
 db.direccion.direccion_ciudad.requires = IS_MATCH('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s-]+$', error_message='Debe contener sólo letras o guiones.')
 
 db.servicio.fechaCreacion.requires = IS_DATE(format=T('%d/%m/%Y'), error_message='Debe tener el siguiente formato: dd/mm/yyyy')
@@ -354,3 +355,41 @@ if not db(db.usuario.username == 'admin').select():
 	id_usuario = db.usuario.insert(username='admin', password=CRYPT()('admin')[0], first_name='Apolo', last_name='Bomberos', email='apolo.cbvusb@gmail.com', confirmed=True)
 	id_persona = db.persona.insert(cedula=-1, primer_nombre='Apolo', primer_apellido='Bomberos', email_principal='apolo.cbvusb@gmail.com', genero='Masculino')
 	db.bombero.insert( carnet=-1, cargo='Administrador', id_persona=id_persona, id_usuario=id_usuario)
+
+	estudiante 	= 	auth.add_group(role='Estudiante', description='description')
+	bombero 	=	auth.add_group(role='Bombero', description='description')
+	gerencia   	=	auth.add_group(role='Gerencia', description='description')
+	inspectoria	=	auth.add_group(role='Inspectoría', description='description')
+	comandancia	=	auth.add_group(role='Comandancia', description='description')
+	admin	  	=	auth.add_group(role='Administrador', description='description')
+
+	auth.add_permission(estudiante, 'Estudiantes')
+
+	auth.add_permission(bombero, 'Estudiantes')
+	auth.add_permission(bombero, 'Bombero')
+
+	auth.add_permission(gerencia, 'Estudiantes')
+	auth.add_permission(gerencia, 'Bombero')
+	auth.add_permission(gerencia, 'Gerencia')
+
+	auth.add_permission(inspectoria, 'Estudiantes')
+	auth.add_permission(inspectoria, 'Bombero')
+	auth.add_permission(inspectoria, 'Gerencia')
+	auth.add_permission(inspectoria, 'Inspectoria')
+
+	auth.add_permission(comandancia, 'Estudiantes')
+	auth.add_permission(comandancia, 'Bombero')
+	auth.add_permission(comandancia, 'Gerencia')
+	auth.add_permission(comandancia, 'Inspectoria')
+	auth.add_permission(comandancia, 'Comandancia')
+
+	auth.add_permission(admin, 'Estudiantes')
+	auth.add_permission(admin, 'Bombero')
+	auth.add_permission(admin, 'Gerencia')
+	auth.add_permission(admin, 'Inspectoria')
+	auth.add_permission(admin, 'Comandancia')
+	auth.add_permission(admin, 'Estudiantes')
+	
+	auth.settings.everybody_group_id = estudiante
+
+	auth.add_membership(admin, id_usuario)
