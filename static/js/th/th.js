@@ -262,6 +262,7 @@ $(document).ready(function() {
     $("select[name=no_table_cargo]").change(function(){
         var cargo = $('select[name=no_table_cargo]').val();
         if (cargo != "Estudiante") {
+            $("#no_table_carnet__row").remove();
             $("#no_table_cargo__row").after(
                 '<div id="no_table_carnet__row" class="form-group">\
                     <label if="no_table_carnet__label" class="control-label col-sm-3" for="no_table_carnet">Carnet *</label>\
