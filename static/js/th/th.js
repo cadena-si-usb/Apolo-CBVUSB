@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    var dirsCont = 1; //Contador de las direcciones que se van agregando o quitando
+    var tlfsCont = 1; //Contador de los telefonos que se van agregando o quitando
+
     // Función para hacer clickeables las filas de las tablas y redirigir al href correspondiente
     $(".clickable-row").on('click', function() {
         window.location = $(this).data("href");
@@ -195,22 +198,17 @@ $(document).ready(function() {
     });
     });
 
-    var tlfsCont = [1];
-
     // Función para los botones para añadir telefonos
     $("body").on("click","button.agregartlf", function() {
-    var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
-    var tlfs = "#tlf" + num1;                         // Generar el identificador al contenedor de la unidad correspondiente
-
-    tlfsCont[num1-1]++;                                // Aumentar el contador de telefonos para el usuario
-    var num2 = tlfsCont[num1-1];                           // Variable auxiliar para la sustitucion en el html de abajo
+    tlfsCont++;                                // Aumentar el contador de telefonos para el usuario
+    var num = tlfsCont;                           // Variable auxiliar para la sustitucion en el html de abajo
 
     // Inserción del html
     $("#tlf").append(
-            '<div class="form-group" id="tlf'+num2+'">\
+            '<div class="form-group" id="tlf'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select name="tipotlf'+num1+'-'+num2+'" class="form-control" data-validation="required">\
+                        <select name="tipotlf'+num+'" class="form-control" data-validation="required">\
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
@@ -218,39 +216,34 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="tel" class="form-control" id="tlf'+num1+'-'+num2+'" name="tlf'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
+                        <input type="tel" class="form-control" id="tlf'+num+'" name="tlf'+num+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
                     </div>\
-                    <div class="text-right" id="quitartlf'+num2+'">\
-                        <button id="quitartlf'+num1+'-'+num2+'" type="button" class="btn btn-primary quitartlf top-space-separator"><span>Eliminar Teléfono</span></button>\
+                    <div class="text-right" id="quitartlf'+num+'">\
+                        <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator"><span>Eliminar Teléfono</span></button>\
                     </div>\
                 </div>\
             </div>'
         );
     });
 
+    // Funcion para quitar telefono agregado en interfaz
     $("body").on("click","button.quitartlf", function() {
-        var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
-        var tag_eliminar = "#tlf"+tlfsCont[num1-1];
+        var tag_eliminar = "#tlf"+tlfsCont;
         $(tag_eliminar).remove();
-        tlfsCont[num1-1]--;
+        tlfsCont--;
     });   
-
-    var dirsCont = [1];
 
     // Función para los botones para añadir direcciones
     $("body").on("click","button.agregardireccion", function() {
-    var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
-    var dirs = "#dir" + num1;                         // Generar el identificador al contenedor de la unidad correspondiente
-
-    dirsCont[num1-1]++;                                // Aumentar el contador de telefonos para el usuario
-    var num2 = dirsCont[num1-1];                         // Variable auxiliar para la sustitucion en el html de abajo
+    dirsCont++;                                // Aumentar el contador de telefonos para el usuario
+    var num = dirsCont;                         // Variable auxiliar para la sustitucion en el html de abajo
 
     // Inserción del html
     $("#direccion").append(
-            '<div class="form-group" id="dir'+num2+'">\
+            '<div class="form-group" id="dir'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select id="direccion_tipo'+num1+'-'+num2+'" name="direccion_tipo'+num1+'-'+num2+'" class="form-control"  data-validation="string" data-validation="required">\
+                        <select id="direccion_tipo'+num+'" name="direccion_tipo'+num+'" class="form-control"  data-validation="string" data-validation="required">\
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
@@ -258,24 +251,24 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="dir_c" class="form-control" id="direccion_ciudad'+num1+'-'+num2+'" name="direccion_ciudad'+num1+'-'+num2+'" data-validation="string" data-validation="required" placeholder="Ciudad...">\
+                        <input type="dir_c" class="form-control" id="direccion_ciudad'+num+'" name="direccion_ciudad'+num+'" data-validation="string" data-validation="required" placeholder="Ciudad...">\
                     </div>\
                 </div>\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
-                    <input type="dir_d" class="form-control" id="direccion_descripcion'+num1+'-'+num2+'" name="direccion_descripcion'+num1+'-'+num2+'" data-validation="string" data-validation="required" placeholder="Descripción...">\
-                    <div class="text-right" id="quitardireccion'+num2+'">\
-                        <button id="quitardireccion'+num1+'-'+num2+'" type="button" class="btn btn-primary quitardireccion top-space-separator"><span>Eliminar Dirección</span></button>\
+                    <input type="dir_d" class="form-control" id="direccion_descripcion'+num+'" name="direccion_descripcion'+num+'" data-validation="string" data-validation="required" placeholder="Descripción...">\
+                    <div class="text-right" id="quitardireccion'+num+'">\
+                        <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator"><span>Eliminar Dirección</span></button>\
                     </div>\
                 </div>\
             </div>'
         );
     });
 
+    // Funcion para quitar direccion agregada en interfaz
     $("body").on("click","button.quitardireccion", function() {
-        var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
-        var tag_eliminar = "#dir"+dirsCont[num1-1];
+        var tag_eliminar = "#dir"+dirsCont;
         $(tag_eliminar).remove();
-        dirsCont[num1-1]--;
+        dirsCont--;
     }); 
 
     // Funcion para ingresar carnet solo cuando tu cargo no es estudiante
