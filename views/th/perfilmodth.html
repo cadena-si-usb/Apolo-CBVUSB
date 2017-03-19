@@ -32,12 +32,14 @@
 	</div>
 	<br/><br/>
 	<div class="tab-content">
+		<!-- Datos personales -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade in active" id="datopersonal" role="tabpanel">
 			<div class="forms">
 				{{=formPersona}}
 			</div>
 		</div>
 
+		<!-- Datos de contacto -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="tlf">
 				<div class="form-group" id="no_table_persona_contacto__row">
@@ -53,7 +55,6 @@
 					            <option value="Trabajo">Trabajo</option>
 					            <option value="Otro">Otro</option>
 				            </select>
-				            <!--span class="help-block form-error" style="color:red;">Debe seleccionar una opción.</span-->
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
 	                     	<input type="telefono1" class="form-control number" id="telefono1" name="telefono1" placeholder="Teléfono...">
@@ -67,7 +68,6 @@
 					            <option value="Trabajo">Trabajo</option>
 					            <option value="Otro">Otro</option>
 				            </select>
-				            <!--span class="help-block form-error" style="color:red;">Debe seleccionar una opción.</span-->
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
 	                     	<input type="telefono2" class="form-control number" id="telefono2" placeholder="Teléfono...">
@@ -84,7 +84,6 @@
 					            <option value="Trabajo">Trabajo</option>
 					            <option value="Otro">Otro</option>
 				            </select>
-				            <!--span class="help-block form-error" style="color:red;">Debe seleccionar una opción.</span-->
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
 	                     	<input type="tel" class="form-control" id="tel1" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">
@@ -126,6 +125,7 @@
             </div>
 		</div>
 
+		<!-- Datos de bombero -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datobombero" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="post" id="tabla_bombero">
 					<div id="no_table_iniciales__row" class="form-group">
@@ -206,10 +206,10 @@
 				<div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
             		<input class="btn btn-primary" value="Enviar" type="submit">
             	</div>
-				<!--{{=formBombero}}-->
 			</form>
 		</div>
 
+		<!-- Cambiar clave -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datousuario" role="tabpanel">
 			{{=formUsuario}}
 		</div>

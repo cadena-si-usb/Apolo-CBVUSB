@@ -160,7 +160,7 @@ def confirmar():
 
 	tabla = db((db.bombero.id_persona==db.persona.id) & (db.usuario.id==db.bombero.id_usuario) & (db.usuario.confirmed == False)).select( distinct=db.bombero.carnet, orderby=~db.bombero.carnet)
 
-	print tabla
+	#print tabla
 
 	return dict(tabla=tabla)
 
@@ -306,5 +306,3 @@ def call():
 	supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
 	"""
 	return service()
-
-## Inician nuestras funciones
