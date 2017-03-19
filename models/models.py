@@ -389,7 +389,7 @@ if not db(db.usuario.username == 'admin').select():
 	auth.add_permission(admin, 'Gerencia')
 	auth.add_permission(admin, 'Inspectoria')
 	auth.add_permission(admin, 'Comandancia')
-	auth.add_permission(admin, 'Estudiantes')
+	auth.add_permission(admin, 'Administrador')
 	
 	auth.settings.everybody_group_id = estudiante
 

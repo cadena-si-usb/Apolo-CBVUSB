@@ -51,6 +51,8 @@ def perfilmodth():
 	usuario=db(db.usuario.id==userid).select().first()
 	tipo=""
 
+	print request.vars
+
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
 		Field('password', 
@@ -238,6 +240,7 @@ def perfilmodth():
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)  
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
+@auth.requires_permission('Gerencia')
 def registrousrth():
 	T.force('es')
 	tipo=""
@@ -329,3 +332,22 @@ def buscarth():
 										distinct=db.bombero.carnet,
 										orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
+
+form1 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
+        INPUT(_type='submit'), _action=URL('test_add'), _method="get")
+
+def test():
+	form2 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
+				INPUT(_type='submit'))
+	if form1.process(formname='form_one').accepted:
+		response.flash = 'form one accepted'
+	if form2.process(formname='form_two').accepted:
+		response.flash = 'form two accepted'
+	return dict(form1=form1, form2=form2)
+
+def test_add():
+	if request.vars:
+		form = request.vars
+
+	form1 = form
+	return dict(form1=form)
