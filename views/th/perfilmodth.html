@@ -2,12 +2,10 @@
 
 {{block head_css}}
 <link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
-<link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>
 {{end}}
 
 {{block head_js}}
 <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
-<script src="{{=URL('static','js/sweetalert.min.js')}}"></script>
 <script src="{{=URL('static','js/th/th.js')}}"></script>
 {{end}}
 
@@ -34,34 +32,91 @@
 	</div>
 	<br/><br/>
 	<div class="tab-content">
+		<!-- Datos personales -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade in active" id="datopersonal" role="tabpanel">
 			<div class="forms">
 				{{=formPersona}}
 			</div>
 		</div>
 
+		<!-- Datos de contacto -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="tlf">
-				<div class="form-group" id="tlf1">
-                    <label class="control-label col-sm-3">Teléfonos</label>
-	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+				<div class="form-group" id="no_table_persona_contacto__row">
+					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia</label>
+					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
+						<input type="persona_contacto_nombre" class="form-control string" id="persona_contacto_nombre" placeholder="Nombre Completo...">
+					</div>
+					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select name="tipotlf1-1" class="form-control" data-validation="required">
+		                 	<select id="tipotelefono1" class="form-control string" data-validation="required">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
 					            <option value="Otro">Otro</option>
 				            </select>
-				            <!--span class="help-block form-error" style="color:red;">Debe seleccionar una opción.</span-->
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="tel" class="form-control" id="tlf1-1" name="tlf1-1" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">
+	                     	<input type="telefono1" class="form-control number" id="telefono1" name="telefono1" placeholder="Teléfono...">
+	                    </div>
+	                </div>
+	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
+		                 	<select id="tipotelefono2" class="form-control string" data-validation="required">
+					            <option value="">Tipo</option>
+					            <option value="Casa">Casa</option>
+					            <option value="Trabajo">Trabajo</option>
+					            <option value="Otro">Otro</option>
+				            </select>
+			            </div>
+			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
+	                     	<input type="telefono2" class="form-control number" id="telefono2" placeholder="Teléfono...">
+	                    </div>
+	                </div>
+				</div>
+				<div class="form-group" id="tlf1">
+                    <label class="control-label col-sm-3" for="tipotlf1">Teléfonos</label>
+	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
+		                 	<select id="tipotlf1" class="form-control" data-validation="required">
+					            <option value="">Tipo</option>
+					            <option value="Casa">Casa</option>
+					            <option value="Trabajo">Trabajo</option>
+					            <option value="Otro">Otro</option>
+				            </select>
+			            </div>
+			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
+	                     	<input type="tel" class="form-control" id="tel1" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">
 	                    </div>
 	                </div>
                 </div>
             </form>
             <div class="text-right" style="padding-bottom:3%;">
                 <button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator"><span>Agregar otro teléfono</span></button>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data" method="POST" id="direccion">
+				<div class="form-group" id="dir1">
+	            	<label class="control-label col-sm-3" for="direccion_tipo1">Dirección</label>
+	            	<div class="col-xs-12 col-sm-9 col-sm-offset-3">
+	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
+		                   	<select id="direccion_tipo1" class="form-control"  data-validation="string" data-validation="required">
+				              <option value="">Tipo</option>
+				              <option value="Casa">Casa</option>
+				              <option value="Trabajo">Trabajo</option>
+				              <option value="Otro">Otro</option>
+				        	</select>
+			            </div>
+			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
+	                    	<input type="direccion_ciudad1" class="form-control" id="direccion_ciudad1" data-validation="string" data-validation="required" placeholder="Ciudad...">
+	                	</div>
+	                </div>
+	                <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">
+	                	<input type="direccion_descripcion1" class="form-control" id="direccion_descripcion1" data-validation="string" data-validation="required" placeholder="Descripción...">
+	                </div>
+	            </div>
+            </form>
+            <div class="text-right" style="padding-bottom:3%;">
+            	<button id="agregardireccion1" type="button" class="btn btn-primary agregardireccion top-space-separator"><span>Agregar otra dirección</span></button>
             </div>
    
             <div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
@@ -71,6 +126,7 @@
             
 		</div>
 
+		<!-- Datos de bombero -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datobombero" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="post" id="tabla_bombero">
 					<div id="no_table_iniciales__row" class="form-group">
@@ -84,7 +140,7 @@
 						<label id="no_table_tipo_sangre__label" class="control-label col-sm-3" for="no_table_tipo_sangre">Tipo de Sangre</label>
 						<div class="col-sm-9">
 							<select id="no_table_tipo_sangre_label" class="generic-widget form-control" name="tipo_sangre">
-								<option value="">Tipo de Sangre</option>
+								<option value=""></option>
 								<option value="A+">A+</option>
 								<option value="A-">A-</option>
 								<option value="B+">B+</option>
@@ -101,7 +157,7 @@
 						<label id="no_table_rango" class="control-label col-sm-3" for="no_table_rango">Rango *</label>
 						<div class="col-sm-9">
 							<select id="no_table_rango" class="generic-widget form-control" name="rango">
-								<option value="">Rango</option>
+								<option value=""></option>
 								<option value="Alumno">Alumno</option>
 								<option value="Bombero">Bombero</option>
 								<option value="Distinguido">Distinguido</option>
@@ -122,7 +178,7 @@
 						<label id="no_table_cargo__label" class="control-label col-sm-3" for="no_table_cargo">Cargo que ocupa *</label>
 						<div class="col-sm-9">
 							<select name="no_table_cargo" id="no_table_cargo" class="generic-widget form-control" name="cargo">
-								<option value="">Cargo</option>
+								<option value=""></option>
 								<option value="Comandante en Jefe">Comandante en Jefe</option>
 								<option value="Primer comandante">Primer Comandante</option>
 								<option value="Segundo comandante">Segundo Comandante</option>
@@ -151,10 +207,10 @@
 				<div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
             		<input class="btn btn-primary" value="Enviar" type="submit">
             	</div>
-				<!--{{=formBombero}}-->
 			</form>
 		</div>
 
+		<!-- Cambiar clave -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datousuario" role="tabpanel">
 			{{=formUsuario}}
 		</div>
