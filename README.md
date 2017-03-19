@@ -1,7 +1,7 @@
-#[Apolo](http://apolo.bomberos.usb.ve "Ir a apolo")
+# [Apolo](http://apolo.bomberos.usb.ve "Ir a apolo")
 *Sistema de gestión para el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar (CBVUSB)*
 
-##Autores
+## Autores
 
 1. Pyrony:
    + Carlos Serrada
@@ -25,12 +25,15 @@
    + Génesis Kufatty
    + Salvador Covelo
 
-##Estado del proyecto
+## Estado del proyecto
 20% del sistema completado.
 
-##Especificaciones técnicas
+## Especificaciones técnicas
 1. Requeirmientos del sistema
+   + PostgreSQL 9.X
    + Python v2.7.x
+   + Libreria python-ldap
+   + Libreia psycopg2
 
 2. Versiones de los componentes
    + Bootstrap v3.3.5             (incluido)
@@ -43,7 +46,7 @@
    + Jquery UI v1.12.1            (incluido)
    + SweetAlert                   (incluido)
 
-##Instalación:
+## Instalación:
 
 + Descargar web2py. Puede hacerlo haciendo click [aquí](http://www.web2py.com/init/default/download "Descargar web2py").
 + Extraer la carpeta contenida en el comprimido de web2py en su home.
@@ -62,4 +65,4 @@ cd web2py/applications/apolo/
 sudo ./DBINSTALL.sh
 ```
 + Ingresar "1234" cuando solicite la contraseña para crear el nuevo role
-+ Mover la carpeta "web2py/aplications/apolo/site-packages/" a "web2py/"
++ Mover la carpeta "web2py/aplications/apolo/site-packages/" a "web2py/", o hacer un enlace simbólico

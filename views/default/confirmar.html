@@ -48,7 +48,7 @@
 		            {{pass}}
 		            <td>{{=row.bombero.cargo}}</td>
 		            <td>{{=row.bombero.rango}}</td>
-		            <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['editar',str(row.bombero.id)])}}" type="button"><span>Editar</span></button></td>
+		            <td><a class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['editar',str(row.bombero.id)])}}" type="button" role="button"><span>Editar</span></a></td>
 				    <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['eliminar',str(row.bombero.id)])}}" type="button" id="btn-submit-eliminar"><span>Eliminar</span></td>
 				    <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['confirmar',str(row.bombero.id)])}}" type="button" id="btn-submit-confirmar"><span>Confirmar</span></td>
 				    {{pass}}

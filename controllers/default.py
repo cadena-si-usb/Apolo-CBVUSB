@@ -2,6 +2,7 @@
 # this file is released under public domain and you can use without limitations
 # psql -U cbvusb -h localhost -W
 
+import re
 import time
 import gluon
 import datetime
@@ -154,6 +155,7 @@ def confirmar():
 			db(db.bombero.id==id_bombero).delete()
 
 		if opcion == 'confirmar':
+			actualizar_permisos(bombero.id_usuario, bombero.cargo)
 			db(db.usuario.id==bombero.id_usuario).update(confirmed=True)
 
 	tabla = db((db.bombero.id_persona==db.persona.id) & (db.usuario.id==db.bombero.id_usuario) & (db.usuario.confirmed == False)).select( distinct=db.bombero.carnet, orderby=~db.bombero.carnet)
@@ -161,6 +163,10 @@ def confirmar():
 	print tabla
 
 	return dict(tabla=tabla)
+
+def actualizar_permisos( id_usuario, cargo ):
+
+	estudiante = 
 
 def editarnoconfirmado():
 	T.force('es')
@@ -177,7 +183,7 @@ def editarnoconfirmado():
 			type='integer',
 			length=512, 
 			default=persona.cedula,
-			requires=db.persona.cedula.requires,
+			requires=IS_INT_IN_RANGE(minimum=1,maximum=100000000, error_message='Número de cedula no valido.'),
 			label='Cédula'
 			),
 		Field('primer_nombre', 
@@ -201,44 +207,36 @@ def editarnoconfirmado():
 			requires=db.persona.genero.requires,
 			label='Género'
 			),
-		Field('email_principal', 
-			type='string', 
-			notnull=True,
-			default=usuario.email, 
-			requires=db.persona.email_principal.requires,
-			label='Email principal'
-			),
 		Field('rango', 
 			type='string', 
 			notnull=True,
-			default=default_rango, 
+			default=bombero.rango, 
 			requires=db.bombero.rango.requires,
 			label='Rango'
 			),
 		Field('cargo', 
 			type='string', 
 			notnull=True,
-			default=default_cargo, 
+			default=bombero.cargo, 
 			requires=db.bombero.cargo.requires,
 			label='Cargo'
 			),
 		Field('carnet', 
 			type='integer', 
 			unique=True, 
-			default=default_carnet,
-			requires=db.bombero.carnet.requires,
+			default=bombero.carnet,
+			requires=IS_INT_IN_RANGE(1, error_message='Debe ser positivo'),
 			label='Carnet'
 			)
 		)
 		
 	if formEditar.process(session=None, formname='editar', keepvalues=True).accepted:
 		
-		db.usuario.update( first_name=formEditar.vars.primer_nombre, last_name=formEditar.vars.primer_apellido, **db.usuario._filter_fields(formEditar.vars))
-		db.persona.update( **db.persona._filter_fields(formEditar.vars))
-		db.bombero.update( **db.bombero._filter_fields(formEditar.vars))
+		db(db.usuario.id==usuario.id).update( first_name=formEditar.vars.primer_nombre, last_name=formEditar.vars.primer_apellido, **db.usuario._filter_fields(formEditar.vars))
+		db(db.persona.id==persona.id).update( **db.persona._filter_fields(formEditar.vars))
+		db(db.bombero.id==bombero.id).update( **db.bombero._filter_fields(formEditar.vars))
 		
-		tipo="success"
-		response.flash = 'La solicitud de confirmación fue enviada exitosamente, le será notificado el resultado'
+		redirect(URL("default","confirmar"))
 
 	elif formEditar.errors:
 		tipo="danger"
