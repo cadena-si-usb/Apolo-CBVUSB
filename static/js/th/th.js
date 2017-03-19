@@ -200,6 +200,7 @@ $(document).ready(function() {
     // Función para los botones para añadir telefonos
     $("body").on("click","button.agregartlf", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
+    var tlfs = "#tlf" + num1;                         // Generar el identificador al contenedor de la unidad correspondiente
 
     tlfsCont[num1-1]++;                                // Aumentar el contador de telefonos para el usuario
     var num2 = tlfsCont[num1-1];                           // Variable auxiliar para la sustitucion en el html de abajo
@@ -229,6 +230,7 @@ $(document).ready(function() {
     // Función para los botones para añadir direcciones
     $("body").on("click","button.agregardireccion", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número del usuario al que corresponde el telefono
+    var dirs = "#dir" + num1;                         // Generar el identificador al contenedor de la unidad correspondiente
 
     dirsCont[num1-1]++;                                // Aumentar el contador de telefonos para el usuario
     var num2 = dirsCont[num1-1];                         // Variable auxiliar para la sustitucion en el html de abajo
@@ -260,7 +262,7 @@ $(document).ready(function() {
     $("select[name=no_table_cargo]").change(function(){
         var cargo = $('select[name=no_table_cargo]').val();
         if (cargo != "Estudiante") {
-            $("#agregarcarnet").append(
+            $("#no_table_cargo__row").after(
                 '<div id="no_table_carnet__row" class="form-group">\
                     <label if="no_table_carnet__label" class="control-label col-sm-3" for="no_table_carnet">Carnet *</label>\
                     <div class="col-sm-9">\
