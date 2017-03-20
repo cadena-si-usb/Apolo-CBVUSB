@@ -337,12 +337,11 @@ def buscarth():
 										orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
 
-<<<<<<< HEAD
 @auth.requires_login()
 def constancia():
 	T.force('es')
 	return dict()
-=======
+
 form1 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
         INPUT(_type='submit'), _action=URL('test_add'), _method="get")
 
@@ -361,4 +360,3 @@ def test_add():
 
 	form1 = form
 	return dict(form1=form)
->>>>>>> origin/B-NOS-old
