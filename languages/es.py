@@ -586,7 +586,7 @@
 'web2py Recent Tweets': 'Tweets Recientes de web2py',
 'web2py upgraded; please restart it': 'web2py actualizado; favor reiniciar',
 'Welcome to web2py': 'Bienvenido a web2py',
-'Working...': 'Working...',
+'Working...': 'Procesando...',
 'Ya existe el carnet en el sistema': 'Ya existe el carnet en el sistema',
 'Ya existe un usuario con ese nombre.': 'Ya existe un usuario con ese nombre.',
 'Ya la cédula existe en el sistema': 'Ya la cédula existe en el sistema',
