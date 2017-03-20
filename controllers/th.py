@@ -329,3 +329,8 @@ def buscarth():
 										distinct=db.bombero.carnet,
 										orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
+
+@auth.requires_login()
+def constancia():
+	T.force('es')
+	return dict()
