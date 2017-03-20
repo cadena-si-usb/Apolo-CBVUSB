@@ -292,11 +292,15 @@ db.bombero.rango.requires = IS_IN_SET([	'Aspirante',
 										'Cabo Primero',
 										'Sargento Segundo',
 									  	'Sargento Primero',
-									  	'Sargento Ayudante',
-									  	'Subteniente',
+									  	'Sargento Mayor',
 									  	'Teniente',
-									  	'Capitán',
-									  	'Mayor'],
+									  	'Primer Teniente',
+									  	'Capitán'
+									  	'Mayor',
+									  	'Teniente Coronel',
+									  	'Coronel',
+									  	'General',
+									  	'Primer General'],
 									  error_message='Debe seleccionar una opción.')
 db.bombero.hijos.requires = IS_INT_IN_RANGE(0, error_message='Debe ser número positivo.')
 
