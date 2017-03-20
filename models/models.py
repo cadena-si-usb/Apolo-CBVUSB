@@ -364,27 +364,27 @@ if not db(db.usuario.username == 'admin').select():
 	comandancia	=	auth.add_group(role='Comandancia', description='description')
 	admin	  	=	auth.add_group(role='Administrador', description='description')
 
-	auth.add_permission(estudiante, 'Estudiantes')
+	auth.add_permission(estudiante, 'Estudiante')
 
-	auth.add_permission(bombero, 'Estudiantes')
+	auth.add_permission(bombero, 'Estudiante')
 	auth.add_permission(bombero, 'Bombero')
 
-	auth.add_permission(gerencia, 'Estudiantes')
+	auth.add_permission(gerencia, 'Estudiante')
 	auth.add_permission(gerencia, 'Bombero')
 	auth.add_permission(gerencia, 'Gerencia')
 
-	auth.add_permission(inspectoria, 'Estudiantes')
+	auth.add_permission(inspectoria, 'Estudiante')
 	auth.add_permission(inspectoria, 'Bombero')
 	auth.add_permission(inspectoria, 'Gerencia')
 	auth.add_permission(inspectoria, 'Inspectoria')
 
-	auth.add_permission(comandancia, 'Estudiantes')
+	auth.add_permission(comandancia, 'Estudiante')
 	auth.add_permission(comandancia, 'Bombero')
 	auth.add_permission(comandancia, 'Gerencia')
 	auth.add_permission(comandancia, 'Inspectoria')
 	auth.add_permission(comandancia, 'Comandancia')
 
-	auth.add_permission(admin, 'Estudiantes')
+	auth.add_permission(admin, 'Estudiante')
 	auth.add_permission(admin, 'Bombero')
 	auth.add_permission(admin, 'Gerencia')
 	auth.add_permission(admin, 'Inspectoria')

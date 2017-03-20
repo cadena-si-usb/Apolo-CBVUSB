@@ -55,17 +55,21 @@ def perfilmodth():
 
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
+		Field('password_actual',
+			type='password',
+			notnull=True,
+			requires=db.usuario.password.requires+[IS_EQUAL_TO(usuario.password, error_message='La clave no coincide')],
+			label='Ingrese la clave actual'),
 		Field('password', 
 			type='password', 
 			notnull=True,  
 			requires=db.usuario.password.requires,
-			label='Clave nueva'),
+			label='Ingrese la nueva clave'),
 		Field('password_again', 
 			type='password', 
 			notnull=True, 
 			requires= db.usuario.password.requires,
 			label='Reingrese la nueva clave'))
-	
 	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted and formUsuario.vars.password==formUsuario.vars.password_again:
 		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
 		response.flash = 'Cambio de contraseña realizado satisfactoriamente.'
@@ -324,7 +328,7 @@ def eliminarusrth():
 									orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
 
-@auth.requires_login()
+@auth.requires_permission('Estudiante')
 def buscarth():
 	T.force('es')
 	#print auth.id_group(role='Inspectoria')
