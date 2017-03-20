@@ -200,11 +200,13 @@ $(document).ready(function() {
 
     // Función para los botones para añadir telefonos
     $("body").on("click","button.agregartlf", function() {
+    var aux = tlfsCont;
     tlfsCont++;                                // Aumentar el contador de telefonos para el usuario
     var num = tlfsCont;                           // Variable auxiliar para la sustitucion en el html de abajo
+    var tlf = "#tlf"+aux;
 
     // Inserción del html
-    $("#tlf").append(
+    $(tlf).after(
             '<div class="form-group" id="tlf'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
@@ -235,11 +237,12 @@ $(document).ready(function() {
 
     // Función para los botones para añadir direcciones
     $("body").on("click","button.agregardireccion", function() {
+    var aux = dirsCont;
     dirsCont++;                                // Aumentar el contador de telefonos para el usuario
     var num = dirsCont;                         // Variable auxiliar para la sustitucion en el html de abajo
-
+    var dir = "#dir"+aux;
     // Inserción del html
-    $("#direccion").append(
+    $(dir).append(
             '<div class="form-group" id="dir'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\

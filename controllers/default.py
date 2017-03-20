@@ -139,6 +139,7 @@ def userblocked():
 	T.force('es')
 	return dict()
 
+@auth.requires_permission('Gerencia')
 def confirmar():
 	T.force('es')
 
@@ -183,6 +184,7 @@ def actualizar_permisos( id_usuario, cargo ):
 	elif re.match(comandancia, cargo):
 		auth.add_membership(auth.id_group('Comandancia'), id_usuario)
 
+@auth.requires_permission('Gerencia')
 def editarnoconfirmado():
 	T.force('es')
 	tipo = ""

@@ -51,19 +51,25 @@ def perfilmodth():
 	usuario=db(db.usuario.id==userid).select().first()
 	tipo=""
 
+	print request.vars
+
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
+		Field('password_actual',
+			type='password',
+			notnull=True,
+			requires=db.usuario.password.requires+[IS_EQUAL_TO(usuario.password, error_message='La clave no coincide')],
+			label='Ingrese la clave actual'),
 		Field('password', 
 			type='password', 
 			notnull=True,  
 			requires=db.usuario.password.requires,
-			label='Clave nueva'),
+			label='Ingrese la nueva clave'),
 		Field('password_again', 
 			type='password', 
 			notnull=True, 
 			requires= db.usuario.password.requires,
 			label='Reingrese la nueva clave'))
-	
 	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted and formUsuario.vars.password==formUsuario.vars.password_again:
 		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
 		response.flash = 'Cambio de contraseña realizado satisfactoriamente.'
@@ -238,6 +244,7 @@ def perfilmodth():
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)  
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
+@auth.requires_permission('Gerencia')
 def registrousrth():
 	T.force('es')
 	tipo=""
@@ -321,7 +328,7 @@ def eliminarusrth():
 									orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
 
-@auth.requires_login()
+@auth.requires_permission('Estudiante')
 def buscarth():
 	T.force('es')
 	#print auth.id_group(role='Inspectoria')
@@ -330,7 +337,28 @@ def buscarth():
 										orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
 
+<<<<<<< HEAD
 @auth.requires_login()
 def constancia():
 	T.force('es')
 	return dict()
+=======
+form1 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
+        INPUT(_type='submit'), _action=URL('test_add'), _method="get")
+
+def test():
+	form2 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
+				INPUT(_type='submit'))
+	if form1.process(formname='form_one').accepted:
+		response.flash = 'form one accepted'
+	if form2.process(formname='form_two').accepted:
+		response.flash = 'form two accepted'
+	return dict(form1=form1, form2=form2)
+
+def test_add():
+	if request.vars:
+		form = request.vars
+
+	form1 = form
+	return dict(form1=form)
+>>>>>>> origin/B-NOS-old
