@@ -571,7 +571,7 @@
 'User ID': 'ID de Usuario',
 'Username': 'Nombre de usuario',
 'variables': 'variables',
-'Verify Password': 'Verify Password',
+'Verify Password': 'Verificar contraseña',
 'Version': 'Versión',
 'versioning': 'versiones',
 'Versioning': 'Versiones',
