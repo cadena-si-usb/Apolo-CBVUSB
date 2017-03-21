@@ -6,8 +6,8 @@ $(document).ready(function() {
   var addAffected = $("#addAffected");                                  // ID del botón para añadir Afectados
   var addApoyoExt = $("#addApoyoExt");                                  // ID del botón para añadir Afectados
   var commissionsCount = 1;                                             // Contador de comisiones
-  var afectadosCount = 1;                                               // Contador de afectados
-  var apoyoExtCount = 1;                                                // Contador de afectados
+  var afectadosCount = 0;                                               // Contador de afectados
+  var apoyoExtCount = 0;                                                // Contador de afectados
   var commissionMembersCount = [3];                                     // Arreglo para contar los acompañantes (Por defecto 3)
   var emailsCount = [1];                                                // Arreglo para contar los emails (Por defecto 1)
   var phoneCount = [1];                                                 // Arreglo para contar los Teléfonos (Por defecto 1)
@@ -123,7 +123,7 @@ $(document).ready(function() {
               <input list="firefighterList" name="commissionMember'+num1+'-3" class="form-control" placeholder="Acompañante de Comisión">\
             </div>\
             <div class="text-right">\
-              <button id="addCommissionMember'+num1+'" type="button" class="btn bg-primary addCommissionMember top-space-separator addCommissionMember">\
+              <button id="addCommissionMember'+num1+'" type="button" class="btn bg-1 addCommissionMember top-space-separator addCommissionMember">\
                 <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>\
               </button>\
             </div>\
@@ -272,7 +272,7 @@ $(document).ready(function() {
             </div>\
           </div>\
           <div class="col-xs-12 text-right">\
-            <button id="addUnitExt'+num1+'" type="button" class="btn bg-primary addUnitExt top-space-separator">\
+            <button id="addUnitExt'+num1+'" type="button" class="btn bg-1 addUnitExt top-space-separator">\
               <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>\
             </button>\
           </div>\
