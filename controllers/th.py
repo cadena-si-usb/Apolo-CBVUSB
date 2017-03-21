@@ -328,6 +328,15 @@ def eliminarusrth():
 
 	return dict(tabla=tabla)
 
+@auth.requires_permission('Administrador')
+def eliminarusrth():
+	T.force('es')
+
+	if len(request.args) > 0:
+		bombero = None
+
+	db(db.bombero).select()
+
 @auth.requires_permission('Estudiante')
 def buscarth():
 	T.force('es')
@@ -347,8 +356,11 @@ def generarconstancia():
 
 	if request.args:
 		solicitud = request.args[0]
-		id_usuario = request.args[1]
 
 		if solicitud == 'solicitar':
+			db.constancia.insert(id_solicitante=auth.user.id)
 
-		if solicitud == 'aprobar':
+		if solicitud == 'aprobar' and len(request.args) > 1:
+			db(db.constancia.id == request.args[1]).update(id_confirmador=auth.user.id)
+
+	db(db.constancia).select()
