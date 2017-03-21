@@ -275,7 +275,7 @@ def registrarApoyoExterno(request):
 
 @auth.requires_login()
 def convertDateTime(fecha, hora):
-    return datetime.strptime(fecha + " " + hora, '%m/%d/%Y %I:%M%p')
+    return datetime.strptime(fecha + " " + hora, '%m/%d/%Y %H:%M')
 
 # Vista principal de "Registrar servicio"
 @auth.requires_login()
