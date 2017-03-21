@@ -38,8 +38,39 @@ $(document).ready(function() {
         }
     });
 
-    // Tabla para buscar usuarios en talento humano
+    // Tabla para gestionar constancias en talento humano
     $('.constancia-table').dataTable( {
+        searching: true,
+        "language": {
+            caseInsen: false,
+            "decimal":        "",
+            "infoEmpty":      "",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "emptyTable":     "No hay registros para esta búsqueda.",
+            "lengthMenu":     "Resultados por página: _MENU_",
+            "zeroRecords":    "No hay registros para esta búsqueda.",
+            "info":           "Página _PAGE_ de _PAGES_",
+            "infoFiltered":   "(Filtrado de _MAX_ registros en total)",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando...",
+            "search":         "Buscar:",
+            "searchPlaceholder": "Buscar...",
+            "paginate": {
+                "first":    "Primero",
+                "last":     "Último",
+                "next":     "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending":  ": Ordenar columna de manera ascendente",
+                "sortDescending": ": Ordenar columna de manera descendente"
+            }
+        }
+    });
+
+    // Tabla para solicitar constancias en talento humano
+    $('.solicitar-table').dataTable( {
         searching: true,
         "language": {
             caseInsen: false,
@@ -100,7 +131,7 @@ $(document).ready(function() {
         }
     });
 
-    // Tabla para gestionar constancias en talento humano
+    // Tabla para confirmar registros en talento humano
     $('.confirmar-table').dataTable( {
         searching: true,
         "language": {
@@ -277,6 +308,32 @@ $(document).ready(function() {
             window.location.href = href;
             swal({
                 title: "Solicitud enviada",
+                type: "success",
+                showConfirmButton: false,
+                html: false
+            });
+        }
+    });
+    });
+
+    // Mensaje pop-Up para aprobar una constancia
+    $('#btn-submit-cancelar').on('click',function(e){
+    e.preventDefault();
+    var href = $(this).attr('href');
+    swal({
+        title: "¿Estás seguro de que deseas cancelar la solicitud?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1565C0",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        html: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            window.location.href = href;
+            swal({
+                title: "Contancia cancelada",
                 type: "success",
                 showConfirmButton: false,
                 html: false

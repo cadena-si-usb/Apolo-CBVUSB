@@ -17,7 +17,7 @@
 	<h1 class="text-center">Gestión de constancias</h1>
 	<br /><br />
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="display constancia-table">
+		<table class="display solicitar-table">
 			<thead class="bg-1">
 				<tr>
 					<td class="text-center">Carnet</td>
@@ -26,9 +26,41 @@
 					<td class="text-center">Apellidos</td>
 					<td class="text-center">Estado de solicitud</td>
 					<td class="text-center"></td>
-					{{if auth.has_permission('Gerencia'): }}
+				</tr>
+			</thead>
+			<tbody>
+				<tr align="center">
+				    <td>{{=usuario.bombero.carnet}}</td>
+				    <td>{{=usuario.persona.nacionalidad}}-{{=usuario.persona.cedula}}</td>
+				    {{if usuario.persona.segundo_nombre != None:}}
+		            <td>{{=usuario.persona.primer_nombre}} {{=usuario.persona.segundo_nombre}}</td>
+		            {{else:}}
+		            <td>{{=usuario.persona.primer_nombre}}</td>
+		            {{pass}}
+		            {{if usuario.persona.segundo_apellido != None:}}
+		            <td>{{=usuario.persona.primer_apellido}} {{=usuario.persona.segundo_apellido}}</td>
+		            {{else:}}
+		            <td>{{=usuario.persona.primer_apellido}}</td>
+		            {{pass}}
+		            <td></td>
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['solicitar',str(row.bombero.id)])}}" type="button" id="btn-submit-solicitar"><span>Solicitar</span></td>
+				    {{pass}}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<br /><br />
+	{{if auth.has_permission('Gerencia'): }}
+	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
+		<table class="display constancia-table">
+			<thead class="bg-1">
+				<tr>
+					<td class="text-center">Carnet</td>
+					<td class="text-center">Cédula</td>
+					<td class="text-center">Nombres</td>
+					<td class="text-center">Apellidos</td>
 					<td class="text-center"></td>
-					{{pass}}
+					<td class="text-center"></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,15 +78,12 @@
 		            {{else:}}
 		            <td>{{=row.persona.primer_apellido}}</td>
 		            {{pass}}
-		            <td></td>
-				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['solicitar',str(row.bombero.id)])}}" type="button" id="btn-submit-solicitar"><span>Solicitar</span></td>
-				    {{if auth.has_permission('Gerencia'): }}
 				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['aprobar',str(row.bombero.id)])}}" type="button" id="btn-submit-aprobar"><span>Aprobar</span></td>
-				    {{pass}}
-				    {{pass}}
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['cancelar',str(row.bombero.id)])}}" type="button" id="btn-submit-cancelar"><span>Cancelar</span></td>
 				</tr>
 				{{pass}}
 			</tbody>
 		</table>
-	</div> 
+	</div>
+	{{pass}}
 </div>
