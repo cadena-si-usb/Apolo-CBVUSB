@@ -163,7 +163,7 @@ def confirmar():
 			pass
 
 	tabla = db((db.bombero.id_persona==db.persona.id) & (db.usuario.id==db.bombero.id_usuario) & (db.usuario.confirmed == False)).select( distinct=db.bombero.carnet, orderby=~db.bombero.carnet)
-	no_confirmados = db(db.usuario.confirmed==False).select()
+	no_confirmados = db((db.usuario.confirmed==False) & (db.usuario.id==db.bombero.id_usuario) & (db.bombero.id_persona==db.persona.id)).select()
 
 	return dict(tabla=tabla, no_confirmados=no_confirmados)
 

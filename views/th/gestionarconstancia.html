@@ -18,9 +18,9 @@
 	<br /><br />
 	<h2>Mi solicitud</h2>
 	<br /><br />
-	<div class="col-xs-12 col-sm-6">
+	<div class="col-xs-12">
         <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos básicos</h4></div>
+            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Solicitud de constancia</h4></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
 					<tr align="center">
@@ -36,7 +36,11 @@
 			            {{else:}}
 			            <td>{{=usuario.persona.primer_apellido}}</td>
 			            {{pass}}
-			            <td></td>
+			            {{if no_solicitado:}}
+			            <td>No posee solicitud pendiente</td>
+			            {{else:}}
+			            <td>Solicitud pendiente</td>
+			            {{pass}}
 					    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['solicitar'])}}" type="button" id="btn-submit-solicitar"><span>Solicitar</span></td>
 				    {{pass}}
 					</tr>
@@ -45,10 +49,9 @@
         </div>
     </div>
 	<br /><br />
+	{{if auth.has_permission('Gerencia'): }}
 	<h2>Aprobaciones pendientes</h2>
 	<br /><br />
-	{{if auth.has_permission('Gerencia'): }}
-	<h2 class="text-left">Aprobación de constancias</h2>
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
 		<table class="display buscar-table">
 			<thead class="bg-1">
