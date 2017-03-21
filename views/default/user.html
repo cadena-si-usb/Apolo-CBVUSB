@@ -1,11 +1,11 @@
 {{extend 'layout.html'}}
 
-<div class="container-fluid">
-    <h2 align="center">
+<div class="container-fluid col-sm-6 col-sm-offset-3">
+    <h1 class="col-sm-offset-3 text-center">
     {{=('Registrarse') if request.args(0) == 'register' else ('Iniciar Sesión') if request.args(0) == 'login' else (request.args(0).replace('_',' ').title())}}
-    </h2>
-    <br/><br/>
-    <div id="web2py_user_form" class="col-sm-6 col-sm-offset-3">
+    </h1>
+    <br/><br/><br/>
+    <div id="web2py_user_form" align="center">
         {{
         if request.args(0)=='login':
             if not 'register' in auth.settings.actions_disabled:

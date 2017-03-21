@@ -4,8 +4,24 @@
 
 import re
 import time
+import random
+import string
 from datetime import *
 from gluon.serializers import json
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Funciones auxiliares que conforman las vistas de Talento Humano
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def random_password():
+	password = ''
+	specials=r'!#$*?'         
+	for i in range(0,3):
+		password += random.choice(string.lowercase)
+		password += random.choice(string.uppercase)
+		password += random.choice(string.digits)
+		password += random.choice(specials)            
+	return ''.join(random.sample(password,len(password)))
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de Talento Humano
@@ -35,19 +51,25 @@ def perfilmodth():
 	usuario=db(db.usuario.id==userid).select().first()
 	tipo=""
 
+	print request.vars
+
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
+		Field('password_actual',
+			type='password',
+			notnull=True,
+			requires=db.usuario.password.requires+[IS_EQUAL_TO(usuario.password, error_message='La clave no coincide')],
+			label='Ingrese la clave actual'),
 		Field('password', 
 			type='password', 
 			notnull=True,  
 			requires=db.usuario.password.requires,
-			label='Clave nueva'),
+			label='Ingrese la nueva clave'),
 		Field('password_again', 
 			type='password', 
 			notnull=True, 
-			requires=db.usuario.password.requires,
+			requires= db.usuario.password.requires,
 			label='Reingrese la nueva clave'))
-	
 	if formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted and formUsuario.vars.password==formUsuario.vars.password_again:
 		db(db.usuario.id==userid).update(**db.usuario._filter_fields(formUsuario.vars))
 		response.flash = 'Cambio de contraseña realizado satisfactoriamente.'
@@ -56,8 +78,8 @@ def perfilmodth():
 		tipo="danger"
 		response.flash = 'Las contraseñas ingresadas no son iguales'
 	elif formUsuario.errors:
-		response.flash = 'Hay un error en un campo.'
 		tipo="danger"
+		response.flash = 'Hay un error en un campo.'
 
 	formPersona = SQLFORM.factory(
 		Field('primer_nombre', 
@@ -65,7 +87,7 @@ def perfilmodth():
 			notnull=True, 
 			default=persona.primer_nombre, 
 			requires=db.persona.primer_nombre.requires,
-			label='Primer nombre (*)'
+			label='Primer nombre *'
 			),
 		Field('segundo_nombre', 
 			type='string',
@@ -78,7 +100,7 @@ def perfilmodth():
 			notnull=True, 
 			default=persona.primer_apellido, 
 			requires=db.persona.primer_apellido.requires,
-			label='Primer apellido (*)'
+			label='Primer apellido *'
 			),
 		Field('segundo_apellido', 
 			type='string',
@@ -105,7 +127,7 @@ def perfilmodth():
 			notnull=True,
 			default=persona.genero, 
 			requires=db.persona.genero.requires,
-			label='Género (*)'
+			label='Género *'
 			),
 		Field('imagen', 
 			type='upload',
@@ -118,7 +140,7 @@ def perfilmodth():
 			notnull=True,
 			default=persona.email_principal, 
 			requires=db.persona.email_principal.requires,
-			label='Email principal (*)'
+			label='Email principal *'
 			),
 		Field('email_alternativo', 
 			type='string',
@@ -131,16 +153,13 @@ def perfilmodth():
 			notnull=True,
 			default=persona.estado_civil, 
 			requires=db.persona.estado_civil.requires,
-			label='Estado civil'
-			)
+			label='Estado civil')
 		)
 
 	if formPersona.process(session=None, formname='perfilmodPersona', keepvalues=True).accepted:
-		print formPersona.vars['imagen']
-		print re.match('^.*\.(jpg|png|jpeg|bmp)$',formPersona.vars['imagen'])
-		print
+
 		if formPersona.vars['fecha_nacimiento'] == None or formPersona.vars['fecha_nacimiento'] == "":
-			del formPersona.vars['fecha_nacimiento']		
+			del formPersona.vars['fecha_nacimiento']        
 
 		if formPersona.vars['imagen'] == None or formPersona.vars['imagen'] == "":
 			del formPersona.vars['imagen']
@@ -151,13 +170,17 @@ def perfilmodth():
 
 		elif persona.imagen != db.persona.imagen.default:
 			os.remove(os.path.join(request.folder,'static/profile-images',persona.imagen))
+
 		db(db.persona.id==bombero.id_persona).update(**db.persona._filter_fields(formPersona.vars))
-		response.flash = 'Cambio realizado satisfactoriamente'
+
 		tipo="success"
+		response.flash = 'Cambio realizado satisfactoriamente'
+		
 	elif formPersona.errors:
-		print formPersona.vars
-		response.flash = 'Hay un error en un campo'
+		
 		tipo="danger"
+		response.flash = 'Hay un error en un campo'
+		
 
 	formBombero = SQLFORM.factory(
 		Field('tipo_sangre', 
@@ -176,7 +199,7 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=bombero.cargo,
-			requires = IS_IN_SET(['Administrador', 
+			requires = IS_IN_SET([  'Administrador', 
 									'Comandante en Jefe', 
 									'Primer comandante', 
 									'Segundo comandante', 
@@ -199,133 +222,83 @@ def perfilmodth():
 									'Miembro de Comandancia'
 									'Estudiante'
 									], error_message='Debe seleccionar una opción.'),
-			label='Cargo que ocupa (*)'),
-			Field('rango', 
+			label='Cargo que ocupa *'),
+		Field('rango', 
 			type='string', 
 			notnull=True,
 			default=bombero.rango,
 			requires= db.bombero.rango.requires,
-			label='Rango (*)'))	#FALTA RANGO
+			label='Rango *')) #FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
 		user = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-		response.flash = 'Cambio realizado satisfactoriamente.'
+		
 		tipo="success"
+		response.flash = 'Cambio realizado satisfactoriamente.'
+		
 	elif formBombero.errors:
-		response.flash = 'Hay un error en un campo.'
 		tipo="danger"
+		response.flash = 'Hay un error en un campo.'
 
-
-	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)	
+	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)  
 
 # DEBO CONSIDERAR EL NONE! Si es None colocar entonces ''
-def registrousrth1():
+@auth.requires_permission('Gerencia')
+def registrousrth():
 	T.force('es')
 	tipo=""
-	formPersona = SQLFORM.factory(
+	formUsuario = SQLFORM.factory(
 		Field('username', 
-				type='string', 
-				length=512, 
-				unique=True, 
-				requires=db.usuario.username.requires,
-				label='Nombre de usuario (*)'),
-		Field('password', 
-				type='password', 
-				readable=False, 
-				length=512, 
-				requires=db.usuario.password.requires,
-				label='Clave (*)'),
-		Field('password_again',
-				type='password', 
-				readable=False, 
-				length=512, 
-				requires=db.usuario.password.requires,
-				label='Reingrese la clave (*)'),
-		Field('cedula', 
-				type='integer',
-				length=512, 
-				requires=db.persona.cedula.requires,
-				label='Cédula (*)'),
-		Field('primer_nombre', 
-				type='string',
-				length=512, 
-				requires=db.persona.primer_nombre.requires,
-				label='Primer nombre (*)'),
-		Field('primer_apellido',
-				type='string',
-				length=512, 
-				requires=db.persona.primer_apellido.requires,
-				label='Primer apellido (*)'),
-		Field('genero',
-				type='string',
-				requires=db.persona.genero.requires,
-				label='Género (*)'),
-		Field('email_principal',
-				type='string',
-				length=512,
-				requires=db.persona.email_principal.requires,
-				label='Email principal (*)')
+			type='string', 
+			length=512, 
+			unique=True, 
+			requires=db.usuario.username.requires,
+			label='Nombre de usuario *'),
+		Field('first_name', 
+			type='string',
+			length=512, 
+			requires=db.persona.primer_nombre.requires,
+			label='Primer nombre *'),
+		Field('last_name',
+			type='string',
+			length=512, 
+			requires=db.persona.primer_apellido.requires,
+			label='Primer apellido *'),
+		Field('email',
+			type='string',
+			length=512,
+			requires=db.usuario.email,
+			label='Email principal *')
 		)
 
-	if formPersona.process(session=None, formname='Persona', keepvalues=True).accepted and formPersona.vars.password==formPersona.vars.password_again:
-		formPersona.vars = dict((k,v) for k,v in formPersona.vars.iteritems() if v is not None)
-		redirect(URL("th","registrousrth2",vars=formPersona.vars))
-	elif formPersona.process(session=None, formname='Persona', keepvalues=True).accepted:
+	if formUsuario.process(session=None, formname='Persona', keepvalues=True).accepted:
+		password = random_password()
+		if mail.send(to=[formUsuario.vars.email], subject='Creación de usuario',
+			message='Acaba de ser creado un usuario para usted en el sistema Apolo. El usuario posee las siguientes credenciales:\n\n'+
+					'username: '+formUsuario.vars.username+'\n'
+					'password: '+password+'\n\n'+
+					'Bienvenido a Apolo. CBVUSB.'):
+			password =  CRYPT()(password)[0]
+			id_usuario = db.usuario.insert( password=password, **db.usuario._filter_fields(formUsuario.vars))
+			redirect(URL("th","registrousrth_final",args=id_usuario))
+		else:
+			tipo="danger"
+			response.flash = 'El correo no pudo ser entregado a su destinatario, confirmar la validez del mismo.'
+	
+	elif formUsuario.process(session=None, formname='Persona', keepvalues=True).accepted:
 		tipo="danger"
 		response.flash = 'Las contraseñas ingresadas no son iguales'
-	elif formPersona.errors:
+	
+	elif formUsuario.errors:
 		tipo="danger"
 		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
 
-	return dict(formPersona=formPersona,tipo=tipo)
-
-def registrousrth2():
-	T.force('es')
-	usuario=db.usuario._filter_fields(request.vars)
-	persona=db.persona._filter_fields(request.vars)
-	tipo=""
-
-	formBombero = SQLFORM.factory(
-		Field('carnet', 
-				type='integer', 
-				unique=True, 
-				requires=db.bombero.carnet.requires,
-				label='Carnet (*)'),
-		Field('cargo', 
-			type='string', 
-			unique=True, 
-			requires = db.bombero.cargo.requires,
-			label='Cargo que ocupa (*)'),
-		Field('rango', 
-			type='string', 
-			unique=True,
-			requires= db.bombero.rango.requires,
-			label='Rango (*)')
-		)
-
-	if formBombero.process(session=None, formname='Bombero', keepvalues=True).accepted:
-
-		primer_nombre=persona['primer_nombre']
-		primer_apellido=persona['primer_apellido']
-		email_principal=persona['email_principal']
-
-		id_usuario=db.usuario.insert(first_name=primer_nombre, last_name=primer_apellido, email=email_principal, **usuario)		
-		id_persona=db.persona.insert(**persona)
-		id_bombero=db.bombero.insert(id_usuario=id_usuario, id_persona=id_persona, **db.bombero._filter_fields(formBombero.vars))
-		redirect(URL("th","registrousrth_final",vars=formBombero.vars,args=id_usuario))
-
-	elif formBombero.errors:
-		response.flash = 'Falta un campo por llenar o hay un error en el campo indicado.'
-		tipo="danger"
-
-	return dict(formBombero=formBombero,tipo=tipo)
+	return dict(formUsuario=formUsuario,tipo=tipo)
 
 def registrousrth_final():
 	T.force('es')
-	usuario=db.usuario._filter_fields(request.vars)
-	persona=db.persona._filter_fields(request.vars)
-	username = str(db.usuario[request.args[0]].username)
+	username = str(db(db.usuario.id==request.args[0]).select().first().username)
 	return dict(username=username)
 
 @auth.requires_login()
@@ -342,22 +315,48 @@ def eliminarusrth():
 			usuario = db(db.usuario.id==bombero.id_usuario).select().first()
 
 			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
-			if usuario.disable:
-				response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
-			else:
-				response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
 
-			tipo = "success"
+			#tipo = "success"
+			#if usuario.disable:
+			#	response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
+			#else:
+			#	response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
+
 	tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & 
 										(db.bombero.id_usuario!=userid)),
 									distinct=db.bombero.carnet,
 									orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
 
-@auth.requires_login()
+@auth.requires_permission('Estudiante')
 def buscarth():
 	T.force('es')
-	tabla = db(db.persona).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id),
+	#print auth.id_group(role='Inspectoria')
+	tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.carnet!="-1")),
 										distinct=db.bombero.carnet,
 										orderby=~db.bombero.carnet)
 	return dict(tabla=tabla)
+
+@auth.requires_login()
+def constancia():
+	T.force('es')
+	return dict()
+
+form1 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
+        INPUT(_type='submit'), _action=URL('test_add'), _method="get")
+
+def test():
+	form2 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
+				INPUT(_type='submit'))
+	if form1.process(formname='form_one').accepted:
+		response.flash = 'form one accepted'
+	if form2.process(formname='form_two').accepted:
+		response.flash = 'form two accepted'
+	return dict(form1=form1, form2=form2)
+
+def test_add():
+	if request.vars:
+		form = request.vars
+
+	form1 = form
+	return dict(form1=form)

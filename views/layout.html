@@ -32,22 +32,29 @@
   middle_column = {0: mc0, 1: mc1, 2: mc2}[
   (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
 </head>
-
   <body class="Site">
+    {{T.force('es')}}
     {{if auth.user != None:
       user = db(db.usuario.id==auth.user.id).select().first()
       if user.disable == True:
-        print 'hola'
         redirect(URL('default','userblocked'))
     }}
     {{pass}}
     {{pass}}
 
-    <div class="bottom-space-separator">
+    {{if auth.user != None:
+      user = db(db.usuario.id==auth.user.id).select().first()
+      if user.confirmed == False:
+        redirect(URL('default','usernotconfirmed'))
+    }}
+    {{pass}}
+    {{pass}}
+
+    <div class="bottom-space-separator bg-4">
       <!-- Banner -->
       <div class="container">
         <a href="{{=URL('default','index')}}" title="Ir al inicio">
-          <img class="img-responsive img-center" src="{{=URL('static','images/banner.png')}}" alt="Banner">
+          <img class="img-responsive img-center" src="{{=URL('static','images/banner-negro.png')}}" alt="Banner">
         </a>
       </div>
 
@@ -84,20 +91,21 @@
               <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=auth.user.username}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{{=URL('th','perfilth')}}">Ver Perfil</a></li>
-                <li><a href="{{=URL('th','perfilmodth')}}">Modificar Perfil</a></li>
-                <li><a href="{{=URL('th','registrousrth1')}}">Registrar Usuario</a></li>
-                <li><a href="{{=URL('th','eliminarusrth')}}">Deshabilitar Usuario</a></li>
+                <li><a href="{{=URL('th','perfilmodth')}}">Modificar <br/> Perfil</a></li>
+                {{if auth.has_permission('Gerencia'): }}
+                <li><a href="{{=URL('th','registrousrth')}}">Registrar <br/> Usuario</a></li>
+                {{pass}}
+                {{if auth.has_permission('Administrador'): }}
+                <li><a href="{{=URL('th','eliminarusrth')}}">Gestionar <br/> Usuarios</a></li>
+                {{pass}}
+                {{if auth.has_permission('Gerencia'): }}
+                <li><a href="{{=URL('default','confirmar')}}">Gestionar <br/> Registros</a></li>
+                {{pass}}
                 <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
               </ul>
             </li>
             {{else:}}
-            <li class="dropdown">
-              <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuenta<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{=URL('default/user','login')}}">Iniciar sesión</a></li>
-                <li><a href="{{=URL('th','registrousrth1')}}">Registrar Usuario</a></li>
-              </ul>
-            </li>
+            <li><a href="{{=URL('default/user','login')}}">Iniciar Sesión</a></li>
             {{pass}}
           </ul>
         </div>
@@ -108,9 +116,8 @@
   <!-- Mensajes -->
   {{if not('tipo' in locals()): tipo = "success"}}{{pass}}
   {{if response.flash:}}
-  <div class="row">
-    {{=H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")}}
-  </div>
+  {{=DIV(CENTER(H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")),_class="row")
+  }}
   {{pass}}
 
   <!-- Contenido que extenderá el layout en cada vista -->

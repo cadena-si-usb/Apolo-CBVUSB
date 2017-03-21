@@ -240,3 +240,38 @@ Hand pointer (Manito)
   cursor: pointer;
   cursor: hand;
 }
+
+/*####################################
+  Letras rojas en errores de SQLFORM
+######################################*/
+
+div#username__error.error, div#password__error.error, 
+div#password_again__error.error
+{
+  color: red;
+}
+
+div#first_name__error.error, div#last_name__error.error{
+  color: red;
+}
+
+div#primer_nombre__error.error, div#segundo_nombre__error.error, 
+div#primer_apellido__error.error, div#segundo_apellido__error.error,
+div#cedula__error.error, div#fecha_nacimiento__error.error,
+div#genero__error.error, div#email_principal__error.error,
+div#email_alternativo__error.error, div#lugar_nacimiento__error.error,
+div#estado_civil__error.error, div#imagen__error.error
+{
+  color: red;
+}
+
+div#carnet__error.error, div#tipo_sangre__error.error,
+div#iniciales__error.error, div#cargo__error.error,
+div#rango__error.error
+{
+  color: red;
+}
+
+label#usuario_remember_me__label {
+  display: none;
+}

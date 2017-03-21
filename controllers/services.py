@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gluon.serializers import json
 from datetime import datetime
-#from emailManager import emailManager
+#from emailManager import emailManager Mientras no se use esta comentado xD
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de "Mis servicios"
@@ -140,7 +140,7 @@ def obtenerAfectados(serviceId):
         afectado["email_alternativo"] = personaRow.email_alternativo
 
         afectado["numeros"] = list()
-        numeroRows = db(db.numero.id_persona == personaRow.id).select()
+        numeroRows = db(db.telefono.id_persona == personaRow.id).select()
         for numeroRow in numeroRows:
             afectado["numeros"].append(str(numeroRow.codigo_telefono)+"-"+str(numeroRow.numero_telefono))
 
@@ -533,6 +533,13 @@ def editDraft():
 def aprove():
     services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
+
+
+# Vista de "Estadisticas"
+@auth.requires_login()
+def stadistics():
+    return dict()
+
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Otras funciones

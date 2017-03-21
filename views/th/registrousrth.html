@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+
+{{block head_css}}
+<link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+{{end}}
+
+{{block head_js}}
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
+{{end}}
+
+{{block web2py_ajax}}{{end}}
+
+<div class="container-fluid">
+	<h1 class="text-center">Registro de nuevos usuarios</h1>
+	<br/><br/>
+	<div class="col-sm-6 col-sm-offset-3">
+	    {{=formUsuario}}
+    </div>
+    <p class="col-sm-6 col-sm-offset-3">Los campos <strong>(*)</strong> son obligatorios.</p>
+</div>
