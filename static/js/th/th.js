@@ -142,6 +142,32 @@ $(document).ready(function() {
     });
     });
 
+    // Mensaje pop-Up para cancelar el registro de  un usuario
+    $('#btn-submit-cancelar-registro').on('click',function(e){
+    e.preventDefault();
+    var href = $(this).attr('href');
+    swal({
+        title: "¿Estás seguro de que quieres cancelar el registro de este usuario?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1565C0",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        html: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            window.location.href = href;
+            swal({
+                title: "Registro cancelado",
+                type: "success",
+                showConfirmButton: false,
+                html: false
+            });
+        }
+    });
+    });
+
     // Mensaje pop-Up para aprobar una constancia
     $('#btn-submit-aprobar').on('click',function(e){
     e.preventDefault();
@@ -199,7 +225,7 @@ $(document).ready(function() {
     e.preventDefault();
     var href = $(this).attr('href');
     swal({
-        title: "¿Estás seguro de que deseas cancelar la solicitud?",
+        title: "¿Estás seguro de que deseas cancelar la solicitud de constancia?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#1565C0",
