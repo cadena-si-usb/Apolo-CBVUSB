@@ -287,7 +287,7 @@
 'Installation of %(plugin)s for %(app)s': 'Instalación de %(plugin)s para %(app)s',
 'Installation of %(plugin)s for %(app)s app': 'Instalación de %(plugin)s para %(app)s app',
 'Installed applications': 'Aplicaciones instaladas',
-'Insufficient privileges': 'Insufficient privileges',
+'Insufficient privileges': 'Privilegios insuficientes',
 'Interaction at %s line %s': 'Interacción en %s línea %s',
 'Interactive console': 'Terminal interactiva',
 'internal error': 'error interno',

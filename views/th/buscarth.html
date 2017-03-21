@@ -20,6 +20,7 @@
 				    <td class="text-center">Cédula</td>
 				    <td class="text-center">Nombres</td>
 				    <td class="text-center">Apellidos</td>
+				    <td style="display:none;"></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,6 +38,7 @@
 		            {{else:}}
 		            <td>{{=row.persona.primer_apellido}}</td>
 		            {{pass}}
+		            <td style="display:none;">{{=row.bombero.iniciales}}</td>
 				</tr>
 				{{pass}}
 			</tbody>
