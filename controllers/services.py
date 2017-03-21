@@ -385,6 +385,13 @@ def aprove():
     services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
+
+# Vista de "Estadisticas"
+@auth.requires_login()
+def stadistics():
+    return dict()
+
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Otras funciones
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

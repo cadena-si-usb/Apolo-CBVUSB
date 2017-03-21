@@ -316,8 +316,9 @@ $(document).ready(function() {
 
   // initialize input widgets first
   $('#jqueryExample .time').timepicker({
-    'showDuration': true,
-    'timeFormat': 'g:ia'
+    'scrollDefault': 'now',
+    'timeFormat': 'H:i',
+    'forceRoundTime': false
   });
 
   $('#jqueryExample .date').datepicker({
