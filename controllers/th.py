@@ -302,7 +302,7 @@ def registrousrth_final():
 	return dict(username=username)
 
 @auth.requires_login()
-def eliminarusrth():
+def deshabilitarth():
 	T.force('es')
 	userid = auth.user.id
 
@@ -342,13 +342,11 @@ def constancia():
 	T.force('es')
 	return dict()
 
-def generarconstancia():
+@auth.requires_permission('Gerencia')
+def gestionarconstancia():
 	T.force('es')
+	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
+				& (db.usuario.confirmed==True) & (db.usuario.disable==False) & (db.bombero.carnet!="-1"))\
+				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
 
-	if request.args:
-		solicitud = request.args[0]
-		id_usuario = request.args[1]
-
-		if solicitud == 'solicitar':
-
-		if solicitud == 'aprobar':
+	return dict(tabla=tabla)
