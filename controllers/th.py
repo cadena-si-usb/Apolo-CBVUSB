@@ -2,6 +2,8 @@
 # this file is released under public domain and you can use without limitations
 # psql -U cbvusb -h localhost -W
 
+# Limitar la vista de aprobar según la jerarquía
+
 import re
 import time
 import random

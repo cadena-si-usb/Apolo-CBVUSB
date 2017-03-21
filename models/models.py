@@ -14,7 +14,7 @@ plugins = PluginManager()
 
 auth.settings.login_methods.append(ldap_auth(
 	server='localhost',
-	base_dn='ou=Users,dc=login,dc=com'))
+	base_dn='ou=users,dc=bomberos,dc=usb,dc=ve'))
 
 auth.settings.table_user_name = 'usuario'
 auth.settings.extra_fields['usuario']= [Field('disable', type='boolean', default=False),
