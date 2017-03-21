@@ -328,17 +328,6 @@ def deshabilitarth():
 
 	return dict(tabla=tabla)
 
-@auth.requires_permission('Administrador')
-def eliminarusrth():
-	T.force('es')
-
-	if len(request.args) > 0:
-		bombero = None
-
-	no_confirmados = db(db.usuario.confirmed==False).select()
-
-	return dict(no_confirmados=no_confirmados)
-
 @auth.requires_permission('Estudiante')
 def buscarth():
 	T.force('es')
