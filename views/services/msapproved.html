@@ -12,7 +12,7 @@
 {{end}}
 
 <!-- Tabla de Servicios -->
-<div class="container-fluid">
+<div class="container">
   <ol class="breadcrumb">
     <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
     <li class="active">Mis registros de servicios</li>
@@ -23,33 +23,30 @@
     <li><a href="{{=URL('services','msdraft.html')}}">Borradores</a></li>
   </ul>
   <br/>
-
-  <div class="col-xs-10">
-    <div class="table-responsive">
-      <table class="display service-table">
-        <thead class="bg-1">
-          <tr>
-            <th>ID</th>
-            <th>Tipo</th>
-            <th>Descripción</th>
-            <th>Localización</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{for row in services:}}
-          <tr class='clickeable clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
-            <td>{{=row.id}}</td>
-            <td>{{=row.tipo}}</td>
-            <td>{{=row.descripcion}}</td>
-            <td>{{=row.localizacion}}</td>
-            <td>{{=row.fechaCreacion}}</td>
-            <td>{{=row.fechaFinalizacion}}</td>
-          </tr>
-          {{pass}}
-        </tbody>
-      </table>
-    </div>
+  <div class="table-responsive">
+    <table class="display service-table">
+      <thead class="bg-1">
+        <tr>
+          <th>ID</th>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Localización</th>
+          <th>Inicio</th>
+          <th>Fin</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{for row in services:}}
+        <tr class='clickeable clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
+          <td>{{=row.id}}</td>
+          <td>{{=row.tipo}}</td>
+          <td>{{=row.descripcion}}</td>
+          <td>{{=row.localizacion}}</td>
+          <td>{{=row.fechaCreacion}}</td>
+          <td>{{=row.fechaFinalizacion}}</td>
+        </tr>
+        {{pass}}
+      </tbody>
+    </table>
   </div>
 </div>
