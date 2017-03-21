@@ -41,7 +41,7 @@
 
 		<!-- Datos de contacto -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
-			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="tlf">
+			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="contacto">
 				<div class="form-group" id="no_table_persona_contacto__row">
 					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia</label>
 					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
@@ -74,6 +74,7 @@
 	                    </div>
 	                </div>
 				</div>
+
 				<div class="form-group" id="tlf1">
                     <label class="control-label col-sm-3" for="tipotlf1">Teléfonos</label>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
@@ -90,11 +91,10 @@
 	                    </div>
 	                </div>
                 </div>
-            </form>
-            <div class="text-right" style="padding-bottom:3%;">
-                <button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator"><span>Agregar otro teléfono</span></button>
-            </div>
-            <form class="form-horizontal" enctype="multipart/form-data" method="POST" id="direccion">
+                <div class="text-right" style="padding-bottom:3%;">
+                	<button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator"><span>Agregar otro teléfono</span></button>
+            	</div>
+
 				<div class="form-group" id="dir1">
 	            	<label class="control-label col-sm-3" for="direccion_tipo1">Dirección</label>
 	            	<div class="col-xs-12 col-sm-9 col-sm-offset-3">
@@ -114,16 +114,13 @@
 	                	<input type="direccion_descripcion1" class="form-control" id="direccion_descripcion1" data-validation="string" data-validation="required" placeholder="Descripción...">
 	                </div>
 	            </div>
+	            <div class="text-right" style="padding-bottom:3%;">
+            		<button id="agregardireccion1" type="button" class="btn btn-primary agregardireccion top-space-separator"><span>Agregar otra dirección</span></button>
+            	</div>
+	            <div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
+            		<input class="btn btn-primary" value="Enviar" type="submit">
+            	</div>
             </form>
-            <div class="text-right" style="padding-bottom:3%;">
-            	<button id="agregardireccion1" type="button" class="btn btn-primary agregardireccion top-space-separator"><span>Agregar otra dirección</span></button>
-            </div>
-   
-            <div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
-            	<input class="btn btn-primary" value="Enviar" type="submit">
-            </div>
-
-            
 		</div>
 
 		<!-- Datos de bombero -->
@@ -159,17 +156,22 @@
 							<select id="no_table_rango" class="generic-widget form-control" name="rango">
 								<option value=""></option>
 								<option value="Alumno">Alumno</option>
+								<option value="Aspirante">Aspirante</option>
 								<option value="Bombero">Bombero</option>
 								<option value="Distinguido">Distinguido</option>
 								<option value="Cabo Segundo">Cabo Segundo</option>
 								<option value="Cabo Primero">Cabo Primero</option>
 								<option value="Sargento Segundo">Sargento Segundo</option>
 								<option value="Sargento Primero">Sargento Primero</option>
-								<option value="Sargento Ayudante">Sargento Ayudante</option>
-								<option value="Subteniente">Subteniente</option>
+								<option value="Sargento Mayor">Sargento Mayor</option>
 								<option value="Teniente">Teniente</option>
+								<option value="Primer Teniente">Primer Teniente</option>
 								<option value="Capitán">Capitán</option>
 								<option value="Mayor">Mayor</option>
+								<option value="Teniente Coronel">Teniente Coronel</option>
+								<option value="Coronel">Coronel</option>
+								<option value="General">General</option>
+								<option value="Primer General">General</option>
 							</select>
 						</div>
 					</div>
