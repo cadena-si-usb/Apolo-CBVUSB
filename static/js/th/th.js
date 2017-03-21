@@ -8,7 +8,7 @@ $(document).ready(function() {
     });
 
     // Tabla para buscar usuarios en talento humano
-    $('.buscarth-table').dataTable( {
+    $('.buscar-table').dataTable( {
         searching: true,
         "language": {
             caseInsen: false,
@@ -25,128 +25,6 @@ $(document).ready(function() {
             "processing":     "Procesando...",
             "search":         "Buscar:",
             "searchPlaceholder": "Buscar...",
-            "paginate": {
-                "first":    "Primero",
-                "last":     "Último",
-                "next":     "Siguiente",
-                "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending":  ": Ordenar columna de manera ascendente",
-                "sortDescending": ": Ordenar columna de manera descendente"
-            }
-        }
-    });
-
-    // Tabla para gestionar constancias en talento humano
-    $('.constancia-table').dataTable( {
-        searching: true,
-        "language": {
-            caseInsen: false,
-            "decimal":        "",
-            "infoEmpty":      "",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "emptyTable":     "No hay registros para esta búsqueda.",
-            "lengthMenu":     "Resultados por página: _MENU_",
-            "zeroRecords":    "No hay registros para esta búsqueda.",
-            "info":           "Página _PAGE_ de _PAGES_",
-            "infoFiltered":   "(Filtrado de _MAX_ registros en total)",
-            "loadingRecords": "Cargando...",
-            "processing":     "Procesando...",
-            "search":         "Buscar:",
-            "searchPlaceholder": "Buscar...",
-            "paginate": {
-                "first":    "Primero",
-                "last":     "Último",
-                "next":     "Siguiente",
-                "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending":  ": Ordenar columna de manera ascendente",
-                "sortDescending": ": Ordenar columna de manera descendente"
-            }
-        }
-    });
-
-    // Tabla para solicitar constancias en talento humano
-    $('.solicitar-table').dataTable( {
-        searching: true,
-        "language": {
-            caseInsen: false,
-            "decimal":        "",
-            "infoEmpty":      "",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "emptyTable":     "No hay registros para esta búsqueda.",
-            "lengthMenu":     "Resultados por página: _MENU_",
-            "zeroRecords":    "No hay registros para esta búsqueda.",
-            "info":           "Página _PAGE_ de _PAGES_",
-            "infoFiltered":   "(Filtrado de _MAX_ registros en total)",
-            "loadingRecords": "Cargando...",
-            "processing":     "Procesando...",
-            "search":         "Buscar:",
-            "searchPlaceholder": "Buscar...",
-            "paginate": {
-                "first":    "Primero",
-                "last":     "Último",
-                "next":     "Siguiente",
-                "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending":  ": Ordenar columna de manera ascendente",
-                "sortDescending": ": Ordenar columna de manera descendente"
-            }
-        }
-    });
-
-    // Tabla para deshabilitar/habilitar usuarios en talento humano
-    $('.eliminarth-table').dataTable( {
-        searching: true,
-        "language": {
-            caseInsen: false,
-            "decimal":        "",
-            "infoEmpty":      "",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "emptyTable":     "No hay registros para esta búsqueda.",
-            "lengthMenu":     "Resultados por página: _MENU_",
-            "zeroRecords":    "No hay registros para esta búsqueda.",
-            "info":           "Página _PAGE_ de _PAGES_",
-            "infoFiltered":   "(Filtrado de _MAX_ registros en total)",
-            "loadingRecords": "Cargando...",
-            "processing":     "Procesando...",
-            "search":         "Buscar:",
-            "searchPlaceholder": "Buscar...",
-            "paginate": {
-                "first":    "Primero",
-                "last":     "Último",
-                "next":     "Siguiente",
-                "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending":  ": Ordenar columna de manera ascendente",
-                "sortDescending": ": Ordenar columna de manera descendente"
-            }
-        }
-    });
-
-    // Tabla para confirmar registros en talento humano
-    $('.confirmar-table').dataTable( {
-        searching: true,
-        "language": {
-            "decimal":        "",
-            "infoEmpty":      "",
-            "infoPostFix":    "",
-            "thousands":      ",",
-            "emptyTable":     "No hay registros para esta búsqueda.",
-            "lengthMenu":     "Resultados por página: _MENU_",
-            "zeroRecords":    "No hay registros para esta búsqueda.",
-            "info":           "Página _PAGE_ de _PAGES_",
-            "infoFiltered":   "(Filtrado de _MAX_ registros en total)",
-            "loadingRecords": "Cargando...",
-            "processing":     "Procesando...",
-            "search":         "Buscar:",
             "paginate": {
                 "first":    "Primero",
                 "last":     "Último",

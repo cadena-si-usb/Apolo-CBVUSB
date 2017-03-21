@@ -99,9 +99,6 @@
                 {{if auth.has_permission('Administrador'): }}
                 <li><a href="{{=URL('th','deshabilitarth')}}">Gestionar <br/> Usuarios</a></li>
                 {{pass}}
-                {{if auth.has_permission('Administrador'): }}
-                <li><a href="{{=URL('th','eliminarusrth')}}">Eliminar <br/> Usuarios</a></li>
-                {{pass}}
                 {{if auth.has_permission('Gerencia'): }}
                 <li><a href="{{=URL('default','confirmar')}}">Gestionar <br/> Registros</a></li>
                 {{pass}}

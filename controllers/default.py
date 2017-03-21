@@ -151,7 +151,7 @@ def confirmar():
 		if opcion == 'editar':
 			redirect(URL("default","editarnoconfirmado", args=[id_bombero]))
 
-		if opcion == 'eliminar':
+		if opcion == 'cancelar':
 			db(db.persona.id == bombero.id_persona).delete()
 			db(db.bombero.id==id_bombero).delete()
 
@@ -159,11 +159,13 @@ def confirmar():
 			actualizar_permisos(bombero.id_usuario, bombero.cargo)
 			db(db.usuario.id==bombero.id_usuario).update(confirmed=True)
 
+		if opcion == 'eliminar':
+			pass
+
 	tabla = db((db.bombero.id_persona==db.persona.id) & (db.usuario.id==db.bombero.id_usuario) & (db.usuario.confirmed == False)).select( distinct=db.bombero.carnet, orderby=~db.bombero.carnet)
+	no_confirmados = db(db.usuario.confirmed==False).select()
 
-	#print tabla
-
-	return dict(tabla=tabla)
+	return dict(tabla=tabla, no_confirmados=no_confirmados)
 
 def actualizar_permisos( id_usuario, cargo ):
 

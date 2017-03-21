@@ -23,14 +23,6 @@
             <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos básicos</h4></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <tr>
-						<td class="text-center">Carnet</td>
-						<td class="text-center">Cédula</td>
-						<td class="text-center">Nombres</td>
-						<td class="text-center">Apellidos</td>
-						<td class="text-center">Estado de solicitud</td>
-						<td class="text-center"></td>
-					</tr>
 					<tr align="center">
 					    <td>{{=usuario.bombero.carnet}}</td>
 					    <td>{{=usuario.persona.nacionalidad}}-{{=usuario.persona.cedula}}</td>
@@ -62,7 +54,7 @@
 	<br /><br />
 	<h2 class="text-left">Aprobación de constancias</h2>
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="display constancia-table">
+		<table class="display buscar-table">
 			<thead class="bg-1">
 				<tr>
 					<td class="text-center">Carnet</td>
