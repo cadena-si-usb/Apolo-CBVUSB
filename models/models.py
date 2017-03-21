@@ -81,6 +81,11 @@ db.define_table('bombero',
 	Field('rango', type='string', default='Aspirante'),
 	migrate="db.bombero")
 
+db.define_table('constancia',
+	Field('id_solicitante', type='reference bombero', notnull=True),
+	Field('id_confirmador', type='reference bombero'),
+	migrate='db.constancia')
+
 db.define_table('servicio',
 	Field('Registra','reference bombero',notnull = True),
 	Field('Borrador','boolean',default = True,notnull = True),

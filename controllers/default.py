@@ -43,15 +43,15 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 			type='password', 
 			readable=False, 
 			length=512, 
-			requires=db.usuario.password.requires,
-			label='Clave'
+			requires=IS_EMPTY_OR(db.usuario.password.requires),
+			label='Ingrese una nueva clave'
 			),
 		Field('password_again',
 			type='password', 
 			readable=False, 
 			length=512,
-			requires=db.usuario.password.requires,
-			label='Reingrese la clave'
+			requires=IS_EMPTY_OR(db.usuario.password.requires),
+			label='Reingrese la nueva clave'
 			),
 		Field('cedula', 
 			type='integer',
