@@ -82,7 +82,7 @@ db.define_table('bombero',
 	migrate="db.bombero")
 
 db.define_table('constancia',
-	Field('id_solicitante', type='reference bombero', notnull=True),
+	Field('id_solicitante', type='reference bombero', notnull=True, unique=True),
 	migrate='db.constancia')
 
 db.define_table('servicio',

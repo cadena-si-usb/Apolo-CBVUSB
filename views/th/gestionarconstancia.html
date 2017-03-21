@@ -43,7 +43,7 @@
 		            <td>{{=usuario.persona.primer_apellido}}</td>
 		            {{pass}}
 		            <td></td>
-				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['solicitar',str(row.bombero.id)])}}" type="button" id="btn-submit-solicitar"><span>Solicitar</span></td>
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['solicitar'])}}" type="button" id="btn-submit-solicitar"><span>Solicitar</span></td>
 				    {{pass}}
 				</tr>
 			</tbody>
@@ -51,6 +51,7 @@
 	</div>
 	<br /><br />
 	{{if auth.has_permission('Gerencia'): }}
+	<h2 class="text-left">Aprobación de constancias</h2>
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
 		<table class="display constancia-table">
 			<thead class="bg-1">

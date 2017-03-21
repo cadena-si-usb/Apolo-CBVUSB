@@ -337,7 +337,7 @@ def eliminarusrth():
 
 	no_confirmados = db(db.usuario.confirmed==False).select()
 
-	return dict(usuarios=no_confirmados)
+	return dict(no_confirmados=no_confirmados)
 
 @auth.requires_permission('Estudiante')
 def buscarth():
@@ -353,9 +353,11 @@ def constancia():
 	T.force('es')
 	return dict()
 
-@auth.requires_permission('Gerencia')
+@auth.requires_login()
 def gestionarconstancia():
 	T.force('es')
+	tipo = ""
+	solcitado = db(db.constancia.id_solicitante==auth.user.id).isempty()
 
 	usuario = db((db.bombero.id_usuario==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
 
@@ -363,13 +365,18 @@ def gestionarconstancia():
 		solicitud = request.args[0]
 
 		if solicitud == 'solicitar':
-			db.constancia.insert(id_solicitante=auth.user.id)
+			if solicitado:
+				tipo = "danger"
+				response.flash = "Ya tiene una solicitud pendiente."
+				
+			else:
+				db.constancia.insert(id_solicitante=auth.user.id)
 
 		if solicitud == 'aprobar' and len(request.args) > 1:
 			db(db.constancia.id == request.args[1]).delete(id_confirmador=auth.user.id)
 
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
-				& (db.constancia.id_solicitante==db.usuario.id))\
+				& (db.constancia.id_solicitante==db.usuario.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
 				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
 
-	return dict( usuario=usuario, tabla=tabla)
+	return dict( usuario=usuario, tabla=tabla, tipo="", solicitado=solicitado)
