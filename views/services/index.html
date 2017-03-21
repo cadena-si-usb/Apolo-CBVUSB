@@ -13,7 +13,7 @@
         <h2>Servicios</h2>
       </div>
     </div>
-    <div class="row">
+    <!--<div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
         <form class="navbar-form navbar-left" style="padding: 2px;" role="search">
@@ -24,17 +24,19 @@
         </form>
       </div>
       <div class="col-md-1"></div>
-    </div>
+    </div>-->
     <div class="box">
       <div class="text-left">
-        <a href="{{=URL('services','register.html')}}"> <button type="button" class="btn bg-1 top-space-separator"><span>Registrar Servicio</span></button></a>
-        <a href="{{=URL('services','msapproved.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Mis registros de servicios</span></button></a>
-        <a href="{{=URL('services','aprove.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Aprobar Servicios</span></button></a>
+        <a href="{{=URL('services','allservices.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Ver todos los servicios</span></button></a>
+        <a href="{{=URL('services','myservices.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Ver servicios en los que aparezco</span></button></a>
+        <a href="{{=URL('services','msapproved.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Gestionar mis registros</span></button></a>
+        <a href="{{=URL('services','register.html')}}"> <button type="button" class="btn bg-1 top-space-separator"><span>Registrar servicio</span></button></a>
+        <a href="{{=URL('services','aprove.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Aprobar servicios</span></button></a>
       </div>
     </div>
     <div class="row">
       <div class="col-md-11">
-        <h3>Últimos servicios aprobados</h3>
+        <h3>Servicios recientes</h3>
         <div class="table-responsive">
           <table class= "table table-striped table-hover">
             <thead class="bg-1">
@@ -61,11 +63,6 @@
               {{pass}}
             </tbody>
           </table>
-        </div>
-        <div class="text-left">
-          <a href="{{=URL('services','allservices.html')}}">
-            <button type="button" class="btn bg-1"><small>Ver todos</small></button>
-          </a>
         </div>
       </div>
     </div>
