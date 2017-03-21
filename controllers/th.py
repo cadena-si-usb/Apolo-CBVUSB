@@ -357,7 +357,7 @@ def constancia():
 def gestionarconstancia():
 	T.force('es')
 	tipo = ""
-	solcitado = db(db.constancia.id_solicitante==auth.user.id).isempty()
+	no_solicitado = db(db.constancia.id_solicitante==auth.user.id).isempty()
 
 	usuario = db((db.bombero.id_usuario==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
 
@@ -365,7 +365,7 @@ def gestionarconstancia():
 		solicitud = request.args[0]
 
 		if solicitud == 'solicitar':
-			if solicitado:
+			if not no_solicitado:
 				tipo = "danger"
 				response.flash = "Ya tiene una solicitud pendiente."
 				
@@ -373,10 +373,11 @@ def gestionarconstancia():
 				db.constancia.insert(id_solicitante=auth.user.id)
 
 		if solicitud == 'aprobar' and len(request.args) > 1:
-			db(db.constancia.id == request.args[1]).delete(id_confirmador=auth.user.id)
+			db(db.constancia.id == request.args[1]).delete()
+
 
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
 				& (db.constancia.id_solicitante==db.usuario.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
 				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
 
-	return dict( usuario=usuario, tabla=tabla, tipo="", solicitado=solicitado)
+	return dict( usuario=usuario, tabla=tabla, tipo=tipo, no_solicitado=no_solicitado)
