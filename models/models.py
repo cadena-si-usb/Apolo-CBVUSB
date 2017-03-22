@@ -14,7 +14,7 @@ plugins = PluginManager()
 
 auth.settings.login_methods.append(ldap_auth(
 	server='localhost',
-	base_dn='ou=Users,dc=login,dc=com'))
+	base_dn='ou=users,dc=bomberos,dc=usb,dc=ve'))
 
 auth.settings.table_user_name = 'usuario'
 auth.settings.extra_fields['usuario']= [Field('disable', type='boolean', default=False),
@@ -80,6 +80,10 @@ db.define_table('bombero',
 	Field('hijos', type='integer', default=0),
 	Field('rango', type='string', default='Aspirante'),
 	migrate="db.bombero")
+
+db.define_table('constancia',
+	Field('id_solicitante', type='reference bombero', notnull=True, unique=True),
+	migrate='db.constancia')
 
 db.define_table('servicio',
 	Field('Registra','reference bombero',notnull = True),
