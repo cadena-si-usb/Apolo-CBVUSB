@@ -13,7 +13,7 @@ service = Service()
 plugins = PluginManager()
 
 auth.settings.login_methods.append(ldap_auth(
-	server='localhost',
+	server='bomberos.usb.ve',
 	base_dn='ou=users,dc=bomberos,dc=usb,dc=ve'))
 
 auth.settings.table_user_name = 'usuario'

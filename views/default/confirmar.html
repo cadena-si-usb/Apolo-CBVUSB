@@ -66,33 +66,17 @@
 		<table class="display buscar-table">
 			<thead class="bg-1">
 				<tr>
-					<td class="text-center">Carnet</td>
-					<td class="text-center">Cédula</td>
-					<td class="text-center">Nombres</td>
-					<td class="text-center">Apellidos</td>
-					<td class="text-center">Cargo</td>
-					<td class="text-center">Rango</td>
+					<td class="text-center">Nombre de usuario</td>
+					<td class="text-center">Email</td>
 					<td class="text-center"></td>
 				</tr>
 			</thead>
 			<tbody>
 				{{for row in no_confirmados:}}
 				<tr align="center">
-				    <td>{{=row.bombero.carnet}}</td>
-				    <td>{{=row.persona.nacionalidad}}-{{=row.persona.cedula}}</td>
-				    {{if row.persona.segundo_nombre != None:}}
-		            <td>{{=row.persona.primer_nombre}} {{=row.persona.segundo_nombre}}</td>
-		            {{else:}}
-		            <td>{{=row.persona.primer_nombre}}</td>
-		            {{pass}}
-		            {{if row.persona.segundo_apellido != None:}}
-		            <td>{{=row.persona.primer_apellido}} {{=row.persona.segundo_apellido}}</td>
-		            {{else:}}
-		            <td>{{=row.persona.primer_apellido}}</td>
-		            {{pass}}
-		            <td>{{=row.bombero.cargo}}</td>
-		            <td>{{=row.bombero.rango}}</td>
-				    <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['eliminar',str(row.bombero.id)])}}" type="button" id="btn-submit-eliminar"><span>Eliminar</span></td>
+				    <td>{{=row.username}}</td>
+				    <td>{{=row.email}}</td>
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('default','confirmar',args=['eliminar',str(row.id)])}}" type="button" id="btn-submit-eliminar"><span>Eliminar</span></td>
 				</tr>
 				{{pass}}
 			</tbody>

@@ -25,6 +25,25 @@ def random_password():
 		password += random.choice(specials)            
 	return ''.join(random.sample(password,len(password)))
 
+def actualizar_permisos( id_usuario, cargo ):
+
+	estudiante 	= '^Estudiante$'
+	bombero		= '^Miembro.*$'
+	gerencia	= '^.*[Gg]erente.*$'
+	inspector	= '^Inspector$'
+	comandancia = '^.*[Cc]omandante$'
+
+	if re.match(estudiante, cargo):
+		auth.add_membership(auth.id_group('Estudiante'), id_usuario)
+	elif re.match(bombero, cargo):
+		auth.add_membership(auth.id_group('Bombero'), id_usuario)
+	elif re.match(gerencia, cargo):
+		auth.add_membership(auth.id_group('Gerencia'), id_usuario)
+	elif re.match(inspector, cargo):
+		auth.add_membership(auth.id_group('Inspectoria'), id_usuario)
+	elif re.match(comandancia, cargo):
+		auth.add_membership(auth.id_group('Comandancia'), id_usuario)
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de Talento Humano
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,8 +72,6 @@ def perfilmodth():
 	usuario=db(db.usuario.id==userid).select().first()
 	tipo=""
 
-	print request.vars
-
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
 		Field('password_actual',
@@ -78,7 +95,7 @@ def perfilmodth():
 		tipo="success"
 	elif formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
 		tipo="danger"
-		response.flash = 'Las contraseñas ingresadas no son iguales'
+		response.flash = 'Las contraseñas ingresadas no coinciden'
 	elif formUsuario.errors:
 		tipo="danger"
 		response.flash = 'Hay un error en un campo.'
@@ -201,8 +218,7 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=bombero.cargo,
-			requires = IS_IN_SET([  'Administrador', 
-									'Comandante en Jefe', 
+			requires = IS_IN_SET([	'Comandante en Jefe', 
 									'Primer comandante', 
 									'Segundo comandante', 
 									'Inspector en Jefe', 
@@ -233,6 +249,7 @@ def perfilmodth():
 			label='Rango *')) #FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
+		actualizar_permisos(userid, formBombero.vars.cargo)
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
 		user = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
 		
@@ -242,6 +259,31 @@ def perfilmodth():
 	elif formBombero.errors:
 		tipo="danger"
 		response.flash = 'Hay un error en un campo.'
+
+	if len(request.vars):		
+		cargo = '^.*cargo$'
+		tipo_sangre = '^tipo_sangre$'
+		rango = '^rango$'
+		telefonos = '^tel[\d]+$'
+		telefono_emergencia = '^telefono-emergencia[\d]+$'
+
+		for campo in request.vars:
+			print request.vars[campo]
+
+			if re.match(cargo,campo):
+				pass
+
+			if re.match(tipo_sangre,campo):
+				pass
+
+			if re.match(rango,campo):
+				pass
+
+			if re.match(telefonos,campo):
+				pass
+
+			if re.match(telefono_emergencia,campo):
+				pass
 
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)  
 

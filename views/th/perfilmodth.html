@@ -45,32 +45,34 @@
 				<div class="form-group" id="no_table_persona_contacto__row">
 					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia</label>
 					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
-						<input type="persona_contacto_nombre" class="form-control string" id="persona_contacto_nombre" placeholder="Nombre Completo...">
+						<input type="persona_contacto_nombre" class="form-control string" id="persona_contacto_nombre" name="persona_contacto_nombre" placeholder="Nombre Completo...">
 					</div>
 					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotelefono1" class="form-control string" data-validation="required">
+		                 	<select id="tipotelefono-emergencia1" class="form-control string" name="tipotelefono-emergencia1" data-validation="required">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
+					            <option value="Ḿóvil">Móvil</option>
 					            <option value="Otro">Otro</option>
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono1" class="form-control number" id="telefono1" name="telefono1" placeholder="Teléfono...">
+	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="telefono-emergencia1" placeholder="Teléfono...">
 	                    </div>
 	                </div>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotelefono2" class="form-control string" data-validation="required">
+		                 	<select id="tipotelefono-emergencia2" class="form-control string" name="tipotelefono-emergencia2" data-validation="required">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
+					            <option value="Ḿóvil">Móvil</option>
 					            <option value="Otro">Otro</option>
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono2" class="form-control number" id="telefono2" placeholder="Teléfono...">
+	                     	<input type="telefono2" class="form-control number" id="telefono-emergencia2" name="telefono-emergencia2" placeholder="Teléfono...">
 	                    </div>
 	                </div>
 				</div>
@@ -79,15 +81,16 @@
                     <label class="control-label col-sm-3" for="tipotlf1">Teléfonos</label>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotlf1" class="form-control" data-validation="required">
+		                 	<select id="tipotlf1" class="form-control" data-validation="required" name="tipotlf1">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
+					            <option value="Ḿóvil">Móvil</option>
 					            <option value="Otro">Otro</option>
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="tel" class="form-control" id="tel1" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">
+	                     	<input type="tel" class="form-control" id="tel1" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" name="tel1" placeholder="Teléfono...">
 	                    </div>
 	                </div>
                 </div>
@@ -103,15 +106,16 @@
 				              <option value="">Tipo</option>
 				              <option value="Casa">Casa</option>
 				              <option value="Trabajo">Trabajo</option>
+				              <option value="Ḿóvil">Móvil</option>
 				              <option value="Otro">Otro</option>
 				        	</select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                    	<input type="direccion_ciudad1" class="form-control" id="direccion_ciudad1" data-validation="string" data-validation="required" placeholder="Ciudad...">
+	                    	<input type="direccion_ciudad1" class="form-control" id="direccion_ciudad1" data-validation="string" data-validation="required" name="direccion_ciudad1" placeholder="Ciudad...">
 	                	</div>
 	                </div>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">
-	                	<input type="direccion_descripcion1" class="form-control" id="direccion_descripcion1" data-validation="string" data-validation="required" placeholder="Descripción...">
+	                	<input type="direccion_descripcion1" class="form-control" id="direccion_descripcion1" data-validation="string" data-validation="required" name="direccion_descripcion1" placeholder="Descripción...">
 	                </div>
 	            </div>
 	            <div class="text-right" style="padding-bottom:3%;">
@@ -126,13 +130,6 @@
 		<!-- Datos de bombero -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datobombero" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="post" id="tabla_bombero">
-					<div id="no_table_iniciales__row" class="form-group">
-						<label if="no_table_iniciales__label" class="control-label col-sm-3" for="no_table_iniciales">Iniciales</label>
-						<div class="col-sm-9">
-							<input id="no_table_iniciales" class="form-control string" type="text" name="iniciales">
-						</div>
-					</div>
-
 					<div id="no_table_tipo_sangre__row" class="form-group">
 						<label id="no_table_tipo_sangre__label" class="control-label col-sm-3" for="no_table_tipo_sangre">Tipo de Sangre</label>
 						<div class="col-sm-9">

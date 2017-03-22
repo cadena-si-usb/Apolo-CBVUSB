@@ -72,7 +72,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav main-nav">
             {{if  auth.user != None:}}
-            <li><a href="{{=URL('th','eliminarusrth')}}">Educación</a></li>
+            <li><a href="{{=URL('default','index')}}">Educación</a></li>
             <li class="dropdown">
               <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -93,13 +93,13 @@
               <ul class="dropdown-menu">
                 <li><a href="{{=URL('th','perfilth')}}">Ver Perfil</a></li>
                 <li><a href="{{=URL('th','perfilmodth')}}">Modificar <br/> Perfil</a></li>
-                {{if auth.has_permission('Gerencia'): }}
+                {{if auth.has_permission('Administrador'): }}
                 <li><a href="{{=URL('th','registrousrth')}}">Registrar <br/> Usuario</a></li>
                 {{pass}}
                 {{if auth.has_permission('Administrador'): }}
                 <li><a href="{{=URL('th','deshabilitarth')}}">Gestionar <br/> Usuarios</a></li>
                 {{pass}}
-                {{if auth.has_permission('Gerencia'): }}
+                {{if auth.has_permission('Administrador'): }}
                 <li><a href="{{=URL('default','confirmar')}}">Gestionar <br/> Registros</a></li>
                 {{pass}}
                 <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
