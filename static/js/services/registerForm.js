@@ -363,15 +363,15 @@ $(document).ready(function() {
     e.preventDefault();
     var form = $('#registro');
     swal({
-        title: "¿Estás seguro de enviar?",
-        text: "Asegúrate de haber llenado todos los campos pertinentes",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si, enviar!",
-        cancelButtonText: "Aún no termino",
-        closeOnConfirm: true,
-        html: false
+      title: "¿Estás seguro de enviar?",
+      text: "Asegúrate de haber llenado todos los campos pertinentes",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#1565C0",
+      confirmButtonText: "Si, enviar!",
+      cancelButtonText: "Aún no termino",
+      closeOnConfirm: true,
+      html: false
     }, function(isConfirm) {
         if (isConfirm) {
           // Enviar form
@@ -383,37 +383,64 @@ $(document).ready(function() {
     });
   });
 
-  // Función para popUp al momento de enviar un servicio
+  // Función para popUp al momento guardar el borrador
   $('#btn-draft').on('click',function(e){
     e.preventDefault();
     var form = $('#registro');
     swal({
-        title: "¿Desea agregar este servicio a sus borradores?",
-        text: "Podrá terminar el registro del servicio en otro momento",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "¡Si, guardar!",
-        cancelButtonText: "Aún no termino",
-        closeOnConfirm: false,
-        html: false
+      title: "¿Desea agregar este servicio a sus borradores?",
+      text: "Podrá terminar el registro del servicio en otro momento",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#1565C0",
+      confirmButtonText: "¡Si, guardar!",
+      cancelButtonText: "Aún no termino",
+      closeOnConfirm: false,
+      html: false
     }, function(isConfirm) {
-        if (isConfirm) {
-            // Deshabilitar las validaciones de nulidad
-            $('#tipo').removeAttr('data-validation');
-            $('#startDate').removeAttr('data-validation');
-            $('#startTime').removeAttr('data-validation');
-            $('#endDate').removeAttr('data-validation');
-            $('#endTime').removeAttr('data-validation');
-            $('#description').removeAttr('data-validation');
-            $('#address').removeAttr('data-validation');
+      if (isConfirm) {
+        // Deshabilitar las validaciones de nulidad
+        $('#tipo').removeAttr('data-validation');
+        $('#startDate').removeAttr('data-validation');
+        $('#startTime').removeAttr('data-validation');
+        $('#endDate').removeAttr('data-validation');
+        $('#endTime').removeAttr('data-validation');
+        $('#description').removeAttr('data-validation');
+        $('#address').removeAttr('data-validation');
 
-            // Enviar form
-            form.submit();
+        // Enviar form
+        form.submit();
 
-            // Popup
-            swal("¡Guardado!", "", "success");
-        }
+        // Popup
+        swal("¡Guardado!", "", "success");
+      }
+    });
+  });
+
+  // Función para popUp al momento de cancelar el registro
+  $('#btn-cancel').on('click',function(e){
+    e.preventDefault();
+    swal({
+      title: "¿Está seguro de que desea cancelar el registro?",
+      text: "Toda la información de este registro se descartará",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "¡Si, cancelar!",
+      cancelButtonText: "Voy a darle otra oportunidad",
+      closeOnConfirm: false,
+      html: false
+    }, function(isConfirm) {
+      if (isConfirm) {
+        // Popup
+        swal({
+          title: "Registro cancelado",
+          text: "",
+        });
+
+        // Redireccionar al index de servicios
+        window.location.replace($('#btn-cancel').attr("name"));
+      }
     });
   });
 
@@ -433,5 +460,3 @@ $(document).ready(function() {
   $('#start-end-date').datepair();
 
 });
-
-
