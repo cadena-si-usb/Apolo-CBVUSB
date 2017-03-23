@@ -65,11 +65,6 @@
                         <td>-</td>
                         {{pass}}
                     </tr>
-                    <!--
-                    <tr>
-                        <td>Hijos:</td>
-                        <td>{{=usuario.bombero.hijos}}</td>
-                    </tr>-->
                 </table>
             </div>
         </div>
@@ -80,6 +75,62 @@
             <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos de contacto</h4></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
+                    {{if contacto != None:}}
+                    <div class="panel-heading">Contacto de emergencia: {{=contacto.nombre}}</div>
+                    <tr>
+                        {{if contacto.tipo_telefono1 == "Casa":}}
+                        <td><span class="glyphicon glyphicon-phone-alt"></span></td>
+                        {{elif contacto.tipo_telefono1 == "Móvil" or contacto.tipo_telefono1 == "Otro":}}
+                        <td><span class="glyphicon glyphicon-phone"></span></td>
+                        {{elif contacto.tipo_telefono1 == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-earphone"></span></td>
+                        {{pass}}
+                        <td>{{=contacto.tipo_telefono1}}</td>
+                        <td>{{=contacto.codigo_telefono1}}-{{=contacto.numero_telefono1}}</td>
+                    </tr>
+                    <tr>
+                        {{if contacto.tipo_telefono2 == "Casa":}}
+                        <td><span class="glyphicon glyphicon-phone-alt"></span></td>
+                        {{elif contacto.tipo_telefono2 == "Móvil" or contacto.tipo_telefono2 == "Otro":}}
+                        <td><span class="glyphicon glyphicon-phone"></span></td>
+                        {{elif contacto.tipo_telefono2 == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-earphone"></span></td>
+                        {{pass}}
+                        <td>{{=contacto.tipo_telefono2}}</td>
+                        <td>{{=contacto.codigo_telefono2}}-{{=contacto.numero_telefono2}}</td>
+                    </tr>
+                    {{pass}}
+                    {{if telefono != None:}}
+                    <div class="panel-heading">Teléfono</div>
+                    {{for rows in telefono:}}
+                    <tr>
+                        {{if rows.tipo_telefono == "Casa":}}
+                        <td><span class="glyphicon glyphicon-phone-alt"></span></td>
+                        {{elif rows.tipo_telefono == "Móvil" or rows.tipo_telefono == "Otro":}}
+                        <td><span class="glyphicon glyphicon-phone"></span></td>
+                        {{elif rows.tipo_telefono == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-earphone"></span></td>
+                        {{pass}}
+                        <td>{{=rows.tipo_telefono}}</td>
+                        <td>{{=rows.codigo_telefono}}-{{=rows.numero_telefono}}</td>
+                    </tr>
+                    {{pass}}
+                    {{pass}}
+                    {{if direccion != None:}}
+                    <div class="panel-heading">Dirección</div>
+                    {{for rows in direccion:}}
+                    <tr>
+                        {{if rows.direccion_tipo == "Casa" or rows.direccion_tipo == "Otro":}}
+                        <td><span class="glyphicon glyphicon-home"></span></td>
+                        {{elif rows.direccion_tipo == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-briefcase"></span></td>
+                        {{pass}}
+                        <td>{{=rows.direccion_tipo}}</td>
+                        <td>{{=rows.direccion_ciudad}}</td>
+                        <td>{{=rows.direccion_descripción}}/td>
+                    </tr>
+                    {{pass}}
+                    {{pass}}
                     <!--<span class="glyphicon glyphicon-earphone"></span>-->
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email:</td>
@@ -88,7 +139,6 @@
                     <tr>
                         <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email alternativo:</td>
                         {{if (usuario.persona.email_alternativo) != None:}}
-                        
                         <td>{{=usuario.persona.email_alternativo}}</td>
                         {{else:}}
                         <td>-</td>
