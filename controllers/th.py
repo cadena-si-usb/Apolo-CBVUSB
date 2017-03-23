@@ -61,11 +61,13 @@ def perfilth():
 		userid = auth.user.id
 
 	usuario = db(db.bombero.id_usuario==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-	
+	contacto = db(db.contacto.id_bombero==userid).select(join=db.contacto.on(db.bombero.id_persona == db.contacto.id_bombero)).first()
+	telefono = db(db.telefono.id_persona==userid).select(join=db.telefono.on(db.telefono.id_persona == db.bombero.id_persona)).first()
+		
 	if usuario is None:
 		usuario = db(db.bombero.id_usuario==auth.user.id).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-
-	return dict(usuario=usuario)
+	
+	return dict(usuario=usuario,contacto=contacto,telefono=telefono)
 
 @auth.requires_login()
 def perfilmodth():
