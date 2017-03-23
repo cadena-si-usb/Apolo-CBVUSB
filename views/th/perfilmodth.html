@@ -45,11 +45,11 @@
 				<div class="form-group" id="no_table_persona_contacto__row">
 					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia</label>
 					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
-						<input type="persona_contacto_nombre" class="form-control string" id="persona_contacto_nombre" name="persona_contacto_nombre" placeholder="Nombre Completo..." data-validation="required">
+						<input type="persona_contacto_nombre" class="form-control string" id="persona_contacto_nombre" name="persona_contacto" placeholder="Nombre Completo..." data-validation="required">
 					</div>
 					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotelefono-emergencia1" class="form-control string" name="tipotelefono-emergencia1" data-validation="required">
+		                 	<select id="tipotelefono-emergencia1" class="form-control string" name="persona_contacto" data-validation="required">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
@@ -58,13 +58,12 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="telefono-emergencia1" placeholder="Teléfono...">
-	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="telefono-emergencia1" placeholder="Teléfono..." data-validation="required">
+	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="persona_contacto" placeholder="Teléfono..." data-validation="required">
 	                    </div>
 	                </div>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotelefono-emergencia2" class="form-control string" name="tipotelefono-emergencia2" data-validation="required">
+		                 	<select id="tipotelefono-emergencia2" class="form-control string" name="persona_contacto" data-validation="required">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
@@ -73,8 +72,7 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono2" class="form-control number" id="telefono-emergencia2" name="telefono-emergencia2" placeholder="Teléfono...">
-	                     	<input type="telefono2" class="form-control number" id="telefono-emergencia2" name="telefono-emergencia2" placeholder="Teléfono..." data-validation="required">
+	                     	<input type="telefono2" class="form-control number" id="telefono-emergencia2" name="persona_contacto" placeholder="Teléfono..." data-validation="required">
 	                    </div>
 	                </div>
 				</div>
@@ -82,8 +80,8 @@
 				<div class="form-group" id="tlf1">
                     <label class="control-label col-sm-3" for="tipotlf1">Teléfonos</label>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
-	                    <div class="col-xs-12 coldata-validation="required" -sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotlf1" class="form-control" data-validation="required" name="tipotlf1">
+	                    <div class="col-xs-12 col-sm-4" coldata-validation="required" style="padding-top: 2%;">
+		                 	<select id="tipotlf1" class="form-control" data-validation="required" name="telefono1">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
@@ -92,7 +90,7 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="tel" class="form-control" id="tel1" data-validation="required" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono..." name="tel1">
+	                     	<input type="tel" class="form-control" id="tel1" data-validation="required" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono..." name="telefono1">
 	                    </div>
 	                </div>
                 </div>
@@ -104,7 +102,7 @@
 	            	<label class="control-label col-sm-3" for="direccion_tipo1">Dirección</label>
 	            	<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                   	<select id="direccion_tipo1" class="form-control"  data-validation="string" data-validation="required">
+		                   	<select id="direccion_tipo1" class="form-control"  data-validation="string" data-validation="required" name="direccion1">
 				              <option value="">Tipo</option>
 				              <option value="Casa">Casa</option>
 				              <option value="Trabajo">Trabajo</option>
@@ -113,11 +111,11 @@
 				        	</select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                    	<input type="direccion_ciudad1" class="form-control" id="direccion_ciudad1" data-validation="string" data-validation="required" name="direccion_ciudad1" placeholder="Ciudad...">
+	                    	<input type="direccion_ciudad1" class="form-control" id="direccion_ciudad1" data-validation="string" data-validation="required" name="direccion1" placeholder="Ciudad...">
 	                	</div>
 	                </div>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">
-	                	<input type="direccion_descripcion1" class="form-control" id="direccion_descripcion1" data-validation="string" data-validation="required" name="direccion_descripcion1" placeholder="Descripción...">
+	                	<input type="direccion_descripcion1" class="form-control" id="direccion_descripcion1" data-validation="string" data-validation="required" name="direccion1" placeholder="Descripción...">
 	                </div>
 	            </div>
 	            <div class="text-right" style="padding-bottom:3%;">
@@ -178,7 +176,7 @@
 					<div id="no_table_cargo__row" class="form-group">
 						<label id="no_table_cargo__label" class="control-label col-sm-3" for="no_table_cargo">Cargo que ocupa *</label>
 						<div class="col-sm-9">
-							<select name="no_table_cargo" id="no_table_cargo" class="generic-widget form-control" name="cargo" data-validation="required">
+							<select name="cargo" id="no_table_cargo" class="generic-widget form-control" name="cargo" data-validation="required">
 								<option value=""></option>
 								<option value="Comandante en Jefe">Comandante en Jefe</option>
 								<option value="Primer comandante">Primer Comandante</option>

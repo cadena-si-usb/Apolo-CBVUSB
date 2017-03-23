@@ -58,6 +58,7 @@ db.define_table('persona',
 
 db.define_table('telefono',
 	Field('id_persona', type='reference persona', required=True, notnull=True),
+	Field('tipo_telefono', type='string', default='Móvil'),
 	Field('codigo_telefono', type='integer', length=4, notnull=True),
 	Field('numero_telefono', type='integer', length=7, notnull=True),
 	migrate="db.telefono")
@@ -84,6 +85,15 @@ db.define_table('bombero',
 db.define_table('constancia',
 	Field('id_solicitante', type='reference bombero', notnull=True, unique=True),
 	migrate='db.constancia')
+
+db.define_table('contacto',
+	Field('id_bombero', type='reference bombero', notnull=True, unique=True),
+	Field('nombre', type='string', notnull=True),
+	Field('tipo_telefono1', type='reference bombero', notnull=True),
+	Field('telefono1', type='integer', notnull=True),
+	Field('tipo_telefono2', type='integer', notnull=True),
+	Field('telefono2', type='integer', notnull=True),
+	migrate='db.contacto')
 
 db.define_table('servicio',
 	Field('Registra','reference bombero',notnull = True),
@@ -259,7 +269,8 @@ db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un form
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
 db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'))
 
-db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido')
+db.telefono.tipo_telefono.requires = IS_IN_SET(['Casa','Trabajo','Móvil','Otro'], error_message='Debe tener un tipo válido')
+#db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido')
 db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(1000000,10000000, error_message='No es un número de teléfono válido')
 
 db.bombero.carnet.requires = [IS_INT_IN_RANGE(1, error_message='Debe ser positivo'), IS_NOT_IN_DB(db,db.bombero.carnet, error_message='El carnet ya existe en el sistema.')]
