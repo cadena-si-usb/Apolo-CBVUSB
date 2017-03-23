@@ -86,7 +86,7 @@ $(document).ready(function() {
       // Inserción del html
       $(emailCNT).append(
       '<div class="affectedEmailField input-group">\
-        <input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" placeholder="mail@website.com">\
+        <input type="text" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" data-validation="email" data-validation-optional="true" placeholder="mail@website.com">\
         <span class="input-group-btn">\
           <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
         </span>\
