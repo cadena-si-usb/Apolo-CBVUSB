@@ -275,13 +275,12 @@ def perfilmodth():
 		direccion = '^direccion[\d]+$'
 
 		for campo in request.vars:
-			print request.vars[campo]
 
 			if re.match(cargo,campo):
 				print "Cargo"
 
 			if re.match(tipo_sangre,campo):
-				print "Tipo de sangre"
+				db(db.bombero.id_usuario==userid).validate_and_update(tipo_sangre=request.vars[campo])
 
 			if re.match(rango,campo):
 				print "Rango"
