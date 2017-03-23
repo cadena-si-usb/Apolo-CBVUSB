@@ -148,10 +148,10 @@ $(document).ready(function() {
           <div class="row">\
             <div id="unitsCNT'+num1+'">\
               <div id="unit'+num1+'-'+num2+'">\
-                <div class="col-xs-4 col-sm-2">\
+                <div class="col-xs-4 col-sm-4">\
                 '+unitsListCopy+'\
                 </div>\
-                <div class="col-xs-8 col-sm-10">\
+                <div class="col-xs-8 col-sm-8">\
                   <input list="firefighterList" name="commissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
                  </div>\
                 </div>\
