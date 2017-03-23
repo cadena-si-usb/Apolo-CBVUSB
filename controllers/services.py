@@ -64,7 +64,7 @@ def myservices():
     # ID de cuenta de usuario del bombero
     userId = request.vars["userId"]
 
-    servicios = db(db.servicio.Aprueba == None).select(orderby=~db.servicio.fechaCreacion)
+    servicios = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     misServicios = list()
 
     # Todos los servicios
