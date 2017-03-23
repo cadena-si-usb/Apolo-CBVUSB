@@ -37,7 +37,7 @@
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
       <li class="nav-item navbar-right"><button id="btn-submit" type="button" class="btn bg-1"><span>Enviar </span></button></li>
       <li class="nav-item navbar-right">
-        <button formnovalidate class="btn bg-1" type="submit" onclick="saveDraft()" name="draft" value="true">
+        <button id="btn-draft" type="submit" class="btn bg-1" onclick="saveDraft()" name="draft" value="true">
           <span>Guardar borrador </span>
           <span class="glyphicon glyphicon-floppy-disk"></span>
         </button>
@@ -62,7 +62,7 @@
             <div class="col-xs-12 col-sm-4">
               <div class="form-group required">
                 <label class="control-label" for="startDate">Tipo de Servicio </label>
-                <select name="tipo" class="form-control" data-validation="required">
+                <select id="tipo" name="tipo" class="form-control" data-validation="required">
                   <option value="">Seleccionar</option>
                   <option value="CM">CM</option>
                   <option value="AME1">AME1</option>

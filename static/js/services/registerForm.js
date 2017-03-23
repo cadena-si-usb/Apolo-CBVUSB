@@ -366,13 +366,44 @@ $(document).ready(function() {
         confirmButtonColor: "#1565C0",
         confirmButtonText: "Si, enviar!",
         cancelButtonText: "Aún no termino",
-        closeOnConfirm: false,
+        closeOnConfirm: true,
         html: false
     }, function(isConfirm) {
         if (isConfirm) { form.submit();
-            swal("Enviado!",
-            "Se ha registrado el servicio satisfatoriamente",
-            "success");
+        }
+    });
+  });
+
+  // Función para popUp al momento de enviar un servicio
+  $('#btn-draft').on('click',function(e){
+    e.preventDefault();
+    var form = $('#registro');
+    swal({
+        title: "¿Desea agregar este servicio a sus borradores?",
+        text: "Podrá terminar el registro del servicio en otro momento",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1565C0",
+        confirmButtonText: "¡Si, guardar!",
+        cancelButtonText: "Aún no termino",
+        closeOnConfirm: false,
+        html: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            // Deshabilitar las validaciones de nulidad
+            $('#tipo').removeAttr('data-validation');
+            $('#startDate').removeAttr('data-validation');
+            $('#startTime').removeAttr('data-validation');
+            $('#endDate').removeAttr('data-validation');
+            $('#endTime').removeAttr('data-validation');
+            $('#description').removeAttr('data-validation');
+            $('#address').removeAttr('data-validation');
+
+            // Enviar form
+            form.submit();
+
+            // Popup
+            swal("¡Guardado!", "", "success");
         }
     });
   });
