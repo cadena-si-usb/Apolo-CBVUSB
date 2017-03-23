@@ -60,14 +60,15 @@ def perfilth():
 	else:
 		userid = auth.user.id
 
-	usuario = db(db.bombero.id_usuario==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-	contacto = db(db.contacto.id_bombero==userid).select(join=db.contacto.on(db.bombero.id_persona == db.contacto.id_bombero)).first()
-	telefono = db(db.telefono.id_persona==userid).select(join=db.telefono.on(db.telefono.id_persona == db.bombero.id_persona)).first()
+	usuario = db((db.bombero.id_usuario==userid) & (db.bombero.id_persona == db.persona.id)).select().first()
+	contacto = db((db.contacto.id_bombero==userid) & (db.bombero.id_persona == db.contacto.id_bombero)).select(db.contacto.ALL).first()
+	telefono = db((db.telefono.id_persona==userid) & (db.telefono.id_persona == db.bombero.id_persona)).select(db.telefono.ALL)
+	direccion = db((db.bombero.id_usuario==userid) & (db.direccion.id_persona==db.bombero.id_persona)).select(db.direccion.ALL)
 		
 	if usuario is None:
 		usuario = db(db.bombero.id_usuario==auth.user.id).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
 	
-	return dict(usuario=usuario,contacto=contacto,telefono=telefono)
+	return dict(usuario=usuario,contacto=contacto,telefono=telefono, direccion=direccion)
 
 @auth.requires_login()
 def perfilmodth():
