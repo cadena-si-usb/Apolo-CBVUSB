@@ -38,212 +38,202 @@ $(document).ready(function() {
         }
     });
 
-    // Mensaje pop-Up para habilitar un usuario
-    $('#btn-submit-habilitar').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que quieres habilitar a este usuario?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Usuario habilitado",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
+    // Botones en tablas, mensajes de alerta antes de ejecutar la accion
+    $(function(){
+        $('[id="btn-submit-habilitar"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que quieres habilitar a este usuario?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Usuario habilitado",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
+        $('[id="btn-submit-deshabilitar"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que quieres deshabilitar a este usuario?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Usuario deshabilitado",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
+        $('[id="btn-submit-eliminar"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que quieres eliminar el registro de este usuario?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Registro eliminado",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
+        $('[id="btn-submit-confirmar-registro"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que quieres confirmar el registro de este usuario?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Registro confirmado",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
+        $('[id="btn-submit-cancelar"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que deseas cancelar la solicitud?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Contancia cancelada",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
+        $('[id="btn-submit-cancelar-registro"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que deseas cancelar el registro?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Registro cancelado",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
 
-    // Mensaje pop-Up para deshabilitar un usuario
-    $('#btn-submit-deshabilitar').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que quieres deshabilitar a este usuario?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Usuario deshabilitado",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
+        $('[id="btn-submit-solicitar"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que quieres solicitar una constancia?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Solicitud enviada",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
+        $('[id="btn-submit-aprobar"]').on('click',function(e){
+        e.preventDefault();
+        var href = $(this).attr('href');
+        swal({
+            title: "¿Estás seguro de que deseas aprobar la constancia?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#1565C0",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            html: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                window.location.href = href;
+                swal({
+                    title: "Contancia aprobada",
+                    type: "success",
+                    showConfirmButton: false,
+                    html: false
+                });
+            }
+        });
+        });
 
-    // Mensaje pop-Up para eliminar el registro de un usuario
-    $('#btn-submit-eliminar').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que quieres eliminar el registro de este usuario?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Registro eliminado",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
-
-    // Mensaje pop-Up para confirmar el registro de  un usuario
-    $('#btn-submit-confirmar').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que quieres confirmar el registro de este usuario?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Registro confirmado",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
-
-    // Mensaje pop-Up para cancelar el registro de  un usuario
-    $('#btn-submit-cancelar-registro').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que quieres cancelar el registro de este usuario?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Registro cancelado",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
-
-    // Mensaje pop-Up para aprobar una constancia
-    $('#btn-submit-aprobar').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que deseas aprobar la constancia?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Contancia aprobada",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
-
-    // Mensaje pop-Up para solicitar una constancia
-    $('#btn-submit-solicitar').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que quieres solicitar una constancia?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Solicitud enviada",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
-
-    // Mensaje pop-Up para aprobar una constancia
-    $('#btn-submit-cancelar').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que deseas cancelar la solicitud de constancia?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Contancia cancelada",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
     });
 
     // Función para los botones para añadir telefonos
@@ -257,7 +247,7 @@ $(document).ready(function() {
             '<div class="form-group" id="tlf'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select id="tipotlf'+num+'" class="form-control" data-validation="required">\
+                        <select id="tipotlf'+num+'" class="form-control" data-validation="required" name="telefono'+num+'">\
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
@@ -265,10 +255,10 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="tel" class="form-control" id="tel'+num+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
+                        <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" data-validation="length" data-validation-length="11-11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
                     </div>\
                     <div class="text-right" id="quitartlf'+num+'">\
-                        <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator"><span>Eliminar Teléfono</span></button>\
+                        <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator"><small>Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></small></button>\
                     </div>\
                 </div>\
             </div>'
@@ -293,7 +283,7 @@ $(document).ready(function() {
             '<div class="form-group" id="dir'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select id="direccion_tipo'+num+'" class="form-control"  data-validation="string" data-validation="required">\
+                        <select id="direccion_tipo'+num+'" class="form-control" name="direccion'+num+'" data-validation="string" data-validation="required">\
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
@@ -301,13 +291,13 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="direccion_ciudad'+num+'" class="form-control" id="direccion_ciudad'+num+'" data-validation="string" data-validation="required" placeholder="Ciudad...">\
+                        <input type="direccion_ciudad'+num+'" class="form-control" id="direccion_ciudad'+num+'" name="direccion'+num+'" data-validation="string"  placeholder="Ciudad...">\
                     </div>\
                 </div>\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
-                    <input type="direccion_descripcion'+num+'" class="form-control" id="direccion_descripcion'+num+'" data-validation="string" data-validation="required" placeholder="Descripción...">\
+                    <input type="direccion_descripcion'+num+'" class="form-control" id="direccion_descripcion'+num+'" name="direccion'+num+'" data-validation="string" placeholder="Descripción...">\
                     <div class="text-right" id="quitardireccion'+num+'">\
-                        <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator"><span>Eliminar Dirección</span></button>\
+                        <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator"><small>Eliminar Dirección <span class="glyphicon glyphicon-remove-sign"></span></small></button>\
                     </div>\
                 </div>\
             </div>'
@@ -322,20 +312,20 @@ $(document).ready(function() {
     }); 
 
     // Funcion para ingresar carnet solo cuando tu cargo no es estudiante
-    $("select[name=no_table_cargo]").change(function(){
-        var cargo = $('select[name=no_table_cargo]').val();
+    $("select[name=cargo]").change(function(){
+        var cargo = $('select[name=cargo]').val();
         if (cargo != "Estudiante") {
-            $("#no_table_carnet__row").remove();
-            $("#no_table_cargo__row").after(
-                '<div id="no_table_carnet__row" class="form-group">\
-                    <label if="no_table_carnet__label" class="control-label col-sm-3" for="no_table_carnet">Carnet *</label>\
+            $("#tabla_carnet").remove();
+            $("#tabla_cargo").after(
+                '<div id="tabla_carnet" class="form-group">\
+                    <label class="control-label col-sm-3" for="carnet">Carnet *</label>\
                     <div class="col-sm-9">\
-                        <input id="no_table_carnet" class="form-control string" type="text" name="carnet">\
+                        <input id="carnet" class="form-control string" type="text" name="carnet">\
                     </div>\
                 </div>');
         }
         else {
-            $("#no_table_carnet__row").remove();
+            $("#tabla_carnet").remove();
         }
     });
 

@@ -160,6 +160,7 @@
 'Debe ser un número positivo.': 'Debe ser un número positivo.',
 'Debe tener el siguiente formato: dd/mm/yyyy': 'Debe tener el siguiente formato: dd/mm/yyyy',
 'Debe tener un formato válido. EJ: example@org.com': 'Debe tener un formato válido. EJ: example@org.com',
+'Debe tener un tipo válido': 'Debe tener un tipo válido',
 'Debe tener una edad entre 17 y 100 años': 'Debe tener una edad entre 17 y 100 años',
 'Debe tener una edad entre 18 y 100 años': 'Debe tener una edad entre 18 y 100 años',
 'Debug': 'Depurar',

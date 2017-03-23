@@ -25,6 +25,25 @@ def random_password():
 		password += random.choice(specials)            
 	return ''.join(random.sample(password,len(password)))
 
+def actualizar_permisos( id_usuario, cargo ):
+
+	estudiante 	= '^Estudiante$'
+	bombero		= '^Miembro.*$'
+	gerencia	= '^.*[Gg]erente.*$'
+	inspector	= '^Inspector$'
+	comandancia = '^.*[Cc]omandante$'
+
+	if re.match(estudiante, cargo):
+		auth.add_membership(auth.id_group('Estudiante'), id_usuario)
+	elif re.match(bombero, cargo):
+		auth.add_membership(auth.id_group('Bombero'), id_usuario)
+	elif re.match(gerencia, cargo):
+		auth.add_membership(auth.id_group('Gerencia'), id_usuario)
+	elif re.match(inspector, cargo):
+		auth.add_membership(auth.id_group('Inspectoria'), id_usuario)
+	elif re.match(comandancia, cargo):
+		auth.add_membership(auth.id_group('Comandancia'), id_usuario)
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman las vistas de Talento Humano
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,8 +71,7 @@ def perfilmodth():
 	persona=db(db.persona.id==bombero.id_persona).select().first()
 	usuario=db(db.usuario.id==userid).select().first()
 	tipo=""
-
-	print request.vars
+	error = False
 
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
@@ -78,8 +96,9 @@ def perfilmodth():
 		tipo="success"
 	elif formUsuario.process(session=None, formname='perfilmodUsuario', keepvalues=True).accepted:
 		tipo="danger"
-		response.flash = 'Las contraseñas ingresadas no son iguales'
+		response.flash = 'Las contraseñas ingresadas no coinciden'
 	elif formUsuario.errors:
+		error = True
 		tipo="danger"
 		response.flash = 'Hay un error en un campo.'
 
@@ -179,7 +198,7 @@ def perfilmodth():
 		response.flash = 'Cambio realizado satisfactoriamente'
 		
 	elif formPersona.errors:
-		
+		error = True
 		tipo="danger"
 		response.flash = 'Hay un error en un campo'
 		
@@ -201,8 +220,7 @@ def perfilmodth():
 			type='string', 
 			notnull=True, 
 			default=bombero.cargo,
-			requires = IS_IN_SET([  'Administrador', 
-									'Comandante en Jefe', 
+			requires = IS_IN_SET([	'Comandante en Jefe', 
 									'Primer comandante', 
 									'Segundo comandante', 
 									'Inspector en Jefe', 
@@ -233,6 +251,7 @@ def perfilmodth():
 			label='Rango *')) #FALTA RANGO
 	
 	if formBombero.process(session=None, formname='perfilmodBombero', keepvalues=True).accepted:
+		actualizar_permisos(userid, formBombero.vars.cargo)
 		db(db.bombero.id_usuario==userid).update(**db.bombero._filter_fields(formBombero.vars))
 		user = db(db.bombero.id==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
 		
@@ -240,8 +259,70 @@ def perfilmodth():
 		response.flash = 'Cambio realizado satisfactoriamente.'
 		
 	elif formBombero.errors:
+		error = True
 		tipo="danger"
 		response.flash = 'Hay un error en un campo.'
+
+	varsForm = dict((k,v) for k,v in request.vars.iteritems() if v != '') 	# Limpieza de vacios
+	print varsForm
+
+	if len(request.vars):		
+		cargo = '^.*cargo$'
+		tipo_sangre = '^tipo_sangre$'
+		rango = '^rango$'
+		telefonos = '^telefono[\d]+$'
+		contacto = '^persona_contacto$'
+		direccion = '^direccion[\d]+$'
+
+		for campo in request.vars:
+
+			if re.match(cargo,campo):
+				print "Cargo"
+
+			if re.match(tipo_sangre,campo):
+				db(db.bombero.id_usuario==userid).validate_and_update(tipo_sangre=request.vars[campo])
+
+			if re.match(rango,campo):
+				print "Rango"
+
+			if re.match(telefonos,campo):
+
+				tipo_telefono = request.vars[campo][0]
+				codigo_telefono = request.vars[campo][1][:4]
+				numero_telefono = request.vars[campo][1][4:]
+
+				if codigo_telefono == '' and tipo_telefono == '':
+					pass
+
+				elif len(request.vars[campo][1]) != 11 or tipo_telefono == '':
+					error = True
+					tipo = "danger"
+					response.flash = "No puede ingresar datos incompletos"
+					print "Error"
+
+				elif db((db.bombero.id_usuario==userid) & (db.bombero.id_persona==db.telefono.id_persona)\
+					& (db.telefono.codigo_telefono==codigo_telefono) & (db.telefono.numero_telefono==numero_telefono))\
+					.isempty():
+
+					db.telefono.validate_and_insert(id_persona=persona.id, tipo_telefono=tipo_telefono,
+													codigo_telefono=codigo_telefono, numero_telefono=numero_telefono)
+
+				print tipo_telefono, codigo_telefono, numero_telefono
+
+				print "Telefonos"
+
+			if re.match(contacto,campo):
+				print "Contacto"
+
+			if re.match(direccion,campo):
+				print "Direccion"
+
+		if not error:
+			tipo="success"
+			response.flash = 'Cambios realizados satisfactoriamente.'
+		else:
+			tipo="danger"
+			response.flash = 'Hay un error en un campo'
 
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)  
 
@@ -280,6 +361,7 @@ def registrousrth():
 			message='Acaba de ser creado un usuario para usted en el sistema Apolo. El usuario posee las siguientes credenciales:\n\n'+
 					'username: '+formUsuario.vars.username+'\n'
 					'password: '+password+'\n\n'+
+					'Para completar el registro debe llenar sus datos básicos y esperar la confirmación de parte del administrador.\n'+
 					'Bienvenido a Apolo. CBVUSB.'):
 			password =  CRYPT()(password)[0]
 			id_usuario = db.usuario.insert( password=password, **db.usuario._filter_fields(formUsuario.vars))

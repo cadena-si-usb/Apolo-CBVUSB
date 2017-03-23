@@ -1,13 +1,113 @@
 {{extend 'layout.html'}}
 
+{{block head_css}}
+<link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+<link rel="stylesheet" href="{{=URL('static','css/jquery-ui-1.12.1.css')}}">
+{{end}}
+
+{{block head_js}}
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
+<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
+<script>$.validate({form : '#registro', lang: 'es', });</script>
+{{end}}
+
+{{block web2py_ajax}}{{end}}
+
 <div class="container-fluid">
 	<h2 align="center">Editar perfil no completado</h2>
-	<p class="col-sm-6 col-sm-offset-3"><strong>Debe llenar todos los campos para poder ingresar al sistema.</strong></p>
-	<div class="tab-content">
-		<div class=" col-sm-6 col-sm-offset-3 tab-pane fade in active" id="datopersonal" role="tabpanel">
-			<div class="forms">
-				{{=form}}
+	<br/><br/>
+	<p class="col-sm-6 col-sm-offset-3" style="color: red;"><strong>Debe llenar todos los campos para poder ingresar al sistema.</strong></p>
+	<br/><br/>
+	<div class=" col-sm-6 col-sm-offset-3" id="editar-registro">
+		<form action="#" class="form-horizontal" enctype="multipart/form-data" method="post">
+			<div class="form-group" id="tabla_cedula">
+				<label class="control-label col-sm-3" for="cedula" >Cédula</label>
+				<div class="col-sm-9">
+					<input class="integer form-control" id="cedula" name="cedula" type="text" placeholder="Cédula..." data-validation="required">
+				</div>
 			</div>
-		</div>
+			<div class="form-group" id="tabla_primer_nombre">
+				<label class="control-label col-sm-3" for="primer_nombre">Primer nombre</label>
+				<div class="col-sm-9">
+					<input class="form-control string" id="primer_nombre" name="primer_nombre" type="text" placeholder="Primer nombre..." data-validation="required">
+				</div>
+			</div>
+			<div class="form-group" id="tabla_primer_apellido">
+				<label class="control-label col-sm-3" for="primer_apellido">Primer apellido</label>
+				<div class="col-sm-9">
+					<input class="form-control string" id="primer_apellido" name="primer_apellido" type="text" data-validation="required">
+				</div>
+			</div>
+			<div class="form-group" id="tabla_genero">
+				<label class="control-label col-sm-3" for="genero">Genero</label>
+				<div class="col-sm-9">
+					<select id="rango" class="generic-widget form-control" name="genero" data-validation="required">
+						<option value=""></option>
+						<option value="Masculino">Masculino</option>
+						<option value="Femenino">Femenino</option>
+					</select>
+				</div>
+			</div>
+			<div id="tabla_rango" class="form-group">
+				<label class="control-label col-sm-3" for="rango">Rango</label>
+				<div class="col-sm-9">
+					<select id="rango" class="generic-widget form-control" name="rango" data-validation="required">
+						<option value=""></option>
+						<option value="Alumno">Alumno</option>
+						<option value="Aspirante">Aspirante</option>
+						<option value="Bombero">Bombero</option>
+						<option value="Distinguido">Distinguido</option>
+						<option value="Cabo Segundo">Cabo Segundo</option>
+						<option value="Cabo Primero">Cabo Primero</option>
+						<option value="Sargento Segundo">Sargento Segundo</option>
+						<option value="Sargento Primero">Sargento Primero</option>
+						<option value="Sargento Mayor">Sargento Mayor</option>
+						<option value="Teniente">Teniente</option>
+						<option value="Primer Teniente">Primer Teniente</option>
+						<option value="Capitán">Capitán</option>
+						<option value="Mayor">Mayor</option>
+						<option value="Teniente Coronel">Teniente Coronel</option>
+						<option value="Coronel">Coronel</option>
+						<option value="General">General</option>
+						<option value="Primer General">General</option>
+					</select>
+				</div>
+			</div>
+
+			<div id="tabla_cargo" class="form-group">
+				<label class="control-label col-sm-3" for="cargo">Cargo que ocupa</label>
+				<div class="col-sm-9">
+					<select name="cargo" id="cargo" class="generic-widget form-control" data-validation="required">
+						<option value=""></option>
+						<option value="Comandante en Jefe">Comandante en Jefe</option>
+						<option value="Primer comandante">Primer Comandante</option>
+						<option value="Segundo comandante">Segundo Comandante</option>
+						<option value="Inspector">Inspector</option>
+						<option value="Gerente de Riesgo">Gerente de Riesgo</option>
+						<option value="Gerente de Administración">Gerente de Administración</option>
+						<option value="Gerente de Educación">Gerente de Educación</option>
+						<option value="Gerente de Operaciones">Gerente de Operaciones</option>
+						<option value="Gerente de Talento Humano">Gerente de Talento Humano</option>
+						<option value="Sub-Gerente de Riesgo">Sub-Gerente de Riesgo</option>
+						<option value="Sub-Gerente de Administración">Sub-Gerente de Administración</option>
+						<option value="Sub-Gerente de Educación">Sub-Gerente de Educación</option>
+						<option value="Sub-Gerente de Operaciones">Sub-Gerente de Operaciones</option>
+						<option value="Sub-Gerente de Talento Humano">Sub-Gerente de Talento Humano</option>
+						<option value="Miembro de Riesgo">Miembro de Riesgo</option>
+						<option value="Miembro de Administración">Miembro de Administración</option>
+						<option value="Miembro de Educación">Miembro de Educación</option>
+						<option value="Miembro de Operaciones">Miembro de Operaciones</option>
+						<option value="Miembro de Talento Humano">Miembro de Talento Humano</option>
+						<option value="Miembro de Comandancia">Miembro de Comandancia</option>
+						<option value="Estudiante">Estudiante</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
+            	<input class="btn btn-primary" value="Enviar" type="submit">            
+            </div>
+		</form>
+		<!--{{=form}}-->
 	</div>
 </div>

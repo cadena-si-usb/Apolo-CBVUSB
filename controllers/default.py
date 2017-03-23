@@ -9,14 +9,11 @@ import datetime
 
 from gluon.tools import Auth, Service, PluginManager
 from gluon.contrib.login_methods.ldap_auth import ldap_auth
-#import gluon.validators
 
-# -------------------------------------------------------------------------
-# This is a sample controller
-# - index is the default action of any application
-# - user is required for authentication and authorization
-# - download is for downloading files uploaded in the db (does streaming)
-# -------------------------------------------------------------------------
+def usernotconfirmedsent():
+	T.force('es')
+	return dict()
+
 def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA NOTIFICAR
 	T.force('es')
 	tipo = ""
@@ -26,6 +23,7 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 	default_carnet = ""
 	default_cargo  = ""
 	default_rango  = ""
+	default_tipo_sangre = ""
 
 	bombero = db(db.bombero.id_usuario==auth.user.id).select()
 
@@ -37,6 +35,9 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 		default_carnet = bombero.first().carnet
 		default_cargo  = bombero.first().cargo
 		default_rango  = bombero.first().rango
+		default_tipo_sangre = bombero.first().tipo_sangre
+
+		redirect(URL('default','usernotconfirmedsent'))
 
 	formConfirmar = SQLFORM.factory(
 		Field('password', 
@@ -108,7 +109,13 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 			default=default_carnet,
 			requires=db.bombero.carnet.requires,
 			label='Carnet'
-			)
+			),
+		Field('tipo_sangre', 
+			type='string', 
+			notnull=True, 
+			default=default_tipo_sangre,
+			requires = db.bombero.tipo_sangre.requires,
+			label='Tipo de sangre')
 		)
 
 	if formConfirmar.process(session=None, formname='confirmar', keepvalues=True).accepted:
@@ -122,6 +129,8 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 				db(db.usuario.id==auth.user.id).update( first_name=formConfirmar.vars.primer_nombre, last_name=formConfirmar.vars.primer_apellido, **db.usuario._filter_fields(formConfirmar.vars))
 				db(db.bombero.id_usuario==auth.user.id).update( **db.persona._filter_fields(formConfirmar.vars))
 				db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(formConfirmar.vars))
+
+			redirect(URL('default','usernotconfirmedsent'))
 
 			tipo="success"
 			response.flash = 'La solicitud de confirmación fue enviada exitosamente, le será notificado el resultado'
@@ -139,7 +148,7 @@ def userblocked():
 	T.force('es')
 	return dict()
 
-@auth.requires_permission('Gerencia')
+@auth.requires_permission('Administrador')
 def confirmar():
 	T.force('es')
 
@@ -160,10 +169,15 @@ def confirmar():
 			db(db.usuario.id==bombero.id_usuario).update(confirmed=True)
 
 		if opcion == 'eliminar':
-			pass
+			if not db(db.bombero.id_usuario==id_bombero).isempty():
+				id_persona = db(db.bombero.id_usuario==id_bombero).select().first().id_persona
+				db(db.bombero.id_usuario==id_bombero).delete()
+				db(db.persona.id==id_persona).delete()
+
+			db(db.usuario.id==id_bombero).delete()
 
 	tabla = db((db.bombero.id_persona==db.persona.id) & (db.usuario.id==db.bombero.id_usuario) & (db.usuario.confirmed == False)).select( distinct=db.bombero.carnet, orderby=~db.bombero.carnet)
-	no_confirmados = db((db.usuario.confirmed==False) & (db.usuario.id==db.bombero.id_usuario) & (db.bombero.id_persona==db.persona.id)).select()
+	no_confirmados = db((db.usuario.confirmed==False)).select(db.usuario.ALL)
 
 	return dict(tabla=tabla, no_confirmados=no_confirmados)
 
@@ -186,7 +200,7 @@ def actualizar_permisos( id_usuario, cargo ):
 	elif re.match(comandancia, cargo):
 		auth.add_membership(auth.id_group('Comandancia'), id_usuario)
 
-@auth.requires_permission('Gerencia')
+@auth.requires_permission('Administrador')
 def editarnoconfirmado():
 	T.force('es')
 	tipo = ""
