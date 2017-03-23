@@ -86,7 +86,7 @@ $(document).ready(function() {
       // Inserción del html
       $(emailCNT).append(
       '<div class="affectedEmailField input-group">\
-        <input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" data-validation="email" placeholder="mail@website.com">\
+        <input type="email" class="form-control" id="affectedEmail'+num1+'-'+num2+'" name="affectedEmail'+num1+'-'+num2+'" placeholder="mail@website.com">\
         <span class="input-group-btn">\
           <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
         </span>\
@@ -107,7 +107,7 @@ $(document).ready(function() {
     // Inserción del html
     $(phoneCNT).append(
     '<div class="input-group">\
-      <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular">\
+      <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" placeholder="Teléfono/Celular">\
       <span class="input-group-btn">\
         <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
       </span>\
@@ -241,7 +241,7 @@ $(document).ready(function() {
         <div class="row">\
           <div class="col-xs-12 col-sm-4 form-group">\
             <label for="affectedCI'+num1+'">Cedula</label>\
-            <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" data-validation="required" data-validation="number" placeholder="Número de Cedula">\
+            <input type="number" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" placeholder="Número de Cedula">\
           </div>\
           <div class="col-xs-4 col-sm-2">\
             <div class="form-group">\
@@ -257,7 +257,7 @@ $(document).ready(function() {
         <div class="row">\
           <div class="col-xs-12 col-sm-6 form-group">\
             <label for="affectedType'+num1+'">Tipo</label>\
-            <select class="form-control" id="affectedType'+num1+'" name="affectedType'+num1+'" data-validation="required">\
+            <select class="form-control" id="affectedType'+num1+'" name="affectedType'+num1+'">\
               <option value="" selected="selected">Seleccione tipo de afectado</option>\
               <option value="1">Estudiante de la USB</option>\
               <option value="2">Profesor de la USB</option>\
