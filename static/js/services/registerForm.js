@@ -140,8 +140,8 @@ $(document).ready(function() {
       </div>\
       <div class="row">\
         <div class="col-xs-12 col-sm-4">\
-          <div class="form-group ui-widget">\
-            <label for="commissionBoss'+num1+'">Jefe de comisión *</label>\
+          <div class="form-group">\
+            <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
             <input list="firefighterList" name="commissionBoss'+num1+'" class="form-control" data-validation="required" placeholder="Jefe de Comisión">\
           </div>\
           <label for="unitTitle">Unidad</label>\
