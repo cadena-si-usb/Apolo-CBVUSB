@@ -1,3 +1,7 @@
+var borrador;
+function regirterService() {borrador = false;};
+function saveDraft() {borrador = true;};
+
 $(document).ready(function() {
   var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones
   var affectedCNT = $("#affectedCNT");                                  // ID del contenedor de los afectados
@@ -369,7 +373,12 @@ $(document).ready(function() {
         closeOnConfirm: true,
         html: false
     }, function(isConfirm) {
-        if (isConfirm) { form.submit();
+        if (isConfirm) {
+          // Enviar form
+          form.submit();
+
+          // Popup
+          swal("¡Enviado!", "", "success");
         }
     });
   });
@@ -409,17 +418,20 @@ $(document).ready(function() {
   });
 
   // initialize input widgets first
-  $('#jqueryExample .time').timepicker({
+  $('#start-end-date .time').timepicker({
     'scrollDefault': 'now',
     'timeFormat': 'H:i',
     'forceRoundTime': false
   });
 
-  $('#jqueryExample .date').datepicker({
-    'format': 'm/d/yyyy',
+  $('#start-end-date .date').datepicker({
+    'format': 'dd/mm/yyyy',
     'autoclose': true
   });
 
   // initialize datepair
-  $('#jqueryExample').datepair();
+  $('#start-end-date').datepair();
+
 });
+
+
