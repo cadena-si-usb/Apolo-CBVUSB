@@ -631,7 +631,34 @@ def stadistics():
         if (mes=="0" or datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").month == int(mes)) and datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").year == int(ano):
             estadisticas[servicio.tipo]+=1
 
-    return dict(estadisticas=estadisticas)
+    if mes=="0":
+        mesNombre = "Todos"
+    elif mes=="1":
+        mesNombre = "Enero"
+    elif mes=="2":
+        mesNombre = "Febrero"
+    elif mes=="3":
+        mesNombre = "Marzo"
+    elif mes=="4":
+        mesNombre = "Abril"
+    elif mes=="5":
+        mesNombre = "Mayo"
+    elif mes=="6":
+        mesNombre = "Junio"
+    elif mes=="7":
+        mesNombre = "Julio"
+    elif mes=="8":
+        mesNombre = "Agosto"
+    elif mes=="9":
+        mesNombre = "Septiembre"
+    elif mes=="10":
+        mesNombre = "Octubre"
+    elif mes=="11":
+        mesNombre = "Noviembre"
+    elif mes=="12":
+        mesNombre = "Diciembre"
+
+    return dict(estadisticas=estadisticas,mes=mesNombre,ano=ano)
 
 # Vista para generar exportacion de estadisticas
 def exportar():
