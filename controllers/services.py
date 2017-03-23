@@ -615,9 +615,13 @@ def stadistics():
 
     # Mes solicitado para mostrar estadisticas de servicios
     mes = request.vars['mes'];
+    if mes == None:
+        mes = "0"
 
     # Ano solicitado para mostrar estadisticas de servicios
     ano = request.vars['ano'];
+    if ano == None:
+        ano = datetime.now().year
 
     estadisticas = defaultdict(lambda: 0, dict())
 
