@@ -117,7 +117,7 @@ $(document).ready(function() {
     });
 
     // Mensaje pop-Up para confirmar el registro de  un usuario
-    $('#btn-submit-confirmar-registro').on('click',function(e){
+    $('#btn-submit-confirmar').on('click',function(e){
     e.preventDefault();
     var href = $(this).attr('href');
     swal({
@@ -134,32 +134,6 @@ $(document).ready(function() {
             window.location.href = href;
             swal({
                 title: "Registro confirmado",
-                type: "success",
-                showConfirmButton: false,
-                html: false
-            });
-        }
-    });
-    });
-
-    // Mensaje pop-Up para cancelar el registro de  un usuario
-    $('#btn-submit-cancelar-registro').on('click',function(e){
-    e.preventDefault();
-    var href = $(this).attr('href');
-    swal({
-        title: "¿Estás seguro de que quieres cancelar el registro de este usuario?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#1565C0",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        closeOnConfirm: false,
-        html: false
-    }, function(isConfirm) {
-        if (isConfirm) {
-            window.location.href = href;
-            swal({
-                title: "Registro cancelado",
                 type: "success",
                 showConfirmButton: false,
                 html: false
@@ -225,7 +199,7 @@ $(document).ready(function() {
     e.preventDefault();
     var href = $(this).attr('href');
     swal({
-        title: "¿Estás seguro de que deseas cancelar la solicitud de constancia?",
+        title: "¿Estás seguro de que deseas cancelar la solicitud?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#1565C0",
@@ -261,12 +235,11 @@ $(document).ready(function() {
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
-                            <option value="Móvil">Móvil</option>\
                             <option value="Otro">Otro</option>\
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" data-validation="required" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
+                        <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
                     </div>\
                     <div class="text-right" id="quitartlf'+num+'">\
                         <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator"><span>Eliminar Teléfono</span></button>\
@@ -298,7 +271,6 @@ $(document).ready(function() {
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
-                            <option value="Móvil">Móvil</option>\
                             <option value="Otro">Otro</option>\
                         </select>\
                     </div>\
@@ -324,20 +296,20 @@ $(document).ready(function() {
     }); 
 
     // Funcion para ingresar carnet solo cuando tu cargo no es estudiante
-    $("select[name=no_table_cargo]").change(function(){
-        var cargo = $('select[name=no_table_cargo]').val();
+    $("select[name=cargo]").change(function(){
+        var cargo = $('select[name=cargo]').val();
         if (cargo != "Estudiante") {
-            $("#no_table_carnet__row").remove();
-            $("#no_table_cargo__row").after(
-                '<div id="no_table_carnet__row" class="form-group">\
-                    <label if="no_table_carnet__label" class="control-label col-sm-3" for="no_table_carnet">Carnet *</label>\
+            $("#tabla_carnet").remove();
+            $("#tabla_cargo").after(
+                '<div id="tabla_carnet" class="form-group">\
+                    <label class="control-label col-sm-3" for="carnet">Carnet *</label>\
                     <div class="col-sm-9">\
-                        <input id="no_table_carnet" class="form-control string" type="text" name="carnet">\
+                        <input id="carnet" class="form-control string" type="text" name="carnet">\
                     </div>\
                 </div>');
         }
         else {
-            $("#no_table_carnet__row").remove();
+            $("#tabla_carnet").remove();
         }
     });
 
