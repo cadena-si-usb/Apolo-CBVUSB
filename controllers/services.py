@@ -10,35 +10,62 @@ from datetime import datetime
 # Vista para listar "Mis servicios aprovados"
 @auth.requires_login()
 def msapproved():
-    # bombero_carnet = request
-    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
-    #return dict(servicios=servicios)
+    
+    # id de usuario logeado al sistema
+    user_id = auth.user.id
 
-    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
+    # id de bombero logeado al sistema
+    bombero_id = db(db.bombero.id_usuario == user_id).select()[0].id
+
     services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
+    misServiciosAprobados = list()
+
+    # De entre servicios aprobados solo los que el bombero registro
+    for servicio in services:
+        if servicio.Registra == bombero_id:
+            misServiciosAprobados.append(servicio)
+
+    return dict(services=misServiciosAprobados)
 
 # Vista para listar "Mis servicios pendientes por aprovación"
 @auth.requires_login()
 def mspending():
-    # bombero_carnet = request
-    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
-    #return dict(servicios=servicios)
 
-    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
+    # id de usuario logeado al sistema
+    user_id = auth.user.id
+
+    # id de bombero logeado al sistema
+    bombero_id = db(db.bombero.id_usuario == user_id).select()[0].id
+
     services = db((db.servicio.Borrador == False) & (db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
+    misServiciosPendientes = list()
+
+    # De entre servicios pendientes solo los que el bombero registro
+    for servicio in services:
+        if servicio.Registra == bombero_id:
+            misServiciosPendientes.append(servicio)
+
+    return dict(services=misServiciosPendientes)
 
 # Vista para listar "Mis servicios guardados en borradores"
 @auth.requires_login()
 def msdraft():
-    # bombero_carnet = request
-    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
-    #return dict(servicios=servicios)
 
-    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
+    # id de usuario logeado al sistema
+    user_id = auth.user.id
+
+    # id de bombero logeado al sistema
+    bombero_id = db(db.bombero.id_usuario == user_id).select()[0].id
+
     services = db((db.servicio.Borrador == True) & (db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
+    misServiciosBorradores = list()
+
+    # De entre servicios borradores solo los que el bombero registro
+    for servicio in services:
+        if servicio.Registra == bombero_id:
+            misServiciosBorradores.append(servicio)
+
+    return dict(services=misServiciosBorradores)
 
 # Botón para eliminar un servicio en cualquier vista de "Mis servicios"
 @auth.requires_login()
@@ -62,7 +89,7 @@ def allservices():
 def myservices():
 
     # ID de cuenta de usuario del bombero
-    userId = request.vars["userId"]
+    userId = auth.user.id
 
     servicios = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     misServicios = list()
@@ -469,18 +496,22 @@ def register():
         # Registrar form completo
         else:
             borrador = False
-
-        tipoServicio = request.vars['tipo']
-        horaCreacion = request.vars['horaCreacion']
-        fechaCreacion = request.vars['fechaCreacion']
-        horaLlegada = request.vars['horaLlegada']
-        fechaLlegada = request.vars['fechaLlegada']
-        horaFinalizacion = request.vars['horaFinalizacion']
-        fechaFinalizacion = request.vars['fechaFinalizacion']
-        descripcionServicio = request.vars['descripcion']
-        localizacionServicio = request.vars['localizacion']
         
-        insertarServicio(horaCreacion,fechaCreacion,horaFinalizacion,fechaFinalizacion,descripcionServicio,localizacionServicio,tipoServicio,borrador)
+        # id de bombero que registra servicio
+        idBombero = db(db.bombero.id_usuario == auth.user.id).select()[0];
+
+        # Registrar servicio en base de datos
+        db.servicio.insert(
+            Registra = idBombero,
+            Aprueba = None,
+            Borrador = False,
+            horaCreacion = request.vars['horaCreacion'],
+            fechaCreacion = request.vars['fechaCreacion'],
+            horaFinalizacion = request.vars['horaFinalizacion'],
+            fechaFinalizacion = request.vars['fechaFinalizacion'],
+            descripcion = request.vars['descripcion'],
+            localizacion = request.vars['localizacion'],
+            tipo = request.vars['tipo'])
 
         # Registrar datos de comisiones, afectados y apoyo externo
         registrarComisiones(request)
