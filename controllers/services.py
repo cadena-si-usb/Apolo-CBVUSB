@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from gluon.serializers import json
 from datetime import datetime
+from collections import defaultdict
 #from emailManager import emailManager Mientras no se use esta comentado xD
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -611,7 +612,29 @@ def aprove():
 
 # Vista de "Estadisticas"
 def stadistics():
-    return dict()
+
+    # Mes solicitado para mostrar estadisticas de servicios
+    mes = request.vars['mes'];
+
+    # Ano solicitado para mostrar estadisticas de servicios
+    ano = request.vars['ano'];
+
+    estadisticas = defaultdict(lambda: 0, dict())
+
+    # Servicios aprobados
+    servicios = db(db.servicio.Aprueba == None).select()
+    for servicio in servicios:
+        if (mes=="0" or datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").month == int(mes)) and datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").year == int(ano):
+            estadisticas[servicio.tipo]+=1
+
+    return dict(estadisticas=estadisticas)
+
+# Vista para generar exportacion de estadisticas
+def exportar():
+
+    # AQUI EL BETA DE PDF
+
+    redirect(URL('services','stadistics'))
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

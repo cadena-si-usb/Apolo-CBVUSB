@@ -16,28 +16,46 @@
 
 <div class="row">
   <h3>Resumen de servicios</h3>
-  <select name="mes">
-    <option value="">Seleccionar Mes</option>
-    <option value="1">Enero</option>
-    <option value="2">Febrero</option>
-    <option value="3">Marzo</option>
-    <option value="4">Abril</option>
-    <option value="5">Mayo</option>
-    <option value="6">Junio</option>
-    <option value="7">Julio</option>
-    <option value="8">Agosto</option>
-    <option value="9">Septiembre</option>
-    <option value="10">Octubre</option>
-    <option value="11">Noviembre</option>
-    <option value="12">Diciembre</option>
-  </select>
-
-  <li class="nav-item navbar-right">
-    <button formnovalidate class="btn bg-1" type="submit" onclick="saveDraft()" name="draft" value="true">
-      <span>Exportar </span>
-      <span class="glyphicon glyphicon-save"></span>
-    </button>
-  </li>
+  
+  <div class="row">
+    <div class="col-sm-10">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="mes">Mes</label>
+          <div class="col-sm-2">
+            <select id="mes" name="mes" class="form-control">
+              <option value="0" selected="selected">Todos</option>
+              <option value="1">Enero</option>
+              <option value="2">Febrero</option>
+              <option value="3">Marzo</option>
+              <option value="4">Abril</option>
+              <option value="5">Mayo</option>
+              <option value="6">Junio</option>
+              <option value="7">Julio</option>
+              <option value="8">Agosto</option>
+              <option value="9">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>  
+          <label class="control-label col-sm-2" for="ano">Año</label>
+          <div class="col-sm-2">
+            <select id="ano" name="ano" class="form-control"></select>
+          </div>  
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-default">Ver</button>
+          </div>
+        </div>
+      </form> 
+    </div>
+    <div class="col-sm-2">
+      <a href="{{=URL('services','exportar.html')}}"><button type="button" class="btn bg-1">
+        <span>Exportar</span>
+        <span class="glyphicon glyphicon-save"></span>
+      </button></a>
+    </div>
+  </div>
 </div>
 
 <hr>
@@ -47,15 +65,17 @@
     <div class="table-responsive">
       <table class= "table table-striped table-hover">
         <thead class="bg-1">
-          <tr>
-            <th>Servicio</th>
-            <th># de veces</th>
-          </tr>
         </thead>
         <tbody>
           <tr>
-            <td>AME1</td>
-            <td>6</td>
+            <th>Servicio</th>
+            <th>Cantidad  </th>
+            {{for tipo in estadisticas:}}
+              <tr>
+                <td>{{=tipo}}</td>
+                <td>{{=estadisticas[tipo]}}</td>
+              </tr>
+            {{pass}}
           </tr>
         </tbody>
       </table>
@@ -90,6 +110,8 @@
 
 
 {{block page_js}}
+<script src="{{=URL('static','js/services/estadisticas.js')}}"></script>               <!-- Script para listado de anos -->
+
 <script src="{{=URL('static','js/sweetalert.min.js')}}"></script>               <!-- Script para mensajes de alerta -->
 
 <!-- Google Maps -->
