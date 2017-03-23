@@ -25,6 +25,9 @@
   <!-- Formulario -->
   <form action="" method="POST" id="registro" onsubmit="return validateForm()">
     <input type="hidden" name="id" value="{{=nuevoServicioId}}">
+    <input type="hidden" name="commissionsCount" value="1">
+    <input type="hidden" name="affectedCount" value="0">
+    <input type="hidden" name="apoyoExtCount" value="0">
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -118,6 +121,7 @@
       <div class="tab-pane fade" id="commission" role="tabpanel">
         <div id="commissionsCNT">
           <div id="commission1">
+            <input type="hidden" name="commissionMembersCount1" value="3">
             <div class="row">
               <div class="col-xs-12">
                 <h3 id="commissionTitle1" name="commissionTitle1">Comisión <kbd>1</kbd></h3>
@@ -155,19 +159,19 @@
                     <div class="commissionMemberField input-group">
                       <input list="firefighterList" name="commissionMember1-1" class="form-control" placeholder="Acompañante de Comisión">
                       <span class="input-group-btn">
-                        <button class="removeButton removeField" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
                       </span>
                     </div>
                     <div class="commissionMemberField input-group">
                       <input list="firefighterList" name="commissionMember1-2" class="form-control" placeholder="Acompañante de Comisión">
                       <span class="input-group-btn">
-                        <button class="removeButton removeField" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
                       </span>
                     </div>
                     <div class="commissionMemberField input-group">
                       <input list="firefighterList" name="commissionMember1-3" class="form-control" placeholder="Acompañante de Comisión">
                       <span class="input-group-btn">
-                        <button class="removeButton removeField" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
                       </span>
                     </div>
                   </div>
