@@ -148,6 +148,7 @@
 'Debe contener únicamente los caracteres: a-z, A-Z, 0-9 y _. Además debe tener una longitud de entre 6 y 16 caracteres.': 'Debe contener únicamente los caracteres: a-z, A-Z, 0-9 y _. Además debe tener una longitud de entre 6 y 16 caracteres.',
 'Debe estar entre 2 y 4 caracteres': 'Debe estar entre 2 y 4 caracteres',
 'Debe seleccionar una opción': 'Debe seleccionar una opción',
+'Debe seleccionar una opción.': 'Debe seleccionar una opción.',
 'Debe ser del siguiente formato: dd/mm/yyyy.': 'Debe ser del siguiente formato: dd/mm/yyyy.',
 'Debe ser no vacío y contener solo letras o guiones': 'Debe ser no vacío y contener solo letras o guiones',
 'Debe ser no vacío y contener solo letras, guiones o espacios': 'Debe ser no vacío y contener solo letras, guiones o espacios',
