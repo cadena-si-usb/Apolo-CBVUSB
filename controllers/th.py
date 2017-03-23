@@ -71,6 +71,7 @@ def perfilmodth():
 	persona=db(db.persona.id==bombero.id_persona).select().first()
 	usuario=db(db.usuario.id==userid).select().first()
 	tipo=""
+	error = False
 
 	# Colocar un campo que diga colocar contraseña actual para cambiar la nueva
 	formUsuario = SQLFORM.factory(
@@ -97,6 +98,7 @@ def perfilmodth():
 		tipo="danger"
 		response.flash = 'Las contraseñas ingresadas no coinciden'
 	elif formUsuario.errors:
+		error = True
 		tipo="danger"
 		response.flash = 'Hay un error en un campo.'
 
@@ -196,7 +198,7 @@ def perfilmodth():
 		response.flash = 'Cambio realizado satisfactoriamente'
 		
 	elif formPersona.errors:
-		
+		error = True
 		tipo="danger"
 		response.flash = 'Hay un error en un campo'
 		
@@ -257,33 +259,70 @@ def perfilmodth():
 		response.flash = 'Cambio realizado satisfactoriamente.'
 		
 	elif formBombero.errors:
+		error = True
 		tipo="danger"
 		response.flash = 'Hay un error en un campo.'
+
+	varsForm = dict((k,v) for k,v in request.vars.iteritems() if v != '') 	# Limpieza de vacios
+	print varsForm
 
 	if len(request.vars):		
 		cargo = '^.*cargo$'
 		tipo_sangre = '^tipo_sangre$'
 		rango = '^rango$'
-		telefonos = '^tel[\d]+$'
-		telefono_emergencia = '^telefono-emergencia[\d]+$'
+		telefonos = '^telefono[\d]+$'
+		contacto = '^persona_contacto$'
+		direccion = '^direccion[\d]+$'
 
 		for campo in request.vars:
-			print request.vars[campo]
 
 			if re.match(cargo,campo):
-				pass
+				print "Cargo"
 
 			if re.match(tipo_sangre,campo):
-				pass
+				db(db.bombero.id_usuario==userid).validate_and_update(tipo_sangre=request.vars[campo])
 
 			if re.match(rango,campo):
-				pass
+				print "Rango"
 
 			if re.match(telefonos,campo):
-				pass
 
-			if re.match(telefono_emergencia,campo):
-				pass
+				tipo_telefono = request.vars[campo][0]
+				codigo_telefono = request.vars[campo][1][:4]
+				numero_telefono = request.vars[campo][1][4:]
+
+				if codigo_telefono == '' and tipo_telefono == '':
+					pass
+
+				elif len(request.vars[campo][1]) != 11 or tipo_telefono == '':
+					error = True
+					tipo = "danger"
+					response.flash = "No puede ingresar datos incompletos"
+					print "Error"
+
+				elif db((db.bombero.id_usuario==userid) & (db.bombero.id_persona==db.telefono.id_persona)\
+					& (db.telefono.codigo_telefono==codigo_telefono) & (db.telefono.numero_telefono==numero_telefono))\
+					.isempty():
+
+					db.telefono.validate_and_insert(id_persona=persona.id, tipo_telefono=tipo_telefono,
+													codigo_telefono=codigo_telefono, numero_telefono=numero_telefono)
+
+				print tipo_telefono, codigo_telefono, numero_telefono
+
+				print "Telefonos"
+
+			if re.match(contacto,campo):
+				print "Contacto"
+
+			if re.match(direccion,campo):
+				print "Direccion"
+
+		if not error:
+			tipo="success"
+			response.flash = 'Cambios realizados satisfactoriamente.'
+		else:
+			tipo="danger"
+			response.flash = 'Hay un error en un campo'
 
 	return dict(formBombero=formBombero,formPersona=formPersona,formUsuario=formUsuario,tipo=tipo)  
 

@@ -247,7 +247,7 @@ $(document).ready(function() {
             '<div class="form-group" id="tlf'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select id="tipotlf'+num+'" class="form-control" data-validation="required">\
+                        <select id="tipotlf'+num+'" class="form-control" data-validation="required" name="telefono'+num+'">\
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
@@ -255,7 +255,7 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="tel" class="form-control" id="tel'+num+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
+                        <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" data-validation="length" data-validation-length="11-11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
                     </div>\
                     <div class="text-right" id="quitartlf'+num+'">\
                         <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator"><small>Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></small></button>\
@@ -283,7 +283,7 @@ $(document).ready(function() {
             '<div class="form-group" id="dir'+num+'">\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
                     <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select id="direccion_tipo'+num+'" class="form-control"  data-validation="string" data-validation="required">\
+                        <select id="direccion_tipo'+num+'" class="form-control" name="direccion'+num+'" data-validation="string" data-validation="required">\
                             <option value="">Tipo</option>\
                             <option value="Casa">Casa</option>\
                             <option value="Trabajo">Trabajo</option>\
@@ -291,11 +291,11 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="direccion_ciudad'+num+'" class="form-control" id="direccion_ciudad'+num+'" data-validation="string" data-validation="required" placeholder="Ciudad...">\
+                        <input type="direccion_ciudad'+num+'" class="form-control" id="direccion_ciudad'+num+'" name="direccion'+num+'" data-validation="string"  placeholder="Ciudad...">\
                     </div>\
                 </div>\
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
-                    <input type="direccion_descripcion'+num+'" class="form-control" id="direccion_descripcion'+num+'" data-validation="string" data-validation="required" placeholder="Descripción...">\
+                    <input type="direccion_descripcion'+num+'" class="form-control" id="direccion_descripcion'+num+'" name="direccion'+num+'" data-validation="string" placeholder="Descripción...">\
                     <div class="text-right" id="quitardireccion'+num+'">\
                         <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator"><small>Eliminar Dirección <span class="glyphicon glyphicon-remove-sign"></span></small></button>\
                     </div>\
