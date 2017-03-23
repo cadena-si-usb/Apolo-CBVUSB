@@ -138,7 +138,7 @@
                           <select id="unitValue{{=comision['numero']}}-1" class="form-control" name="unitValue{{=comision['numero']}}-1">
                             <option value="" selected="selected">--</option>
                             {{for unidad in nombreUnidades:}}
-                              <option value="{{=unidad}}">{{=unidad}}</option>
+                              <option value="{{=unidad}}" {{if comision["unidad"]==unidad:}}selected="selected"{{pass}}>{{=unidad}}</option>
                             {{pass}}
                           </select>
                         </div>

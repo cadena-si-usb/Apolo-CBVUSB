@@ -1,4 +1,4 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{left_sidebar_enabled,right_sidebar_enabled=False,('`sage' in globals())}}
 {{extend 'layout.html'}}
 
 
@@ -61,8 +61,6 @@
 <hr>
 
 <div class="row">
-  <label>Mes: {{=mes}}</label>
-  <label>Año: {{=ano}}</label>
   <div class='col-md-2 col-sm-12'>
     <div class="table-responsive">
       <table class= "table table-striped table-hover">
@@ -85,33 +83,34 @@
   </div>
 
   <div class='col-md-4 col-sm-12 col-md-offset-1'>
-    <p><strong>Tiempo de respuesta promedio:</strong> 3,40 minutos</p>
-    <p><strong>Duracion promedio de un servicio:</strong> 0,80 horas</p>
-    <p><strong>Tiempo total en servicios:</strong> 16,87 horas</p>
+    <p><strong>Duración promedio de un servicio:</strong> {{=duracionPromedio}} horas</p>
+    <p><strong>Tiempo total en servicios:</strong> {{=duracionTotal}} horas</p>
   </div>
 
 
   <div class='col-md-4 col-sm-12 col-md-offset-1'>
     <label>Leyenda</label>
-    <p><strong>CM:</strong> control medico</p>
-    <p><strong>AME1:</strong> atención médica de emergencia</p>
-    <p><strong>AME2:</strong> atención médica de enfermo</p>
-    <p><strong>IDE:</strong> incendio de estructura</p>
-    <p><strong>IDV:</strong> incendio de vegetación</p>
-    <p><strong>PC:</strong> preveción de control</p>
-    <p><strong>AY:</strong> apoyo a la comunidad</p>
-    <p><strong>MP:</strong> matpel</p>
-    <p><strong>RES1:</strong> rescate de personas</p>
-    <p><strong>RES2:</strong> rescate animal</p>
-    <p><strong>GP:</strong> guardia de prevención</p>
-    <p><strong>NSA:</strong> no se actuó</p>
-    <p><strong>FA:</strong> falsa alarma</p>
+    <p><strong>CM:</strong> Control médico</p>
+    <p><strong>AME1:</strong> Atención médica de emergencia</p>
+    <p><strong>AME2:</strong> Atención médica de enfermo</p>
+    <p><strong>IDE:</strong> Incendio de estructura</p>
+    <p><strong>IDV:</strong> Incendio de vegetación</p>
+    <p><strong>PC:</strong> Prevención de control</p>
+    <p><strong>AY:</strong> Apoyo a la comunidad</p>
+    <p><strong>MP:</strong> Matpel</p>
+    <p><strong>RES1:</strong> Rescate de personas</p>
+    <p><strong>RES2:</strong> Rescate animal</p>
+    <p><strong>GP:</strong> Guardia de prevención</p>
+    <p><strong>NSA:</strong> No se actuó</p>
+    <p><strong>FA:</strong> Falsa alarma</p>
   </div>
 </div>
 </div>
 
 
 {{block page_js}}
+<script>{{=ASSIGNJS(mesS = mes)}}</script>
+<script>{{=ASSIGNJS(anoS = ano)}}</script>
 <script src="{{=URL('static','js/services/estadisticas.js')}}"></script>               <!-- Script para listado de anos -->
 
 <script src="{{=URL('static','js/sweetalert.min.js')}}"></script>               <!-- Script para mensajes de alerta -->
