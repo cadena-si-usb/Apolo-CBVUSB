@@ -57,16 +57,52 @@ def allservices():
     services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
-# Vista para listar "Mis Servicios"
+# Vista para listar "Mis Servicios" en los que aparezco
 @auth.requires_login()
 def myservices():
-    # bombero_carnet = request
-    #servicios = db(db.bombero.carnet == bombero_carnet)._select()
-    #return dict(servicios=servicios)
 
-    ### MIENTRAS TANTO MOSTRAR TODOS LOS SERVICIOS ###
-    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
+    # ID de cuenta de usuario del bombero
+    userId = request.vars["userId"]
+
+    servicios = db(db.servicio.Aprueba == None).select(orderby=~db.servicio.fechaCreacion)
+    misServicios = list()
+
+    # Todos los servicios
+    for servicio in servicios:
+        
+        miServicio = False
+        
+        # Comisiones del servicio
+        comisiones = db(db.comision.servicio == servicio.id).select()
+        for comision in comisiones:
+
+            # Jefe de comision
+            lider = db(db.bombero.id == comision.lider).select()[0]
+            if int(lider.id_usuario) == int(userId):
+                # Usuario conectado es jefe de comision
+                miServicio = True
+
+            # Acompanantes de comision
+            acompanantes = db(db.es_acompanante.comision == comision.id).select()
+            for acompanante in acompanantes:
+                bombero = db(db.bombero.id == acompanante.bombero).select()[0]
+                
+                if int(bombero.id_usuario) == int(userId):
+                    # Usuario conectado es acompanante de comision
+                    miServicio = True
+
+            # Conductor de comision
+            unidades = db(db.unidad_utilizada_por.comision == comision.id).select()
+            for unidad in unidades:
+                if int(unidad.conductor) == int(userId):
+                    # Usuario conectado es conductor de comision
+                    miServicio = True
+
+        # Si usuario esta en alguna comision entonces agregamos a mis servicios
+        if miServicio:
+            misServicios.append(servicio)
+
+    return dict(services=misServicios)
 
 # Botón para eliminar un servicio en cualquier vista de "Gestionar servicios"
 @auth.requires_login()
@@ -528,7 +564,10 @@ def editDraft():
         # Comisiones de apoyo
         externos = obtenerApoyoExterno(serviceId)
 
-        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos)
+        # Obtener nombres de unidades
+        nombreUnidades = obtenerNombreUnidades()
+
+        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos, nombreUnidades=nombreUnidades)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Aprobar Servicio"
