@@ -268,7 +268,6 @@ def perfilmodth():
 		response.flash = 'Hay un error en un campo.'
 
 	varsForm = dict((k,v) for k,v in request.vars.iteritems() if v != '') 	# Limpieza de vacios
-	print varsForm
 
 	if len(request.vars):		
 		cargo = '^.*cargo$'

@@ -21,12 +21,6 @@
 	<br/><br/>
 	<div class=" col-sm-6 col-sm-offset-3" id="editar-registro">
 		<form action="#" class="form-horizontal" enctype="multipart/form-data" method="post">
-			<div class="form-group" id="tabla_cedula">
-				<label class="control-label col-sm-3" for="cedula" >Cédula</label>
-				<div class="col-sm-9">
-					<input class="integer form-control" id="cedula" name="cedula" type="text" placeholder="Cédula..." data-validation="required">
-				</div>
-			</div>
 			<div class="form-group" id="tabla_primer_nombre">
 				<label class="control-label col-sm-3" for="primer_nombre">Primer nombre</label>
 				<div class="col-sm-9">
@@ -102,6 +96,12 @@
 						<option value="Miembro de Comandancia">Miembro de Comandancia</option>
 						<option value="Estudiante">Estudiante</option>
 					</select>
+				</div>
+			</div>
+			<div class="form-group" id="tabla_email_principal">
+				<label class="control-label col-sm-3" for="email_principal">Email principal</label>
+				<div class="col-sm-9">
+					<input class="form-control string" id="email_principal" name="email_principal" type="text" data-validation="required">
 				</div>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
