@@ -162,18 +162,18 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 			db(db.bombero.id_usuario==auth.user.id).update( **db.persona._filter_fields(request.vars))
 			db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
 
-		bombero = db((db.bombero.id_usuario==bombero.id_usuario) & (db.usuario.id==bombero.id_usuario)).select().first()
+		bombero = db((db.bombero.id_usuario==auth.user.id) & (db.usuario.id==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
 
-		mail.send(to=[bombero.usuario.email], subject='Confirmadción de usuario: Pendiente',
+		mail.send(to=[bombero.usuario.email], subject='Confirmación de usuario: Pendiente',
 			message='Estimado '+bombero.usuario.username+' su información acaba de ser enviada y pronto le será notificado el resultado.\n\n'+
 					'Su información ingresada fue la siguiente:\n\n'+
-					'\tCedula: '+bombero.bombero.cedula+'\n'+
-					'\tNombre: '+bombero.bombero.primer_nombre+'\n'+
-					'\tApellido: '+bombero.bombero.primer_apellido+'\n'+
-					'\tGenero: '+bombero.bombero.genero+'\n'+
+					'\tCedula: '+str(bombero.persona.cedula)+'\n'+
+					'\tNombre: '+bombero.persona.primer_nombre+'\n'+
+					'\tApellido: '+bombero.persona.primer_apellido+'\n'+
+					'\tGenero: '+bombero.persona.genero+'\n'+
 					'\tRango: '+bombero.bombero.rango+'\n'+
 					'\tCargo: '+bombero.bombero.cargo+'\n'+
-					'\tCarnet: '+bombero.bombero.carnet+'\n\n'+
+					'\tCarnet: '+str(bombero.bombero.carnet)+'\n\n'+
 					'Sistema de Gestión Apolo. CBVUSB.')
 		redirect(URL('default','usernotconfirmedsent'))
 
