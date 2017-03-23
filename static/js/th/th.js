@@ -117,7 +117,7 @@ $(document).ready(function() {
     });
 
     // Mensaje pop-Up para confirmar el registro de  un usuario
-    $('#btn-submit-confirmar').on('click',function(e){
+    $('#btn-submit-confirmar-registro').on('click',function(e){
     e.preventDefault();
     var href = $(this).attr('href');
     swal({
@@ -134,6 +134,32 @@ $(document).ready(function() {
             window.location.href = href;
             swal({
                 title: "Registro confirmado",
+                type: "success",
+                showConfirmButton: false,
+                html: false
+            });
+        }
+    });
+    });
+
+    // Mensaje pop-Up para cancelar el registro de  un usuario
+    $('#btn-submit-cancelar-registro').on('click',function(e){
+    e.preventDefault();
+    var href = $(this).attr('href');
+    swal({
+        title: "¿Estás seguro de que quieres cancelar el registro de este usuario?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1565C0",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        html: false
+    }, function(isConfirm) {
+        if (isConfirm) {
+            window.location.href = href;
+            swal({
+                title: "Registro cancelado",
                 type: "success",
                 showConfirmButton: false,
                 html: false
@@ -199,7 +225,7 @@ $(document).ready(function() {
     e.preventDefault();
     var href = $(this).attr('href');
     swal({
-        title: "¿Estás seguro de que deseas cancelar la solicitud?",
+        title: "¿Estás seguro de que deseas cancelar la solicitud de constancia?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#1565C0",
@@ -240,7 +266,7 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="tel" class="form-control" id="tel'+num+'" name="tel'+num+'" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
+                        <input type="tel" class="form-control" id="tel'+num+'" name="tel'+num+'" data-validation="required" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
                     </div>\
                     <div class="text-right" id="quitartlf'+num+'">\
                         <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator"><span>Eliminar Teléfono</span></button>\

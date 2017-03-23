@@ -322,6 +322,7 @@ def registrousrth():
 			message='Acaba de ser creado un usuario para usted en el sistema Apolo. El usuario posee las siguientes credenciales:\n\n'+
 					'username: '+formUsuario.vars.username+'\n'
 					'password: '+password+'\n\n'+
+					'Para completar el registro debe llenar sus datos básicos y esperar la confirmación de parte del administrador.\n'+
 					'Bienvenido a Apolo. CBVUSB.'):
 			password =  CRYPT()(password)[0]
 			id_usuario = db.usuario.insert( password=password, **db.usuario._filter_fields(formUsuario.vars))
