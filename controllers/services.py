@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from gluon.serializers import json
 from datetime import datetime
+from collections import defaultdict
 #from emailManager import emailManager Mientras no se use esta comentado xD
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -611,7 +612,60 @@ def aprove():
 
 # Vista de "Estadisticas"
 def stadistics():
-    return dict()
+
+    # Mes solicitado para mostrar estadisticas de servicios
+    mes = request.vars['mes'];
+    if mes == None:
+        mes = "0"
+
+    # Ano solicitado para mostrar estadisticas de servicios
+    ano = request.vars['ano'];
+    if ano == None:
+        ano = datetime.now().year
+
+    estadisticas = defaultdict(lambda: 0, dict())
+
+    # Servicios aprobados
+    servicios = db(db.servicio.Aprueba == None).select()
+    for servicio in servicios:
+        if (mes=="0" or datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").month == int(mes)) and datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").year == int(ano):
+            estadisticas[servicio.tipo]+=1
+
+    if mes=="0":
+        mesNombre = "Todos"
+    elif mes=="1":
+        mesNombre = "Enero"
+    elif mes=="2":
+        mesNombre = "Febrero"
+    elif mes=="3":
+        mesNombre = "Marzo"
+    elif mes=="4":
+        mesNombre = "Abril"
+    elif mes=="5":
+        mesNombre = "Mayo"
+    elif mes=="6":
+        mesNombre = "Junio"
+    elif mes=="7":
+        mesNombre = "Julio"
+    elif mes=="8":
+        mesNombre = "Agosto"
+    elif mes=="9":
+        mesNombre = "Septiembre"
+    elif mes=="10":
+        mesNombre = "Octubre"
+    elif mes=="11":
+        mesNombre = "Noviembre"
+    elif mes=="12":
+        mesNombre = "Diciembre"
+
+    return dict(estadisticas=estadisticas,mes=mesNombre,ano=ano)
+
+# Vista para generar exportacion de estadisticas
+def exportar():
+
+    # AQUI EL BETA DE PDF
+
+    redirect(URL('services','stadistics'))
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------

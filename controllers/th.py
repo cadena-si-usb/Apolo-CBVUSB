@@ -60,12 +60,15 @@ def perfilth():
 	else:
 		userid = auth.user.id
 
-	usuario = db(db.bombero.id_usuario==userid).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-	
+	usuario = db((db.bombero.id_usuario==userid) & (db.bombero.id_persona == db.persona.id)).select().first()
+	contacto = db((db.contacto.id_bombero==userid) & (db.bombero.id_persona == db.contacto.id_bombero)).select(db.contacto.ALL).first()
+	telefono = db((db.telefono.id_persona==userid) & (db.telefono.id_persona == db.bombero.id_persona)).select(db.telefono.ALL)
+	direccion = db((db.bombero.id_usuario==userid) & (db.direccion.id_persona==db.bombero.id_persona)).select(db.direccion.ALL)
+		
 	if usuario is None:
 		usuario = db(db.bombero.id_usuario==auth.user.id).select(join=db.bombero.on(db.bombero.id_persona == db.persona.id)).first()
-
-	return dict(usuario=usuario)
+	
+	return dict(usuario=usuario,contacto=contacto,telefono=telefono, direccion=direccion)
 
 @auth.requires_login()
 def perfilmodth():
@@ -268,7 +271,6 @@ def perfilmodth():
 		response.flash = 'Hay un error en un campo.'
 
 	varsForm = dict((k,v) for k,v in request.vars.iteritems() if v != '') 	# Limpieza de vacios
-	print varsForm
 
 	if len(request.vars):		
 		cargo = '^.*cargo$'
