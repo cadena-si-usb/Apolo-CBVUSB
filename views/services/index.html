@@ -23,7 +23,7 @@
       <div class="text-left">
         <a href="{{=URL('services','allservices.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Ver todos los servicios</span></button></a>
         <a href="{{=URL('services','register.html')}}"> <button type="button" class="btn bg-1 top-space-separator"><span>Registrar servicio</span></button></a>
-        <a href="{{=URL('services','myservices.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Ver servicios en los que aparezco</span></button></a>
+        <a href="{{=URL('services','myservices.html',vars=dict(userId=auth.user.id))}}"><button type="button" class="btn bg-1 top-space-separator"><span>Ver servicios en los que aparezco</span></button></a>
         <a href="{{=URL('services','msapproved.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Gestionar mis registros</span></button></a>
         <a href="{{=URL('services','aprove.html')}}"><button type="button" class="btn bg-1 top-space-separator"><span>Aprobar servicios</span></button></a>
       </div>
