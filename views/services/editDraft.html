@@ -172,7 +172,103 @@
 
       <!-- Tab Afectados -->
       <div class="tab-pane fade" id="affected" role="tabpanel">
-        <div id="affectedCNT"></div>
+        {{for afectado in afectados:}}
+          <div id="affectedCNT">          
+            <div id="affected{{=afectado['counter']}}">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                      <div class="input-group">
+                        <span class="input-group-btn">
+                          <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                        </span>
+                        <h3>Afectado <kbd>{{=afectado['counter']}}</kbd></h3>
+                      </div>
+                      <input type="hidden" name="affectedTitle{{=afectado['counter']}}" value="affectedTitle{{=afectado['counter']}}">
+                      <label>Nombre *</label>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 form-group">
+                      <input type="text" class="form-control" id="affectedFirstName{{=afectado['counter']}}" name="affectedFirstName{{=afectado['counter']}}" data-validation="required" placeholder="Primer Nombre *" value="{{=afectado['primer_nombre']}}">
+                    </div>
+                    <div class="col-xs-6 col-sm-4 form-group">
+                      <input type="text" class="form-control" id="affectedFirstSurname{{=afectado['counter']}}" name="affectedFirstSurname{{=afectado['counter']}}" data-validation="required" placeholder="Primer Apellido *" value="{{=afectado['primer_apellido']}}">
+                    </div>
+                    <div class="col-xs-6 col-sm-4 form-group">
+                      <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>
+                      <input type="text" class="form-control" id="affectedSecondSurname{{=afectado['counter']}}" name="affectedSecondSurname{{=afectado['counter']}}" placeholder="Segundo Apellido" value="{{=afectado['segundo_apellido']}}">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-4 form-group">
+                      <label for="affectedCI{{=afectado['counter']}}">Cedula</label>
+                      <input type="text" class="form-control" id="affectedCI{{=afectado['counter']}}" name="affectedCI{{=afectado['counter']}}" data-validation="required" data-validation="number" placeholder="Número de Cedula" value="{{=afectado['cedula']}}">
+                    </div>
+                    <div class="col-xs-4 col-sm-2">
+                      <div class="form-group">
+                        <label for="affectedGender{{=afectado['counter']}}">Sexo</label>
+                        <select class="form-control" id="affectedGender{{=afectado['counter']}}" data-validation="required" name="affectedGender{{=afectado['counter']}}">
+                          <option value="-" {{if afectado['sexo']=="-":}}selected="selected"{{pass}}>-</option>
+                          <option value="F" {{if afectado['sexo']=="F":}}selected="selected"{{pass}}>F</option>
+                          <option value="M" {{if afectado['sexo']=="M":}}selected="selected"{{pass}}>M</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6 form-group">
+                      <label for="affectedType{{=afectado['counter']}}">Tipo</label>
+                      <select class="form-control" id="affectedType{{=afectado['counter']}}" name="affectedType{{=afectado['counter']}}" data-validation="required">
+                        <option value="" {{if afectado['tipo']=="":}}selected="selected"{{pass}}>Seleccione tipo de afectado</option>
+                        <option value="1"{{if afectado['tipo']=="1":}}selected="selected"{{pass}}>Estudiante de la USB</option>
+                        <option value="2"{{if afectado['tipo']=="2":}}selected="selected"{{pass}}>Profesor de la USB</option>
+                        <option value="3"{{if afectado['tipo']=="3":}}selected="selected"{{pass}}>Empleado de la USB</option>
+                        <option value="4"{{if afectado['tipo']=="4":}}selected="selected"{{pass}}>Obrero de la USB</option>
+                        <option value="5"{{if afectado['tipo']=="5":}}selected="selected"{{pass}}>Externo</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                      <div id="emailsCNT{{=afectado['counter']}}">
+                        <label for="emailsTitle">Correos Electrónicos</label>
+                      </div>
+                      <div class="text-right">
+                        <button id="addAffectedEmail{{=afectado['counter']}}" type="button" class="btn bg-1 addAffectedEmail top-space-separator">+ <span class="glyphicon glyphicon-envelope"></span></button>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                      <div id="phonesCNT{{=afectado['counter']}}">
+                        <label for="phonesTitle">Teléfonos</label>
+                        {{for telefono in afectado['numeros']:}}
+                          <div class="input-group">
+                            <input type="tel" class="form-control" id="affectedPhone{{=afectado['counter']}}-{{=afectado['numeros'].index(telefono)+1}}" name="affectedPhone{{=afectado['counter']}}-{{=afectado['numeros'].index(telefono)+1}}" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular" value='{{=telefono}}'>
+                            <span class="input-group-btn">
+                            <button class="removeButton removeField" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                            </span>
+                          </div>;
+                        {{pass}} 
+                      </div>
+                      <div class="text-right">
+                        <button id="addAffectedPhone{{=afectado['counter']}}" type="button" class="btn bg-1 addAffectedPhone top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-sm-5 col-sm-offset-1">
+                  <br />
+                  <br />
+                  <br />
+                  <label>Notas/Tratamiento</label>
+                  <div class="form-group">
+                    <textarea id="affectedNotes{{=afectado['counter']}}" name="affectedNotes{{=afectado['counter']}}" class="form-control" data-validation="length" data-validation-length="max700" rows="10">{{=afectado['notastratamiento']}}</textarea>
+                    </div>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        {{pass}}
         <div class="text-center">
           <button id="addAffected" type="button" class="btn bg-1">
             Añadir afectado

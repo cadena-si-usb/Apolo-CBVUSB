@@ -498,6 +498,10 @@ def editDraft():
         servicio.descripcion = request.vars['descripcion']
         servicio.localizacion = request.vars['localizacion']
 
+        registrarComisiones(request)
+        registrarAfectados(request)
+        registrarApoyoExterno(request)
+
         # Registrar form
         if request.vars['draft'] is None:
             servicio.Borrador = False
@@ -520,7 +524,7 @@ def editDraft():
     
         # Afectados del servicio
         afectados = obtenerAfectados(serviceId)
-    
+
         # Comisiones de apoyo
         externos = obtenerApoyoExterno(serviceId)
 
