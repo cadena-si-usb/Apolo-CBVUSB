@@ -1,6 +1,20 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layoutblocked.html'}}
 
+{{block head_css}}
+<link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+<link rel="stylesheet" href="{{=URL('static','css/jquery-ui-1.12.1.css')}}">
+{{end}}
+
+{{block head_js}}
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
+<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
+<script>$.validate({form : '#registro', lang: 'es', });</script>
+{{end}}
+
+{{block web2py_ajax}}{{end}}
+
 <div class="container-fluid">
 	<h1 class="text-center">Complete su perfil</h1>
 	<br/><br/>

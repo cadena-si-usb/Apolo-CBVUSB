@@ -2,11 +2,14 @@
 
 {{block head_css}}
 <link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+<link rel="stylesheet" href="{{=URL('static','css/jquery-ui-1.12.1.css')}}">
 {{end}}
 
 {{block head_js}}
 <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
 <script src="{{=URL('static','js/th/th.js')}}"></script>
+<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
+<script>$.validate({form : '#registro', lang: 'es', });</script>
 {{end}}
 
 {{block web2py_ajax}}{{end}}
@@ -21,19 +24,19 @@
 			<div class="form-group" id="tabla_cedula">
 				<label class="control-label col-sm-3" for="cedula" >Cédula</label>
 				<div class="col-sm-9">
-					<input class="integer form-control" id="cedula" name="cedula" type="text">
+					<input class="integer form-control" id="cedula" name="cedula" type="text" placeholder="Cédula..." data-validation="required">
 				</div>
 			</div>
 			<div class="form-group" id="tabla_primer_nombre">
 				<label class="control-label col-sm-3" for="primer_nombre">Primer nombre</label>
 				<div class="col-sm-9">
-					<input class="form-control string" id="primer_nombre" name="primer_nombre" type="text">
+					<input class="form-control string" id="primer_nombre" name="primer_nombre" type="text" placeholder="Primer nombre..." data-validation="required">
 				</div>
 			</div>
 			<div class="form-group" id="tabla_primer_apellido">
 				<label class="control-label col-sm-3" for="primer_apellido">Primer apellido</label>
 				<div class="col-sm-9">
-					<input class="form-control string" id="primer_apellido" name="primer_apellido" type="text">
+					<input class="form-control string" id="primer_apellido" name="primer_apellido" type="text" data-validation="required">
 				</div>
 			</div>
 			<div class="form-group" id="tabla_genero">
