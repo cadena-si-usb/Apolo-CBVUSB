@@ -528,7 +528,10 @@ def editDraft():
         # Comisiones de apoyo
         externos = obtenerApoyoExterno(serviceId)
 
-        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos)
+        # Obtener nombres de unidades
+        nombreUnidades = obtenerNombreUnidades()
+
+        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos, nombreUnidades=nombreUnidades)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Aprobar Servicio"

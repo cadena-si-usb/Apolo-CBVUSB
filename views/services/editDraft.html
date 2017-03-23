@@ -115,45 +115,52 @@
 
       <!-- Tab Comisiones -->
       <div class="tab-pane fade" id="commission" role="tabpanel">
-        <div id="commissionsCNT">
-          <div id="commission1">
-            <div class="row">
-              <div class="col-xs-12">
-                <h3 id="commissionTitle1" name="commissionTitle1">Comisión <kbd>1</kbd></h3>
-                <input type="hidden" name="commissionTitle1" value="commissionTitle1">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-sm-4">
-                <div class="form-group ui-widget">
-                  <label for="commissionBoss1">Jefe de comisión *</label>
-                  <input list="firefighterList" name="commissionBoss1" class="form-control" data-validation="required" placeholder="Jefe de Comisión">
+        {{for comision in comisiones:}}
+          <div id="commissionsCNT">
+            <div id="commission{{=comision['numero']}}">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h3 id="commissionTitle{{=comision['numero']}}" name="commissionTitle{{=comision['numero']}}">Comisión <kbd>1</kbd></h3>
+                  <input type="hidden" name="commissionTitle{{=comision['numero']}}" value="commissionTitle{{=comision['numero']}}">
                 </div>
-                <label for="unitTitle">Unidades</label>
-                <div class="row">
-                  <div id="unitsCNT1">
-                    <div id="unit1-1">
-                      <div class="col-xs-4 col-sm-2">
-                        <select id="unitValue1-1" class="form-control" name="unitValue1-1">
-                          <option value="" selected="selected">--</option>
-                        </select>
-                      </div>
-                      <div class="col-xs-8 col-sm-10">
-                        <input list="firefighterList" name="commissionDriver1-1" class="form-control" placeholder="Conductor">
-                       </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                  <div class="form-group ui-widget">
+                    <label for="commissionBoss{{=comision['numero']}}">Jefe de comisión *</label>
+                    <input list="firefighterList" name="commissionBoss{{=comision['numero']}}" class="form-control" data-validation="required" placeholder="Jefe de Comisión" value="{{=comision['jefe']}}">
+                  </div>
+                  <label for="unitTitle">Unidades</label>
+                  <div class="row">
+                    <div id="unitsCNT{{=comision['numero']}}">
+                      <div id="unit{{=comision['numero']}}-1">
+                        <div class="col-xs-4 col-sm-2">
+                          <select id="unitValue{{=comision['numero']}}-1" class="form-control" name="unitValue{{=comision['numero']}}-1">
+                            <option value="" selected="selected">--</option>
+                            {{for unidad in nombreUnidades:}}
+                              <option value="{{=unidad}}">{{=unidad}}</option>
+                            {{pass}}
+                          </select>
+                        </div>
+                        <div class="col-xs-8 col-sm-10">
+                          <input list="firefighterList" name="commissionDriver{{=comision['numero']}}-1" class="form-control" placeholder="Conductor" value="{{=comision['conductor']}}">
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                   <div id="commissionMembersCNT1">
-                    <label for="commissionMember1-1">Acompañantes</label>
-                    <input list="firefighterList" name="commissionMember1-1" class="form-control" placeholder="Acompañante de Comisión">
-                    <input list="firefighterList" name="commissionMember1-2" class="form-control" placeholder="Acompañante de Comisión">
-                    <input list="firefighterList" name="commissionMember1-3" class="form-control" placeholder="Acompañante de Comisión">
+                    <label for="commissionMember{{=comision['numero']}}-1">Acompañantes</label>
+                    {{for i in range(len(comision['acompanantes'])):}}
+                      <input list="firefighterList" name="commissionMember{{=comision['numero']}}-{{=i+1}}" class="form-control" placeholder="Acompañante de Comisión" value="{{=comision['acompanantes'][i]}}">
+                    {{pass}}
                   </div>
+                  {{for i in range(len(comision['acompanantes']),3):}}
+                      <input list="firefighterList" name="commissionMember{{=comision['numero']}}-{{=i+1}}" class="form-control" placeholder="Acompañante de Comisión">
+                  {{pass}}
                   <div class="text-right">
-                    <button id="addCommissionMember1" type="button" class="btn bg-1 addCommissionMember top-space-separator addCommissionMember">
+                    <button id="addCommissionMember{{=comision['numero']}}" type="button" class="btn bg-1 addCommissionMember top-space-separator addCommissionMember">
                       <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>
                     </button>
                   </div>
@@ -162,6 +169,7 @@
             </div>
             <hr>
           </div>
+        {{pass}}
         <div class="text-center">
           <button id="addCommission" type="button" class="btn bg-1">
             Añadir otra comision
@@ -240,9 +248,9 @@
                     <div class="col-xs-12 col-sm-6">
                       <div id="phonesCNT{{=afectado['counter']}}">
                         <label for="phonesTitle">Teléfonos</label>
-                        {{for telefono in afectado['numeros']:}}
+                        {{for i in range(len(afectado['numeros'])):}}
                           <div class="input-group">
-                            <input type="tel" class="form-control" id="affectedPhone{{=afectado['counter']}}-{{=afectado['numeros'].index(telefono)+1}}" name="affectedPhone{{=afectado['counter']}}-{{=afectado['numeros'].index(telefono)+1}}" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular" value='{{=telefono}}'>
+                            <input type="tel" class="form-control" id="affectedPhone{{=afectado['counter']}}-{{=i+1}}" name="affectedPhone{{=afectado['counter']}}-{{=i+1}}" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular" value='{{=afectado["numeros"][i]}}'>
                             <span class="input-group-btn">
                             <button class="removeButton removeField" type="button"><span class="glyphicon glyphicon-remove"></span></button>
                             </span>
