@@ -1,3 +1,7 @@
+var borrador;
+function regirterService() {borrador = false;};
+function saveDraft() {borrador = true;};
+
 $(document).ready(function() {
   var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones
   var affectedCNT = $("#affectedCNT");                                  // ID del contenedor de los afectados
@@ -369,7 +373,12 @@ $(document).ready(function() {
         closeOnConfirm: true,
         html: false
     }, function(isConfirm) {
-        if (isConfirm) { form.submit();
+        if (isConfirm) {
+          // Enviar form
+          form.submit();
+
+          // Popup
+          swal("¡Enviado!", "", "success");
         }
     });
   });
@@ -422,4 +431,7 @@ $(document).ready(function() {
 
   // initialize datepair
   $('#start-end-date').datepair();
+
 });
+
+
