@@ -17,7 +17,7 @@
     <h1 class="text-center">Deshabilitar/Habilitar usuarios</h1>
     <br /><br />
 	<div class="table-responsive"> <!-- Permite la portabilidad de la tabla en dispositivos pequeños -->
-		<table class="display eliminarth-table">
+		<table class="display buscar-table">
 			<thead class="bg-1">
 				<tr>
 			        <td class="text-center">Carnet</td>
@@ -45,9 +45,9 @@
 		            {{	user=db(db.usuario.id==row.bombero.id_usuario).select().first()
 		            	
 		            	if user.disable:}}
-		            <td><button class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" type="button" id="btn-submit-habilitar"><span>Habilitar</span></button></td>
+		            <td><button class="btn btn-sm bg-1" href="{{=URL('th','deshabilitarth',args=[str(row.bombero.id)])}}" type="button" id="btn-submit-habilitar"><span>Habilitar</span></button></td>
 		            {{else:}}
-		            <td><button class="btn btn-sm bg-1" href="{{=URL('th','eliminarusrth',args=[str(row.bombero.id)])}}" type="button" id="btn-submit-deshabilitar"><span>Deshabilitar</span></button></td>
+		            <td><button class="btn btn-sm bg-1" href="{{=URL('th','deshabilitarth',args=[str(row.bombero.id)])}}" type="button" id="btn-submit-deshabilitar"><span>Deshabilitar</span></button></td>
 		            {{pass}}
 				</tr>
 				{{pass}}

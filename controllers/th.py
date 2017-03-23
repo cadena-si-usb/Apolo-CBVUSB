@@ -2,6 +2,8 @@
 # this file is released under public domain and you can use without limitations
 # psql -U cbvusb -h localhost -W
 
+# Limitar la vista de aprobar según la jerarquía
+
 import re
 import time
 import random
@@ -302,7 +304,7 @@ def registrousrth_final():
 	return dict(username=username)
 
 @auth.requires_login()
-def eliminarusrth():
+def deshabilitarth():
 	T.force('es')
 	userid = auth.user.id
 
@@ -312,7 +314,7 @@ def eliminarusrth():
 		
 		if not db(db.bombero.id==id_bombero).isempty():
 			bombero = db(db.bombero.id==id_bombero).select().first()
-			usuario = db(db.usuario.id==bombero.id_usuario).select().first()
+			usuario = db((db.usuario.id==bombero.id_usuario)).select().first()
 
 			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
 
@@ -322,19 +324,19 @@ def eliminarusrth():
 			#else:
 			#	response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
 
-	tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & 
-										(db.bombero.id_usuario!=userid)),
-									distinct=db.bombero.carnet,
-									orderby=~db.bombero.carnet)
+	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
+				& (db.bombero.id_usuario!=userid) & (db.usuario.confirmed==True) & (db.bombero.carnet!="-1"))\
+				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
+
 	return dict(tabla=tabla)
 
 @auth.requires_permission('Estudiante')
 def buscarth():
 	T.force('es')
-	#print auth.id_group(role='Inspectoria')
-	tabla = db(db.persona).select(join=db.bombero.on((db.bombero.id_persona == db.persona.id) & (db.bombero.carnet!="-1")),
-										distinct=db.bombero.carnet,
-										orderby=~db.bombero.carnet)
+	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
+				& (db.usuario.confirmed==True) & (db.usuario.disable==False) & (db.bombero.carnet!="-1"))\
+				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
+
 	return dict(tabla=tabla)
 
 @auth.requires_login()
@@ -342,21 +344,31 @@ def constancia():
 	T.force('es')
 	return dict()
 
-form1 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
-        INPUT(_type='submit'), _action=URL('test_add'), _method="get")
+@auth.requires_login()
+def gestionarconstancia():
+	T.force('es')
+	tipo = ""
+	no_solicitado = db(db.constancia.id_solicitante==auth.user.id).isempty()
 
-def test():
-	form2 = FORM(INPUT(_name='name', requires=IS_NOT_EMPTY()),
-				INPUT(_type='submit'))
-	if form1.process(formname='form_one').accepted:
-		response.flash = 'form one accepted'
-	if form2.process(formname='form_two').accepted:
-		response.flash = 'form two accepted'
-	return dict(form1=form1, form2=form2)
+	usuario = db((db.bombero.id_usuario==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
 
-def test_add():
-	if request.vars:
-		form = request.vars
+	if request.args:
+		solicitud = request.args[0]
 
-	form1 = form
-	return dict(form1=form)
+		if solicitud == 'solicitar':
+			if not no_solicitado:
+				tipo = "danger"
+				response.flash = "Ya tiene una solicitud pendiente."
+				
+			else:
+				db.constancia.insert(id_solicitante=auth.user.id)
+
+		if solicitud == 'aprobar' and len(request.args) > 1:
+			db(db.constancia.id == request.args[1]).delete()
+
+
+	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
+				& (db.constancia.id_solicitante==db.usuario.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
+				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
+
+	return dict( usuario=usuario, tabla=tabla, tipo=tipo, no_solicitado=no_solicitado)

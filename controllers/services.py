@@ -536,7 +536,6 @@ def aprove():
 
 
 # Vista de "Estadisticas"
-@auth.requires_login()
 def stadistics():
     return dict()
 

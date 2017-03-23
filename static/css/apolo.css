@@ -227,11 +227,6 @@ Magia para el footer
   flex: 1;
 }
 
-.custom-button {
-  background-color: #1565C0;
-  color: white;
-}
-
 /*####################
 Hand pointer (Manito)
 #####################*/
@@ -241,11 +236,26 @@ Hand pointer (Manito)
   cursor: hand;
 }
 
+/*####################
+Botones
+#####################*/
+
+.removeButton {
+  background: transparent;
+  border: 0px solid transparent;
+  color: gray;
+  padding: 10px;
+}
+
+.removeButton:hover, .removeButton:focus {
+  color: red;
+}
+
 /*####################################
   Letras rojas en errores de SQLFORM
 ######################################*/
 
-div#username__error.error, div#password__error.error, 
+div#username__error.error, div#password__error.error,
 div#password_again__error.error
 {
   color: red;
@@ -255,7 +265,7 @@ div#first_name__error.error, div#last_name__error.error{
   color: red;
 }
 
-div#primer_nombre__error.error, div#segundo_nombre__error.error, 
+div#primer_nombre__error.error, div#segundo_nombre__error.error,
 div#primer_apellido__error.error, div#segundo_apellido__error.error,
 div#cedula__error.error, div#fecha_nacimiento__error.error,
 div#genero__error.error, div#email_principal__error.error,
