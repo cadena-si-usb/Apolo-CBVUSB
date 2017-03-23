@@ -383,7 +383,7 @@ def registrarAfectados(request):
             request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)]
             telf = request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)].split("-")
             telf.append("")
-            db.numero.insert(
+            db.telefono.insert(
                 id_persona = personaID,
                 codigo_telefono = telf[0],
                 numero_telefono = telf[1])
@@ -406,7 +406,7 @@ def registrarApoyoExterno(request):
         unitExtPlaca = request.vars["unitExtPlaca"+str(comisionCounter)+"-1"]
 
         jefe = request.vars["jefe"+str(comisionCounter)]
-        # comentario = request.vars["comentario"+str(comisionCounter)]
+        comentarioExt = request.vars["unitExtNotes"+str(comisionCounter)]
 
         # Registrar como afectado
         db.comision_apoyo.insert(
@@ -415,7 +415,7 @@ def registrarApoyoExterno(request):
             unidad = unitExt,
             placaunidad = unitExtPlaca,
             lider = jefe,
-            comentario = "PENDIENTE",
+            comentario = comentarioExt,
             servicio = request.vars["id"])
 
         comisionCounter+=1

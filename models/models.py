@@ -51,7 +51,7 @@ db.define_table('persona',
 	Field('lugar_nacimiento', type='string'),
 	Field('genero', type='string', notnull=True),
 	Field('imagen', type='upload', uploadfolder=os.path.join(request.folder,'static/profile-images'),default='index.png'),
-	Field('email_principal', type='string', notnull=True),
+	Field('email_principal', type='string'),
 	Field('email_alternativo', type='string'),
 	Field('estado_civil', type='string'),
 	migrate="db.persona")
