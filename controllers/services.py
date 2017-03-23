@@ -18,7 +18,7 @@ def msapproved():
     # id de bombero logeado al sistema
     bombero_id = db(db.bombero.id_usuario == user_id).select()[0].id
 
-    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.aprobado == True).select(orderby=~db.servicio.fechaCreacion)
     misServiciosAprobados = list()
 
     # De entre servicios aprobados solo los que el bombero registro
@@ -38,7 +38,7 @@ def mspending():
     # id de bombero logeado al sistema
     bombero_id = db(db.bombero.id_usuario == user_id).select()[0].id
 
-    services = db((db.servicio.Borrador == False) & (db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False)).select(orderby=~db.servicio.fechaCreacion)
     misServiciosPendientes = list()
 
     # De entre servicios pendientes solo los que el bombero registro
@@ -58,7 +58,7 @@ def msdraft():
     # id de bombero logeado al sistema
     bombero_id = db(db.bombero.id_usuario == user_id).select()[0].id
 
-    services = db((db.servicio.Borrador == True) & (db.servicio.Aprueba == None)).select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Borrador == True) & (db.servicio.aprobado == False)).select(orderby=~db.servicio.fechaCreacion)
     misServiciosBorradores = list()
 
     # De entre servicios borradores solo los que el bombero registro
@@ -82,7 +82,7 @@ def deleteMyService():
 # Vista principal de "Gestionar Servicios"
 @auth.requires_login()
 def allservices():
-    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.aprobado == True).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 # Vista para listar "Mis Servicios" en los que aparezco
@@ -92,7 +92,7 @@ def myservices():
     # ID de cuenta de usuario del bombero
     userId = auth.user.id
 
-    servicios = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
+    servicios = db(db.servicio.aprobado == True).select(orderby=~db.servicio.fechaCreacion)
     misServicios = list()
 
     # Todos los servicios
@@ -284,7 +284,7 @@ def nombreBombero(id):
 # Vista principal de "Servicios"
 @auth.requires_login()
 def index():
-    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
+    services = db(db.servicio.aprobado == True).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -484,6 +484,69 @@ def registrarApoyoExterno(request):
 
         comisionCounter+=1
 
+# Obtener jerarquia de rangos de los bomberos
+@auth.requires_login()
+def jerarquiaRangos():
+
+    rangos = dict()
+    rangos["Aspirante"] = 0
+    rangos["Alumno"] = 1
+    rangos["Bombero"] = 2
+    rangos["Distinguido"] = 3
+    rangos["Cabo Segundo"] = 4
+    rangos["Cabo Primero"] = 5
+    rangos["Sargento Segundp"] = 6
+    rangos["Sargento Primero"] = 7
+    rangos["Sargento Mayor"] = 8
+    rangos["Teniente"] = 9
+    rangos["Primer Teniente"] = 10
+    rangos["Capitán y Mayor"] = 11
+    rangos["Teniente Coronel"] = 12
+    rangos["Coronel"] = 13
+    rangos["General"] = 14
+    rangos["Primer General"] = 15
+
+    return rangos
+
+# Funcion para calcular si bombero es de mayor rango que el aprobador actual
+@auth.requires_login()
+def esMayor(bombero, aprobador):
+
+    rangos = jerarquiaRangos()
+    
+    if rangos[bombero.rango] > rangos[aprobador["rango"]]:
+        return True
+    elif rangos[bombero.rango] < rangos[aprobador["rango"]]:
+        return False
+    else:
+        return bombero.carnet < aprobador["carnet"]
+
+
+# Funcion para agregar bombero que debe aprobar el servicio
+@auth.requires_login()
+def agregarAprobador(servicioID):
+    
+    # Bombero aprobador de servicio
+    aprobador = dict()
+    aprobador["carnet"] = -1
+
+    comisionRows = db(db.comision.servicio == servicioID).select()
+    for comisionRow in comisionRows:
+
+        bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
+        
+        # Bombero es seleccionado para ser aprobador de servicio
+        if aprobador["carnet"] == -1 or esMayor(bomberoRow, aprobador):
+            aprobador["rango"] = bomberoRow.rango
+            aprobador["carnet"] = bomberoRow.carnet
+            aprobador["id"] = bomberoRow.id
+
+
+    servicio = db(db.servicio.id == servicioID).select().first()
+    servicio.Aprueba = aprobador["id"]
+    servicio.update_record()
+
+
 # Vista principal de "Registrar servicio"
 @auth.requires_login()
 def register():
@@ -518,6 +581,9 @@ def register():
         registrarComisiones(request)
         registrarAfectados(request)
         registrarApoyoExterno(request)
+
+        # Agregar bombero que debe aprobar servicio
+        agregarAprobador(request.vars["id"])
 
         # Borrador guardado. Redireccionar a edicion de borrador para continuar con registro
         if request.vars['draft'] is not None:
@@ -645,9 +711,10 @@ def obtenerDuracionServicio(servicio):
 
     return (tiempoFin - tiempoInicio).total_seconds() / 3600
 
+# Mostrar servicios pendientes por mi aprobacion
 @auth.requires_login()
 def aprove():
-    services = db(db.servicio.Aprueba != None).select(orderby=~db.servicio.fechaCreacion)
+    services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
 
 
