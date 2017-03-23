@@ -65,9 +65,9 @@ db.define_table('telefono',
 
 db.define_table('direccion',
 	Field('id_persona', type='reference persona', required=True, notnull=True),
-	Field('direccion_descripcion', type='string', notnull=True),
 	Field('direccion_tipo', type='string', notnull=True),
 	Field('direccion_ciudad', type='string', notnull=True),
+	Field('direccion_descripcion', type='string', notnull=True),
 	migrate="db.direccion")
 		
 db.define_table('bombero', 
@@ -89,10 +89,12 @@ db.define_table('constancia',
 db.define_table('contacto',
 	Field('id_bombero', type='reference bombero', notnull=True, unique=True),
 	Field('nombre', type='string', notnull=True),
-	Field('tipo_telefono1', type='reference bombero', notnull=True),
-	Field('telefono1', type='integer', notnull=True),
-	Field('tipo_telefono2', type='integer', notnull=True),
-	Field('telefono2', type='integer', notnull=True),
+	Field('tipo_telefono1', type='string', notnull=True),
+	Field('codigo_telefono1', type='integer', notnull=True),
+	Field('numero_telefono1', type='integer', notnull=True),
+	Field('tipo_telefono2', type='string', notnull=True),
+	Field('codigo_telefono2', type='integer', notnull=True),
+	Field('numero_telefono2', type='integer', notnull=True),
 	migrate='db.contacto')
 
 db.define_table('servicio',

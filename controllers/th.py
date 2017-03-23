@@ -33,6 +33,10 @@ def actualizar_permisos( id_usuario, cargo ):
 	inspector	= '^Inspector$'
 	comandancia = '^.*[Cc]omandante$'
 
+	if not db(db.auth_membership.user_id==id_usuario).isempty():
+		grupo = db(db.auth_membership.user_id==id_usuario).select().first().group_id
+		auth.del_membership(grupo, id_usuario)
+
 	if re.match(estudiante, cargo):
 		auth.add_membership(auth.id_group('Estudiante'), id_usuario)
 	elif re.match(bombero, cargo):
@@ -277,13 +281,14 @@ def perfilmodth():
 		for campo in request.vars:
 
 			if re.match(cargo,campo):
-				print "Cargo"
+				actualizar_permisos( userid, request.vars[campo])
+				db(db.bombero.id_usuario==userid).validate_and_update(cargo=request.vars[campo])
 
 			if re.match(tipo_sangre,campo):
 				db(db.bombero.id_usuario==userid).validate_and_update(tipo_sangre=request.vars[campo])
 
 			if re.match(rango,campo):
-				print "Rango"
+				db(db.bombero.id_usuario==userid).validate_and_update(rango=request.vars[campo])
 
 			if re.match(telefonos,campo):
 
@@ -307,15 +312,53 @@ def perfilmodth():
 					db.telefono.validate_and_insert(id_persona=persona.id, tipo_telefono=tipo_telefono,
 													codigo_telefono=codigo_telefono, numero_telefono=numero_telefono)
 
-				print tipo_telefono, codigo_telefono, numero_telefono
-
-				print "Telefonos"
-
 			if re.match(contacto,campo):
-				print "Contacto"
+				nombre = request.vars[campo][0]
+				tipo_telefono1 = request.vars[campo][1]
+				codigo_telefono1 = request.vars[campo][2][:4]
+				numero_telefono1 = request.vars[campo][2][4:]
+				tipo_telefono2 = request.vars[campo][3]
+				codigo_telefono2 = request.vars[campo][4][:4]
+				numero_telefono2 = request.vars[campo][4][4:]
+
+				if nombre=='' and tipo_telefono1=='' and codigo_telefono1=='' and numero_telefono1==''\
+					and tipo_telefono2=='' and codigo_telefono2 == '' and numero_telefono2 == '':
+					pass
+
+				elif len(request.vars[campo][2]) != 11 or tipo_telefono1 == ''\
+						or len(request.vars[campo][4]) != 11 or tipo_telefono2 == '' or nombre=='':
+					error = True
+					tipo = "danger"
+					response.flash = "No puede ingresar datos incompletos"
+					print "Error"
+
+				elif db((db.bombero.id_usuario==userid) & (db.contacto.id_bombero==bombero.id)).isempty():
+					db.contacto.insert(id_bombero=bombero.id, nombre=nombre, 
+							tipo_telefono1=tipo_telefono1, codigo_telefono1=codigo_telefono1, numero_telefono1=numero_telefono1,
+							tipo_telefono2=tipo_telefono2, codigo_telefono2=codigo_telefono2, numero_telefono2=numero_telefono2)
+
+				elif not db((db.bombero.id_usuario==userid) & (db.contacto.id_bombero==bombero.id)).isempty():
+					db(db.contacto.id_bombero==bombero.id).update(nombre=nombre, 
+							tipo_telefono1=tipo_telefono1, codigo_telefono1=codigo_telefono1, numero_telefono1=numero_telefono1,
+							tipo_telefono2=tipo_telefono2, codigo_telefono2=codigo_telefono2, numero_telefono2=numero_telefono2)
 
 			if re.match(direccion,campo):
-				print "Direccion"
+				direccion_tipo = request.vars[campo][0]
+				direccion_ciudad = request.vars[campo][1]
+				direccion_descripcion = request.vars[campo][2]
+
+				if direccion_tipo == '' and direccion_ciudad == '' and direccion_descripcion == '':
+					pass
+
+				elif direccion_tipo == '' or direccion_ciudad == '' or direccion_descripcion == '':
+					error = True
+					tipo = "danger"
+					response.flash = "No puede ingresar datos incompletos"
+					print "Error"
+
+				else:
+					db.direccion.insert(id_persona=persona.id, direccion_tipo=direccion_tipo,
+										direccion_ciudad=direccion_ciudad, direccion_descripcion=direccion_descripcion)
 
 		if not error:
 			tipo="success"

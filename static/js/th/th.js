@@ -335,8 +335,9 @@ $(document).ready(function() {
     $('#no_table_fecha_nacimiento').attr('placeholder', 'dd/mm/año');
     $('#no_table_email_alternativo').attr('placeholder', 'ejemplo@website.com');
     $('#no_table_iniciales').attr('placeholder', 'Iniciales del nombre completo...');
-    $('#no_table_password').attr('placeholder', 'Clave...');
-    $('#no_table_password_again').attr('placeholder', 'Clave...');
+    $('#no_table_password_actual').attr('placeholder', 'Clave actual...');
+    $('#no_table_password').attr('placeholder', 'Clave nueva...');
+    $('#no_table_password_again').attr('placeholder', 'Clave nueva...');
     $('#no_table_email').attr('placeholder', 'ejemplo@website.com');
     $('#no_table_username').attr('placeholder', 'Nombre de usuario...');
     $('#no_table_first_name').attr('placeholder', 'Primer nombre...');
