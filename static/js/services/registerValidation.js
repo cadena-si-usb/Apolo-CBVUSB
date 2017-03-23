@@ -13,51 +13,16 @@ function validateForm() {
 
         var horaCreacion = document.forms["registro"]["horaCreacion"].value;
         var horaRegreso = document.forms["registro"]["horaFinalizacion"].value;
+        var validate = true;
 
         // Verificar no nulidad de campos
-        if (tipo == "") {
-            alert("ALERTA: Ingrese tipo de servicio")
-            return false
-        }
-        if (fechaCreacion == "") {
-            alert("ALERTA: Ingrese fecha de creación de servicio")
-            return false
-        }
-        if (fechaRegreso == "") {
-            alert("ALERTA: Ingrese fecha de regreso de servicio")
-            return false
-        }
-        if (descripcion == "") {
-            alert("ALERTA: Ingrese descripción de servicio")
-            return false
-        }
-        if (localizacion == "") {
-            alert("ALERTA: Ingrese localización de servicio")
-            return false
-        }
-        if (horaCreacion == "") {
-            alert("ALERTA: Ingrese hora de creacion de servicio")
-            return false
-        }
-       if (horaRegreso == "") {
-            alert("ALERTA: Ingrese hora de regreso de servicio")
-            return false
-        }
-        if (fechaCreacion > fechaRegreso) {
-            alert("ALERTA: Fecha de inicio debe debe ser menor o igual a fecha de finalización.");
-            return false;
-        }
-        if (horaCreacion > horaRegreso) {
-            alert("ALERTA: Hora de llegada debe debe ser menor o igual a hora de regreso.");
-            return false;
-        }
-        if (fechaCreacion < "01/01/1983") {
-            alert("ALERTA: Fecha de creacion debe ser posterior a 1982.");
-            return false;
-        }
-        swal("¡Guardado!", "", "success");
+        if (fechaCreacion > fechaRegreso || ((fechaRegreso >= fechaCreacion) &&  horaCreacion > horaRegreso)) validate = false;
+        if (fechaCreacion < "01/01/1983") validate = false;
+
+        if (validate) swal("Parece que se ingresarón datos incorrectos");
 
     } else {
+        swal("¡Guardado!");
         return true
     }
 }
