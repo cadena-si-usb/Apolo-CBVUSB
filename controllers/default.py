@@ -16,6 +16,7 @@ def usernotconfirmedsent():
 
 def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA NOTIFICAR
 	T.force('es')
+	error = False
 	tipo = ""
 
 	default_cedula = ""
@@ -39,7 +40,7 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 
 		redirect(URL('default','usernotconfirmedsent'))
 
-	formConfirmar = SQLFORM.factory(
+	"""formConfirmar = SQLFORM.factory(
 		Field('password', 
 			type='password', 
 			readable=False, 
@@ -140,9 +141,50 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 
 	elif formConfirmar.errors:
 		tipo="danger"
-		response.flash = 'Todos los campos deben ser llenados'
+		response.flash = 'Todos los campos deben ser llenados'"""
 
-	return dict(form=formConfirmar, tipo=tipo)
+	varsForm = dict((k,v) for k,v in request.vars.iteritems() if v != '')
+	print len(request.vars)
+	print len(varsForm)
+
+	if len(request.vars) != len(varsForm):
+		error = True
+
+	elif len(request.vars):
+
+		if db(db.bombero.id_usuario==auth.user.id).isempty():
+			db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, **db.usuario._filter_fields(request.vars))
+			id_persona = db.persona.insert( **db.persona._filter_fields(request.vars))
+			db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
+
+		else:
+			db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, **db.usuario._filter_fields(request.vars))
+			db(db.bombero.id_usuario==auth.user.id).update( **db.persona._filter_fields(request.vars))
+			db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
+
+		bombero = db((db.bombero.id_usuario==auth.user.id) & (db.usuario.id==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
+
+		mail.send(to=[bombero.usuario.email], subject='Confirmación de usuario: Pendiente',
+			message='Estimado '+bombero.usuario.username+' su información acaba de ser enviada y pronto le será notificado el resultado.\n\n'+
+					'Su información ingresada fue la siguiente:\n\n'+
+					'\tCedula: '+str(bombero.persona.cedula)+'\n'+
+					'\tNombre: '+bombero.persona.primer_nombre+'\n'+
+					'\tApellido: '+bombero.persona.primer_apellido+'\n'+
+					'\tGenero: '+bombero.persona.genero+'\n'+
+					'\tRango: '+bombero.bombero.rango+'\n'+
+					'\tCargo: '+bombero.bombero.cargo+'\n'+
+					'\tCarnet: '+str(bombero.bombero.carnet)+'\n\n'+
+					'Sistema de Gestión Apolo. CBVUSB.')
+		redirect(URL('default','usernotconfirmedsent'))
+
+	if not error:
+		tipo="success"
+		response.flash = 'Cambios realizados satisfactoriamente.'
+	else:
+		tipo="danger"
+		response.flash = 'Hay un error en un campo'
+
+	return dict(tipo=tipo)
 
 def userblocked():
 	T.force('es')
@@ -161,12 +203,30 @@ def confirmar():
 			redirect(URL("default","editarnoconfirmado", args=[id_bombero]))
 
 		if opcion == 'cancelar':
+			bombero = db((db.bombero.id_usuario==bombero.id_usuario) & (db.usuario.id==bombero.id_usuario)).select().first()
+
+			mail.send(to=[bombero.usuario.email], subject='Confirmación de usuario: Negada',
+			message='Estimado '+bombero.usuario.username+' su información acaba de ser negada.\n\n'+
+					'Debe ingresar nuevamente al sistema con las credenciales antes enviadas y rellenar la información nuevamente.\n\n'+
+					'Cualquier duda con respecto a lo antes mencionado, por favor contacte con el administrador\n\n'+
+					'Sistema de Gestión Apolo. CBVUSB.')
+
 			db(db.persona.id == bombero.id_persona).delete()
 			db(db.bombero.id==id_bombero).delete()
 
 		if opcion == 'confirmar':
 			actualizar_permisos(bombero.id_usuario, bombero.cargo)
 			db(db.usuario.id==bombero.id_usuario).update(confirmed=True)
+			
+			bombero = db((db.bombero.id_usuario==bombero.id_usuario) & (db.usuario.id==bombero.id_usuario)).select().first()
+
+			mail.send(to=[bombero.usuario.email], subject='Confirmación de usuario: Confirmado',
+			message='Estimado '+bombero.usuario.username+' su información acaba de ser aprobada y puede acceder al sistema.\n\n'+
+					'Le recordamos que sus credenciales fueron enviadas en un correo anterior, para ingresar debe:\n\n'+
+					'\t1. Ingresar con las credenciales que le fueron enviadas anteriormente.\n'+
+					'\t2. Tras ingresar le recomendamos que vaya a la pestaña '+bombero.usuario.username+' y modifique su contraseña en modificar perfil.\n'+
+					'\t3. Le invitamos a completar la información personal en la pestaña de modificar.\n\n'+
+					'Sistema de Gestión Apolo. CBVUSB.')
 
 		if opcion == 'eliminar':
 			if not db(db.bombero.id_usuario==id_bombero).isempty():
