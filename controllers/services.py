@@ -761,11 +761,14 @@ def stadistics():
     if ano == None:
         ano = datetime.now().year
 
+    if request.vars["exportar"] == "True":
+        redirect(URL('services','exportarEstadisticas',vars=dict(mes=mes,ano=ano)))
+
     # Varbiales estadisticas
     cantidadTotal = 0
     duracionTotal = 0
     duracionPromedio = 0
-    estadisticas = dict.fromkeys(["CM","AME1","AME2","IDE","IDV","PC","AY","MP","RES1","RES2","GP","NSA","FA"],0)
+    estadisticas = dict.fromkeys(["CM","AME1","AME2","IDE","IDV","PC","AY","MP","RES1","RES2","SE","GP","NSA","FA"],0)
 
     # Servicios aprobados
     servicios = db(db.servicio.aprobado == True).select()
@@ -812,14 +815,12 @@ def exportarServicio():
 
 def exportarEstadisticas():
     # Mes solicitado para mostrar estadisticas de servicios
-    # mes = request.vars['mes'];
-    mes = "7"
+    mes = request.vars['mes']
     if mes == None:
         mes = "0"
 
     # Ano solicitado para mostrar estadisticas de servicios
-    # ano = request.vars['ano'];
-    ano = None
+    ano = request.vars['ano']
     if ano == None:
         ano = datetime.now().year
 
