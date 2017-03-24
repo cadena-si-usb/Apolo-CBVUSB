@@ -29,6 +29,12 @@
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
+
+    <li class="nav-item navbar-right">
+      <a href={{=URL('services','exportarServicio', vars=dict(id=service.id))}} role="button">
+        Exportar <span class="glyphicon glyphicon-save"></span>
+      </a>
+    </li>
     {{if not service.aprobado:}}
       <li class="nav-item navbar-right">
         <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">

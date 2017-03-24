@@ -841,12 +841,25 @@ def stadistics():
 
     return dict(estadisticas=estadisticas,mes=obtenerNombreMes(mes),ano=ano,duracionPromedio=duracionPromedio,duracionTotal=duracionTotal)
 
+# Obtener tipo de afectado de un servicio
+def obtenerTipoAfectado(tipo):
+    if tipo == '1':
+        return "Estudiante de la USB"
+    if tipo == '2':
+        return "Profesor de la USB"
+    if tipo == '3':
+        return "Empleado de la USB"
+    if tipo == '4':
+        return "Obrero de la USB"
+    if tipo == '5':
+        return "Externo"
+    return "None"
+
 # Vista para generar exportacion de estadisticas
 def exportarServicio():
 
-    # serviceId = request.vars["id"]
+    serviceId = request.vars["id"]
     # Info basica del servicio
-    serviceId = 1
     service = db(db.servicio.id == serviceId).select()[0]
 
     # Comisiones del servicio
@@ -854,6 +867,9 @@ def exportarServicio():
 
     # Afectados del servicio
     afectados = obtenerAfectados(serviceId)
+
+    for afectado in afectados:
+        afectado["tipo"] = obtenerTipoAfectado(afectado["tipo"])
 
     # Comisiones de apoyos
     externos = obtenerApoyoExterno(serviceId)
