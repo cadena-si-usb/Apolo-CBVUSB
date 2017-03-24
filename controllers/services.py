@@ -585,6 +585,10 @@ def register():
             localizacion = request.vars['localizacion'],
             tipo = request.vars['tipo'])
 
+        # Obtener ID de servicio registrado
+        servicioId = db.servicio.id.max()
+        request.vars["id"] = db().select(servicioId).first()[servicioId]
+
         # Registrar datos de comisiones, afectados y apoyo externo
         registrarComisiones(request)
         registrarAfectados(request)
