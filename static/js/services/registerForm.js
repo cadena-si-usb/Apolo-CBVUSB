@@ -26,13 +26,13 @@ $(document).ready(function() {
 
   // Función para los botones de eliminar afectado
   $(affectedCNT).on("click","button.removeGroup", function() {
-    var $parent = $($($($($($($(this).parent('span')).parent('div')).parent('div')).parent('div')).parent('div')).parent('div')).parent('div');
+    var $parent = $($($($(this).parent('span')).parent('div')).parent('div')).parent('div');
     $parent.remove();
   });
 
   // Función para los botones de eliminar apoyo externo
   $(apoyoExtCNT).on("click","button.removeGroup", function() {
-    var $parent = $($($($($($(this).parent('span')).parent('div')).parent('div')).parent('div')).parent('div')).parent('div');
+    var $parent = $($($(this).parent('span')).parent('div')).parent('div');
     $parent.remove();
   });
 
@@ -132,12 +132,15 @@ $(document).ready(function() {
     '<div id="commission'+num1+'">\
       <input type="hidden" name="commissionMembersCount'+num1+'" value="3">\
       <div class="row">\
-        <div class="col-xs-12">\
+        <div class="col-xs-12 col-sm-8">\
           <div class="input-group">\
-            <span class="input-group-btn">\
-              <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>\
-            </span>\
             <h3 id="commissionTitle'+num1+'" name="commissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
+            <span class="input-group-btn">\
+              <button class="removeButton removeGroup" type="button">\
+                <span>Eliminar comisión </span>\
+                <span class="glyphicon glyphicon-remove"></span>\
+              </button>\
+            </span>\
           </div>\
           <input type="hidden" name="commissionTitle'+num1+'" value="commissionTitle'+num1+'">\
         </div>\
@@ -210,15 +213,18 @@ $(document).ready(function() {
       <input type="hidden" name="emailsCount'+num1+'" value="0">\
       <input type="hidden" name="phoneCount'+num1+'" value="0">\
       <div class="row">\
+        <div class="input-group text-right no-space-bottom">\
+          <span class="input-group-btn">\
+            <button class="removeButton removeGroup" type="button">\
+              <span>Eliminar afectado</span>\
+              <span class="glyphicon glyphicon-remove"></span>\
+            </button>\
+          </span>\
+        </div>\
         <div class="col-xs-12 col-sm-6">\
           <div class="row">\
             <div class="col-xs-12 col-sm-12">\
-              <div class="input-group">\
-                <span class="input-group-btn">\
-                  <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>\
-                </span>\
-                <h3>Afectado <kbd>'+num1+'</kbd></h3>\
-              </div>\
+              <h3>Afectado <kbd>'+num1+'</kbd></h3>\
               <input type="hidden" name="affectedTitle'+num1+'" value="affectedTitle'+num1+'">\
               <label>Nombre *</label>\
             </div>\
@@ -308,15 +314,18 @@ $(document).ready(function() {
 
     $(apoyoExtCNT).append(
     '<div id="comExt'+num1+'">\
+      <div class="input-group text-right no-space-bottom">\
+        <span class="input-group-btn">\
+          <button class="removeButton removeGroup" type="button">\
+            <span>Eliminar apoyo externo</span>\
+            <span class="glyphicon glyphicon-remove"></span>\
+          </button>\
+        </span>\
+      </div>\
       <div class="row">\
         <div class="col-xs-12 col-sm-6">\
           <div id="comisionExt'+num1+'" class="col-xs-12 col-sm-12">\
-            <div class="input-group">\
-              <span class="input-group-btn">\
-                <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>\
-              </span>\
-              <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
-            </div>\
+            <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
             <input type="hidden" name="comisionExtTitle'+num1+'" value="comisionExtTitle'+num1+'">\
             <div class="form-group ui-widget col-xs-12 col-sm-12">\
               <label for="cuerpoDepartamento'+num1+'">Cuerpo o Departamento</label>\
