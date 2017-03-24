@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="no-js" lang="{{=T.accepted_language or 'es'}}">
+<head>
+  <meta charset="utf-8">                                                                               <!-- Codificación utf-8 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}"> <!-- Compattibilidad con navegadores -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">                                 <!-- Responsive :) -->
+  <title>{{=response.title or request.application}}</title>                                            <!-- Titulo para el navegador -->
+  <meta name="application-name" content="{{=request.application}}">                                    <!-- Meta con el titulo -->
+  <meta name="google-site-verification" content="">                                                    <!-- Google aceptanos -->
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" type="text/css">         <!-- Importar fuente Roboto -->
+  {{block head_font}}{{end}}                                                                           <!-- Bloque para agregar fuentes en una vista especifica -->
+
+  <link rel="stylesheet" href="{{=URL('static','css/bootstrap-3.3.5.min.css')}}"/>                     <!-- Importar stylesheet de bootstrap -->
+  <link rel="stylesheet" href="{{=URL('static','css/apolo.css')}}"/>                                   <!-- Importar stylesheet propio -->
+  {{block head_css}}{{end}}                                                                            <!-- Bloque para agregar estilos en una vista especifica -->
+
+  <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">        <!-- Icono para la pestaña del navegador-->
+  <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">                         <!-- Icono para la pestaña del navegador-->
+
+  <script src="{{=URL('static','js/jquery-3.1.1.min.js')}}"></script>                                  <!-- Libreria Jquery para los scripts-->
+  <script src="{{=URL('static','js/bootstrap-3.3.5.min.js')}}"></script>                               <!-- Scripts para el funcionamiento de Bootstrap-->
+  {{block head_js}}{{end}}                                                                             <!-- Bloque para agregar scripts en una vista especifica-->
+  {{block web2py_ajax}}{{include 'web2py_ajax.html'}}{{end}}                                           <!-- Scripts de web2py -->
+
+  {{# using sidebars need to know what sidebar you want to use
+  mc0 = 'col-md-12'
+  mc1 = 'col-md-9'
+  mc2 = 'col-md-6'
+  left_sidebar_enabled = globals().get('left_sidebar_enabled', False)
+  right_sidebar_enabled = globals().get('right_sidebar_enabled', False)
+  middle_column = {0: mc0, 1: mc1, 2: mc2}[
+  (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
+</head>
+<body>
+	<main class="container-fluid" style="margin:25%;" id="constancia">
+		<div class="row">
+			<div class="col-xs-3">
+				<br>
+				<img class="img-responsive img-center" align="right" src="{{=URL('static','images/logo-150-100.png')}}" style="width:150px;height:100px;">
+			</div>
+			<div class="col-xs-6">
+				<br>
+				<h4 align="center"><strong>UNIVERSIDAD SIMÓN BOLÍVAR<br>CUERPO DE BOMBEROS VOLUNTARIOS<br>FUNDADO EN 1993</strong></h4>
+			</div>
+			<div class="col-xs-3">
+				<img class="img-responsive img-center" align="left" src="{{=URL('static','images/cbvusb_logo_vectorizado-150-150.JPG')}}" style="width:150px;height:150px;">
+			</div>
+		</div>
+
+		<!-- /////////////////////EMPIEZA LA PARTE DE IMPRIMIR SERVICIOS ////////////////////////////////////////-->
+		<h3 align="center"><strong> SERVICIO {{ = id }} </strong></h3>
+	
+		<h4> Información básica: </h4>
+		<p align = "justify">
+			<strong>&emsp;Tipo de servicio:</strong> &emsp; {{ = servicio.tipo}} <br>
+			<strong>&emsp;Fecha de inicio:</strong>  &emsp; {{ = servicio.fechaCreacion}} <br>
+			<strong>&emsp;Hora de inicio:</strong>   &emsp; {{ = servicio.horaCreacion}} <br>
+			<strong>&emsp;Fecha de Fin:</strong>     &emsp; {{ = servicio.fechaFinalizacion}} <br>
+			<strong>&emsp;Hora de Fin:</strong>      &emsp; {{ = servicio.horaFinalizacion}} <br>
+			<strong>&emsp;Descripción:</strong>      &emsp; {{ = servicio.descripcion}} <br>
+			<strong>&emsp;Dirección:</strong>        &emsp; {{ = servicio.localizacion}}
+		</p>
+
+		<h4> Comisiones: </h4>
+		{{for comision in comisiones:}}
+			<p align="justify">
+				<strong> Comisión {{ = comision["numero"]}}</strong> <br>
+				<strong>&emsp;Jefe de Comisión:&emsp; </strong> {{ = comision['jefe'] }}<br>
+				<strong>&emsp;Acompañantes:</strong> <br>
+				{{for a in comision["acompanantes"]:}}
+						&emsp; &emsp; {{ = a}} <br> 
+				{{pass}}
+				{{ if (comision["unidad"] is not None): }}
+					<strong>&emsp;Unidad:</strong>    &emsp; {{ = comision['unidad']   }} <br>
+					<strong>&emsp;Conductor:</strong> &emsp; {{ = comision['conductor'] }} <br> 
+				{{pass}}
+				{{else:}}
+					<strong>&emsp;Unidad:</strong>    &emsp; Ninguna <br>
+					<strong>&emsp;Conductor:</strong> &emsp; Ninguno <br>
+				{{ pass }}
+			</p>
+		{{pass}}
+
+		{{if len(afectados)>0 : }}
+			<h3> Afectados: </h3>
+			{{for afectado in afectados:}}
+				<p align = "justify">
+				<strong> Afectado 1 </strong> <br>
+				
+				<strong>&emsp;Nombre:</strong>
+					&emsp; {{ = afectado['primer_nombre']}}
+					{{ if afectado["segundo_nombre"] is not None: }}
+						&emsp; {{ = afectado['segundo_nombre']}}
+					{{pass}}
+					&emsp; {{ = afectado['primer_apellido']}}
+					{{ if afectado["segundo_apellido"] is not None: }}
+						&emsp; {{ = afectado['segundo_apellido']}}
+					{{pass}}
+				
+				<!-- Poner cedula -->
+				{{if afectado["cedula"] is not None:}}
+					<strong>&emsp;Cédula:</strong> &emsp; {{  = afectado["cedula"] }} <br>
+				{{pass}}
+
+				<!-- Poner sexo -->
+				{{if afectado["sexo"] is not None:}}
+					<strong>&emsp;Sexo:</strong> &emsp; {{ = afectado["sexo"] }} <br>
+				{{pass}}
+
+
+				<!-- Poner tipo de afectado -->
+				{{if afectado["tipo"]  is not None:}}
+					<strong>&emsp;Tipo:</strong>  &emsp; {{ = afectado["tipo"] }} <br>
+				{{pass}}
+
+
+				<!-- Poner correos electronicos-->
+				{{if (afectado["email_principal"] is not None) or (afectado["email_alternativo"] is not None): }}
+					<strong>&emsp;Correo(s):</strong> <br>
+					{{if afectado["email_principal"] is not None:}}
+						&emsp; &emsp; {{ = afectado["email_principal"] }}
+					{{ pass }}
+					{{if afectado["email_alternativo"] is not None:}}
+						&emsp; &emsp; {{ = afectado["email_alternativo"] }}
+					{{ pass }}
+				{{pass}}
+	
+				<!-- Poner telefonos -->
+				{{if len(afectado["numeros"]) > 0: }}
+					<strong>&emsp;Teléfono(s):</strong> <br>
+					{{for numero in afectado["numeros"]:}}
+						&emsp;&emsp; {{ = numero }} <br>
+					{{pass}}
+				{{pass}}
+
+				<!-- Poner notas de tratamientos -->
+				{{if afectado["notastratamiento"] is not None:}}
+					<strong>&emsp;Notas/tratamiento:</strong> &emsp; {{ = afectado["notastratamiento"] }} <br>
+				{{pass}}
+				
+				</p>
+			{{pass}}
+		{{pass}}
+
+
+
+				<!--Hay al menos una comisión de apoyo externo -->
+		{{if len(externos)>0: }}
+			<h4> Apoyo Externo: </h4>
+			{{for externo in externos:}}
+				<p align = "justify">
+				<strong> Comisión Externa {{ = externo["counter"]}} </strong> <br>
+				
+				<!-- Poner cuerpo o departamento -->
+				{{if externo["cuerpoDepartamento"] is not None:}}
+					<strong>&emsp;Cuerpo o Departamento:</strong> &emsp; {{ = externo["cuerpoDepartamento"] }} <br>
+				{{pass}}
+				
+
+				<!-- Poner Jefe -->
+				{{if externo["jefe"] is not None:}}
+					<strong>&emsp;Jefe: &emsp; {{ = externo["jefe"] }} </strong> <br>
+				{{pass}}
+				
+				<!-- Poner tipo de afectado -->
+				{{if externo["numAcomp"] is not None:}}
+					<strong>&emsp;Número de acompañantes: &emsp; {{ = externo["numAcomp"]}}</strong> <br>
+				{{pass}}
+
+				<!-- Poner unidad -->
+				{{if externo["unidad"] is not None:}}
+					<strong>&emsp;Unidad: &emsp; {{ = externo["unidad"]}}</strong> <br>
+				{{pass}}
+
+
+				<!-- Poner Placa -->
+				{{if externo["placa"] is not None:}}
+					<strong>&emsp;Placa de la Unidad: &emsp; {{ = externo["placa"]}}</strong> <br>
+				{{pass}}
+
+				<!-- Poner comentario -->
+				{{if externo["comentario"] is not None:}}
+					<strong>&emsp;Comentario:</strong> &emsp; {{ = externo["comentario"]}} <br>
+				{{pass}}
+				</p>
+			{{pass}}
+		{{pass}}
+		
+		<br>
+		<!-- ///////////////////////////// TERMINA LA PARTE DE IMPRIMIR SERVICIOS /////////////////////////////-->
+		
+		
+
+		<p align="justify" style="color:gray;padding-left:10%;padding-right:10%;font-size:8pt;">Pabellón I, Universidad Simón Bolívar, Valle de Sartenejas, Baruta, Edo. Miranda. Web: http://bomberos.usb.ve. Email: comandancia@bomberos.usb.ve Telf.: + (212) 9063909. Aptdo. 89000, Caracas 1080-A. VENEZUELA.</p>
+	</main>
+</body>
+</html>

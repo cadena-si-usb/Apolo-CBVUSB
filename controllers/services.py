@@ -156,7 +156,6 @@ def obtenerComisiones(serviceId):
         unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
         if unidadUtilizadaRow.unidad is None:
             comision["unidad"] = None
-            comision["conductor"] = None
         else:
             unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
             comision["unidad"] = unidadRow.nombre
@@ -762,11 +761,22 @@ def stadistics():
     return dict(estadisticas=estadisticas,mes=obtenerNombreMes(mes),ano=ano,duracionPromedio=duracionPromedio,duracionTotal=duracionTotal)
 
 # Vista para generar exportacion de estadisticas
-def exportar():
+def exportarServicio():
 
-    # AQUI EL BETA DE PDF
+    serviceId = 1
+    # Info basica del servicio
+    service = db(db.servicio.id == serviceId).select()[0]
 
-    redirect(URL('services','stadistics'))
+    # Comisiones del servicio
+    comisiones = obtenerComisiones(serviceId)
+
+    # Afectados del servicio
+    afectados = obtenerAfectados(serviceId)
+
+    # Comisiones de apoyos
+    externos = obtenerApoyoExterno(serviceId)
+    # redirect(URL('services','stadistics'))
+    return dict(id = serviceId, servicio = service, comisiones = comisiones, afectados = afectados, externos = externos)
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
