@@ -422,6 +422,7 @@ def registrarAfectados(request):
             registrado = False
             for i in db(db.persona.cedula == cedulaAfectado).select():
                 registrado = True
+                personaID = i.id
 
             if not registrado:
                 db.persona.insert(
@@ -437,12 +438,10 @@ def registrarAfectados(request):
                     email_principal = emailPrincipal,
                     email_alternativo = emailAlternativo,
                     estado_civil = "soltero")
+                # Obtener ID de la persona
+                personaID = db.persona.id.max()
+                personaID = db().select(personaID).first()[personaID]
 
-            # Obtener ID de la persona
-            try:
-                personaID = db(db.persona.cedula == cedulaAfectado).select()[0]["id"]
-            except:
-                personaID = None
 
             # Registrar como afectado
             db.es_afectado.insert(
@@ -584,6 +583,10 @@ def register():
             descripcion = request.vars['descripcion'],
             localizacion = request.vars['localizacion'],
             tipo = request.vars['tipo'])
+
+        # Obtener ID de servicio registrado
+        servicioId = db.servicio.id.max()
+        request.vars["id"] = db().select(servicioId).first()[servicioId]
 
         # Registrar datos de comisiones, afectados y apoyo externo
         registrarComisiones(request)
@@ -845,12 +848,25 @@ def stadistics():
 
     return dict(estadisticas=estadisticas,mes=obtenerNombreMes(mes),ano=ano,duracionPromedio=duracionPromedio,duracionTotal=duracionTotal)
 
+# Obtener tipo de afectado de un servicio
+def obtenerTipoAfectado(tipo):
+    if tipo == '1':
+        return "Estudiante de la USB"
+    if tipo == '2':
+        return "Profesor de la USB"
+    if tipo == '3':
+        return "Empleado de la USB"
+    if tipo == '4':
+        return "Obrero de la USB"
+    if tipo == '5':
+        return "Externo"
+    return "None"
+
 # Vista para generar exportacion de estadisticas
 def exportarServicio():
 
-    # serviceId = request.vars["id"]
+    serviceId = request.vars["id"]
     # Info basica del servicio
-    serviceId = 1
     service = db(db.servicio.id == serviceId).select()[0]
 
     # Comisiones del servicio
@@ -858,6 +874,9 @@ def exportarServicio():
 
     # Afectados del servicio
     afectados = obtenerAfectados(serviceId)
+
+    for afectado in afectados:
+        afectado["tipo"] = obtenerTipoAfectado(afectado["tipo"])
 
     # Comisiones de apoyos
     externos = obtenerApoyoExterno(serviceId)
