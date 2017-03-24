@@ -149,7 +149,7 @@ $(document).ready(function() {
         <div class="col-xs-12 col-sm-4">\
           <div class="form-group">\
             <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
-            <input list="firefighterList" name="commissionBoss'+num1+'" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Jefe de Comisión">\
+            <input list="firefighterList" id="commissionBoss'+num1+'" name="commissionBoss'+num1+'" class="form-control" data-validation="required, validName" placeholder="Jefe de Comisión">\
           </div>\
           <label for="unitTitle">Unidad</label>\
           <div class="row">\
@@ -229,19 +229,19 @@ $(document).ready(function() {
               <label>Nombre *</label>\
             </div>\
             <div class="col-xs-6 col-sm-4 form-group">\
-              <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" placeholder="Primer Nombre *">\
+              <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" placeholder="Primer Nombre *">\
             </div>\
             <!--<div class="col-xs-6 col-sm-2 form-group">\
             <label for="affected'+num1+'" class="sr-only"><small>2do Nombre</small></label>\
-            <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" data-validation-optional="true" placeholder="Segundo Nombre">\
+            <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" data-validation-optional="true" placeholder="Segundo Nombre">\
           </div>-->\
           <div class="col-xs-6 col-sm-4 form-group">\
             <!--  <label for="affected2" class="sr-only">1er Apellido</label>-->\
-            <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" placeholder="Primer Apellido *">\
+            <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" placeholder="Primer Apellido *">\
           </div>\
           <div class="col-xs-6 col-sm-4 form-group">\
             <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>\
-            <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" data-validation-optional="true" placeholder="Segundo Apellido">\
+            <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" data-validation-optional="true" placeholder="Segundo Apellido">\
           </div>\
         </div>\
         <div class="row">\
@@ -413,12 +413,16 @@ $(document).ready(function() {
         $('#endTime').removeAttr('data-validation');
         $('#description').removeAttr('data-validation');
         $('#address').removeAttr('data-validation');
-        $('#commissionBoss1').removeAttr('data-validation');
+        for(i = 1; i <= commissionsCount; i++) $("#commissionBoss"+i).removeAttr('data-validation');
+        for(i = 1; i <= affectedCount; i++) {
+          $("#affectedFirstName"+i).removeAttr('data-validation');
+          $("#affectedFirstSurname"+i).removeAttr('data-validation');
+        }
 
         // Enviar form
         form.submit();
 
-        // Popup
+        // Popupexcluir resultados google
         swal("¡Guardado!", "", "success");
       }
     });
