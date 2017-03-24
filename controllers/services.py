@@ -239,7 +239,7 @@ def obtenerAfectados(serviceId):
         afectado["numeros"] = list()
         numeroRows = db(db.telefono.id_persona == personaRow.id).select()
         for numeroRow in numeroRows:
-            afectado["numeros"].append(str(numeroRow.codigo_telefono)+"-"+str(numeroRow.numero_telefono))
+            afectado["numeros"].append(str(numeroRow.numero_telefono))
 
         afectado["counter"] = afectadoCounter
         afectados.append(afectado)
@@ -491,16 +491,15 @@ def registrarAfectados(request):
                 tipo = tipoAfectado)
 
             # Telefonos
-            telfCounter = 1
-            for telfCounter in range(1,int(request.vars["phoneCount"+str(affectedCounter)])+1):
-                if request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)] is not None:
-                    request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)]
-                    telf = request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)].split("-")
-                    telf.append("")
-                    db.telefono.insert(
-                        id_persona = personaID,
-                        codigo_telefono = telf[0],
-                        numero_telefono = telf[1])
+            #telfCounter = 1
+            #for telfCounter in range(1,int(request.vars["phoneCount"+str(affectedCounter)])+1):
+            #    if request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)] is not None:
+            #        request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)]
+            #        telf = request.vars["affectedPhone"+str(affectedCounter)+"-"+str(telfCounter)]
+            #        db.telefono.insert(
+            #            id_persona = personaID,
+            #            codigo_telefono = 0,
+            #            numero_telefono = telf)
 
 
 @auth.requires_login()
