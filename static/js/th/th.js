@@ -1,8 +1,9 @@
 $(document).ready(function() {
     var dirsCont = 1; //Contador de las direcciones que se van agregando o quitando
     var tlfsCont = 1; //Contador de los telefonos que se van agregando o quitando
+    var max = 5;
 
-    // Función para hacer clickeables las filas de las tablas y redirigir al href correspondiente
+    // Función btn hacer clickeables las filas de las tablas y redirigir al href correspondiente
     $(".clickable-row").on('click', function() {
         window.location = $(this).data("href");
     });
@@ -241,28 +242,29 @@ $(document).ready(function() {
     var tlf = "#tlf"+tlfsCont;
     tlfsCont++;                                // Aumentar el contador de telefonos para el usuario
     var num = tlfsCont;                           // Variable auxiliar para la sustitucion en el html de abajo
-
-    // Inserción del html
-    $(tlf).after(
-            '<div class="form-group" id="tlf'+num+'">\
-                <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
-                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select id="tipotlf'+num+'" class="form-control" name="telefono'+num+'">\
-                            <option value="">Tipo</option>\
-                            <option value="Casa">Casa</option>\
-                            <option value="Trabajo">Trabajo</option>\
-                            <option value="Otro">Otro</option>\
-                        </select>\
+    if (num <= max) { 
+        // Inserción del html
+        $(tlf).after(
+                '<div class="form-group" id="tlf'+num+'">\
+                    <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
+                        <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
+                            <select id="tipotlf'+num+'" class="form-control" name="telefono'+num+'">\
+                                <option value="">Tipo</option>\
+                                <option value="Casa">Casa</option>\
+                                <option value="Trabajo">Trabajo</option>\
+                                <option value="Otro">Otro</option>\
+                            </select>\
+                        </div>\
+                        <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
+                            <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" placeholder="Teléfono...">\
+                        </div>\
+                        <div class="text-right" id="quitartlf'+num+'">\
+                            <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator">Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></button>\
+                        </div>\
                     </div>\
-                    <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" placeholder="Teléfono...">\
-                    </div>\
-                    <div class="text-right" id="quitartlf'+num+'">\
-                        <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator">Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></button>\
-                    </div>\
-                </div>\
-            </div>'
-        );
+                </div>'
+            );
+        }
     });
 
     // Funcion para quitar telefono agregado en interfaz
@@ -277,31 +279,32 @@ $(document).ready(function() {
     var dir = "#dir"+dirsCont;
     dirsCont++;                                // Aumentar el contador de telefonos para el usuario
     var num = dirsCont;                         // Variable auxiliar para la sustitucion en el html de abajo
-
-    // Inserción del html
-    $(dir).append(
-            '<div class="form-group" id="dir'+num+'">\
-                <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
-                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
-                        <select id="direccion_tipo'+num+'" class="form-control" name="direccion'+num+'">\
-                            <option value="">Tipo</option>\
-                            <option value="Casa">Casa</option>\
-                            <option value="Trabajo">Trabajo</option>\
-                            <option value="Otro">Otro</option>\
-                        </select>\
+    if (num <= max) {
+        // Inserción del html
+        $(dir).append(
+                '<div class="form-group" id="dir'+num+'">\
+                    <div class="col-xs-12 col-sm-9 col-sm-offset-3">\
+                        <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">\
+                            <select id="direccion_tipo'+num+'" class="form-control" name="direccion'+num+'">\
+                                <option value="">Tipo</option>\
+                                <option value="Casa">Casa</option>\
+                                <option value="Trabajo">Trabajo</option>\
+                                <option value="Otro">Otro</option>\
+                            </select>\
+                        </div>\
+                        <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
+                            <input type="direccion_ciudad'+num+'" class="form-control" id="direccion_ciudad'+num+'" name="direccion'+num+'" placeholder="Ciudad...">\
+                        </div>\
                     </div>\
-                    <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="direccion_ciudad'+num+'" class="form-control" id="direccion_ciudad'+num+'" name="direccion'+num+'" placeholder="Ciudad...">\
+                    <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
+                        <input type="direccion_descripcion'+num+'" class="form-control" id="direccion_descripcion'+num+'" name="direccion'+num+'" placeholder="Descripción...">\
+                        <div class="text-right" id="quitardireccion'+num+'">\
+                            <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator">Eliminar Dirección <span class="glyphicon glyphicon-remove-sign"></span></button>\
+                        </div>\
                     </div>\
-                </div>\
-                <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
-                    <input type="direccion_descripcion'+num+'" class="form-control" id="direccion_descripcion'+num+'" name="direccion'+num+'" placeholder="Descripción...">\
-                    <div class="text-right" id="quitardireccion'+num+'">\
-                        <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator">Eliminar Dirección <span class="glyphicon glyphicon-remove-sign"></span></button>\
-                    </div>\
-                </div>\
-            </div>'
-        );
+                </div>'
+            );
+    }
     });
 
     // Funcion para quitar direccion agregada en interfaz
