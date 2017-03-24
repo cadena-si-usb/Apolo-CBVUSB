@@ -190,3 +190,15 @@ div#estado_civil__error.error, div#imagen__error.error
 label#usuario_remember_me__label {
   display: none;
 }
+
+.selectOption a{
+  text-decoration: none;
+  color:#1565C0;
+  background-color:white;
+}
+
+.selectOption div:hover{
+  border: 1px solid;
+  color:#1565C0;
+  border-radius: 10px;
+}

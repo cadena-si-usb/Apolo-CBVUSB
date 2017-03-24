@@ -468,18 +468,24 @@ def buscarth():
 
 	return dict(tabla=tabla)
 
-@auth.requires_login()
 def constancia():
 	T.force('es')
-	return dict()
 
+	if len(request.args) == 2:
+		solicitante = db((db.bombero.id==request.args[0]) & (db.persona.id==db.bombero.id_persona)).select().first()
+		direccion = db((db.direccion.id_persona==solicitante.bombero.id_persona)).select(db.direccion.ALL).first()
+		aprobador   = db((db.bombero.id==request.args[1]) & (db.persona.id==db.bombero.id_persona)).select().first()
+		return dict(solicitante=solicitante, aprobador=aprobador, direccion=direccion)
+	else:
+		redirect(URL('th','gestionarconstancia'))
+		
 @auth.requires_login()
 def gestionarconstancia():
 	T.force('es')
 	tipo = ""
-	no_solicitado = db(db.constancia.id_solicitante==auth.user.id).isempty()
 
 	usuario = db((db.bombero.id_usuario==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
+	no_solicitado = db(db.constancia.id_solicitante==usuario.bombero.id).isempty()
 
 	if request.args:
 		solicitud = request.args[0]
@@ -490,15 +496,26 @@ def gestionarconstancia():
 				response.flash = "Ya tiene una solicitud pendiente."
 				
 			else:
-				db.constancia.insert(id_solicitante=auth.user.id)
+				db.constancia.insert(id_solicitante=usuario.bombero.id)
 
 		if solicitud == 'aprobar' and len(request.args) > 1:
+<<<<<<< HEAD
 			db(db.constancia.id == request.args[1]).delete()
 			mail.send(to=[bombero.usuario.email], 
 						subject='Solicitud de constancia: Aprobada',
 						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por Talento Humano.\n\n'+
 								'Adjunto se envía el archivo:\n\n'+
 								'Sistema de Gestión Apolo. CBVUSB.')
+=======
+			url_constancia = URL('th','constancia', args=[request.args[1],auth.user.id])
+			print request.args[1]
+			print db(db.constancia.id_solicitante == int(request.args[1])).select()
+			db(db.constancia.id_solicitante == request.args[1]).delete()
+			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' static/pdfs/constancia.pdf')
+
+		if solicitud == 'cancelar' and len(request.args) > 1:
+			db(db.constancia.id == request.args[1]).delete()
+>>>>>>> origin/B-NOS-old
 
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
 				& (db.constancia.id_solicitante==db.usuario.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
