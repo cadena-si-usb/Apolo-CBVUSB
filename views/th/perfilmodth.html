@@ -85,7 +85,7 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="tel" class="form-control" id="tel1" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono..." name="telefono1">
+	                     	<input type="tel" class="form-control" id="tlf_msg" data-validation="length" data-validation-length="11" data-validation="number" placeholder="Teléfono..." name="telefono1">
 	                    </div>
 	                </div>
                 </div>
@@ -211,7 +211,7 @@
 	</div>
 </div>
 
-{{block head_js}}
+{{block page_js}}
 <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
 <script src="{{=URL('static','js/th/th.js')}}"></script>
 <script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
@@ -224,7 +224,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 $.validate({
   form : '#contacto',
   lang: 'es',
-  errorMessagePosition : 'top',
   scrollToTopOnError : true,
   validateOnBlur : false,
   validateHiddenInputs: true,
