@@ -2,6 +2,7 @@
 from gluon.serializers import json
 from datetime import datetime
 from collections import defaultdict
+import pdfkit
 #from emailManager import emailManager Mientras no se use esta comentado xD
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -287,6 +288,18 @@ def displayService():
 
     # Comisiones de apoyo
     externos = obtenerApoyoExterno(serviceId)
+
+    """url_service = URL('services','exportarServicio', args=[request.args[1],auth.user.id])
+    bombero = db((db.bombero.id==request.args[1]) & (db.persona.id == db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)).select().first()
+    db(db.constancia.id_solicitante == request.args[1]).delete()
+    os.system('wkhtmltopdf '+request.env.http_host+url_service+' constancia.pdf')
+    mail.send(to=[bombero.persona.email_principal], 
+                subject='Solicitud de constancia: Aprobada',
+                message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por el departamente de Talento Humano.\n\n'+
+                        'Adjunto se envía la constancia correspondiente:\n\n'+
+                        'Sistema de Gestión Apolo. CBVUSB.',
+                attachments = mail.Attachment('constancia.pdf', content_id='constancia'))
+    os.system('rm constancia.pdf')"""
 
     return dict(service=service,comisiones=comisiones,afectados=afectados,externos=externos)
 
@@ -809,6 +822,20 @@ def approveService():
 
     return dict(service=service,comisiones=comisiones,afectados=afectados,externos=externos)
 
+# Funcion para mandar correo con notificaciones
+@auth.requires_login()
+def mandarCorreo(servicio,emailSubject,emailMessage,emailAttachments = None):
+
+    bombero = db(db.bombero.id == servicio.Registra).select().first()
+    persona = db(db.persona.id == bombero.id_persona).select().first()
+    correo  = persona.email_principal
+
+    mail.send(to=correo, 
+        subject=emailSubject,
+        message=emailMessage,
+        attachments = emailAttachments)
+
+
 @auth.requires_login()
 def validarServicio():
 
@@ -816,6 +843,11 @@ def validarServicio():
     servicio = db(db.servicio.id == request.vars['id']).select().first()
     servicio.aprobado = True
     servicio.update_record()
+
+    # Mandar correo de notificacion de aprobado
+    mandarCorreo(servicio, "Estado servicio "+str(servicio.id)+" : Validado", 
+        'Su registro de servicio ' + str(servicio.id) + ' ha sido validado.\n\n'+
+        'Sistema de Gestión Apolo. CBVUSB.')    
 
     services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
     redirect(URL('services','aprove',vars=dict(services=services)))
@@ -830,7 +862,13 @@ def editarServicio():
 def rechazarServicio():
 
     # Eliminar servicio
+    servicio = db(db.servicio.id == request.vars['id']).select().first()
     db(db.servicio.id == request.vars["id"]).delete()
+
+    # Mandar correo de notificacion de rechazado
+    mandarCorreo(servicio, "Estado servicio "+str(servicio.id)+" : Rechazado", 
+        'Su registro de servicio ' + str(servicio.id) + ' ha sido rechazado.\n\n'+
+        'Sistema de Gestión Apolo. CBVUSB.')  
 
     services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
     redirect(URL('services','aprove',vars=dict(services=services)))
@@ -914,7 +952,7 @@ def exportarServicio():
 
     # Comisiones de apoyos
     externos = obtenerApoyoExterno(serviceId)
-    # redirect(URL('services','stadistics'))
+
     return dict(id = serviceId, servicio = service, comisiones = comisiones, afectados = afectados, externos = externos)
 
 def exportarEstadisticas():

@@ -33,7 +33,7 @@
   (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
 </head>
 <body>
-	<main class="container-fluid" style="margin:25%;" id="constancia">
+	<main class="container-fluid" style="margin:17%;" id="constancia">
 		<div class="row">
 			<div class="col-xs-3">
 				<br>
@@ -49,10 +49,8 @@
 		</div>
 
 		<!-- /////////////////////EMPIEZA LA PARTE DE ESTADISTICAS DE SERVICIOS ////////////////////////////////////////-->
-		<br>
 		<h2 align="center"><strong>ESTADÍSTICAS</strong></h2>
-		<br>
-		<p align="justify"><br> <strong> Servicios realizados durante: &emsp;  </strong>
+		<p align="center"><br> <strong> Servicios realizados durante: &emsp;  </strong>
 		{{ if mes != "Todos" :}}
 			 {{ = mes}} -
 		{{pass}}
@@ -60,23 +58,29 @@
 		</p>
 
 
-		<p align="justify">
-		 	Control Médico (CM): &emsp; {{ = estadisticas["CM"]}}<br>
-	 		Atención Médica de Emergencia (AME1): &emsp; {{ = estadisticas["AME1"]}}<br>
-			Atención Médica de Enfermo (AME2):&emsp;  {{ = estadisticas["AME2"]}}<br>
-			Incendio de Estructura (IDE): &emsp; {{ = estadisticas["IDE"]}}<br>
-			Incendio de Vegetación (IDV): &emsp; {{ = estadisticas["IDV"]}}<br>
-			Prevención y Control (PC): &emsp; {{ = estadisticas["PC"]}}<br>
-			Apoyo a la Comunidad (AY): &emsp; {{ = estadisticas["AY"]}}<br>
-			Maptel (MP): &emsp; {{ = estadisticas["MP"]}} <br>
-			Rescate de Personas (RES1): &emsp; {{ = estadisticas["RES1"]}}<br>
-			Rescate Animal (RES2): &emsp; {{ = estadisticas["RES2"]}}<br>
-			Servicio Especial (SE): &emsp; {{ = estadisticas["SE"]}}<br>
-			Guardia de Prevención (GP): &emsp; {{ = estadisticas["GP"]}}<br>
-			No se actuó (NSA): &emsp;  {{ = estadisticas["NSA"]}}<br>
-			Falsa Alarma (FA): &emsp;  {{ = estadisticas["FA"]}}
-		</p>
-		<p align="justify">
+		<table align="center">
+			<tr>
+				<th>Tipo</th>
+				<th>Cantidad</th>
+			</tr>
+		 	<tr><td>Control Médico (CM) </td><td> {{ = estadisticas["CM"]}}</td></tr>
+	 		<tr><td>Atención Médica de Emergencia (AME1) &emsp;</td><td> {{ = estadisticas["AME1"]}}</td></tr>
+			<tr><td>Atención Médica de Enfermo (AME2)</td><td>  {{ = estadisticas["AME2"]}}</td></tr>
+			<tr><td>Incendio de Estructura (IDE) </td><td> {{ = estadisticas["IDE"]}}</td></tr>
+			<tr><td>Incendio de Vegetación (IDV) </td><td> {{ = estadisticas["IDV"]}}</td></tr>
+			<tr><td>Prevención y Control (PC) </td><td> {{ = estadisticas["PC"]}}</td></tr>
+			<tr><td>Apoyo a la Comunidad (AY) </td><td> {{ = estadisticas["AY"]}}</td></tr>
+			<tr><td>Maptel (MP) </td><td> {{ = estadisticas["MP"]}} </td></tr>
+			<tr><td>Rescate de Personas (RES1) </td><td> {{ = estadisticas["RES1"]}}</td></tr>
+			<tr><td>Rescate Animal (RES2) </td><td> {{ = estadisticas["RES2"]}}</td></tr>
+			<tr><td>Servicio Especial (SE) </td><td> {{ = estadisticas["SE"]}}</td></tr>
+			<tr><td>Guardia de Prevención (GP) </td><td> {{ = estadisticas["GP"]}}</td></tr>
+			<tr><td>No se actuó (NSA) </td><td>  {{ = estadisticas["NSA"]}}</td></tr>
+			<tr><td>Falsa Alarma (FA) </td><td>  {{ = estadisticas["FA"]}}</td></tr>
+		</table>
+
+		<br> 
+		<p align="center">
 		 	<strong>Duración promedio de un servicio: </strong>  {{ = duracionPromedio }} horas <br>
 	 		<strong>Tiempo total en servicios: </strong> {{ = duracionTotal }} horas <br>
 		</p>
@@ -86,7 +90,7 @@
 		<!-- ///////////////////////////// TERMINA LA PARTE DE ESTADISTICAS DE SERVICIOS /////////////////////////////-->
 		
 		
-
+		<br> 
 		<p align="justify" style="color:gray;padding-left:10%;padding-right:10%;font-size:8pt;">Pabellón I, Universidad Simón Bolívar, Valle de Sartenejas, Baruta, Edo. Miranda. Web: http://bomberos.usb.ve. Email: comandancia@bomberos.usb.ve Telf.: + (212) 9063909. Aptdo. 89000, Caracas 1080-A. VENEZUELA.</p>
 	</main>
 </body>
