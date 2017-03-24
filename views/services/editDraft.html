@@ -295,7 +295,7 @@
                 <div class="row">
                   <div class="col-xs-12 col-sm-4 form-group">
                     <label for="affectedCI{{=afectado['counter']}}">Cedula</label>
-                    <input type="text" class="form-control" id="affectedCI{{=afectado['counter']}}" name="affectedCI{{=afectado['counter']}}" data-validation="number" data-validation-allowing="range[1;99000000]" data-validation-optional="true" placeholder="Número de Cedula" value="{{=afectado['cedula']}}">
+                    <input type="text" class="form-control" id="affectedCI{{=afectado['counter']}}" name="affectedCI{{=afectado['counter']}}" data-validation="number" data-validation-allowing="range[1;99000000]" data-validation-optional="true" placeholder="Número de Cedula" {{if afectado['cedula'] is not None:}}value="{{=afectado['cedula']}}"{{pass}}>
                   </div>
                   <div class="col-xs-4 col-sm-2">
                     <div class="form-group">

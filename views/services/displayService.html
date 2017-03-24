@@ -37,7 +37,7 @@
     </li>
     {{if not service.aprobado:}}
       <li class="nav-item navbar-right">
-        <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} download role="button">
+        <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">
           Editar servicio <span class="glyphicon glyphicon-edit"></span>
         </a>
       </li>
