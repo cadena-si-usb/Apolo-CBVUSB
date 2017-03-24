@@ -494,10 +494,21 @@ def gestionarconstancia():
 
 		if solicitud == 'aprobar' and len(request.args) > 1:
 			db(db.constancia.id == request.args[1]).delete()
-
+			mail.send(to=[bombero.usuario.email], 
+						subject='Solicitud de constancia: Aprobada',
+						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por Talento Humano.\n\n'+
+								'Adjunto se envía el archivo:\n\n'+
+								'Sistema de Gestión Apolo. CBVUSB.')
 
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
 				& (db.constancia.id_solicitante==db.usuario.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
 				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
 
 	return dict( usuario=usuario, tabla=tabla, tipo=tipo, no_solicitado=no_solicitado)
+
+"""
+mail.send(to=[bombero.usuario.email], subject='Solicitud de constancia: Cancelada',
+			message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido rechazada por Talento Humano. Sentimos las molestias ocasionadas.\n\n'+
+					'Sistema de Gestión Apolo. CBVUSB.')
+		redirect(URL('default','usernotconfirmedsent'))
+"""
