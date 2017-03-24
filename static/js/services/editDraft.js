@@ -3,26 +3,42 @@ function registerService() {$('#draft').val("0");};
 function saveDraft() {$('#draft').val("1");};
 
 $(document).ready(function() {
+  var num; var tmp;
   var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones
   var affectedCNT = $("#affectedCNT");                                  // ID del contenedor de los afectados
   var apoyoExtCNT = $("#comExtCNT");                                    // ID del contenedor de los afectados
   var addCommission = $("#addCommission");                              // ID del botón para añadir comisiones
   var addAffected = $("#addAffected");                                  // ID del botón para añadir Afectados
   var addApoyoExt = $("#addApoyoExt");                                  // ID del botón para añadir Afectados
-  var commissionsCount = parseInt( $('div[id^="commission"]:last').prop("id").match(/\d+/g), 10); // Contador de comisiones
-  var affectedCount = parseInt( $('div[id^="affected"]:last').prop("id").match(/\d+/g), 10);      // Contador de afectados
-  var apoyoExtCount = parseInt( $('div[id^="comExt"]:last').prop("id").match(/\d+/g), 10);        // Contador de afectados
   var commissionMembersCount = [3];
   var phoneCount = [0];
   var liveEmailsCount = [0];
   var emailsCount = [0];
   var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
+  var affectedCount = 0;
+  var apoyoExtCount = 0;
+  var commissionsCount = parseInt( $('div[id^="commission"]:last').prop("id").match(/\d+/g), 10); // Contador de comisiones
+  
+  $tmp = $('div[id^="affected"]:last').prop("id");
+  console.log($tmp);
+  if (!$.isEmptyObject($('div[id^="affected"]:last'))) {
+    num = parseInt($tmp.match(/\d+/g), 10);
+    affectedCount = num;    
+    if ($tmp == affectedCNT) affectedCount = 0;
+  }
+
+  $tmp = $('div[id^="comExt"]:last').prop("id");
+  console.log($tmp);
+  if (!$.isEmptyObject($('div[id^="comExt"]:last'))) {
+    num = parseInt($tmp.match(/\d+/g), 10);
+    apoyoExtCount = num;
+    if ($tmp == apoyoExtCNT) apoyoExtCount = 0;
+  }
 
   $('input[name=commissionsCount]').val(commissionsCount);
   $('input[name=affectedCount]').val(affectedCount);
-  $('input[name=apoyoExtCount]').val(apoyoExtCount);
+  $('input[name=apoyoExtCount]').val(apoyoExtCount);  
   
-  var num; var tmp;
   for(i = 0; i < commissionsCount; i++) {
     num = parseInt($('input[id^="commissionMember"]:last').prop("id").match(/\-\d+/g), 10)*-1;
     commissionMembersCount = commissionMembersCount.concat([num]);
