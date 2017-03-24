@@ -24,7 +24,6 @@
 
   <!-- Formulario -->
   <form action="" method="POST" id="registro" onsubmit="return validateForm()">
-    <input type="hidden" name="id" value="{{=service.id}}">
     <input type="hidden" name="commissionsCount" value="1">
     <input type="hidden" name="affectedCount" value="0">
     <input type="hidden" name="apoyoExtCount" value="0">
@@ -37,7 +36,7 @@
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
-      <li class="nav-item navbar-right"><button id="btn-submit" type="button" class="btn bg-1"><span>Enviar </span></button></li>
+      <li class="nav-item navbar-right"><button id="btn-submit" type="submit" class="btn bg-1"><span>Enviar </span></button></li>
       <li class="nav-item navbar-right">
         <button formnovalidate class="btn bg-1" type="submit" onclick="saveDraft()" name="draft" value="true">
           <span>Guardar borrador </span>
