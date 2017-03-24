@@ -11,7 +11,7 @@ from collections import defaultdict
 # Vista para listar "Mis servicios aprobados"
 @auth.requires_login()
 def msapproved():
-    
+
     # id de usuario logeado al sistema
     user_id = auth.user.id
 
@@ -97,9 +97,9 @@ def myservices():
 
     # Todos los servicios
     for servicio in servicios:
-        
+
         miServicio = False
-        
+
         # Comisiones del servicio
         comisiones = db(db.comision.servicio == servicio.id).select()
         for comision in comisiones:
@@ -114,7 +114,7 @@ def myservices():
             acompanantes = db(db.es_acompanante.comision == comision.id).select()
             for acompanante in acompanantes:
                 bombero = db(db.bombero.id == acompanante.bombero).select()[0]
-                
+
                 if int(bombero.id_usuario) == int(userId):
                     # Usuario conectado es acompanante de comision
                     miServicio = True
@@ -150,7 +150,7 @@ def obtenerComisiones(serviceId):
 
         # Jefe de comision
         bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
-        comision['jefe'] = nombreBombero(bomberoRow.id_persona)       
+        comision['jefe'] = nombreBombero(bomberoRow.id_persona)
 
         # Unidad
         unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
@@ -184,11 +184,11 @@ def obtenerAfectados(serviceId):
     afectados = list()
     afectadoRows = db(db.es_afectado.servicio == serviceId).select()
     for afectadoRow in afectadoRows:
-        
+
         afectado = dict()
         afectado["notastratamiento"] = afectadoRow.notastratamiento
         afectado["tipo"] = afectadoRow.tipo
-        
+
         try:
             personaRow = db(db.persona.id == afectadoRow.persona).select()[0]
         except:
@@ -222,9 +222,9 @@ def obtenerApoyoExterno(serviceId):
     externos = list()
     externoRows = db(db.comision_apoyo.servicio == serviceId).select()
     for externoRow in externoRows:
-        
+
         externo = dict()
-        
+
         externo["cuerpoDepartamento"] = externoRow.cuerpoodepartamento
         externo["jefe"] = externoRow.lider
         externo["numAcomp"] = externoRow.numeroacompanantes
@@ -260,21 +260,21 @@ def displayService():
 
 def nombreBombero(id):
     personaRow = db(db.persona.id == id).select()[0]
-    
+
     # 1er nombre
     nombre = personaRow.primer_nombre
-    
+
     # 2do nombre
     if personaRow.segundo_nombre is not None:
         nombre += " " + personaRow.segundo_nombre
-    
+
     # 1er apellido
-    nombre += " " + personaRow.primer_apellido        
+    nombre += " " + personaRow.primer_apellido
 
     # 2do nombre
     if personaRow.segundo_apellido is not None:
         nombre += " " + personaRow.segundo_apellido
-    
+
     return nombre
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -334,16 +334,16 @@ def registrarComisiones(request):
 
         # Procesar cada comision agregada
         if request.vars["commissionTitle"+str(commissionCounter)] is not None:
-    
+
             # Jefe de comision
             jefeComision = request.vars["commissionBoss"+str(commissionCounter)]
-    
+
             # Acompanantes
             acompanantes = list()
             for acompanantesCounter in range(1,int(request.vars["commissionMembersCount"+str(commissionCounter)])+1):
                 if request.vars["commissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)] is not None:
                     acompanantes.append(request.vars["commissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)])
-    
+
             # Unidades
             UnidadesCounter = 1
             unidades = list()
@@ -352,27 +352,27 @@ def registrarComisiones(request):
                 unidades.append(request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)])
                 conductores.append(request.vars["commissionDriver"+str(commissionCounter)+"-"+str(UnidadesCounter)])
                 UnidadesCounter+=1
-    
-    
+
+
             ####################################
             #### Almacenar en base de datos ####
             ####################################
-    
+
             # Guardar comision
             db.comision.insert(
                 servicio = request.vars["id"],
                 lider = idBomberos.get(jefeComision))
-    
+
             # Obtener ID de la comision
             comisionID = db.comision.id.max()
             comisionID = db().select(comisionID).first()[comisionID]
-    
+
             # Guardar acompanantes
             for acompanante in acompanantes:
                 db.es_acompanante.insert(
                     bombero = idBomberos.get(acompanante),
                     comision = comisionID)
-    
+
             # Guardar unidades y conductores
             for unidadComision, conductorComision in zip(unidades,conductores):
                 db.unidad_utilizada_por.insert(
@@ -387,31 +387,31 @@ def registrarAfectados(request):
 
     # Procesar cada afectado agregado
         if request.vars["affectedTitle"+str(affectedCounter)] is not None:
-    
+
             # Nombres del afectado
             nombre1 = request.vars["affectedFirstName"+str(affectedCounter)]
             nombre2 = request.vars["affectedSecondName"+str(affectedCounter)]
-    
+
             # Apellidos del afectado
             apellido1 = request.vars["affectedFirstSurname"+str(affectedCounter)]
             apellido2 = request.vars["affectedSecondSurname"+str(affectedCounter)]
-    
+
             tipoAfectado = request.vars["affectedType"+str(affectedCounter)]
-    
+
             cedulaAfectado = request.vars["affectedCI"+str(affectedCounter)]
-    
+
             sexo = request.vars["affectedGender"+str(affectedCounter)]
-    
+
             notasYtratamiento = request.vars["affectedNotes"+str(affectedCounter)]
-    
+
             emailPrincipal = request.vars["affectedEmail"+str(affectedCounter)+"-1"]
             emailAlternativo = request.vars["affectedEmail"+str(affectedCounter)+"-2"]
-    
+
             # Registrar como persona si no esta registrado
             registrado = False
             for i in db(db.persona.cedula == cedulaAfectado).select():
                 registrado = True
-    
+
             if not registrado:
                 db.persona.insert(
                     cedula = cedulaAfectado,
@@ -426,20 +426,20 @@ def registrarAfectados(request):
                     email_principal = emailPrincipal,
                     email_alternativo = emailAlternativo,
                     estado_civil = "soltero")
-    
+
             # Obtener ID de la persona
             try:
                 personaID = db(db.persona.cedula == cedulaAfectado).select()[0]["id"]
             except:
                 personaID = None
-    
+
             # Registrar como afectado
             db.es_afectado.insert(
                 servicio = request.vars["id"],
                 persona = personaID,
                 notastratamiento = notasYtratamiento,
                 tipo = tipoAfectado)
-    
+
             # Telefonos
             telfCounter = 1
             for telfCounter in range(1,int(request.vars["phoneCount"+str(affectedCounter)])+1):
@@ -451,7 +451,7 @@ def registrarAfectados(request):
                         id_persona = personaID,
                         codigo_telefono = telf[0],
                         numero_telefono = telf[1])
-    
+
 
 @auth.requires_login()
 def registrarApoyoExterno(request):
@@ -459,16 +459,16 @@ def registrarApoyoExterno(request):
     for comisionCounter in range(1,int(request.vars["apoyoExtCount"])+1):
         # Procesar cada afectado agregado
         if request.vars["comisionExtTitle"+str(comisionCounter)] is not None:
-    
+
             cuerpoDeptExt = request.vars["cuerpoDepartamento"+str(comisionCounter)]
             numAcompanantes = request.vars["numAcomp"+str(comisionCounter)]
-    
+
             unitExt = request.vars["unitExtValue"+str(comisionCounter)+"-1"]
             unitExtPlaca = request.vars["unitExtPlaca"+str(comisionCounter)+"-1"]
-    
+
             jefe = request.vars["jefe"+str(comisionCounter)]
             comentarioExt = request.vars["unitExtNotes"+str(comisionCounter)]
-    
+
             # Registrar como afectado
             db.comision_apoyo.insert(
                 numeroacompanantes = numAcompanantes,
@@ -478,7 +478,7 @@ def registrarApoyoExterno(request):
                 lider = jefe,
                 comentario = comentarioExt,
                 servicio = request.vars["id"])
-    
+
 
 # Obtener jerarquia de rangos de los bomberos
 @auth.requires_login()
@@ -509,7 +509,7 @@ def jerarquiaRangos():
 def esMayor(bombero, aprobador):
 
     rangos = jerarquiaRangos()
-    
+
     if rangos[bombero.rango] > rangos[aprobador["rango"]]:
         return True
     elif rangos[bombero.rango] < rangos[aprobador["rango"]]:
@@ -521,7 +521,7 @@ def esMayor(bombero, aprobador):
 # Funcion para agregar bombero que debe aprobar el servicio
 @auth.requires_login()
 def agregarAprobador(servicioID):
-    
+
     # Bombero aprobador de servicio
     aprobador = dict()
     aprobador["carnet"] = -1
@@ -530,7 +530,7 @@ def agregarAprobador(servicioID):
     for comisionRow in comisionRows:
 
         bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
-        
+
         # Bombero es seleccionado para ser aprobador de servicio
         if aprobador["carnet"] == -1 or esMayor(bomberoRow, aprobador):
             aprobador["rango"] = bomberoRow.rango
@@ -555,7 +555,7 @@ def register():
         # Registrar form completo
         else:
             borrador = False
-        
+
         # id de bombero que registra servicio
         idBombero = db(db.bombero.id_usuario == auth.user.id).select()[0];
 
@@ -607,7 +607,11 @@ def register():
         nombreBomberos = obtenerNombreBomberos()
         nombreUnidades = obtenerNombreUnidades()
 
-        return dict(nuevoServicioId=ultimoServicioId + 1, nombreBomberos=nombreBomberos, nombreUnidades=nombreUnidades)
+        # Obtener array con los nombres de los bomberos (brutal pal javaScript)
+        nombresArray = []
+        for nombre in nombreBomberos: nombresArray.append(nombre)
+
+        return dict(nuevoServicioId=ultimoServicioId + 1, nombreBomberos=nombreBomberos, nombreUnidades=nombreUnidades, nombresArray=nombresArray)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Editar borrador"
@@ -650,7 +654,7 @@ def editDraft():
 
         # Comisiones del servicio
         comisiones = obtenerComisiones(serviceId)
-    
+
         # Afectados del servicio
         afectados = obtenerAfectados(serviceId)
 
@@ -665,7 +669,7 @@ def editDraft():
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Aprobar Servicio"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def obtenerNombreMes(mes):    
+def obtenerNombreMes(mes):
     if mes=="0":
         mesNombre = "Todos"
     elif mes=="1":
@@ -695,11 +699,11 @@ def obtenerNombreMes(mes):
     return mesNombre
 
 def obtenerDuracionServicio(servicio):
-    
+
     horaInicio = datetime.strptime(servicio.horaCreacion, '%H:%M').time()
     fechaInicio = datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y")
     tiempoInicio = datetime.combine(fechaInicio, horaInicio)
-    
+
     horaFin = datetime.strptime(servicio.horaFinalizacion, '%H:%M').time()
     fechaFin = datetime.strptime(servicio.fechaFinalizacion, "%m/%d/%Y")
     tiempoFin = datetime.combine(fechaFin, horaFin)
@@ -740,7 +744,7 @@ def stadistics():
         anoServicio = datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").year
 
         if (mes=="0" or mesServicio == int(mes)) and anoServicio == int(ano):
-            
+
             # Contador de tipo de servicio aumenta en 1
             estadisticas[servicio.tipo]+=1
 

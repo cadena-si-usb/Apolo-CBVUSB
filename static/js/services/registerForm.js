@@ -22,6 +22,8 @@ $(document).ready(function() {
   var phoneCount = [0];                                                 // Arreglo para contar los Teléfonos (Por defecto 0)
   var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
 
+  console.log(bomberos[0]);
+
   // Función para los botones de eliminar comisión
   $(commissionsCNT).on("click","button.removeGroup", function() {
     var $parent = $($($($($(this).parent('span')).parent('div')).parent('div')).parent('div')).parent('div');
@@ -111,7 +113,7 @@ $(document).ready(function() {
     // Inserción del html
     $(phoneCNT).append(
     '<div class="input-group">\
-      <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" placeholder="Teléfono/Celular">\
+      <input type="tel" class="form-control" id="affectedPhone'+num1+'-'+num2+'" name="affectedPhone'+num1+'-'+num2+'" data-validation="number, length" data-validation-length="10-20" data-validation-optional="true" placeholder="Teléfono/Celular">\
       <span class="input-group-btn">\
         <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
       </span>\
@@ -245,7 +247,7 @@ $(document).ready(function() {
         <div class="row">\
           <div class="col-xs-12 col-sm-4 form-group">\
             <label for="affectedCI'+num1+'">Cedula</label>\
-            <input type="number" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" placeholder="Número de Cedula">\
+            <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" data-validation="number" data-validation-allowing="range[1;99000000]" data-validation-optional="true" placeholder="Número de Cedula">\
           </div>\
           <div class="col-xs-4 col-sm-2">\
             <div class="form-group">\
@@ -332,7 +334,7 @@ $(document).ready(function() {
             </div>\
             <div class="col-xs-12 col-sm-5">\
               <label for="cuerpoDepartamento'+num1+'">Número de acompañantes</label>\
-              <input id="numAcomp'+num1+'" type="text" class="form-control" data-validation="length" data-validation-length="max4" data-validation="number" placeholder="Número" name="numAcomp'+num1+'">\
+              <input id="numAcomp'+num1+'" type="text" class="form-control" data-validation="number" data-validation-optional="true" placeholder="Número" name="numAcomp'+num1+'">\
             </div>\
             <div id="unitExtCNT'+num1+'">\
               <div id="unitExt'+num1+'">\
@@ -380,9 +382,6 @@ $(document).ready(function() {
         if (isConfirm) {
           // Enviar form
           form.submit();
-
-          // Popup
-          swal("¡Enviado!", "", "success");
         }
     });
   });
@@ -411,6 +410,7 @@ $(document).ready(function() {
         $('#endTime').removeAttr('data-validation');
         $('#description').removeAttr('data-validation');
         $('#address').removeAttr('data-validation');
+        $('#commissionBoss1').removeAttr('data-validation');
 
         // Enviar form
         form.submit();

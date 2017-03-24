@@ -144,7 +144,7 @@
               <div class="col-xs-12 col-sm-4">
                 <div class="form-group required">
                   <label class="control-label" for="commissionBoss1">Jefe de comisión </label>
-                  <input list="firefighterList" name="commissionBoss1" class="form-control" data-validation="required" placeholder="Jefe de Comisión">
+                  <input list="firefighterList" id="commissionBoss1" name="commissionBoss1" class="form-control" data-validation="required" placeholder="Jefe de Comisión">
                 </div>
                 <label for="unitTitle">Unidad</label>
                 <div class="row">
@@ -231,7 +231,12 @@
 </div>
 
 {{block page_js}}
-<script>{{=ASSIGNJS(nombres = nombreBomberos)}}</script>                        <!-- Script para vconectar con la base de nombre de bomberos -->
+<!-- Script para vconectar con la base de nombre de bomberos -->
+<script>
+  {{=ASSIGNJS(nombres = nombreBomberos)}}
+  {{=ASSIGNJS(bomberos = nombresArray)}}
+</script>
+
 <script src="{{=URL('static','js/services/registerForm.js')}}"></script>        <!-- Script para efectos en el form de registro de servicio -->
 <script src="{{=URL('static','js/sweetalert.min.js')}}"></script>               <!-- Script para mensajes de alerta -->
 <script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>     <!-- Script para el calendario -->
