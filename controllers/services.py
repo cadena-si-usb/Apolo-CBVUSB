@@ -156,6 +156,7 @@ def obtenerComisiones(serviceId):
         unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
         if unidadUtilizadaRow.unidad is None:
             comision["unidad"] = None
+            comision["conductor"] = None
         else:
             unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
             comision["unidad"] = unidadRow.nombre
