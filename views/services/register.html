@@ -28,6 +28,7 @@
     <input type="hidden" name="commissionsCount" value="1">
     <input type="hidden" name="affectedCount" value="0">
     <input type="hidden" name="apoyoExtCount" value="0">
+    <input type="hidden" name="borrador" value="1">
     <input type="hidden" name="globalVerifications" data-validation="startDateOutOfRange, endDateOutOfRange, endBeforeStart">
 
     <!-- Nav tabs -->
@@ -37,13 +38,13 @@
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
       <li class="nav-item navbar-right">
-        <button id="btn-submit" type="submit" class="btn bg-1">
+        <button id="btn-submit" type="submit" class="btn bg-1" onclick="registerService()">
           <span>Enviar </span>
           <span class="glyphicon glyphicon-share"></span>
         </button>
       </li>
       <li class="nav-item navbar-right">
-        <button id="btn-draft" type="submit" class="btn bg-1" onclick="saveDraft()" name="draft" value="true">
+        <button id="btn-draft" type="submit" class="btn bg-1" onclick="saveDraft()">
           <span>Guardar borrador </span>
           <span class="glyphicon glyphicon-floppy-disk"></span>
         </button>

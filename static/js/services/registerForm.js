@@ -1,6 +1,10 @@
-var borrador;
-function regirterService() {borrador = false;};
-function saveDraft() {borrador = true;};
+var borrador = false;
+function registerService() {
+  $('#draft') = "0";
+};
+function saveDraft() {
+  $('#draft') = "1";
+};
 
 $(document).ready(function() {
   var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones

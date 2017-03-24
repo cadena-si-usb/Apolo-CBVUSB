@@ -8,7 +8,7 @@ from collections import defaultdict
 # Funciones que conforman las vistas de "Mis servicios"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-# Vista para listar "Mis servicios aprovados"
+# Vista para listar "Mis servicios aprobados"
 @auth.requires_login()
 def msapproved():
     
@@ -549,9 +549,8 @@ def register():
 
    # Form rellenado y submiteado por usuario
     if request.env.request_method == 'POST':
-
         # Guardar borrador de form
-        if request.vars['draft'] is not None:
+        if request.vars['borrador'] == '1':
             borrador = True
         # Registrar form completo
         else:
@@ -564,7 +563,7 @@ def register():
         db.servicio.insert(
             Registra = idBombero,
             Aprueba = None,
-            Borrador = False,
+            Borrador = borrador,
             horaCreacion = request.vars['horaCreacion'],
             fechaCreacion = request.vars['fechaCreacion'],
             horaFinalizacion = request.vars['horaFinalizacion'],
@@ -582,7 +581,7 @@ def register():
         agregarAprobador(request.vars["id"])
 
         # Borrador guardado. Redireccionar a edicion de borrador para continuar con registro
-        if request.vars['draft'] is not None:
+        if borrador:
             # Obtener ID del servicio recien registrado
             servicioRegistradoID = db.servicio.id.max()
             servicioRegistradoID = db().select(servicioRegistradoID).first()[servicioRegistradoID]
