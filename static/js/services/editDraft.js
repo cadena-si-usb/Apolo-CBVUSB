@@ -17,6 +17,10 @@ $(document).ready(function() {
   var liveEmailsCount = [0];
   var emailsCount = [0];
   var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
+
+  $('input[name=commissionsCount]').val(commissionsCount);
+  $('input[name=affectedCount]').val(affectedCount);
+  $('input[name=apoyoExtCount]').val(apoyoExtCount);
   
   var num; var tmp;
   for(i = 0; i < commissionsCount; i++) {
