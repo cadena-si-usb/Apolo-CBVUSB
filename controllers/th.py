@@ -500,24 +500,27 @@ def gestionarconstancia():
 				db.constancia.insert(id_solicitante=usuario.bombero.id)
 
 		if solicitud == 'aprobar' and len(request.args) > 1:
-			"""
-			db(db.constancia.id == request.args[1]).delete()
-			mail.send(to=[bombero.usuario.email], 
-						subject='Solicitud de constancia: Aprobada',
-						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por Talento Humano.\n\n'+
-								'Adjunto se envía el archivo:\n\n'+
-								'Sistema de Gestión Apolo. CBVUSB.')
-=======		"""
 			url_constancia = URL('th','constancia', args=[request.args[1],auth.user.id])
-			print request.args[1]
-			print db(db.constancia.id_solicitante == int(request.args[1])).select()
+			bombero = db((db.bombero.id==request.args[1]) & (db.persona.id == db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)).select().first()
 			db(db.constancia.id_solicitante == request.args[1]).delete()
 			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' constancia.pdf')
-			
+			mail.send(to=[bombero.persona.email_principal], 
+						subject='Solicitud de constancia: Aprobada',
+						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por el departamente de Talento Humano.\n\n'+
+								'Adjunto se envía la constancia correspondiente:\n\n'+
+								'Sistema de Gestión Apolo. CBVUSB.',
+						attachments = mail.Attachment('constancia.pdf', content_id='constancia'))
 			os.system('rm constancia.pdf')
 
 		if solicitud == 'cancelar' and len(request.args) > 1:
 			db(db.constancia.id == request.args[1]).delete()
+			bombero = db((db.bombero.id==request.args[1]) & (db.persona.id == db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)).select().first()
+			aprobador   = db((db.bombero.id==request.args[1]) & (db.persona.id==db.bombero.id_persona)).select().first()
+			mail.send(to=[bombero.persona.email_principal], 
+						subject='Solicitud de constancia: Rechazada',
+						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido rechazada por el departamento de Talento Humano.\n\n'+
+								'Para mayor información comuniquese con el '+aprobador.bombero.cargo+', '+aprobador.bombero.primer_nombre+' '+aprobador.primer_apellido+
+								'Sistema de Gestión Apolo. CBVUSB.')
 
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
 				& (db.constancia.id_solicitante==db.bombero.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\

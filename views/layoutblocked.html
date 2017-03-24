@@ -33,6 +33,7 @@
   (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
 </head>
   <body class="Site">
+    {{T.force('es')}}
 
     <div class="bottom-space-separator bg-4">
       <!-- Banner -->
@@ -55,26 +56,32 @@
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav main-nav">
-            <li><a href="#">Educación</a></li>
+            <li><a href="{{=URL('default','index')}}">Educación</a></li>
             <li class="dropdown">
               <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Operaciones<span class="caret"></span></a>
               <ul class="dropdown-menu">
+                <li><a href="{{=URL('services','stadistics')}}">Estadísticas</a></li>
+                {{if  auth.user != None:}}
                 <li><a href="{{=URL('services','index')}}">Servicios</a></li>
+                {{pass}}
               </ul>
             </li>
+            {{if  auth.user != None:}}
             <li class="dropdown">
               <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Talento Humano<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{{=URL('th','buscarth.html')}}">Buscar</a></li>
               </ul>
             </li>
+            {{else:}}
+            <li><a href="{{=URL('default','index')}}">Talento Humano</a></li>
+            {{pass}}
             <li><a href="{{=URL('default','index')}}">Administración</a></li>
             <li><a href="{{=URL('default','index')}}">Riesgos</a></li>
             {{if  auth.user != None:}}
             <li class="dropdown">
               <a href="{{=URL('default','index')}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{=auth.user.username}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="{{=URL('th','perfilth')}}">Ver Perfil</a></li>
                 <li><a href="{{=URL('default/user','logout')}}">Salir</a></li>
               </ul>
             </li>
@@ -90,8 +97,10 @@
   <!-- Mensajes -->
   {{if not('tipo' in locals()): tipo = "success"}}{{pass}}
   {{if response.flash:}}
+  {{if response.flash == "Nombre de usuario o contraseña incorrecta." or response.flash == "Privilegios insuficientes.": tipo = "danger"}}
   {{=DIV(CENTER(H4(response.flash,_class="web2p_flash alert alert-"+tipo+" col-sm-6 col-sm-offset-3 text-center",_style="width: 50%;height: auto;")),_class="row")
   }}
+  {{pass}}
   {{pass}}
 
   <!-- Contenido que extenderá el layout en cada vista -->
