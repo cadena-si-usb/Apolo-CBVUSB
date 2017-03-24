@@ -10,7 +10,7 @@
 	<h1 align="center">Modificar perfil</h1>
 	<br/><br/>
 	<div class="row">
-		<ul class="nav nav-pills col-sm-12 col-sm-offset-3" role="tablist">
+		<ul class="nav nav-pills col-sm-12 col-sm-offset-2" role="tablist">
 		    <li class="nav-item active">
 		      <a class="nav-link" data-toggle="tab" href="#datopersonal" role="tab">Datos personales</a>
 		    </li>
@@ -27,6 +27,8 @@
 	</div>
 	<br/><br/>
 	<div class="tab-content">
+		<p class="col-sm-6 col-sm-offset-3 text-center">Sólo se enviarán los datos de la pestaña actual.</p>
+		<br><br>
 		<!-- Datos personales -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade in active" id="datopersonal" role="tabpanel">
 			<div class="forms">
@@ -37,7 +39,7 @@
 		<!-- Datos de contacto -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="contacto">
-				<input type="hidden" name="globalVerifications" data-validation="numeroTelefono1, numeroTelefono2, numeroTelefono3, numeroTelefono4, numeroTelefono5, numeroTelefono6, numeroTelefono7, nombreContacto">
+				<input type="hidden" name="globalVerifications" data-validation="numeroTelefono1, numeroTelefono2, numeroTelefono3, numeroTelefono4, numeroTelefono5, numeroTelefono6, numeroTelefono7, nombreContacto" data-validation-optional="true">
 
 				<div class="form-group" id="no_table_persona_contacto__row">
 					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia</label>
@@ -55,12 +57,12 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="persona_contacto" placeholder="Teléfono...">
+	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="persona_contacto" placeholder="EJ: 02121234567...">
 	                    </div>
 	                </div>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotelefono-emergencia2" class="form-control string" name="persona_contacto"d>
+		                 	<select id="tipotelefono-emergencia2" class="form-control string" name="persona_contacto">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
@@ -69,13 +71,15 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono2" class="telefono form-control number" id="telefono-emergencia1" name="persona_contacto" placeholder="Teléfono...">
+	                     	<input type="telefono2" class="telefono form-control number" id="telefono-emergencia1" name="persona_contacto" placeholder="EJ: 02121234567...">
 	                    </div>
 	                </div>
+	                
 				</div>
+				<span class="col-xs-12 col-sm-9 col-sm-offset-3 text-center">El tipo de teléfono es obligatorio para cada número telefónico. Además ambos son obligatorios.</span>
 
 				<div class="form-group" id="tlf1">
-                    <label class="control-label col-sm-3" for="tipotlf1">Teléfonos</label>
+                    <label class="control-label col-sm-3" for="tipotlf1">Teléfonos propios</label>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
 		                 	<select id="tipotlf1" class="form-control" name="telefono1">
@@ -87,16 +91,20 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="tel" class="form-control" id="tel1" placeholder="Teléfono..." name="telefono1">
+	                     	<input type="tel" class="form-control" id="tel1" placeholder="EJ: 02121234567..." name="telefono1">
+
 	                    </div>
+
 	                </div>
                 </div>
+                <span class="col-xs-12 col-sm-9 col-sm-offset-3 text-center">El tipo de teléfono es obligatorio para cada número telefónico.</span>
+
                 <div class="text-right" style="padding-bottom:3%;">
                 	<button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator">Agregar otro teléfono <span class="glyphicon glyphicon-plus-sign"></span></button>
             	</div>
 
 				<div class="form-group" id="dir1">
-	            	<label class="control-label col-sm-3" for="direccion_tipo1">Dirección</label>
+	            	<label class="control-label col-sm-3" for="direccion_tipo1">Direcciones propias</label>
 	            	<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
 		                   	<select id="direccion_tipo1" class="form-control" name="direccion1">
@@ -109,11 +117,14 @@
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
 	                    	<input type="direccion_ciudad1" class="form-control" id="direccion_ciudad1" name="direccion1" placeholder="Ciudad...">
 	                	</div>
+
 	                </div>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">
 	                	<input type="direccion_descripcion1" class="form-control" id="direccion_descripcion1" name="direccion1" placeholder="Descripción...">
+	        
 	                </div>
 	            </div>
+	            <span class="col-xs-12 col-sm-9 col-sm-offset-3 text-center">El tipo de dirección, ciudad y descripción son obligatorios para completar la dirección.</span>
 	            <div class="text-right" style="padding-bottom:3%;">
             		<button id="agregardireccion1" type="button" class="btn btn-primary agregardireccion top-space-separator">Agregar otra dirección <span class="glyphicon glyphicon-plus-sign"></span></button>
             	</div>
@@ -209,7 +220,7 @@
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datousuario" role="tabpanel">
 			{{=formUsuario}}
 		</div>
-		<p class="col-sm-6 col-sm-offset-3" style="color: red;">Los campos <strong>(*)</strong> son obligatorios.</p>
+		<p class="col-sm-6 col-sm-offset-3 text-center" style="color: red;">Los campos <strong>(*)</strong> son obligatorios.</p>
 	</div>
 </div>
 
