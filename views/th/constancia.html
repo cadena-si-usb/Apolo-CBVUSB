@@ -15,55 +15,23 @@
   <link rel="stylesheet" href="{{=URL('static','css/apolo.css')}}"/>                                   <!-- Importar stylesheet propio -->
   {{block head_css}}{{end}}                                                                            <!-- Bloque para agregar estilos en una vista especifica -->
 
-  <link rel="shortcut icon" href="{{=URL('static','images/favicon.png')}}" type="image/x-icon">        <!-- Icono para la pestaña del navegador-->
-  <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">                         <!-- Icono para la pestaña del navegador-->
-
-  <script src="{{=URL('static','js/jquery-3.1.1.min.js')}}"></script>                                  <!-- Libreria Jquery para los scripts-->
   <script src="{{=URL('static','js/bootstrap-3.3.5.min.js')}}"></script>                               <!-- Scripts para el funcionamiento de Bootstrap-->
   {{block head_js}}{{end}}                                                                             <!-- Bloque para agregar scripts en una vista especifica-->
   {{block web2py_ajax}}{{include 'web2py_ajax.html'}}{{end}}                                           <!-- Scripts de web2py -->
 
-  {{# using sidebars need to know what sidebar you want to use
-  mc0 = 'col-md-12'
-  mc1 = 'col-md-9'
-  mc2 = 'col-md-6'
-  left_sidebar_enabled = globals().get('left_sidebar_enabled', False)
-  right_sidebar_enabled = globals().get('right_sidebar_enabled', False)
-  middle_column = {0: mc0, 1: mc1, 2: mc2}[
-  (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
 </head>
 <body>
-	<main class="container-fluid" style="margin:25%;" id="constancia">
-		<div class="row">
-			<div class="col-xs-3">
-				<br>
-				<img class="img-responsive img-center" align="right" src="{{=URL('static','images/logo-150-100.png')}}" style="width:150px;height:100px;">
-			</div>
-			<div class="col-xs-6">
-				<br>
-				<h4 align="center"><strong>UNIVERSIDAD SIMÓN BOLÍVAR<br>CUERPO DE BOMBEROS VOLUNTARIOS<br>FUNDADO EN 1993</strong></h4>
-			</div>
-			<div class="col-xs-3">
-				<img class="img-responsive img-center" align="left" src="{{=URL('static','images/cbvusb_logo_vectorizado-150-150.JPG')}}" style="width:150px;height:150px;">
-			</div>
-		</div>
-		<h2 align="center"><strong>CONSTANCIA</strong></h2>
+	<main class="container-fluid" id="constancia">
+		<br>
+		<h4 align="center"><strong>UNIVERSIDAD SIMÓN BOLÍVAR<br>CUERPO DE BOMBEROS VOLUNTARIOS<br>FUNDADO EN 1993</strong></h4>
+		<br>
+		<h4 align="center"><strong>CONSTANCIA</strong></h4>
 		<br>
 		<p align="justify">&emsp;&emsp;Quien suscribe, <!--RANGO--> <!--NOMBRE APELLIDO-->, Carne Bomberil N° #<!--CARNET-->,  <!--CARGO--> del Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar, por  medio de  la presente  hago constar que el ciudadano <!--NOMBRE-->,  titular de la C.I. N° <!--V-CEDULA-->, natural de <!--LUGAR NACIMIENTO-->, residenciado en <!--DIRECCIÓN-->, forma parte de esta Institución con el rango de <!--RANGO--> bajo el número de carnet #<!--CARNET-->.</p>
 		<p align="justify">&emsp;&emsp;El <!--PRIMERA PALABRA DEL RANGO--> trabaja en el Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar como personal activo y de apoyo, cumpliendo con su rotación de guardias desde el momento de su publicación como miembro de esta Institución. Dentro de las funciones operativas se encuentra la asistencia a servicios en las áreas de Rescate, Atención Prehospitalaria, Materiales Peligrosos, Incendios de Estructura, e Incendios Forestales. Es importante mencionar que desempeña labores como <!--CARGO--> de esta Institución, sin percibir honorario alguno.</p>
 		<p align="justify">&emsp;&emsp;Constancia que se expide a solicitud de la parte interesada, en la sede del Cuerpo de Bomberos Voluntarios de la Universidad Simón Bolívar, <!--FECHA DE EXPEDICIÓN-->.</p>
 		<br>
-		<div class="row">
-			<div class="col-xs-4">
-				<h4 align="right"><strong>DISCIPLINA</strong></h4>
-			</div>
-			<div class="col-xs-4">
-				<h4 align="center"><strong>ESTUDIO</strong></h4>
-			</div>
-			<div class="col-xs-4">
-				<h4 align="left"><strong>EXCELENCIA</strong></h4>
-			</div>
-		</div>
+		<h4 align="center"><strong>&emsp;&emsp;DISCIPLINA&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ESTUDIO&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;EXCELENCIA&emsp;&emsp;</strong></h4>
 		<br>
 		<h2 align="center"><strong>_________________________</strong></h2>
 		<p align="center"><!--RANGO--> <!--NOMBRE COMPLETO--> #<!--CARNET-->.<br><!--CARGO-->.<br>C.B.V.U.S.B.</p>

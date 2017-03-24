@@ -219,6 +219,7 @@
 $.formUtils.loadModules('serviceValidatorModule');
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   $('#contacto').isValid();
+  $('#tabla_bombero').isValid();
 });
 $.validate({
   form : '#contacto',
