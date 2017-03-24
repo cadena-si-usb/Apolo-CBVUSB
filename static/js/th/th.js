@@ -255,7 +255,7 @@ $(document).ready(function() {
                         </select>\
                     </div>\
                     <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                        <input type="tel" class="form-control" id="tlf_msg" name="telefono'+num+'" placeholder="Teléfono..." data-validation="required">\
+                        <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" placeholder="Teléfono...">\
                     </div>\
                     <div class="text-right" id="quitartlf'+num+'">\
                         <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator">Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></button>\

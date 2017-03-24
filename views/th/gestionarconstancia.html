@@ -77,8 +77,8 @@
 		            {{else:}}
 		            <td>{{=row.persona.primer_apellido}}</td>
 		            {{pass}}
-				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['aprobar',str(row.bombero.id_usuario)])}}" type="button" id="btn-submit-aprobar"><span>Aprobar</span></td>
-				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['cancelar',str(row.bombero.id_usuario)])}}" type="button" id="btn-submit-cancelar"><span>Cancelar</span></td>
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['aprobar',str(row.bombero.id)])}}" type="button" id="btn-submit-aprobar"><span>Aprobar</span></td>
+				    <td><button class="btn btn-sm bg-1" href="{{=URL('th','gestionarconstancia',args=['cancelar',str(row.bombero.id)])}}" type="button" id="btn-submit-cancelar"><span>Cancelar</span></td>
 				</tr>
 				{{pass}}
 			</tbody>
