@@ -732,11 +732,11 @@ def obtenerNombreMes(mes):
 def obtenerDuracionServicio(servicio):
 
     horaInicio = datetime.strptime(servicio.horaCreacion, '%H:%M').time()
-    fechaInicio = datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y")
+    fechaInicio = datetime.strptime(servicio.fechaCreacion, "%d/%m/%Y")
     tiempoInicio = datetime.combine(fechaInicio, horaInicio)
 
     horaFin = datetime.strptime(servicio.horaFinalizacion, '%H:%M').time()
-    fechaFin = datetime.strptime(servicio.fechaFinalizacion, "%m/%d/%Y")
+    fechaFin = datetime.strptime(servicio.fechaFinalizacion, "%d/%m/%Y")
     tiempoFin = datetime.combine(fechaFin, horaFin)
 
     return (tiempoFin - tiempoInicio).total_seconds() / 3600
@@ -768,11 +768,11 @@ def stadistics():
     estadisticas = dict.fromkeys(["CM","AME1","AME2","IDE","IDV","PC","AY","MP","RES1","RES2","GP","NSA","FA"],0)
 
     # Servicios aprobados
-    servicios = db(db.servicio.Aprueba == None).select()
+    servicios = db(db.servicio.aprobado == True).select()
     for servicio in servicios:
 
-        mesServicio = datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").month
-        anoServicio = datetime.strptime(servicio.fechaCreacion, "%m/%d/%Y").year
+        mesServicio = datetime.strptime(servicio.fechaCreacion, "%d/%m/%Y").month
+        anoServicio = datetime.strptime(servicio.fechaCreacion, "%d/%m/%Y").year
 
         if (mes=="0" or mesServicio == int(mes)) and anoServicio == int(ano):
 
@@ -794,8 +794,9 @@ def stadistics():
 # Vista para generar exportacion de estadisticas
 def exportarServicio():
 
-    serviceId = request.vars["id"]
+    # serviceId = request.vars["id"]
     # Info basica del servicio
+    serviceId = 1
     service = db(db.servicio.id == serviceId).select()[0]
 
     # Comisiones del servicio
@@ -808,6 +809,49 @@ def exportarServicio():
     externos = obtenerApoyoExterno(serviceId)
     # redirect(URL('services','stadistics'))
     return dict(id = serviceId, servicio = service, comisiones = comisiones, afectados = afectados, externos = externos)
+
+def exportarEstadisticas():
+    # Mes solicitado para mostrar estadisticas de servicios
+    # mes = request.vars['mes'];
+    mes = "7"
+    if mes == None:
+        mes = "0"
+
+    # Ano solicitado para mostrar estadisticas de servicios
+    # ano = request.vars['ano'];
+    ano = None
+    if ano == None:
+        ano = datetime.now().year
+
+    # Varbiales estadisticas
+    cantidadTotal = 0
+    duracionTotal = 0
+    duracionPromedio = 0
+    estadisticas = dict.fromkeys(["CM","AME1","AME2","IDE","IDV","PC","AY","MP","RES1","RES2", "SE", "GP","NSA","FA"],0)
+
+    # Servicios aprobados
+    servicios = db(db.servicio.aprobado == True).select()
+    for servicio in servicios:
+
+        mesServicio = datetime.strptime(servicio.fechaCreacion, "%d/%m/%Y").month
+        anoServicio = datetime.strptime(servicio.fechaCreacion, "%d/%m/%Y").year
+
+        if (mes=="0" or mesServicio == int(mes)) and anoServicio == int(ano):
+
+            # Contador de tipo de servicio aumenta en 1
+            estadisticas[servicio.tipo]+=1
+
+            duracionServicio = obtenerDuracionServicio(servicio)
+
+            cantidadTotal += 1
+            duracionTotal += duracionServicio
+
+    if cantidadTotal == 0:
+        cantidadTotal = 1
+
+    duracionPromedio = duracionTotal / cantidadTotal
+
+    return dict(estadisticas=estadisticas,mes=obtenerNombreMes(mes),ano=ano,duracionPromedio=duracionPromedio,duracionTotal=duracionTotal)
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
