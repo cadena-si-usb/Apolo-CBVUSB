@@ -149,7 +149,7 @@ $(document).ready(function() {
         <div class="col-xs-12 col-sm-4">\
           <div class="form-group">\
             <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
-            <input list="firefighterList" name="commissionBoss'+num1+'" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Jefe de Comisión">\
+            <input list="firefighterList" id="commissionBoss'+num1+'" name="commissionBoss'+num1+'" class="form-control" data-validation="required, validName" placeholder="Jefe de Comisión">\
           </div>\
           <label for="unitTitle">Unidad</label>\
           <div class="row">\
@@ -413,12 +413,16 @@ $(document).ready(function() {
         $('#endTime').removeAttr('data-validation');
         $('#description').removeAttr('data-validation');
         $('#address').removeAttr('data-validation');
-        $('#commissionBoss1').removeAttr('data-validation');
+        for(i = 1; i <= commissionsCount; i++) $("#commissionBoss"+i).removeAttr('data-validation');
+        for(i = 1; i <= affectedCount; i++) {
+          $("#affectedFirstName"+i).removeAttr('data-validation');
+          $("#affectedFirstSurname"+i).removeAttr('data-validation');
+        }
 
         // Enviar form
         form.submit();
 
-        // Popup
+        // Popupexcluir resultados google
         swal("¡Guardado!", "", "success");
       }
     });
