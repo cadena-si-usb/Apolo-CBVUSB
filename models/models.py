@@ -275,7 +275,7 @@ db.persona.email_principal.requires = IS_EMAIL(error_message='Debe tener un form
 db.persona.email_alternativo.requires = IS_EMPTY_OR(IS_EMAIL(error_message='Debe tener un formato válido. EJ: example@org.com'))
 db.persona.estado_civil.requires = IS_EMPTY_OR(IS_IN_SET(['Soltero','Casado','Divorciado','Viudo'], error_message='No es una opción válida.'))
 
-db.telefono.tipo_telefono.requires = IS_IN_SET(['Casa','Trabajo','Móvil','Otro'], error_message='Debe tener un tipo válido')
+db.telefono.tipo_telefono.requires = IS_IN_SET(['Casa','Trabajo','Movil','Otro'], error_message='Debe tener un tipo válido')
 #db.telefono.codigo_telefono.requires = IS_IN_SET(['0412','0414','0416','0424','0426','0212'], error_message='Debe tener un código de área válido')
 db.telefono.numero_telefono.requires = IS_INT_IN_RANGE(1000000,10000000, error_message='No es un número de teléfono válido')
 
@@ -287,7 +287,7 @@ db.bombero.id_usuario.requires = IS_IN_DB(db,db.persona.id,'%(id)s')
 db.bombero.cargo.requires = IS_IN_SET([	'Comandante en Jefe', 
 										'Primer comandante', 
 										'Segundo comandante', 
-										'Inspector',
+										'In<span class="glyphicon glyphicon-earphone"></span>spector',
 										'Gerente de Riesgo', 
 										'Gerente de Administración', 
 										'Gerente de Educación', 

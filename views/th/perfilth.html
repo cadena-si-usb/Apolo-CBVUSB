@@ -29,7 +29,8 @@
     </div>
     <br /><br />
     <div class="col-xs-12 col-sm-6">
-        <div class="panel panel-default">
+        <div class="panel-group">
+            <div class="panel panel-default">
             <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos básicos</h4></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -67,91 +68,9 @@
                     </tr>
                 </table>
             </div>
-        </div>
-        </div>
-
-    <div class="col-xs-12 col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos de contacto</h4></div>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    {{if contacto != None:}}
-                    <div class="panel-heading">Contacto de emergencia: {{=contacto.nombre}}</div>
-                    <tr>
-                        {{if contacto.tipo_telefono1 == "Casa":}}
-                        <td><span class="glyphicon glyphicon-phone-alt"></span></td>
-                        {{elif contacto.tipo_telefono1 == "Móvil" or contacto.tipo_telefono1 == "Otro":}}
-                        <td><span class="glyphicon glyphicon-phone"></span></td>
-                        {{elif contacto.tipo_telefono1 == "Trabajo":}}
-                        <td><span class="glyphicon glyphicon-earphone"></span></td>
-                        {{pass}}
-                        <td>{{=contacto.tipo_telefono1}}</td>
-                        <td>{{=contacto.codigo_telefono1}}-{{=contacto.numero_telefono1}}</td>
-                    </tr>
-                    <tr>
-                        {{if contacto.tipo_telefono2 == "Casa":}}
-                        <td><span class="glyphicon glyphicon-phone-alt"></span></td>
-                        {{elif contacto.tipo_telefono2 == "Móvil" or contacto.tipo_telefono2 == "Otro":}}
-                        <td><span class="glyphicon glyphicon-phone"></span></td>
-                        {{elif contacto.tipo_telefono2 == "Trabajo":}}
-                        <td><span class="glyphicon glyphicon-earphone"></span></td>
-                        {{pass}}
-                        <td>{{=contacto.tipo_telefono2}}</td>
-                        <td>{{=contacto.codigo_telefono2}}-{{=contacto.numero_telefono2}}</td>
-                    </tr>
-                    {{pass}}
-                    {{if telefono != None:}}
-                    <div class="panel-heading">Teléfono</div>
-                    {{for rows in telefono:}}
-                    <tr>
-                        {{if rows.tipo_telefono == "Casa":}}
-                        <td><span class="glyphicon glyphicon-phone-alt"></span></td>
-                        {{elif rows.tipo_telefono == "Móvil" or rows.tipo_telefono == "Otro":}}
-                        <td><span class="glyphicon glyphicon-phone"></span></td>
-                        {{elif rows.tipo_telefono == "Trabajo":}}
-                        <td><span class="glyphicon glyphicon-earphone"></span></td>
-                        {{pass}}
-                        <td>{{=rows.tipo_telefono}}</td>
-                        <td>{{=rows.codigo_telefono}}-{{=rows.numero_telefono}}</td>
-                    </tr>
-                    {{pass}}
-                    {{pass}}
-                    {{if direccion != None:}}
-                    <div class="panel-heading">Dirección</div>
-                    {{for rows in direccion:}}
-                    <tr>
-                        {{if rows.direccion_tipo == "Casa" or rows.direccion_tipo == "Otro":}}
-                        <td><span class="glyphicon glyphicon-home"></span></td>
-                        {{elif rows.direccion_tipo == "Trabajo":}}
-                        <td><span class="glyphicon glyphicon-briefcase"></span></td>
-                        {{pass}}
-                        <td>{{=rows.direccion_tipo}}</td>
-                        <td>{{=rows.direccion_ciudad}}</td>
-                        <td>{{=rows.direccion_descripcion}}/td>
-                    </tr>
-                    {{pass}}
-                    {{pass}}
-                    <!--<span class="glyphicon glyphicon-earphone"></span>-->
-                    <tr>
-                        <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email:</td>
-                        <td>{{=usuario.persona.email_principal}}</td>
-                    </tr>
-                    <tr>
-                        <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email alternativo:</td>
-                        {{if (usuario.persona.email_alternativo) != None:}}
-                        <td>{{=usuario.persona.email_alternativo}}</td>
-                        {{else:}}
-                        <td>-</td>
-                        {{pass}}
-                    </tr>
-                </table>
             </div>
-        </div>
-        </div>
-    <br /><br />
-
-    <div class="col-xs-12 col-sm-6">
-        <div class="panel">
+            </div>
+            <div class="panel panel-default">
             <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Datos de bombero</h4></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -165,9 +84,104 @@
                     </tr>
                 </table>
             </div>
-        </div>
+            </div>
         </div>
 
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel-group">
+            <div class="panel panel-default">
+            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Correo electrónico</h4></div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email:</td>
+                        <td>{{=usuario.persona.email_principal}}</td>
+                    </tr>
+                    {{if (usuario.persona.email_alternativo) != None:}}
+                    <tr>
+                        <td><span style="color:black;" class="glyphicon glyphicon-envelope"></span>  Email alternativo:</td>
+                        <td>{{=usuario.persona.email_alternativo}}</td>
+                    </tr>
+                    {{pass}}
+                </table>
+            </div>
+            </div>
+            {{if contacto != None:}}
+            <div class="panel panel-default">
+            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Contacto de Emergencia:</h4></div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>Nombre: </td>
+                        <td>{{=contacto.nombre}}</td>
+                    </tr>
+                    <tr>   
+                        {{if contacto.tipo_telefono1 == "Casa":}}
+                        <td><span class="glyphicon glyphicon-phone-alt"></span> {{=contacto.tipo_telefono1}}</td>
+                        {{elif contacto.tipo_telefono1 == "Movil" or contacto.tipo_telefono1 == "Otro":}}
+                        <td><span class="glyphicon glyphicon-phone"></span> {{=contacto.tipo_telefono1}}</td>
+                        {{elif contacto.tipo_telefono1 == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-earphone"></span> {{=contacto.tipo_telefono1}}</td>
+                        {{pass}}
+                        <td>{{=contacto.codigo_telefono1}}-{{=contacto.numero_telefono1}}</td>
+                    </tr>
+                    <tr>
+                        {{if contacto.tipo_telefono2 == "Casa":}}
+                        <td><span class="glyphicon glyphicon-phone-alt"></span> {{=contacto.tipo_telefono2}}</td>
+                        {{elif contacto.tipo_telefono2 == "Movil" or contacto.tipo_telefono2 == "Otro":}}
+                        <td><span class="glyphicon glyphicon-phone"></span> {{=contacto.tipo_telefono2}}</td>
+                        {{elif contacto.tipo_telefono2 == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-earphone"></span> {{=contacto.tipo_telefono2}}</td>
+                        {{pass}}
+                        <td>{{=contacto.codigo_telefono2}}-{{=contacto.numero_telefono2}}</td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            {{pass}}
+            {{if telefono != None:}}
+            <div class="panel panel-default">
+            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Teléfonos</h4></div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    {{for rows in telefono:}}
+                    <tr>
+                        {{if rows.tipo_telefono == "Casa":}}
+                        <td><span class="glyphicon glyphicon-phone-alt"></span> {{=rows.tipo_telefono}}</td>
+                        {{elif rows.tipo_telefono == "Movil" or rows.tipo_telefono == "Otro":}}
+                        <td><span class="glyphicon glyphicon-phone"></span> {{=rows.tipo_telefono}}</td>
+                        {{elif rows.tipo_telefono == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-earphone"></span> {{=rows.tipo_telefono}}</td>
+                        {{pass}}
+                        <td>{{=rows.codigo_telefono}}-{{=rows.numero_telefono}}</td>
+                    </tr>
+                    {{pass}}
+                </table>
+            </div>
+            </div>
+            {{pass}}
+            {{if direccion != None:}}
+            <div class="panel panel-default">
+            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Dirección</h4></div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    {{for rows in direccion:}}
+                    <tr>
+                        {{if rows.direccion_tipo == "Casa" or rows.direccion_tipo == "Otro":}}
+                        <td><span class="glyphicon glyphicon-home"></span> {{=rows.direccion_tipo}}</td>
+                        {{elif rows.direccion_tipo == "Trabajo":}}
+                        <td><span class="glyphicon glyphicon-briefcase"></span> {{=rows.direccion_tipo}}</td>
+                        {{pass}}
+                        <td>{{=rows.direccion_ciudad}}</td>
+                        <td>{{=rows.direccion_descripcion}}</td>
+                    </tr>
+                    {{pass}}
+                </table>
+            </div>
+            </div>
+        {{pass}}
+        </div>
+        </div>
     <br /><br />
     <!--
     <div class="col-xs-12 col-sm-6">

@@ -280,6 +280,8 @@ def perfilmodth():
 		contacto = '^persona_contacto$'
 		direccion = '^direccion[\d]+$'
 
+		print request.vars
+
 		for campo in request.vars:
 
 			if re.match(cargo,campo):
