@@ -37,6 +37,8 @@
 		<!-- Datos de contacto -->
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="contacto">
+				<input type="hidden" name="globalVerifications" data-validation="numeroTelefono, nombreContacto">
+				
 				<div class="form-group" id="no_table_persona_contacto__row">
 					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia</label>
 					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
@@ -53,12 +55,12 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="persona_contacto" placeholder="Teléfono..." data-validation-length="11-11" data-validation="number" data-validation-allowing="-+()">
+	                     	<input type="telefono1" class="form-control number" id="telefono-emergencia1" name="persona_contacto" placeholder="Teléfono...">
 	                    </div>
 	                </div>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
-		                 	<select id="tipotelefono-emergencia2" class="form-control string" name="persona_contacto">
+		                 	<select id="tipotelefono-emergencia2" class="form-control string" name="persona_contacto"d>
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
@@ -67,7 +69,7 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono2" class="telefono form-control number" id="telefono-emergencia2" name="persona_contacto" placeholder="Teléfono..." data-validation-length="11-11" data-validation="number" data-validation-allowing="-+()">
+	                     	<input type="telefono2" class="telefono form-control number" id="tlf_msg" name="persona_contacto" placeholder="Teléfono...">
 	                    </div>
 	                </div>
 				</div>
@@ -85,7 +87,7 @@
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="tel" class="form-control" id="tel1" data-validation="length" data-validation-length="11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono..." name="telefono1">
+	                     	<input type="tel" class="form-control" id="tel1" placeholder="Teléfono..." name="telefono1">
 	                    </div>
 	                </div>
                 </div>
@@ -127,7 +129,7 @@
 					<div id="no_table_tipo_sangre__row" class="form-group">
 						<label id="no_table_tipo_sangre__label" class="control-label col-sm-3" for="no_table_tipo_sangre">Tipo de Sangre</label>
 						<div class="col-sm-9">
-							<select id="no_table_tipo_sangre_label" class="generic-widget form-control" name="tipo_sangre" data-validation="required">
+							<select id="no_table_tipo_sangre_label" class="generic-widget form-control" name="tipo_sangre">
 								<option value=""></option>
 								<option value="A+">A+</option>
 								<option value="A-">A-</option>
@@ -144,7 +146,7 @@
 					<div id="tabla_rango" class="form-group">
 						<label class="control-label col-sm-3" for="rango">Rango</label>
 						<div class="col-sm-9">
-							<select id="rango" class="generic-widget form-control" name="rango" data-validation="required">
+							<select id="rango" class="generic-widget form-control" name="rango">
 								<option value=""></option>
 								<option value="Alumno">Alumno</option>
 								<option value="Aspirante">Aspirante</option>
@@ -170,7 +172,7 @@
 					<div id="tabla_cargo" class="form-group">
 						<label class="control-label col-sm-3" for="cargo">Cargo que ocupa</label>
 						<div class="col-sm-9">
-							<select name="cargo" id="cargo" class="generic-widget form-control" data-validation="required">
+							<select name="cargo" id="cargo" class="generic-widget form-control">
 								<option value=""></option>
 								<option value="Comandante en Jefe">Comandante en Jefe</option>
 								<option value="Primer comandante">Primer Comandante</option>
@@ -211,12 +213,12 @@
 	</div>
 </div>
 
-{{block head_js}}
+{{block page_js}}
 <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
 <script src="{{=URL('static','js/th/th.js')}}"></script>
 <script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
 <script>
-$.formUtils.loadModules('serviceValidatorModule');
+$.formUtils.loadModules('thValidatorModule');
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   $('#contacto').isValid();
   $('#tabla_bombero').isValid();
