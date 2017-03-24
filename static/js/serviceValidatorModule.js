@@ -69,7 +69,8 @@ $.formUtils.addValidator({
 $.formUtils.addValidator({
   name : 'validName',
   validatorFunction : function(value, $el, config, language, $form) {
-    console.log($('#commissionBoss1').val());
+    if($.inArray(value, bomberos) > -1) return true;
+    else return false;
   },
   errorMessage : 'No hay coincidencias de bomberos',
   errorMessageKey: 'validName'
