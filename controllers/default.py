@@ -44,6 +44,9 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 	print len(request.vars)
 	print len(varsForm)
 
+	print request.vars
+	print varsForm
+
 	if len(request.vars) != len(varsForm):
 		error = True
 
@@ -100,7 +103,7 @@ def confirmar():
 			redirect(URL("default","editarnoconfirmado", args=[id_bombero]))
 
 		if opcion == 'cancelar':
-			bombero = db((db.bombero.id_usuario==bombero.id_usuario) & (db.usuario.id==bombero.id_usuario)).select().first()
+			bombero = db((db.bombero.id==bombero.id) & (db.usuario.id==bombero.id_usuario)).select().first()
 
 			mail.send(to=[bombero.usuario.email], subject='Confirmación de usuario: Rechazada',
 			message='Estimado '+bombero.usuario.username+' su solicitud de confirmación acaba de ser Rechaza.\n\n'+
@@ -108,7 +111,7 @@ def confirmar():
 					'Cualquier duda con respecto a lo antes mencionado, por favor contacte con el administrador\n\n'+
 					'Sistema de Gestión Apolo. CBVUSB.')
 
-			db(db.persona.id == bombero.id_persona).delete()
+			db(db.persona.id==bombero.bombero.id_persona).delete()
 			db(db.bombero.id==id_bombero).delete()
 
 		if opcion == 'confirmar':
