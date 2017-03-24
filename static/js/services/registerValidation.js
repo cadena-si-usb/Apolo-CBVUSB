@@ -8,11 +8,12 @@ function validateForm() {
 }
 
 // Colocar en falso para pasar por proceso de validacion de form
-function regirterService() {
+function registerService() {
     borrador = false;
 }
 
 // Colocar en verdadero para no hacer validacion de form
 function saveDraft() {
-    borrador = true;
+	borrador = true;
+	document.getElementById("borrador").value = "True";
 }

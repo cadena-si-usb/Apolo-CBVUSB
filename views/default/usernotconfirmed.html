@@ -15,7 +15,9 @@
 	<br/><br/>
 	<div class=" col-sm-6 col-sm-offset-3" id="editar-registro">
 		<form action="#" class="form-horizontal" enctype="multipart/form-data" method="post" id="no-confirmado">
-			<input type="hidden" name="globalVerifications" data-validation="cedulaVal, carnetVal, cargoMenu, rangoMenu, primerApellidoVal, primeroNombreVal">
+			<div id="validador-here">
+				<input id="validadoresGlobales"type="hidden" data-validation="cedulaVal, primerApellidoVal, primeroNombreVal">
+			</div>
 			<div class="form-group" id="tabla_cedula">
 				<label class="control-label col-sm-3" for="cedula" >Cédula</label>
 				<div class="col-sm-9">

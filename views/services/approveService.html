@@ -14,7 +14,7 @@
 <div class="container">
   <ol class="breadcrumb">
     <li><a href="{{=URL('services','index.html')}}">Servicios</a></li>
-    <li class="active">Detalles de servicio</li>
+    <li class="active">Validacion de servicio</li>
   </ol>
 
   <!-- Número de servicio -->
@@ -31,17 +31,20 @@
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
 
     <li class="nav-item navbar-right">
-      <a href={{=URL('services','exportarServicio', vars=dict(id=service.id))}} role="button">
-        Exportar <span class="glyphicon glyphicon-save"></span>
+      <a href={{=URL('services','rechazarServicio', vars=dict(id=service.id))}} role="button">
+        Rechazar servicio
       </a>
     </li>
-    {{if not service.aprobado:}}
-      <li class="nav-item navbar-right">
-        <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">
-          Editar servicio <span class="glyphicon glyphicon-edit"></span>
-        </a>
-      </li>
-    {{pass}}
+    <li class="nav-item navbar-right">
+      <a href={{=URL('services','editarServicio', vars=dict(id=service.id))}} role="button">
+        Editar servicio
+      </a>
+    </li>
+    <li class="nav-item navbar-right">
+      <a href={{=URL('services','validarServicio', vars=dict(id=service.id))}} role="button">
+        Validar servicio
+      </a>
+    </li>
   </ul>
 
 

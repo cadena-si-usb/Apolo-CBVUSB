@@ -18,8 +18,9 @@
   <h3>Resumen de servicios</h3>
   
   <div class="row">
-    <div class="col-sm-10">
-      <form class="form-horizontal">
+    <form class="form-horizontal">
+      <input id="exportar" type="hidden" name="exportar" value="False">
+      <div class="col-sm-10">
         <div class="form-group">
           <label class="control-label col-sm-2" for="mes">Mes</label>
           <div class="col-sm-2">
@@ -46,15 +47,15 @@
           <div class="col-sm-2">
             <button type="submit" class="btn btn-default">Ver</button>
           </div>
-        </div>
-      </form> 
-    </div>
-    <div class="col-sm-2">
-      <a href="{{=URL('services','exportar.html')}}"><button type="button" class="btn bg-1">
-        <span>Exportar</span>
-        <span class="glyphicon glyphicon-save"></span>
-      </button></a>
-    </div>
+        </div> 
+      </div>
+      <div class="col-sm-2">
+        <button type="submit" class="btn bg-1" onclick="exportarEstadistica()">
+          <span>Exportar</span>
+          <span class="glyphicon glyphicon-save"></span>
+        </button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -100,6 +101,7 @@
     <p><strong>MP:</strong> Matpel</p>
     <p><strong>RES1:</strong> Rescate de personas</p>
     <p><strong>RES2:</strong> Rescate animal</p>
+    <p><strong>SE:</strong> Servicio Especial</p>
     <p><strong>GP:</strong> Guardia de prevención</p>
     <p><strong>NSA:</strong> No se actuó</p>
     <p><strong>FA:</strong> Falsa alarma</p>

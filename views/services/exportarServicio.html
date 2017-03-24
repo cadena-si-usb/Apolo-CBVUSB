@@ -61,7 +61,7 @@
 			<strong>&emsp;Descripción:</strong>      &emsp; {{ = servicio.descripcion}} <br>
 			<strong>&emsp;Dirección:</strong>        &emsp; {{ = servicio.localizacion}}
 		</p>
-
+		<hr>
 		<h4> Comisiones: </h4>
 		{{for comision in comisiones:}}
 			<p align="justify">
@@ -83,6 +83,7 @@
 		{{pass}}
 
 		{{if len(afectados)>0 : }}
+			<hr>
 			<h3> Afectados: </h3>
 			{{for afectado in afectados:}}
 				<p align = "justify">
@@ -125,7 +126,7 @@
 						&emsp; &emsp; {{ = afectado["email_alternativo"] }}
 					{{ pass }}
 				{{pass}}
-	
+				<br>
 				<!-- Poner telefonos -->
 				{{if len(afectado["numeros"]) > 0: }}
 					<strong>&emsp;Teléfono(s):</strong> <br>
@@ -147,6 +148,7 @@
 
 				<!--Hay al menos una comisión de apoyo externo -->
 		{{if len(externos)>0: }}
+			<hr>
 			<h4> Apoyo Externo: </h4>
 			{{for externo in externos:}}
 				<p align = "justify">

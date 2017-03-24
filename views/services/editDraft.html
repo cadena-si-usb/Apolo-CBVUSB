@@ -24,13 +24,19 @@
 
   <!-- Formulario -->
   <form action="" method="POST" id="registro" onsubmit="return validateForm()">
+    <input type="hidden" name="commissionsCount" value="1">
+    <input type="hidden" name="affectedCount" value="0">
+    <input type="hidden" name="apoyoExtCount" value="0">
+    <input type="hidden" id="borrador" name="borrador" value="False">
+    <input type="hidden" name="globalVerifications" data-validation="startDateOutOfRange, endDateOutOfRange, endBeforeStart">
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item active"><a class="nav-link" data-toggle="tab" href="#basicinfo" role="tab">Info. básica</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a></li>
       <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
-      <li class="nav-item navbar-right"><button id="btn-submit" type="button" class="btn bg-1"><span>Enviar </span></button></li>
+      <li class="nav-item navbar-right"><button id="btn-submit" type="submit" class="btn bg-1"><span>Enviar </span></button></li>
       <li class="nav-item navbar-right">
         <button formnovalidate class="btn bg-1" type="submit" onclick="saveDraft()" name="draft" value="true">
           <span>Guardar borrador </span>
@@ -49,15 +55,15 @@
     {{pass}}
     </datalist>
 
-    <!-- Tab Información Básica -->
+        <!-- Tab Información Básica -->
     <div class="tab-content top-space-separator">
       <div class="tab-pane active" id="basicinfo" role="tabpanel">
         <div class="col-xs-12 col-sm-6">
           <div class="row">
             <div class="col-xs-12 col-sm-4">
-              <div class="form-group">
-                <label for="startDate">Tipo de Servicio *</label>
-                <select name="tipo" class="form-control" data-validation="required">
+              <div class="form-group required">
+                <label class="control-label" for="startDate">Tipo de Servicio </label>
+                <select id="tipo" name="tipo" class="form-control" data-validation="required">
                   <option value="">Seleccionar</option>
                   <option value="CM">CM</option>
                   <option value="AME1">AME1</option>
@@ -76,26 +82,29 @@
                 </select>
               </div>
             </div>
-          </div><div class="form-group" id="jqueryExample">
+          </div>
+          <div class="form-group required" id="start-end-date">
             <div class="row">
-              <div class="col-xs-12 col-sm-12">
-                <label for="startDate">Fecha de Inicio *
-                  <input type="text" class="date start form-control" id="startDate" name="fechaCreacion" placeholder="introduzca una fecha"/>
-                </label>
-                <label for="startTime">Hora de Inicio *
-                  <input type="text" class="time start form-control" id="startTime" name="horaCreacion" data-validation="required" placeholder="introduzca una hora"/>
-                </label>
+              <div class="col-xs-4 col-sm-4">
+                <label class="control-label" for="startDate">Fecha de Inicio </label>
+                <input type="text" class="date start form-control" id="startDate" name="fechaCreacion" data-validation="required, date" data-validation-format="dd/mm/yyyy" placeholder="introduzca una fecha"/>
               </div>
+              <div class="col-xs-4 col-sm-4">
+                <label class="control-label" for="startDate">Hora de Inicio </label>
+                <input type="text" class="time start form-control" id="startTime" name="horaCreacion" data-validation="required, time" placeholder="introduzca una hora"/>
+              </div>
+              <div class="col-xs-4 col-sm-4"></div>
             </div>
-            <div class="row">
-              <div class="col-xs-12 col-sm-12">
-                <label for="endDate">Fecha de Fin *
-                  <input type="text" class="date end form-control " id="endDate" name="fechaFinalizacion" placeholder="introduzca una fecha"/>
-                </label>
-                <label for="endTime">Hora de Fin *
-                  <input type="text" class="time end form-control" id="endTime" name="horaFinalizacion" placeholder="introduzca una hora"/>
-                </label>
+            <div class="row top-space-separator">
+              <div class="col-xs-4 col-sm-4">
+                <label class="control-label" for="endDate">Fecha de Fin </label>
+                <input type="text" class="date end form-control " id="endDate" name="fechaFinalizacion" data-validation="required, date" data-validation-format="dd/mm/yyyy" placeholder="introduzca una fecha"/>
               </div>
+              <div class="col-xs-4 col-sm-4">
+                <label class="control-label" for="endDate">Hora de Fin </label>
+                <input type="text" class="time end form-control" id="endTime" name="horaFinalizacion" data-validation="required, time" placeholder="introduzca una hora"/>
+              </div>
+              <div class="col-xs-4 col-sm-4"></div>
             </div>
           </div>
         </div>
@@ -113,36 +122,104 @@
 
       <!-- Tab Comisiones -->
       <div class="tab-pane fade" id="commission" role="tabpanel">
-        {{for comision in comisiones:}}
-          <div id="commissionsCNT">
-            <div id="commission{{=comision['numero']}}">
-              <div class="row">
-                <div class="col-xs-12">
-                  <h3 id="commissionTitle{{=comision['numero']}}" name="commissionTitle{{=comision['numero']}}">Comisión <kbd>1</kbd></h3>
-                  <input type="hidden" name="commissionTitle{{=comision['numero']}}" value="commissionTitle{{=comision['numero']}}">
+        <div id="commissionsCNT">
+          {{if len(comisiones) == 0:}}
+          <div id="commission1">
+            <input type="hidden" name="commissionMembersCount1" value="3">
+            <div class="row">
+              <div class="col-xs-12">
+                <h3 id="commissionTitle1" name="commissionTitle1">Comisión <kbd>1</kbd></h3>
+                <input type="hidden" name="commissionTitle1" value="commissionTitle1">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-4">
+                <div class="form-group required">
+                  <label class="control-label" for="commissionBoss1">Jefe de comisión </label>
+                  <input list="firefighterList" id="commissionBoss1" name="commissionBoss1" class="form-control" data-validation="required, validName" placeholder="Jefe de Comisión">
+                </div>
+                <label for="unitTitle">Unidad</label>
+                <div class="row">
+                  <div id="unitsCNT1">
+                    <div id="unit1-1">
+                      <div class="col-xs-4 col-sm-4">
+                        <select id="unitValue1-1" class="form-control" name="unitValue1-1">
+                          <option value="" selected="selected">--</option>
+                          {{for unidad in nombreUnidades:}}
+                          <option value="{{=unidad}}">{{=unidad}}</option>
+                          {{pass}}
+                        </select>
+                      </div>
+                      <div class="col-xs-8 col-sm-8">
+                        <input list="firefighterList" name="commissionDriver1-1" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Conductor">
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <div id="commissionMembersCNT1">
+                    <label for="commissionMember1-1">Acompañantes</label>
+                    <div class="commissionMemberField input-group">
+                      <input list="firefighterList" name="commissionMember1-1" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">
+                      <span class="input-group-btn">
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
+                      </span>
+                    </div>
+                    <div class="commissionMemberField input-group">
+                      <input list="firefighterList" name="commissionMember1-2" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">
+                      <span class="input-group-btn">
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
+                      </span>
+                    </div>
+                    <div class="commissionMemberField input-group">
+                      <input list="firefighterList" name="commissionMember1-3" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">
+                      <span class="input-group-btn">
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <button id="addCommissionMember1" type="button" class="btn bg-1 addCommissionMember top-space-separator addCommissionMember">
+                      Añadir acompañante  <span class="glyphicon glyphicon-user"></span>
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-xs-12 col-sm-4">
-                  <div class="form-group ui-widget">
-                    <label for="commissionBoss{{=comision['numero']}}">Jefe de comisión *</label>
-                    <input list="firefighterList" name="commissionBoss{{=comision['numero']}}" class="form-control" data-validation="required" placeholder="Jefe de Comisión" value="{{=comision['jefe']}}">
-                  </div>
-                  <label for="unitTitle">Unidades</label>
-                  <div class="row">
-                    <div id="unitsCNT{{=comision['numero']}}">
-                      <div id="unit{{=comision['numero']}}-1">
-                        <div class="col-xs-4 col-sm-2">
-                          <select id="unitValue{{=comision['numero']}}-1" class="form-control" name="unitValue{{=comision['numero']}}-1">
-                            <option value="" selected="selected">--</option>
-                            {{for unidad in nombreUnidades:}}
-                              <option value="{{=unidad}}" {{if comision["unidad"]==unidad:}}selected="selected"{{pass}}>{{=unidad}}</option>
-                            {{pass}}
-                          </select>
-                        </div>
-                        <div class="col-xs-8 col-sm-10">
-                          <input list="firefighterList" name="commissionDriver{{=comision['numero']}}-1" class="form-control" placeholder="Conductor" value="{{=comision['conductor']}}">
-                        </div>
+            </div>
+            <hr>
+          </div>
+          {{pass}}
+          {{for comision in comisiones:}}
+          <div id="commission{{=comision['numero']}}">
+            <input type="hidden" name="commissionMembersCount{{=comision['numero']}}" value="3">
+            <div class="row">
+              <div class="col-xs-12">
+                <h3 id="commissionTitle{{=comision['numero']}}" name="commissionTitle{{=comision['numero']}}">Comisión <kbd>1</kbd></h3>
+                <input type="hidden" name="commissionTitle{{=comision['numero']}}" value="commissionTitle{{=comision['numero']}}">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-4">
+                <div class="form-group required">
+                  <label class="control-label" for="commissionBoss{{=comision['numero']}}">Jefe de comisión </label>
+                  <input list="firefighterList" id="commissionBoss{{=comision['numero']}}" name="commissionBoss{{=comision['numero']}}" class="form-control" data-validation="required, validName" placeholder="Jefe de Comisión">
+                </div>
+                <label for="unitTitle">Unidad</label>
+                <div class="row">
+                  <div id="unitsCNT{{=comision['numero']}}">
+                    <div id="unit{{=comision['numero']}}-1">
+                      <div class="col-xs-4 col-sm-4">
+                        <select id="unitValue{{=comision['numero']}}-1" class="form-control" name="unitValue{{=comision['numero']}}-1">
+                          <option value="" selected="selected">--</option>
+                          {{for unidad in nombreUnidades:}}
+                          <option value="{{=unidad}}">{{=unidad}}</option>
+                          {{pass}}
+                        </select>
+                      </div>
+                      <div class="col-xs-8 col-sm-8">
+                        <input list="firefighterList" name="commissionDriver{{=comision['numero']}}-1" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Conductor">
+                       </div>
                       </div>
                     </div>
                   </div>
@@ -151,15 +228,17 @@
                   <div id="commissionMembersCNT1">
                     <label for="commissionMember{{=comision['numero']}}-1">Acompañantes</label>
                     {{for i in range(len(comision['acompanantes'])):}}
-                      <input list="firefighterList" name="commissionMember{{=comision['numero']}}-{{=i+1}}" class="form-control" placeholder="Acompañante de Comisión" value="{{=comision['acompanantes'][i]}}">
+                    <div class="commissionMemberField input-group">
+                      <input list="firefighterList" name="commissionMember{{=comision['numero']}}-{{=i+1}}" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión" value="{{=comision['acompanantes'][i]}}">
+                      <span class="input-group-btn">
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
+                      </span>
+                    </div>
                     {{pass}}
                   </div>
-                  {{for i in range(len(comision['acompanantes']),3):}}
-                      <input list="firefighterList" name="commissionMember{{=comision['numero']}}-{{=i+1}}" class="form-control" placeholder="Acompañante de Comisión">
-                  {{pass}}
                   <div class="text-right">
-                    <button id="addCommissionMember{{=comision['numero']}}" type="button" class="btn bg-1 addCommissionMember top-space-separator addCommissionMember">
-                      <small>Añadir acompañante <span class="glyphicon glyphicon-user"></span></small>
+                    <button id="addCommissionMember1" type="button" class="btn bg-1 addCommissionMember top-space-separator addCommissionMember">
+                      Añadir acompañante  <span class="glyphicon glyphicon-user"></span>
                     </button>
                   </div>
                 </div>
@@ -167,30 +246,35 @@
             </div>
             <hr>
           </div>
-        {{pass}}
-        <div class="text-center">
-          <button id="addCommission" type="button" class="btn bg-1">
-            Añadir otra comision
-            <span class="glyphicon glyphicon-plus-sign"></span>
-          </button>
+          {{pass}}
+          <div class="text-center">
+            <button id="addCommission" type="button" class="btn bg-1">
+              Añadir otra comision
+              <span class="glyphicon glyphicon-plus-sign"></span>
+            </button>
+          </div>
         </div>
-      </div>
 
       <!-- Tab Afectados -->
       <div class="tab-pane fade" id="affected" role="tabpanel">
         {{for afectado in afectados:}}
-          <div id="affectedCNT">          
+          <div id="affectedCNT">
             <div id="affected{{=afectado['counter']}}">
+              <input type="hidden" name="emailsCount{{=afectado['counter']}}" value="0">
+              <input type="hidden" name="phoneCount{{=afectado['counter']}}" value="0">
               <div class="row">
+                <div class="input-group text-right no-space-bottom">
+                  <span class="input-group-btn">
+                    <button class="removeButton removeGroup" type="button">
+                      <span>Eliminar afectado</span>
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                  </span>
+                </div>
                 <div class="col-xs-12 col-sm-6">
                   <div class="row">
                     <div class="col-xs-12 col-sm-12">
-                      <div class="input-group">
-                        <span class="input-group-btn">
-                          <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>
-                        </span>
-                        <h3>Afectado <kbd>{{=afectado['counter']}}</kbd></h3>
-                      </div>
+                      <h3>Afectado <kbd>{{=afectado['counter']}}</kbd></h3>
                       <input type="hidden" name="affectedTitle{{=afectado['counter']}}" value="affectedTitle{{=afectado['counter']}}">
                       <label>Nombre *</label>
                     </div>
@@ -208,12 +292,12 @@
                   <div class="row">
                     <div class="col-xs-12 col-sm-4 form-group">
                       <label for="affectedCI{{=afectado['counter']}}">Cedula</label>
-                      <input type="text" class="form-control" id="affectedCI{{=afectado['counter']}}" name="affectedCI{{=afectado['counter']}}" data-validation="required" data-validation="number" placeholder="Número de Cedula" value="{{=afectado['cedula']}}">
+                      <input type="text" class="form-control" id="affectedCI{{=afectado['counter']}}" name="affectedCI{{=afectado['counter']}}" data-validation="number" data-validation-allowing="range[1;99000000]" data-validation-optional="true" placeholder="Número de Cedula" value="{{=afectado['cedula']}}">
                     </div>
                     <div class="col-xs-4 col-sm-2">
                       <div class="form-group">
                         <label for="affectedGender{{=afectado['counter']}}">Sexo</label>
-                        <select class="form-control" id="affectedGender{{=afectado['counter']}}" data-validation="required" name="affectedGender{{=afectado['counter']}}">
+                        <select class="form-control" id="affectedGender{{=afectado['counter']}}" name="affectedGender{{=afectado['counter']}}">
                           <option value="-" {{if afectado['sexo']=="-":}}selected="selected"{{pass}}>-</option>
                           <option value="F" {{if afectado['sexo']=="F":}}selected="selected"{{pass}}>F</option>
                           <option value="M" {{if afectado['sexo']=="M":}}selected="selected"{{pass}}>M</option>
@@ -224,7 +308,7 @@
                   <div class="row">
                     <div class="col-xs-12 col-sm-6 form-group">
                       <label for="affectedType{{=afectado['counter']}}">Tipo</label>
-                      <select class="form-control" id="affectedType{{=afectado['counter']}}" name="affectedType{{=afectado['counter']}}" data-validation="required">
+                      <select class="form-control" id="affectedType{{=afectado['counter']}}" name="affectedType{{=afectado['counter']}}">
                         <option value="" {{if afectado['tipo']=="":}}selected="selected"{{pass}}>Seleccione tipo de afectado</option>
                         <option value="1"{{if afectado['tipo']=="1":}}selected="selected"{{pass}}>Estudiante de la USB</option>
                         <option value="2"{{if afectado['tipo']=="2":}}selected="selected"{{pass}}>Profesor de la USB</option>
@@ -248,12 +332,12 @@
                         <label for="phonesTitle">Teléfonos</label>
                         {{for i in range(len(afectado['numeros'])):}}
                           <div class="input-group">
-                            <input type="tel" class="form-control" id="affectedPhone{{=afectado['counter']}}-{{=i+1}}" name="affectedPhone{{=afectado['counter']}}-{{=i+1}}" data-validation="length" data-validation-length="12-20" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono/Celular" value='{{=afectado["numeros"][i]}}'>
+                            <input type="tel" class="form-control" id="affectedPhone{{=afectado['counter']}}-{{=i+1}}" name="affectedPhone{{=afectado['counter']}}-{{=i+1}}" data-validation="number, length" data-validation-length="10-20" data-validation-optional="true" placeholder="Teléfono/Celular" value='{{=afectado["numeros"][i]}}'>
                             <span class="input-group-btn">
-                            <button class="removeButton removeField" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                              <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
                             </span>
                           </div>;
-                        {{pass}} 
+                        {{pass}}
                       </div>
                       <div class="text-right">
                         <button id="addAffectedPhone{{=afectado['counter']}}" type="button" class="btn bg-1 addAffectedPhone top-space-separator">+ <span class="glyphicon glyphicon-earphone"></span></button>
@@ -285,9 +369,18 @@
 
       <!-- Tab Apoyo Externo -->
       <div class="tab-pane fade" id="externalSupport" role="tabpanel">
-        {{for externo in externos:}}
-          <div id="comExtCNT">
-            <div id="comExt{{=externo['counter']}}" class="row">
+        <div id="comExtCNT">
+          {{for externo in externos:}}
+          <div id="comExt{{=externo['counter']}}">
+            <div class="input-group text-right no-space-bottom">
+              <span class="input-group-btn">
+                <button class="removeButton removeGroup" type="button">
+                  <span>Eliminar apoyo externo</span>
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              </span>
+            </div>
+            <div class="row">
               <div class="col-xs-12 col-sm-6">
                 <div id="comisionExt{{=externo['counter']}}" class="col-xs-12 col-sm-12">
                   <h3 id="comisionExtTitle{{=externo['counter']}}" name="comisionExtTitle{{=externo['counter']}}">Comisión Externa <kbd>{{=externo['counter']}}</kbd></h3>
@@ -302,12 +395,12 @@
                   </div>
                   <div class="col-xs-12 col-sm-5">
                     <label for="cuerpoDepartamento{{=externo['counter']}}">Número de acompañantes</label>
-                    <input id="numAcomp{{=externo['counter']}}" type="text" class="form-control" data-validation="length" data-validation-length="max4" data-validation="number" placeholder="Número" name="numAcomp{{=externo['counter']}}" value="{{=externo['numAcomp']}}">
+                    <input id="numAcomp{{=externo['counter']}}" type="text" class="form-control" data-validation="number" data-validation-optional="true" placeholder="Número" name="numAcomp{{=externo['counter']}}" value="{{=externo['numAcomp']}}">
                   </div>
                   <div id="unitExtCNT{{=externo['counter']}}">
-                    <div id="unitExt{{=externo['counter']}}-1">
+                    <div id="unitExt{{=externo['counter']}}">
                       <div class="col-xs-6 col-sm-6">
-                        <label for="unitExtValue{{=externo['counter']}}-1">Unidades</label>
+                        <label for="unitExtValue{{=externo['counter']}}-1">Unidad</label>
                         <input id="unitExtValue{{=externo['counter']}}-1" type="text" class="form-control" placeholder="Unidad" name="unitExtValue{{=externo['counter']}}-1" value="{{=externo['unidad']}}">
                       </div>
                       <div class="col-xs-6 col-sm-6">
@@ -315,11 +408,6 @@
                         <input id="unitExtPlaca{{=externo['counter']}}-1" type="text" class="form-control col-xs-6" placeholder="Conductor" name="unitExtPlaca{{=externo['counter']}}-1" value="{{=externo['placa']}}">
                       </div>
                     </div>
-                  </div>
-                  <div class="col-xs-12 text-right">
-                    <button id="addUnitExt{{=externo['counter']}}" type="button" class="btn bg-1 addUnitExt top-space-separator">
-                      <small>Añadir unidad externa<span class="glyphicon glyphicon-wrench"></span></small>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -329,13 +417,14 @@
                 <br />
                 <label>Comentario</label>
                 <div class="form-group">
-                  <textarea id="affectedNotes{{=externo['counter']}}" name="affectedNotes{{=externo['counter']}}" class="form-control" data-validation="length" data-validation-length="max 600" rows="9">{{=externo['comentario']}}</textarea>
+                  <textarea id="unitExtNotes{{=externo['counter']}}" name="unitExtNotes{{=externo['counter']}}" class="form-control" data-validation="length" data-validation-length="max700" rows="10"></textarea>
                 </div>
               </div>
             </div>
             <hr>
           </div>
-        {{pass}}
+          {{pass}}
+        </div>
         <div class="text-center">
           <button id="addApoyoExt" type="button" class="btn bg-1">
             Añadir apoyo externo
@@ -370,30 +459,43 @@
 </div>
 
 {{block page_js}}
-<script>{{=ASSIGNJS(nombres = nombreBomberos)}}</script>                         <!-- Script para conectar con la base de nombre de bomberos -->
+<!-- Script para conectar con la base de nombre de bomberos -->
 <script>
-
+{{=ASSIGNJS(nombres = nombreBomberos)}}
+{{=ASSIGNJS(bomberos = nombresArray)}}
 {{=ASSIGNJS(tipoS = service.tipo)}}
-
 {{=ASSIGNJS(fechaCreacionS = str(service.fechaCreacion))}}
 {{=ASSIGNJS(horaCreacionS = str(service.horaCreacion))}}
-
 {{=ASSIGNJS(fechaFinalizacionS = str(service.fechaFinalizacion))}}
 {{=ASSIGNJS(horaFinalizacionS = str(service.horaFinalizacion))}}
-
-
 {{=ASSIGNJS(comisionesS = [1,1,1])}}
-
 </script>
-<script src="{{=URL('static','js/services/registerValidation.js')}}"></script>  <!-- Script para validar el form de registro de servicio -->
-<script src="{{=URL('static','js/services/registerForm.js')}}"></script>        <!-- Script para efectos en el form de registro de servicio -->
+
 <script src="{{=URL('static','js/services/editDraft.js')}}"></script>           <!-- Script para form de registro de borrador (funciones extra) -->
 <script src="{{=URL('static','js/sweetalert.min.js')}}"></script>               <!-- Script para mensajes de alerta -->
 <script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>     <!-- Script para el calendario -->
 <script src="{{=URL('static','js/jquery.timepicker.min.js')}}"></script>        <!-- Script para el selector de hora -->
 <script src="{{=URL('static','js/jquery.datepair.min.js')}}"></script>          <!-- Script para parear las fechas -->
 <script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>    <!-- Script para validar campos del formulario -->
-<script>$.validate({form : '#registro', lang: 'es', });</script>                <!-- Script para configurar el script anterior xD -->
-<!-- Google Maps -->
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>-->
+
+<!-- Script para configurar las validaciones -->
+<script>
+$.formUtils.loadModules('serviceValidatorModule');
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  $('#registro').isValid();
+});
+
+$.validate({
+  form : '#registro',
+  lang: 'es',
+  modules : 'date',
+  errorMessagePosition : 'top',
+  scrollToTopOnError : true,
+  validateOnBlur : false,
+  validateHiddenInputs: true,
+});
+</script>
+
+<script src="{{=URL('static','js/services/registerValidation.js')}}"></script>        <!-- Script para cambiar a modo borrador -->
 {{end}}

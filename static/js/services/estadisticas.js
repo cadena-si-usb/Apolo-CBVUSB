@@ -34,4 +34,9 @@ if (mesS == "Todos") {
 	$('[name=mes]').val(12);	
 }
 
+document.getElementById("exportar").value = "False";
 $('[name=ano]').val(anoS);
+
+function exportarEstadistica() {
+	document.getElementById("exportar").value = "True";
+}

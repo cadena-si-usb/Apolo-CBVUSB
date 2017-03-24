@@ -229,19 +229,19 @@ $(document).ready(function() {
               <label>Nombre *</label>\
             </div>\
             <div class="col-xs-6 col-sm-4 form-group">\
-              <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'" data-validation="required" placeholder="Primer Nombre *">\
+              <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" placeholder="Primer Nombre *">\
             </div>\
             <!--<div class="col-xs-6 col-sm-2 form-group">\
             <label for="affected'+num1+'" class="sr-only"><small>2do Nombre</small></label>\
-            <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" placeholder="Segundo Nombre">\
+            <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" data-validation-optional="true" placeholder="Segundo Nombre">\
           </div>-->\
           <div class="col-xs-6 col-sm-4 form-group">\
             <!--  <label for="affected2" class="sr-only">1er Apellido</label>-->\
-            <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" data-validation="required" placeholder="Primer Apellido *">\
+            <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" placeholder="Primer Apellido *">\
           </div>\
           <div class="col-xs-6 col-sm-4 form-group">\
             <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>\
-            <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" placeholder="Segundo Apellido">\
+            <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z]+(?:[\-\'][A-Za-z]+)?)+$" data-validation-optional="true" placeholder="Segundo Apellido">\
           </div>\
         </div>\
         <div class="row">\
@@ -252,7 +252,7 @@ $(document).ready(function() {
           <div class="col-xs-4 col-sm-2">\
             <div class="form-group">\
               <label for="affectedGender'+num1+'">Sexo</label>\
-              <select class="form-control" id="affectedGender'+num1+'" data-validation="required" name="affectedGender'+num1+'">\
+              <select class="form-control" id="affectedGender'+num1+'" name="affectedGender'+num1+'">\
                 <option value="-" selected="selected">-</option>\
                 <option value="F">F</option>\
                 <option value="M">M</option>\
