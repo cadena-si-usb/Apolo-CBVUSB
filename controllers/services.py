@@ -698,7 +698,7 @@ def editDraft():
         registrarApoyoExterno(request)
 
         # Registrar form
-        if request.vars['draft'] is None:
+        if request.vars['borrador'] == "False":
             servicio.Borrador = False
             servicio.update_record()
             redirect(URL('services','index.html'))
