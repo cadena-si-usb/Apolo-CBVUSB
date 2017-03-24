@@ -152,7 +152,7 @@ $(document).ready(function() {
         <div class="col-xs-12 col-sm-4">\
           <div class="form-group">\
             <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
-            <input list="firefighterList" name="commissionBoss'+num1+'" class="form-control" data-validation="required" placeholder="Jefe de Comisión">\
+            <input list="firefighterList" name="commissionBoss'+num1+'" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Jefe de Comisión">\
           </div>\
           <label for="unitTitle">Unidad</label>\
           <div class="row">\
@@ -162,7 +162,7 @@ $(document).ready(function() {
                 '+unitsListCopy+'\
                 </div>\
                 <div class="col-xs-8 col-sm-8">\
-                  <input list="firefighterList" name="commissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
+                  <input list="firefighterList" name="commissionDriver'+num1+'-'+num2+'" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Conductor">\
                  </div>\
                 </div>\
               </div>\
@@ -172,19 +172,19 @@ $(document).ready(function() {
             <div id="commissionMembersCNT'+num1+'">\
               <label for="commissionMember'+num1+'">Acompañantes</label>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-1" class="form-control" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" name="commissionMember'+num1+'-1" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
               </div>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-2" class="form-control" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" name="commissionMember'+num1+'-2" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
               </div>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-3" class="form-control" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" name="commissionMember'+num1+'-3" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
@@ -356,7 +356,7 @@ $(document).ready(function() {
           <br />\
           <label>Comentario</label>\
           <div class="form-group">\
-            <textarea id="unitExtNotes'+num1+'" name="unitExtNotes'+num1+'" class="form-control" data-validation="length" data-validation-length="max 600" rows="9"></textarea>\
+            <textarea id="unitExtNotes'+num1+'" name="unitExtNotes'+num1+'" class="form-control" data-validation="length" data-validation-length="max700" rows="10"></textarea>\
           </div>\
         </div>\
       </div>\
