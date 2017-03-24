@@ -154,7 +154,7 @@ def obtenerComisiones(serviceId):
             comision['jefe'] = nombreBombero(bomberoRow.id_persona)
         except:
             continue
-    
+
         # Unidad
         try:
             unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
@@ -168,7 +168,7 @@ def obtenerComisiones(serviceId):
                 comision["conductor"] = nombreBombero(bomberoRow.id_persona)
         except:
             comision["unidad"] = None
-            comision["conductor"] = None                
+            comision["conductor"] = None
 
         # Acompanantes
         acompanantes = list()
@@ -542,7 +542,7 @@ def agregarAprobador(servicioID):
     for comisionRow in comisionRows:
         try:
             bomberoRow = db(db.bombero.id == comisionRow.lider).select().first()
-    
+
             # Bombero es seleccionado para ser aprobador de servicio
             if aprobador["carnet"] == -1 or esMayor(bomberoRow, aprobador):
                 aprobador["rango"] = bomberoRow.rango
@@ -642,7 +642,7 @@ def eliminarAfectados(request):
 @auth.requires_login()
 def eliminarApoyoExterno(request):
     serviceId = request.vars['id']
-    db(db.comision_apoyo.servicio == serviceId).delete()    
+    db(db.comision_apoyo.servicio == serviceId).delete()
 
 @auth.requires_login()
 def editDraft():
@@ -696,7 +696,11 @@ def editDraft():
         # Obtener nombres de unidades
         nombreUnidades = obtenerNombreUnidades()
 
-        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos, nombreUnidades=nombreUnidades)
+        # Obtener array con los nombres de los bomberos (brutal pal javaScript)
+        nombresArray = []
+        for nombre in nombreBomberos: nombresArray.append(nombre)
+
+        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos, nombreUnidades=nombreUnidades, nombresArray=nombresArray)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Aprobar Servicio"

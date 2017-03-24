@@ -252,7 +252,7 @@ $(document).ready(function() {
           <div class="col-xs-4 col-sm-2">\
             <div class="form-group">\
               <label for="affectedGender'+num1+'">Sexo</label>\
-              <select class="form-control" id="affectedGender'+num1+'" data-validation="required" name="affectedGender'+num1+'">\
+              <select class="form-control" id="affectedGender'+num1+'" name="affectedGender'+num1+'">\
                 <option value="-" selected="selected">-</option>\
                 <option value="F">F</option>\
                 <option value="M">M</option>\
