@@ -96,22 +96,22 @@
             <div class="row">
               <div class="col-xs-4 col-sm-4">
                 <label class="control-label" for="startDate">Fecha de Inicio </label>
-                <input type="text" class="date start form-control" id="startDate" name="fechaCreacion" placeholder="introduzca una fecha" data-validation="date" data-validation-format="dd/mm/yyyy"/>
+                <input type="text" class="date start form-control" id="startDate" name="fechaCreacion" data-validation="required, date" data-validation-format="dd/mm/yyyy" placeholder="introduzca una fecha"/>
               </div>
               <div class="col-xs-4 col-sm-4">
                 <label class="control-label" for="startDate">Hora de Inicio </label>
-                <input type="text" class="time start form-control" id="startTime" name="horaCreacion" placeholder="introduzca una hora"/>
+                <input type="text" class="time start form-control" id="startTime" name="horaCreacion" data-validation="required, time" placeholder="introduzca una hora"/>
               </div>
               <div class="col-xs-4 col-sm-4"></div>
             </div>
             <div class="row top-space-separator">
               <div class="col-xs-4 col-sm-4">
                 <label class="control-label" for="endDate">Fecha de Fin </label>
-                <input type="text" class="date end form-control " id="endDate" name="fechaFinalizacion" placeholder="introduzca una fecha" data-validation="date" data-validation-format="dd/mm/yyyy"/>
+                <input type="text" class="date end form-control " id="endDate" name="fechaFinalizacion" data-validation="required, date" data-validation-format="dd/mm/yyyy" placeholder="introduzca una fecha"/>
               </div>
               <div class="col-xs-4 col-sm-4">
                 <label class="control-label" for="endDate">Hora de Fin </label>
-                <input type="text" class="time end form-control" id="endTime" name="horaFinalizacion" placeholder="introduzca una hora"/>
+                <input type="text" class="time end form-control" id="endTime" name="horaFinalizacion" data-validation="required, time" placeholder="introduzca una hora"/>
               </div>
               <div class="col-xs-4 col-sm-4"></div>
             </div>
@@ -255,6 +255,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 $.validate({
   form : '#registro',
   lang: 'es',
+  modules : 'date',
   errorMessagePosition : 'top',
   scrollToTopOnError : true,
   validateOnBlur : false,
