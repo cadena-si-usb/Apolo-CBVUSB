@@ -1,9 +1,9 @@
 var borrador = false;
 function registerService() {
-  $('#draft') = "0";
+  $('#draft').val("0");
 };
 function saveDraft() {
-  $('#draft') = "1";
+  $('#draft').val("1");
 };
 
 $(document).ready(function() {
