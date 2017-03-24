@@ -83,7 +83,13 @@ def deleteMyService():
 @auth.requires_login()
 def allservices():
     services = db(db.servicio.aprobado == True).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
+    registran = list()
+    for servicio in  services:
+        bombero = db(db.bombero.id == servicio.Registra).select()[0]
+        persona = db(db.persona.id == bombero.id_persona).select()[0]
+        registra = nombreBombero(persona.id)
+        registran.append(registra)
+    return dict(services=services,registran=registran)
 
 # Vista para listar "Mis Servicios" en los que aparezco
 @auth.requires_login()
@@ -94,9 +100,16 @@ def myservices():
 
     servicios = db(db.servicio.aprobado == True).select(orderby=~db.servicio.fechaCreacion)
     misServicios = list()
+    registran = list()
 
     # Todos los servicios
     for servicio in servicios:
+
+        # Registrador
+        bombero = db(db.bombero.id == servicio.Registra).select()[0]
+        persona = db(db.persona.id == bombero.id_persona).select()[0]
+        registra = nombreBombero(persona.id)
+        registran.append(registra)
 
         miServicio = False
 
@@ -105,32 +118,40 @@ def myservices():
         for comision in comisiones:
 
             # Jefe de comision
-            lider = db(db.bombero.id == comision.lider).select()[0]
-            if int(lider.id_usuario) == int(userId):
-                # Usuario conectado es jefe de comision
-                miServicio = True
+            try:
+                lider = db(db.bombero.id == comision.lider).select()[0]
+                if int(lider.id_usuario) == int(userId):
+                    # Usuario conectado es jefe de comision
+                    miServicio = True
+            except:
+                pass
 
             # Acompanantes de comision
             acompanantes = db(db.es_acompanante.comision == comision.id).select()
             for acompanante in acompanantes:
-                bombero = db(db.bombero.id == acompanante.bombero).select()[0]
-
-                if int(bombero.id_usuario) == int(userId):
-                    # Usuario conectado es acompanante de comision
-                    miServicio = True
+                try:
+                    bombero = db(db.bombero.id == acompanante.bombero).select()[0]
+                    if int(bombero.id_usuario) == int(userId):
+                        # Usuario conectado es acompanante de comision
+                        miServicio = True
+                except:
+                    pass
 
             # Conductor de comision
             unidades = db(db.unidad_utilizada_por.comision == comision.id).select()
             for unidad in unidades:
-                if int(unidad.conductor) == int(userId):
-                    # Usuario conectado es conductor de comision
-                    miServicio = True
+                try:
+                    if int(unidad.conductor) == int(userId):
+                        # Usuario conectado es conductor de comision
+                        miServicio = True
+                except:
+                    pass
 
         # Si usuario esta en alguna comision entonces agregamos a mis servicios
         if miServicio:
             misServicios.append(servicio)
 
-    return dict(services=misServicios)
+    return dict(services=misServicios,registran=registran)
 
 # Botón para eliminar un servicio en cualquier vista de "Gestionar servicios"
 @auth.requires_login()
@@ -296,7 +317,13 @@ def nombreBombero(id):
 @auth.requires_login()
 def index():
     services = db(db.servicio.aprobado == True).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
+    registran = list()
+    for servicio in  services:
+        bombero = db(db.bombero.id == servicio.Registra).select()[0]
+        persona = db(db.persona.id == bombero.id_persona).select()[0]
+        registra = nombreBombero(persona.id)
+        registran.append(registra)
+    return dict(services=services,registran=registran)
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Buscar servicios"
@@ -753,7 +780,14 @@ def obtenerDuracionServicio(servicio):
 @auth.requires_login()
 def aprove():
     services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
-    return dict(services=services)
+    registran = list()
+    for servicio in  services:
+        bombero = db(db.bombero.id == servicio.Registra).select()[0]
+        persona = db(db.persona.id == bombero.id_persona).select()[0]
+        registra = nombreBombero(persona.id)
+        registran.append(registra)
+
+    return dict(services=services,registran=registran)
 
 @auth.requires_login()
 def approveService():
