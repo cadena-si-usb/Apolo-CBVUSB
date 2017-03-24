@@ -9,14 +9,46 @@ $(document).ready(function() {
   var addCommission = $("#addCommission");                              // ID del botón para añadir comisiones
   var addAffected = $("#addAffected");                                  // ID del botón para añadir Afectados
   var addApoyoExt = $("#addApoyoExt");                                  // ID del botón para añadir Afectados
-  var commissionsCount = 1;                                             // Contador de comisiones
-  var affectedCount = 0;                                                // Contador de afectados
-  var apoyoExtCount = 0;                                                // Contador de afectados
-  var commissionMembersCount = [3];                                     // Arreglo para contar los acompañantes (Por defecto 3)
-  var emailsCount = [0];                                                // Arreglo para contar los emails (Por defecto 0)
-  var liveEmailsCount = [0];                                            // Arreglo para contar los emails actuales (Por defecto 0)
-  var phoneCount = [0];                                                 // Arreglo para contar los Teléfonos (Por defecto 0)
+  var commissionsCount = parseInt( $('div[id^="commission"]:last').prop("id").match(/\d+/g), 10); // Contador de comisiones
+  var affectedCount = parseInt( $('div[id^="affected"]:last').prop("id").match(/\d+/g), 10);      // Contador de afectados
+  var apoyoExtCount = parseInt( $('div[id^="comExt"]:last').prop("id").match(/\d+/g), 10);        // Contador de afectados
+  var commissionMembersCount = [3];
+  var phoneCount = [0];
+  var liveEmailsCount = [0];
+  var emailsCount = [0];
   var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
+  
+  var num; var tmp;
+  for(i = 0; i < commissionsCount; i++) {
+    num = parseInt($('input[id^="commissionMember"]:last').prop("id").match(/\-\d+/g), 10)*-1;
+    commissionMembersCount = commissionMembersCount.concat([num]);
+  }
+ 
+  for(i = 0; i < affectedCount; i++) {
+    var phonehtmlCount = "phoneCount" + i;
+    var emailhtmlCount = "emailsCount" + i;
+    tmp = $('input[id^="affectedPhone"]:last').prop("id");
+    if (tmp != null) {
+      num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
+      phoneCount = phoneCount.concat([num]);
+      $('input[name='+phonehtmlCount+']').val(num);
+    } else {
+      phoneCount = phoneCount.concat([0]);
+      $('input[name='+phonehtmlCount+']').val(0);
+    }
+
+    tmp = $('input[id^="affectedEmail"]:last').prop("id");
+    if (tmp != null) {
+      num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
+      liveEmailsCount = liveEmailsCount.concat([num]);
+      emailsCount = liveEmailsCount;
+      $('input[name='+emailhtmlCount+']').val(num);
+    } else {
+      liveEmailsCount = liveEmailsCount.concat([0]);
+      emailsCount = liveEmailsCount;
+      $('input[name='+emailhtmlCount+']').val(0);
+    }
+  }
 
   // Funciones para completacion de datos en carga de borrador
 
