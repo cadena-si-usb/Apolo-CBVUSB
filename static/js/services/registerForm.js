@@ -1,10 +1,6 @@
 var borrador = false;
-function registerService() {
-  $('#draft').val("0");
-};
-function saveDraft() {
-  $('#draft').val("1");
-};
+function registerService() {$('#draft').val("0");};
+function saveDraft() {$('#draft').val("1");};
 
 $(document).ready(function() {
   var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones
@@ -21,8 +17,6 @@ $(document).ready(function() {
   var liveEmailsCount = [0];                                            // Arreglo para contar los emails actuales (Por defecto 0)
   var phoneCount = [0];                                                 // Arreglo para contar los Teléfonos (Por defecto 0)
   var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
-
-  console.log(bomberos[0]);
 
   // Función para los botones de eliminar comisión
   $(commissionsCNT).on("click","button.removeGroup", function() {
@@ -70,7 +64,7 @@ $(document).ready(function() {
     // Inserción del html
     $(commissionMembersCNT).append(
     '<div class="input-group">\
-      <input list="firefighterList" name="commissionMember'+num1+'-'+num2+'" class="form-control" placeholder="Acompañante de Comisión">\
+      <input list="firefighterList" name="commissionMember'+num1+'-'+num2+'" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
       <span class="input-group-btn">\
         <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
       </span>\
@@ -246,7 +240,7 @@ $(document).ready(function() {
         </div>\
         <div class="row">\
           <div class="col-xs-12 col-sm-4 form-group">\
-            <label for="affectedCI'+num1+'">Cedula</label>\
+            <label for="affectedCI'+num1+'">Cédula</label>\
             <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" data-validation="number" data-validation-allowing="range[1;99000000]" data-validation-optional="true" placeholder="Número de Cedula">\
           </div>\
           <div class="col-xs-4 col-sm-2">\
