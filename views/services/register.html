@@ -28,7 +28,7 @@
     <input type="hidden" name="commissionsCount" value="1">
     <input type="hidden" name="affectedCount" value="0">
     <input type="hidden" name="apoyoExtCount" value="0">
-    <input type="hidden" name="borrador" value="1">
+    <input type="hidden" id="borrador" name="borrador" value="False">
     <input type="hidden" name="globalVerifications" data-validation="startDateOutOfRange, endDateOutOfRange, endBeforeStart">
 
     <!-- Nav tabs -->
@@ -262,4 +262,7 @@ $.validate({
   validateHiddenInputs: true,
 });
 </script>
+
+<script src="{{=URL('static','js/services/registerValidation.js')}}"></script>        <!-- Script para cambiar a modo borrador -->
+
 {{end}}

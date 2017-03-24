@@ -152,36 +152,39 @@ def obtenerComisiones(serviceId):
             # Jefe de comision
             bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
             comision['jefe'] = nombreBombero(bomberoRow.id_persona)
+        except:
+            continue
     
-            # Unidad
-            try:
-                unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
-                if unidadUtilizadaRow.unidad is None:
-                    comision["unidad"] = None
-                    comision["conductor"] = None
-                else:
-                    unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
-                    comision["unidad"] = unidadRow.nombre
-                    bomberoRow = unidadUtilizadaRow.conductor
-                    comision["conductor"] = nombreBombero(bomberoRow.id_persona)
-            except:
+        # Unidad
+        try:
+            unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
+            if unidadUtilizadaRow.unidad is None:
                 comision["unidad"] = None
-                comision["conductor"] = None                
+                comision["conductor"] = None
+            else:
+                unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
+                comision["unidad"] = unidadRow.nombre
+                bomberoRow = unidadUtilizadaRow.conductor
+                comision["conductor"] = nombreBombero(bomberoRow.id_persona)
+        except:
+            comision["unidad"] = None
+            comision["conductor"] = None                
 
-            # Acompanantes
-            acompanantes = list()
-            esAcompananteSet = db(db.es_acompanante.comision == comisionRow.id).select()
-            for esAcompananteRow in esAcompananteSet:
+        # Acompanantes
+        acompanantes = list()
+        esAcompananteSet = db(db.es_acompanante.comision == comisionRow.id).select()
+        for esAcompananteRow in esAcompananteSet:
+            try:
                 bomberoRow = esAcompananteRow.bombero
                 nombre = nombreBombero(bomberoRow.id_persona)
                 acompanantes.append(nombre)
-    
-            comision["acompanantes"] = acompanantes
-            comision["numero"] = comisionCounter
-            comisiones.append(comision)
-            comisionCounter += 1
-        except:
-            continue
+            except:
+                continue
+
+        comision["acompanantes"] = acompanantes
+        comision["numero"] = comisionCounter
+        comisiones.append(comision)
+        comisionCounter += 1
 
     return comisiones
 
@@ -560,7 +563,7 @@ def register():
    # Form rellenado y submiteado por usuario
     if request.env.request_method == 'POST':
         # Guardar borrador de form
-        if request.vars['borrador'] == '1':
+        if request.vars['borrador'] == "True":
             borrador = True
         # Registrar form completo
         else:
@@ -645,8 +648,6 @@ def eliminarApoyoExterno(request):
 def editDraft():
 
     if request.env.request_method == 'POST':
-
-        print request.vars['id']
 
         servicio = db(db.servicio.id == request.vars['id']).select().first()
         servicio.id = request.vars['id']
@@ -746,6 +747,52 @@ def obtenerDuracionServicio(servicio):
 def aprove():
     services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
     return dict(services=services)
+
+@auth.requires_login()
+def approveService():
+
+    serviceId = request.vars.id
+    nombreBomberos = obtenerNombreBomberos()
+
+    # Info basica del servicio
+    service = db(db.servicio.id == serviceId).select()[0]
+
+    # Comisiones del servicio
+    comisiones = obtenerComisiones(serviceId)
+
+    # Afectados del servicio
+    afectados = obtenerAfectados(serviceId)
+
+    # Comisiones de apoyo
+    externos = obtenerApoyoExterno(serviceId)
+
+    return dict(service=service,comisiones=comisiones,afectados=afectados,externos=externos)
+
+@auth.requires_login()
+def validarServicio():
+
+    # Aprobar servicio
+    servicio = db(db.servicio.id == request.vars['id']).select().first()
+    servicio.aprobado = True
+    servicio.update_record()
+
+    services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
+    redirect(URL('services','aprove',vars=dict(services=services)))
+
+
+@auth.requires_login()
+def editarServicio():
+    # Editar servicio pendiente por aprobacion
+    redirect(URL('services','editDraft.html',vars=dict(id=request.vars['id'])))
+
+@auth.requires_login()
+def rechazarServicio():
+
+    # Eliminar servicio
+    db(db.servicio.id == request.vars["id"]).delete()
+
+    services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
+    redirect(URL('services','aprove',vars=dict(services=services)))
 
 
 # Vista de "Estadisticas"

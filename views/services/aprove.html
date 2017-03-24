@@ -34,7 +34,7 @@
           </thead>
           <tbody>
             {{for row in services:}}
-            <tr class='clickeable clickable-row' data-href={{=URL('services','displayService', vars=dict(id=row.id))}}>
+            <tr class='clickeable clickable-row' data-href={{=URL('services','approveService', vars=dict(id=row.id))}}>
               <td>{{=row.id}}</td>
               <td>{{=row.tipo}}</td>
               <td>{{=row.descripcion}}</td>
