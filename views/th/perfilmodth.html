@@ -38,7 +38,7 @@
 		<div class="col-sm-6 col-sm-offset-3 tab-pane fade" id="datocontacto" role="tabpanel">
 			<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="contacto">
 				<div class="form-group" id="no_table_persona_contacto__row">
-					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia *</label>
+					<label class="control-label col-sm-3" for="no_table_persona_contacto_nombre">Contacto de Emergencia</label>
 					<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 						<input type="persona_contacto_nombre" class="form-control string" id="persona_contacto_nombre" name="persona_contacto" placeholder="Nombre Completo...">
 					</div>
@@ -48,7 +48,7 @@
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
-					            <option value="Ḿovil">Móvil</option>
+					            <option value="Movil">Móvil</option>
 					            <option value="Otro">Otro</option>
 				            </select>
 			            </div>
@@ -62,25 +62,25 @@
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
-					            <option value="Ḿovil">Móvil</option>
+					            <option value="Movil">Móvil</option>
 					            <option value="Otro">Otro</option>
 				            </select>
 			            </div>
 			            <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">
-	                     	<input type="telefono2" class="form-control number" id="telefono-emergencia2" name="persona_contacto" placeholder="Teléfono..." data-validation-length="11-11" data-validation="number" data-validation-allowing="-+()">
+	                     	<input type="telefono2" class="telefono form-control number" id="telefono-emergencia2" name="persona_contacto" placeholder="Teléfono..." data-validation-length="11-11" data-validation="number" data-validation-allowing="-+()">
 	                    </div>
 	                </div>
 				</div>
 
 				<div class="form-group" id="tlf1">
-                    <label class="control-label col-sm-3" for="tipotlf1">Teléfonos *</label>
+                    <label class="control-label col-sm-3" for="tipotlf1">Teléfonos</label>
 	                <div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
 		                 	<select id="tipotlf1" class="form-control" name="telefono1">
 					            <option value="">Tipo</option>
 					            <option value="Casa">Casa</option>
 					            <option value="Trabajo">Trabajo</option>
-					            <option value="Ḿovil">Móvil</option>
+					            <option value="Movil">Móvil</option>
 					            <option value="Otro">Otro</option>
 				            </select>
 			            </div>
@@ -90,11 +90,11 @@
 	                </div>
                 </div>
                 <div class="text-right" style="padding-bottom:3%;">
-                	<button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator"><small>Agregar otro teléfono <span class="glyphicon glyphicon-plus-sign"></span></small></button>
+                	<button id="agregartlf1" type="button" class="btn btn-primary agregartlf top-space-separator">Agregar otro teléfono <span class="glyphicon glyphicon-plus-sign"></span></button>
             	</div>
 
 				<div class="form-group" id="dir1">
-	            	<label class="control-label col-sm-3" for="direccion_tipo1">Dirección *</label>
+	            	<label class="control-label col-sm-3" for="direccion_tipo1">Dirección</label>
 	            	<div class="col-xs-12 col-sm-9 col-sm-offset-3">
 	                    <div class="col-xs-12 col-sm-4" style="padding-top: 2%;">
 		                   	<select id="direccion_tipo1" class="form-control" name="direccion1">
@@ -113,7 +113,7 @@
 	                </div>
 	            </div>
 	            <div class="text-right" style="padding-bottom:3%;">
-            		<button id="agregardireccion1" type="button" class="btn btn-primary agregardireccion top-space-separator"><small>Agregar otra dirección <span class="glyphicon glyphicon-plus-sign"></span></small></button>
+            		<button id="agregardireccion1" type="button" class="btn btn-primary agregardireccion top-space-separator">Agregar otra dirección <span class="glyphicon glyphicon-plus-sign"></span></button>
             	</div>
 	            <div class="col-sm-9 col-sm-offset-3" style="padding-top:1%;padding-bottom:3%;">
             		<input class="btn btn-primary" value="Enviar" type="submit">
@@ -211,17 +211,22 @@
 	</div>
 </div>
 
+{{block head_js}}
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
+<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
 <script>
-// just for the demos, avoids form submit
-jQuery.validator.setDefaults({
-  debug: true,
-  success: "valid"
+$.formUtils.loadModules('serviceValidatorModule');
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  $('#contacto').isValid();
 });
-$( "#myform" ).validate({
-  rules: {
-    field: {
-      required: true
-    }
-  }
+$.validate({
+  form : '#contacto',
+  lang: 'es',
+  errorMessagePosition : 'top',
+  scrollToTopOnError : true,
+  validateOnBlur : false,
+  validateHiddenInputs: true,
 });
 </script>
+{{end}}

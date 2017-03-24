@@ -6,13 +6,6 @@
 <link rel="stylesheet" href="{{=URL('static','css/jquery-ui-1.12.1.css')}}">
 {{end}}
 
-{{block head_js}}
-<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
-<script src="{{=URL('static','js/th/th.js')}}"></script>
-<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
-<script>$.validate({form : '#registro', lang: 'es', });</script>
-{{end}}
-
 {{block web2py_ajax}}{{end}}
 
 <div class="container-fluid">
@@ -21,7 +14,7 @@
 	<p class="col-sm-6 col-sm-offset-3 text-center" style="color:red;"><strong>Todos los campos son obligatorios. Debe llenarlos para poder ingresar al sistema.</strong></p>
 	<br/><br/>
 	<div class=" col-sm-6 col-sm-offset-3" id="editar-registro">
-		<form action="#" class="form-horizontal" enctype="multipart/form-data" method="post" id="mmg">
+		<form action="#" class="form-horizontal" enctype="multipart/form-data" method="post" id="no-confirmado">
 			<div class="form-group" id="tabla_cedula">
 				<label class="control-label col-sm-3" for="cedula" >Cédula</label>
 				<div class="col-sm-9">
@@ -117,3 +110,10 @@
 		</form>
 	</div>
 </div>
+
+{{block head_js}}
+<script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
+<script src="{{=URL('static','js/th/th.js')}}"></script>
+<script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
+<script>$.validate({form : '#no-confirmado', lang: 'es', });</script>
+{{end}}

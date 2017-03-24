@@ -108,13 +108,17 @@
             </div>
             {{if contacto != None:}}
             <div class="panel panel-default">
-            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Contacto de Emergencia: {{=contacto.nombre}}</h4></div>
+            <div class="panel-heading" style="background-color:#1565C0;color:white;"><h4>Contacto de Emergencia:</h4></div>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tr>
+                        <td>Nombre: </td>
+                        <td>{{=contacto.nombre}}</td>
+                    </tr>
+                    <tr>   
                         {{if contacto.tipo_telefono1 == "Casa":}}
                         <td><span class="glyphicon glyphicon-phone-alt"></span> {{=contacto.tipo_telefono1}}</td>
-                        {{elif contacto.tipo_telefono1 == "Móvil" or contacto.tipo_telefono1 == "Otro":}}
+                        {{elif contacto.tipo_telefono1 == "Movil" or contacto.tipo_telefono1 == "Otro":}}
                         <td><span class="glyphicon glyphicon-phone"></span> {{=contacto.tipo_telefono1}}</td>
                         {{elif contacto.tipo_telefono1 == "Trabajo":}}
                         <td><span class="glyphicon glyphicon-earphone"></span> {{=contacto.tipo_telefono1}}</td>
@@ -124,7 +128,7 @@
                     <tr>
                         {{if contacto.tipo_telefono2 == "Casa":}}
                         <td><span class="glyphicon glyphicon-phone-alt"></span> {{=contacto.tipo_telefono2}}</td>
-                        {{elif contacto.tipo_telefono2 == "Móvil" or contacto.tipo_telefono2 == "Otro":}}
+                        {{elif contacto.tipo_telefono2 == "Movil" or contacto.tipo_telefono2 == "Otro":}}
                         <td><span class="glyphicon glyphicon-phone"></span> {{=contacto.tipo_telefono2}}</td>
                         {{elif contacto.tipo_telefono2 == "Trabajo":}}
                         <td><span class="glyphicon glyphicon-earphone"></span> {{=contacto.tipo_telefono2}}</td>
@@ -144,7 +148,7 @@
                     <tr>
                         {{if rows.tipo_telefono == "Casa":}}
                         <td><span class="glyphicon glyphicon-phone-alt"></span> {{=rows.tipo_telefono}}</td>
-                        {{elif rows.tipo_telefono == "Móvil" or rows.tipo_telefono == "Otro":}}
+                        {{elif rows.tipo_telefono == "Movil" or rows.tipo_telefono == "Otro":}}
                         <td><span class="glyphicon glyphicon-phone"></span> {{=rows.tipo_telefono}}</td>
                         {{elif rows.tipo_telefono == "Trabajo":}}
                         <td><span class="glyphicon glyphicon-earphone"></span> {{=rows.tipo_telefono}}</td>
