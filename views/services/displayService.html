@@ -29,68 +29,235 @@
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#commission" role="tab">Comisiones</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#affected" role="tab">Afectados</a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#externalSupport" role="tab">Apoyo externo</a></li>
-    {{if service.Borrador and service.Aprueba == None:}}
-    <li class="nav-item navbar-right">
-      <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">
-        Editar servicio <span class="glyphicon glyphicon-edit"></span>
-      </a>
+    {{if not service.aprobado:}}
+      <li class="nav-item navbar-right">
+        <a href={{=URL('services','editDraft', vars=dict(id=service.id))}} role="button">
+          Editar servicio <span class="glyphicon glyphicon-edit"></span>
+        </a>
+      </li>
     {{pass}}
   </ul>
 
-  <!-- Tab Información Básica -->
+
   <div class="tab-content top-space-separator">
+    
+    <!-- Tab Información Básica -->
     <div class="tab-pane active" id="basicinfo" role="tabpanel">
-      <div class="container-fluid">
+      <div class="col-xs-12 col-sm-6">
         <div class="row">
-          <div class="col-xs-12 col-sm-6">
-            <label>Tipo de Servicio</label>
+
+          <div class="col-xs-12 col-sm-12">
+            <label for="startDate">Tipo de Servicio</label>
             <p>{{=service.tipo}}</p>
           </div>
+       
+        </div>
 
-          <div class="col-xs-12 col-sm-3">
-              <label>Fecha/hora de inicio</label>
-              <p>{{=service.fechaCreacion}}</p>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6">
+            <label for="startDate">Fecha de Inicio</label>
+            <p>{{=service.fechaCreacion}}</p>
           </div>
+          <div class="col-xs-6 col-sm-6">
+            <label for="endDate">Hora de Inicio</label>
+            <p>{{=service.horaCreacion}}</p>
+          </div>
+        </div>
 
-          <!--
-          <label for="stadrtDate">Fecha y hora de llegada</label>
-          -->
-
-          <div class="col-xs-12 col-sm-3">
-              <label>Fecha/hora de fin</label>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6">
+            <label for="endDate">Fecha de Fin</label>
               <p>{{=service.fechaFinalizacion}}</p>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="col-xs-12">
-            <label>Descripción</label>
-            <p>{{=service.descripcion}}</p>
+          <div class="col-xs-6 col-sm-6">
+            <label for="endDate">Hora de Fin</label>
+              <p>{{=service.horaFinalizacion}}</p>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-xs-12">
-            <label>Dirección</label>
-            <p>{{=service.localizacion}}</p>
-          </div>
-        </div>
+      
       </div>
+     
+      <div class="col-xs-12 col-sm-6">
+        <label for="description">Descripción</label>
+        <p>{{=service.descripcion}}</p>
+        <label for="address">Dirección</label>
+        <p>{{=service.localizacion}}</p>
+      </div>
+    
     </div>
 
     <!-- Tab Comisiones -->
     <div class="tab-pane fade" id="commission" role="tabpanel">
-      <div><h2>Coming Soon...</h2></div>
-    </div>
+      {{for comision in comisiones:}}
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>Comisión <kbd>{{=comision["numero"]}}</kbd></h3>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">            
+            <label>Jefe de comisión</label>
+            <p>{{=comision["jefe"]}}</p>
+          </div>
+          <div class="col-xs-4 col-sm-4">
+            <label>Unidad</label>
+            {{if comision["unidad"] is not None:}}
+              <p>{{=comision["unidad"]}}</p>
+            {{else:}}
+              <p>Ninguno</p>
+            {{pass}}
+          </div>
+          <div class="col-xs-8s col-sm-4">
+            <label>Conductor</label>
+            {{if comision["unidad"] is not None:}}
+              <p>{{=comision["conductor"]}}</p>
+            {{else:}}
+              <p>Ninguno</p>
+            {{pass}}
+          </div>
+        </div>
+            
+        <div class="row">
+          <div class="col-xs-12">
+            <label>Acompañantes</label>
+            {{if not comision["acompanantes"]:}}
+              <p>Ninguno</p>
+            {{else:}}
+              {{for acompanante in comision["acompanantes"]:}}
+                <p>{{=acompanante}}</p>
+              {{pass}}
+            {{pass}}
+          </div>
+        </div>
+        
+        <hr>
+      {{pass}}
+      </div>
 
-    <!-- Tab Afectados -->
-    <div class="tab-pane fade" id="affected" role="tabpanel">
-      <div><h2>Coming Soon...</h2></div>
-    </div>
+
+      <!-- Tab Afectados -->
+      <div class="tab-pane fade" id="affected" role="tabpanel">
+            
+        {{for afectado in afectados:}}    
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <h3>Afectado <kbd>{{=afectado["counter"]}}</kbd></h3>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-xs-8 col-sm-8">
+              <div class="row">
+                <div class="col-xs-4 col-sm-4">
+                  <label>Primer Nombre</label>
+                  <p>{{=afectado["primer_nombre"]}}</p>
+                </div>
+                <div class="col-xs-4 col-sm-4">
+                  <label>Primer Apellido</label>
+                  <p>{{=afectado["primer_apellido"]}}</p>
+                </div>
+                <div class="col-xs-4 col-sm-4">
+                  <label>Segundo Apellido</label>
+                  <p>{{=afectado["segundo_apellido"]}}</p>
+                </div>
+              </div>
+            
+              <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                  <label>Cedula</label>
+                  <p>{{=afectado["cedula"]}}</p>
+                </div>
+                <div class="col-xs-6 col-sm-6">
+                  <label>Sexo</label>
+                  <p>{{=afectado["sexo"]}}</p>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                  <label>Tipo</label>
+                  <p>{{=afectado["tipo"]}}</p>
+                </div>
+              </div>
+           
+              <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                    <label>Correo Principal</label>
+                    <p>{{=afectado["email_principal"]}}</p>
+                    <label>Correo Alternativo</label>
+                    <p>{{=afectado["email_alternativo"]}}</p>
+                </div>
+                <div class="col-xs-6 col-sm-6">
+                    <label>Teléfonos</label>
+                    {{for numero in afectado["numeros"]:}}
+                      <p>{{=numero}}</p>
+                    {{pass}}
+                </div>
+              </div>          
+            </div>
+        
+            <div class="col-xs-4 col-sm-4">
+              <label>Notas/Tratamiento</label>
+              <p>{{=afectado["notastratamiento"]}}</p>
+            </div>
+          </div>
+          <hr>
+        {{pass}}
+      </div>
+
 
     <!-- Tab Apoyo Externo -->
     <div class="tab-pane fade" id="externalSupport" role="tabpanel">
-      <div><h2>Coming Soon...</h2></div>
+      {{for externo in externos:}}
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-12">
+              <h3 id="comisionExtTitle1" name="comisionExtTitle1">Comisión Externa <kbd>{{=externo["counter"]}}</kbd></h3>
+              <div class="col-xs-12 col-sm-12">
+                <label>Cuerpo o Departamento</label>
+                <p>{{=externo["cuerpoDepartamento"]}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-7">
+                <label>Jefe</label>
+                <p>{{=externo["jefe"]}}</p>
+              </div>
+              <div class="col-xs-12 col-sm-5">
+                <label>Número de acompañantes</label>
+                <p>{{=externo["numAcomp"]}}</p>
+              </div>
+              <div id="unitExtCNT1">
+                <div id="unitExt1-1">
+                  <div class="col-xs-6 col-sm-6">
+                    <label for="unitExtValue1-1">Unidad</label>
+                    <p>{{=externo["unidad"]}}</p>
+                  </div>
+                  <div class="col-xs-6 col-sm-6">
+                    <label for="unitExtValue1-1">Placa Unidad</label>
+                    <p>{{=externo["placa"]}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-5 col-sm-offset-1">
+            <br />
+            <br />
+            <br />
+            <label>Comentario</label>
+            <p>{{=externo["comentario"]}}</p>
+          </div>
+        </div>
+        <hr>
+      {{pass}}
     </div>
+
   </div>
+
+
 </div>
+
+{{block page_js}}
+<!-- Google Maps -->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>-->
+{{end}}

@@ -115,105 +115,6 @@ Varios
 }
 
 /*####################
-Carousel
-#####################*/
-
-.carousel {
-  width: 100%;
-  max-height: 700px;
-  min-height: 250px;
-}
-
-.carousel .item img {
-  width: 100%;
-  max-height: 700px;
-  min-height: 250px;
-}
-
-/*####################
-Iconos de servicios
-#####################*/
-/*
-.service-item {
-  display: inline-block;
-  margin: 2px;
-}
-*/
-.wrapper {
-  background: #1565C0;
-
-  display:block;
-  width:280px;
-  height:180px;
-
-  color: white;
-
-  line-height: 180px;
-  text-align: center;
-
-  border: 5px solid #1565C0;
-  border-radius: 20px;
-  padding-left: 25px;
-  padding-right: 25px;
-
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease;
-}
-
-.wrapper-large {
-  width:350px;
-}
-
-.wrapper:hover {
-  background: white;
-  border-color: #1565C0;
-  color: #1565C0;
-}
-
-.text {
-  font-family: 'Hammersmith One', sans-serif;
-  font-size: 40px;
-  font-weight: 600;
-  text-transform: capitalize;
-
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
-}
-
-.form-textbox{
-  height:200px !important;
-  width:450px !important;
-  font-size:14px !important;
-}
-
-.form-search{
-  width:450px !important;
-  background-color: #f9f9f9;
-}
-
-.card-item{
-  margin-bottom:15px;
-  border:double;
-}
-
-.card-item:hover{
-  background:rgba(237,237,237,0.9);
-  opacity:.9;
-}
-
-.text-on-image {
-  background:rgba(22,22,22,0.9);
-  color: #fff;
-  height: 150px;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-clip: padding-box;
-}
-
-/*####################
 Magia para el footer
 #####################*/
 
@@ -227,11 +128,6 @@ Magia para el footer
   flex: 1;
 }
 
-.custom-button {
-  background-color: #1565C0;
-  color: white;
-}
-
 /*####################
 Hand pointer (Manito)
 #####################*/
@@ -241,11 +137,35 @@ Hand pointer (Manito)
   cursor: hand;
 }
 
+/*####################
+Botones
+#####################*/
+
+.removeButton {
+  background: transparent;
+  border: 0px solid transparent;
+  color: gray;
+  padding: 10px;
+}
+
+.removeButton:hover, .removeButton:focus {
+  color: red;
+}
+
+/*####################
+Forms
+#####################*/
+
+.form-group.required .control-label:after {
+   content:"*";
+   color:red;
+}
+
 /*####################################
   Letras rojas en errores de SQLFORM
 ######################################*/
 
-div#username__error.error, div#password__error.error, 
+div#username__error.error, div#password__error.error,
 div#password_again__error.error
 {
   color: red;
@@ -255,7 +175,7 @@ div#first_name__error.error, div#last_name__error.error{
   color: red;
 }
 
-div#primer_nombre__error.error, div#segundo_nombre__error.error, 
+div#primer_nombre__error.error, div#segundo_nombre__error.error,
 div#primer_apellido__error.error, div#segundo_apellido__error.error,
 div#cedula__error.error, div#fecha_nacimiento__error.error,
 div#genero__error.error, div#email_principal__error.error,

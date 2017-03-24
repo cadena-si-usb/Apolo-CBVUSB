@@ -43,7 +43,6 @@
    + Jquery datePair v0.4.15      (incluido)
    + Jquery formValidator v2.3.55 (incluido)
    + Jquery timePicker v1.11.10   (incluido)
-   + Jquery UI v1.12.1            (incluido)
    + SweetAlert                   (incluido)
 
 ## Instalación:
