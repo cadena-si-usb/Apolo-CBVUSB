@@ -258,7 +258,7 @@ $(document).ready(function() {
                         <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" data-validation="length" data-validation-length="11-11" data-validation="number" data-validation-allowing="-+()" placeholder="Teléfono...">\
                     </div>\
                     <div class="text-right" id="quitartlf'+num+'">\
-                        <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator"><small>Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></small></button>\
+                        <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator">Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></button>\
                     </div>\
                 </div>\
             </div>'
@@ -297,7 +297,7 @@ $(document).ready(function() {
                 <div class="col-xs-12 col-sm-9 col-sm-offset-3" style="padding-top: 2%;">\
                     <input type="direccion_descripcion'+num+'" class="form-control" id="direccion_descripcion'+num+'" name="direccion'+num+'" data-validation="string" placeholder="Descripción...">\
                     <div class="text-right" id="quitardireccion'+num+'">\
-                        <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator"><small>Eliminar Dirección <span class="glyphicon glyphicon-remove-sign"></span></small></button>\
+                        <button id="quitardireccion'+num+'" type="button" class="btn btn-primary quitardireccion top-space-separator">Eliminar Dirección <span class="glyphicon glyphicon-remove-sign"></span></button>\
                     </div>\
                 </div>\
             </div>'
@@ -334,7 +334,6 @@ $(document).ready(function() {
     $('#no_table_segundo_apellido').attr('placeholder', 'Segundo apellido...');
     $('#no_table_fecha_nacimiento').attr('placeholder', 'dd/mm/año');
     $('#no_table_email_alternativo').attr('placeholder', 'ejemplo@website.com');
-    $('#no_table_iniciales').attr('placeholder', 'Iniciales del nombre completo...');
     $('#no_table_password_actual').attr('placeholder', 'Clave actual...');
     $('#no_table_password').attr('placeholder', 'Clave nueva...');
     $('#no_table_password_again').attr('placeholder', 'Clave nueva...');
