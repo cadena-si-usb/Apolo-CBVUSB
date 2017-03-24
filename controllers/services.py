@@ -148,32 +148,40 @@ def obtenerComisiones(serviceId):
     for comisionRow in comisionRows:
         comision = dict()
 
-        # Jefe de comision
-        bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
-        comision['jefe'] = nombreBombero(bomberoRow.id_persona)
+        try:
+            # Jefe de comision
+            bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
+            comision['jefe'] = nombreBombero(bomberoRow.id_persona)
+    
+            # Unidad
+            try:
+                unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
+                if unidadUtilizadaRow.unidad is None:
+                    comision["unidad"] = None
+                    comision["conductor"] = None
+                else:
+                    unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
+                    comision["unidad"] = unidadRow.nombre
+                    bomberoRow = unidadUtilizadaRow.conductor
+                    comision["conductor"] = nombreBombero(bomberoRow.id_persona)
+            except:
+                comision["unidad"] = None
+                comision["conductor"] = None                
 
-        # Unidad
-        unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
-        if unidadUtilizadaRow.unidad is None:
-            comision["unidad"] = None
-        else:
-            unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
-            comision["unidad"] = unidadRow.nombre
-            bomberoRow = unidadUtilizadaRow.conductor
-            comision["conductor"] = nombreBombero(bomberoRow.id_persona)
-
-        # Acompanantes
-        acompanantes = list()
-        esAcompananteSet = db(db.es_acompanante.comision == comisionRow.id).select()
-        for esAcompananteRow in esAcompananteSet:
-            bomberoRow = esAcompananteRow.bombero
-            nombre = nombreBombero(bomberoRow.id_persona)
-            acompanantes.append(nombre)
-
-        comision["acompanantes"] = acompanantes
-        comision["numero"] = comisionCounter
-        comisiones.append(comision)
-        comisionCounter += 1
+            # Acompanantes
+            acompanantes = list()
+            esAcompananteSet = db(db.es_acompanante.comision == comisionRow.id).select()
+            for esAcompananteRow in esAcompananteSet:
+                bomberoRow = esAcompananteRow.bombero
+                nombre = nombreBombero(bomberoRow.id_persona)
+                acompanantes.append(nombre)
+    
+            comision["acompanantes"] = acompanantes
+            comision["numero"] = comisionCounter
+            comisiones.append(comision)
+            comisionCounter += 1
+        except:
+            continue
 
     return comisiones
 
@@ -525,18 +533,20 @@ def agregarAprobador(servicioID):
     # Bombero aprobador de servicio
     aprobador = dict()
     aprobador["carnet"] = -1
+    aprobador["id"] = None
 
     comisionRows = db(db.comision.servicio == servicioID).select()
     for comisionRow in comisionRows:
-
-        bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
-
-        # Bombero es seleccionado para ser aprobador de servicio
-        if aprobador["carnet"] == -1 or esMayor(bomberoRow, aprobador):
-            aprobador["rango"] = bomberoRow.rango
-            aprobador["carnet"] = bomberoRow.carnet
-            aprobador["id"] = bomberoRow.id
-
+        try:
+            bomberoRow = db(db.bombero.id == comisionRow.lider).select().first()
+    
+            # Bombero es seleccionado para ser aprobador de servicio
+            if aprobador["carnet"] == -1 or esMayor(bomberoRow, aprobador):
+                aprobador["rango"] = bomberoRow.rango
+                aprobador["carnet"] = bomberoRow.carnet
+                aprobador["id"] = bomberoRow.id
+        except:
+            continue
 
     servicio = db(db.servicio.id == servicioID).select().first()
     servicio.Aprueba = aprobador["id"]
@@ -617,9 +627,26 @@ def register():
 # Funciones que conforman la vista de "Editar borrador"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 @auth.requires_login()
+def eliminarComisiones(request):
+    serviceId = request.vars['id']
+    db(db.comision.servicio == serviceId).delete()
+
+@auth.requires_login()
+def eliminarAfectados(request):
+    serviceId = request.vars['id']
+    db(db.es_afectado.servicio == serviceId).delete()
+
+@auth.requires_login()
+def eliminarApoyoExterno(request):
+    serviceId = request.vars['id']
+    db(db.comision_apoyo.servicio == serviceId).delete()    
+
+@auth.requires_login()
 def editDraft():
 
     if request.env.request_method == 'POST':
+
+        print request.vars['id']
 
         servicio = db(db.servicio.id == request.vars['id']).select().first()
         servicio.id = request.vars['id']
@@ -630,6 +657,10 @@ def editDraft():
         servicio.fechaFinalizacion = request.vars['fechaFinalizacion']
         servicio.descripcion = request.vars['descripcion']
         servicio.localizacion = request.vars['localizacion']
+
+        eliminarComisiones(request)
+        eliminarAfectados(request)
+        eliminarApoyoExterno(request)
 
         registrarComisiones(request)
         registrarAfectados(request)
@@ -763,7 +794,7 @@ def stadistics():
 # Vista para generar exportacion de estadisticas
 def exportarServicio():
 
-    serviceId = 1
+    serviceId = request.vars["id"]
     # Info basica del servicio
     service = db(db.servicio.id == serviceId).select()[0]
 
