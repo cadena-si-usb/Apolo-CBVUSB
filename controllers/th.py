@@ -511,13 +511,15 @@ def gestionarconstancia():
 			print request.args[1]
 			print db(db.constancia.id_solicitante == int(request.args[1])).select()
 			db(db.constancia.id_solicitante == request.args[1]).delete()
-			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' static/pdfs/constancia.pdf')
+			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' constancia.pdf')
+			
+			os.system('rm constancia.pdf')
 
 		if solicitud == 'cancelar' and len(request.args) > 1:
 			db(db.constancia.id == request.args[1]).delete()
 
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
-				& (db.constancia.id_solicitante==db.usuario.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
+				& (db.constancia.id_solicitante==db.bombero.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
 				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
 
 	return dict( usuario=usuario, tabla=tabla, tipo=tipo, no_solicitado=no_solicitado)
