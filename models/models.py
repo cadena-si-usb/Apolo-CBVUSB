@@ -60,7 +60,7 @@ db.define_table('telefono',
 	Field('id_persona', type='reference persona', required=True, notnull=True),
 	Field('tipo_telefono', type='string', default='Móvil'),
 	Field('codigo_telefono', type='integer', length=4, notnull=True),
-	Field('numero_telefono', type='integer', length=7, notnull=True),
+	Field('numero_telefono', type='integer', notnull=True),
 	migrate="db.telefono")
 
 db.define_table('direccion',
