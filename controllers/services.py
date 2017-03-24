@@ -422,6 +422,7 @@ def registrarAfectados(request):
             registrado = False
             for i in db(db.persona.cedula == cedulaAfectado).select():
                 registrado = True
+                personaID = i.id
 
             if not registrado:
                 db.persona.insert(
@@ -437,12 +438,10 @@ def registrarAfectados(request):
                     email_principal = emailPrincipal,
                     email_alternativo = emailAlternativo,
                     estado_civil = "soltero")
+                # Obtener ID de la persona
+                personaID = db.persona.id.max()
+                personaID = db().select(personaID).first()[personaID]
 
-            # Obtener ID de la persona
-            try:
-                personaID = db(db.persona.cedula == cedulaAfectado).select()[0]["id"]
-            except:
-                personaID = None
 
             # Registrar como afectado
             db.es_afectado.insert(
