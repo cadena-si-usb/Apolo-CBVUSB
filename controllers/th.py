@@ -408,7 +408,8 @@ def registrousrth():
 			message='Acaba de ser creado un usuario para usted en el sistema Apolo. El usuario posee las siguientes credenciales:\n\n'+
 					'username: '+formUsuario.vars.username+'\n'
 					'password: '+password+'\n\n'+
-					'Para completar el registro debe llenar sus datos básicos y esperar la confirmación de parte del administrador.\n'+
+					'Tras ingresar al sistema debe completar su perfil llenando el formulario que se le presenta. Una vez llenado y enviado, debe esperar a que el administrador confirme su registro.\n\n'+
+					'Posteriormente, tras ser aprobado por el administrador, puede acceder normalmente al sistema.\n\n'
 					'Bienvenido a Apolo. CBVUSB.'):
 			password =  CRYPT()(password)[0]
 			id_usuario = db.usuario.insert( password=password, **db.usuario._filter_fields(formUsuario.vars))
@@ -499,17 +500,34 @@ def gestionarconstancia():
 				db.constancia.insert(id_solicitante=usuario.bombero.id)
 
 		if solicitud == 'aprobar' and len(request.args) > 1:
+			"""
+			db(db.constancia.id == request.args[1]).delete()
+			mail.send(to=[bombero.usuario.email], 
+						subject='Solicitud de constancia: Aprobada',
+						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por Talento Humano.\n\n'+
+								'Adjunto se envía el archivo:\n\n'+
+								'Sistema de Gestión Apolo. CBVUSB.')
+=======		"""
 			url_constancia = URL('th','constancia', args=[request.args[1],auth.user.id])
 			print request.args[1]
 			print db(db.constancia.id_solicitante == int(request.args[1])).select()
 			db(db.constancia.id_solicitante == request.args[1]).delete()
-			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' static/pdfs/constancia.pdf')
+			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' constancia.pdf')
+			
+			os.system('rm constancia.pdf')
 
 		if solicitud == 'cancelar' and len(request.args) > 1:
 			db(db.constancia.id == request.args[1]).delete()
 
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
-				& (db.constancia.id_solicitante==db.usuario.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
+				& (db.constancia.id_solicitante==db.bombero.id) & (db.usuario.id!=auth.user.id) & (db.usuario.id!="-1"))\
 				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
 
 	return dict( usuario=usuario, tabla=tabla, tipo=tipo, no_solicitado=no_solicitado)
+
+"""
+mail.send(to=[bombero.usuario.email], subject='Solicitud de constancia: Cancelada',
+			message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido rechazada por Talento Humano. Sentimos las molestias ocasionadas.\n\n'+
+					'Sistema de Gestión Apolo. CBVUSB.')
+		redirect(URL('default','usernotconfirmedsent'))
+"""
