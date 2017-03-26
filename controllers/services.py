@@ -29,7 +29,7 @@ def msapproved():
 
     return dict(services=misServiciosAprobados)
 
-# Vista para listar "Mis servicios pendientes por aprovación"
+# Vista para listar "Mis servicios pendientes por aprobación"
 @auth.requires_login()
 def mspending():
 
@@ -266,6 +266,10 @@ def obtenerApoyoExterno(serviceId):
         externo["comentario"] = externoRow.comentario
         externo["counter"] = externoCounter
 
+        if externo["numAcomp"] == None: externo["numAcomp"] = ""
+        if externo["unidad"] == None: externo["unidad"] = ""
+        if externo["placa"] == None: externo["placa"] = ""
+
         externos.append(externo)
         externoCounter += 1
 
@@ -293,7 +297,7 @@ def displayService():
     bombero = db((db.bombero.id==request.args[1]) & (db.persona.id == db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)).select().first()
     db(db.constancia.id_solicitante == request.args[1]).delete()
     os.system('wkhtmltopdf '+request.env.http_host+url_service+' constancia.pdf')
-    mail.send(to=[bombero.persona.email_principal], 
+    mail.send(to=[bombero.persona.email_principal],
                 subject='Solicitud de constancia: Aprobada',
                 message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por el departamente de Talento Humano.\n\n'+
                         'Adjunto se envía la constancia correspondiente:\n\n'+
@@ -790,7 +794,7 @@ def obtenerDuracionServicio(servicio):
 
 # Mostrar servicios pendientes por mi aprobacion
 @auth.requires_login()
-def aprove():
+def approve():
     services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
     registran = list()
     for servicio in  services:
@@ -829,7 +833,7 @@ def mandarCorreo(servicio,emailSubject,emailMessage,emailAttachments = None):
     persona = db(db.persona.id == bombero.id_persona).select().first()
     correo  = persona.email_principal
 
-    mail.send(to=correo, 
+    mail.send(to=correo,
         subject=emailSubject,
         message=emailMessage,
         attachments = emailAttachments)
@@ -844,12 +848,12 @@ def validarServicio():
     servicio.update_record()
 
     # Mandar correo de notificacion de aprobado
-    mandarCorreo(servicio, "Estado servicio "+str(servicio.id)+" : Validado", 
+    mandarCorreo(servicio, "Estado servicio "+str(servicio.id)+" : Validado",
         'Su registro de servicio ' + str(servicio.id) + ' ha sido validado.\n\n'+
-        'Sistema de Gestión Apolo. CBVUSB.')    
+        'Sistema de Gestión Apolo. CBVUSB.')
 
     services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
-    redirect(URL('services','aprove',vars=dict(services=services)))
+    redirect(URL('services','approve',vars=dict(services=services)))
 
 
 @auth.requires_login()
@@ -865,12 +869,12 @@ def rechazarServicio():
     db(db.servicio.id == request.vars["id"]).delete()
 
     # Mandar correo de notificacion de rechazado
-    mandarCorreo(servicio, "Estado servicio "+str(servicio.id)+" : Rechazado", 
+    mandarCorreo(servicio, "Estado servicio "+str(servicio.id)+" : Rechazado",
         'Su registro de servicio ' + str(servicio.id) + ' ha sido rechazado.\n\n'+
-        'Sistema de Gestión Apolo. CBVUSB.')  
+        'Sistema de Gestión Apolo. CBVUSB.')
 
     services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
-    redirect(URL('services','aprove',vars=dict(services=services)))
+    redirect(URL('services','approve',vars=dict(services=services)))
 
 
 # Vista de "Estadisticas"
