@@ -501,7 +501,7 @@ def gestionarconstancia():
 			url_constancia = URL('th','constancia', args=[request.args[1],auth.user.id])
 			bombero = db((db.bombero.id==request.args[1]) & (db.persona.id == db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)).select().first()
 			db(db.constancia.id_solicitante == request.args[1]).delete()
-			os.system('sudo wkhtmltopdf '+request.env.http_host+url_constancia+' '+os.getcwd()+'/constancia.pdf')
+			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' '+os.getcwd()+'/constancia.pdf')
 			mail.send(to=[bombero.persona.email_principal], 
 						subject='Solicitud de constancia: Aprobada',
 						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por el departamente de Talento Humano.\n\n'+
