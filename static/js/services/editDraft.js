@@ -45,26 +45,17 @@ $(document).ready(function() {
     auxEmailCount = "emailsCount" + i;
 
     tmp = $('input[id^="affectedPhone"]:last').prop("id");
-    if (tmp != null) {
-      num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
-      phoneCount = phoneCount.concat([num]);
-      $('input[name='+auxPhoneCount+']').val(num);
-    } else {
-      phoneCount = phoneCount.concat([0]);
-      $('input[name='+auxPhoneCount+']').val(0);
-    }
+    if (tmp != null) num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
+    else num = 0;
+    phoneCount = phoneCount.concat([num]);
+    $("input[name="+auxPhoneCount+"]").val(num);
 
     tmp = $('input[id^="affectedEmail"]:last').prop("id");
-    if (tmp != null) {
-      num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
-      liveEmailsCount = liveEmailsCount.concat([num]);
-      emailsCount = liveEmailsCount;
-      $('input[name='+auxEmailCount+']').val(num);
-    } else {
-      liveEmailsCount = liveEmailsCount.concat([0]);
-      emailsCount = liveEmailsCount;
-      $('input[name='+auxEmailCount+']').val(0);
-    }
+    if (tmp != null) num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
+    else num = 0;
+    liveEmailsCount = liveEmailsCount.concat([num]);
+    emailsCount = emailsCount.concat([num]);
+    $("input[name="+auxEmailCount+"]").val(num);
   }
 
   // Funciones para completacion de datos en carga de borrador
@@ -124,7 +115,7 @@ $(document).ready(function() {
 
     commissionMembersCount[num1-1]++;                           // Aumentar el contador de acompañantes para la comisión correspondiente
     var num2 = commissionMembersCount[num1-1];                  // Variable auxiliar para la sustitucion en el html de abajo
-    $('input[name='+htmlCount+']').val(num2);                   // Actualizar el contador de acompañantes en el html
+    $("input[name="+htmlCount+"]").val(num2);                   // Actualizar el contador de acompañantes en el html
 
     // Inserción del html
     $(commissionMembersCNT).append(
@@ -139,14 +130,13 @@ $(document).ready(function() {
   // Función para los botones para añadir emails
   $("body").on("click","button.addAffectedEmail", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10);      // Obtener el número del afectado al que corresponde el email
-    if (liveEmailsCount[num1-1] < 2) {
+    if (liveEmailsCount[num1-1] < 2) {                   // Verfificar límite de emails por afectado
       var emailCNT = "#emailsCNT" + num1;                // Generar el identificador al contenedor de la unidad correspondiente
       var htmlCount = "emailsCount" + num1;              // Generar identificador del contador de correos en el html
-
       emailsCount[num1-1]++;                             // Aumentar el contador de emails para el afectado correspondiente
       liveEmailsCount[num1-1]++;                         // Aumentar el contador de emails vivos para el afectado correspondiente
       var num2 = emailsCount[num1-1];                    // Variable auxiliar para la sustitucion en el html de abajo
-      $('input[name='+htmlCount+']').val(num2);          // Actualizar el contador de acompañantes en el html
+      $("input[name="+htmlCount+"]").val(num2);          // Actualizar el contador de acompañantes en el html
 
       // Inserción del html
       $(emailCNT).append(
