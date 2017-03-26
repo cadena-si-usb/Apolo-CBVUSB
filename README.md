@@ -32,7 +32,7 @@
    + Editar servicio
    + Listar servicios
    + Ver detalles de servicio
-   + Aprobar servico
+   + Aprobar servicio
    + Iniciar sesión
    + Registrar usuario
    + Modificar perfil
@@ -45,6 +45,7 @@
 
 ## Errores conocidos
    + La función de envio de constancia no funciona en el servidor
+   + Al eliminar alguna instancia de un multivaluado en el formulario de registro de servicio, no se actualiza el contador para las instancias que venian despues de la eliminada.
 
 ## Especificaciones técnicas
 1. Requeirmientos del sistema
