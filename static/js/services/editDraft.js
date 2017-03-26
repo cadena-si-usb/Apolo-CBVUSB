@@ -3,58 +3,55 @@ function registerService() {$('#draft').val("0");};
 function saveDraft() {$('#draft').val("1");};
 
 $(document).ready(function() {
-  var num; var tmp;
+  var commissionsCount = 1;                                             // Contador de comisiones (Por defecto 1)
+  var affectedCount = 0;                                                // Contador de afectados (Por defecto 0)
+  var apoyoExtCount = 0;                                                // Contador de apoyo externo (Por defecto 0)
   var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones
   var affectedCNT = $("#affectedCNT");                                  // ID del contenedor de los afectados
   var apoyoExtCNT = $("#comExtCNT");                                    // ID del contenedor de los afectados
   var addCommission = $("#addCommission");                              // ID del botón para añadir comisiones
   var addAffected = $("#addAffected");                                  // ID del botón para añadir Afectados
   var addApoyoExt = $("#addApoyoExt");                                  // ID del botón para añadir Afectados
-  var commissionMembersCount = [3];
-  var phoneCount = [0];
-  var liveEmailsCount = [0];
-  var emailsCount = [0];
+  var commissionMembersCount = [3];                                     // Número de miembros por comisión (Por defecto 3)
+  var phoneCount = [0];                                                 // Número de teléfonos por comisión (Por defecto 0)
+  var liveEmailsCount = [0];                                            // Número de correos vivos por comisión (Por defecto 0)
+  var emailsCount = [0];                                                // Número de correos totales por comisión (Por defecto 0)
   var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
-  var affectedCount = 0;
-  var apoyoExtCount = 0;
-  var commissionsCount = parseInt( $('div[id^="commission"]:last').prop("id").match(/\d+/g), 10); // Contador de comisiones
-  
-  $tmp = $('div[id^="affected"]:last').prop("id");
-  console.log($tmp);
-  if (!$.isEmptyObject($('div[id^="affected"]:last'))) {
-    num = parseInt($tmp.match(/\d+/g), 10);
-    affectedCount = num;    
-    if ($tmp == affectedCNT) affectedCount = 0;
-  }
+  var num, tmp, auxPhoneCount, auxEmailCount;                           // Variables auxiliares
 
-  $tmp = $('div[id^="comExt"]:last').prop("id");
-  console.log($tmp);
-  if (!$.isEmptyObject($('div[id^="comExt"]:last'))) {
-    num = parseInt($tmp.match(/\d+/g), 10);
-    apoyoExtCount = num;
-    if ($tmp == apoyoExtCNT) apoyoExtCount = 0;
-  }
-
+  // Calcular el número real de comisiones en el servicio y actualizar el contador tanto en el script como en el html
+  commissionsCount = parseInt($('div[id^="commission"]:last').prop("id").match(/\d+/g), 10);
   $('input[name=commissionsCount]').val(commissionsCount);
+
+  // Calcular el número real de afectados en el servicio y actualizar el contador tanto en el script como en el html
+  tmp = $('div[id^="affected"]:last').prop("id").substring(8);
+  if (tmp != "CNT") affectedCount = parseInt(tmp.match(/\d+/g), 10);
   $('input[name=affectedCount]').val(affectedCount);
-  $('input[name=apoyoExtCount]').val(apoyoExtCount);  
-  
+
+  // Calcular el número real de apoyo externo en el servicio y actualizar el contador tanto en el script como en el html
+  tmp = $('div[id^="comExt"]:last').prop("id").substring(6);
+  if (tmp != "CNT") apoyoExtCount = parseInt(tmp.match(/\d+/g), 10);
+  $('input[name=apoyoExtCount]').val(apoyoExtCount);
+
+  // Calcular el número de miembros de cada comisión
   for(i = 0; i < commissionsCount; i++) {
     num = parseInt($('input[id^="commissionMember"]:last').prop("id").match(/\-\d+/g), 10)*-1;
     commissionMembersCount = commissionMembersCount.concat([num]);
   }
- 
+
+  // Calcular el número de emails y teléfonos de cada afectado
   for(i = 0; i < affectedCount; i++) {
-    var phonehtmlCount = "phoneCount" + i;
-    var emailhtmlCount = "emailsCount" + i;
+    auxPhoneCount = "phoneCount" + i;
+    auxEmailCount = "emailsCount" + i;
+
     tmp = $('input[id^="affectedPhone"]:last').prop("id");
     if (tmp != null) {
       num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
       phoneCount = phoneCount.concat([num]);
-      $('input[name='+phonehtmlCount+']').val(num);
+      $('input[name='+auxPhoneCount+']').val(num);
     } else {
       phoneCount = phoneCount.concat([0]);
-      $('input[name='+phonehtmlCount+']').val(0);
+      $('input[name='+auxPhoneCount+']').val(0);
     }
 
     tmp = $('input[id^="affectedEmail"]:last').prop("id");
@@ -62,16 +59,15 @@ $(document).ready(function() {
       num = parseInt(tmp.match(/\-\d+/g), 10)*-1;
       liveEmailsCount = liveEmailsCount.concat([num]);
       emailsCount = liveEmailsCount;
-      $('input[name='+emailhtmlCount+']').val(num);
+      $('input[name='+auxEmailCount+']').val(num);
     } else {
       liveEmailsCount = liveEmailsCount.concat([0]);
       emailsCount = liveEmailsCount;
-      $('input[name='+emailhtmlCount+']').val(0);
+      $('input[name='+auxEmailCount+']').val(0);
     }
   }
 
   // Funciones para completacion de datos en carga de borrador
-
   // Cargar tipo de servicio en dropdown menu
   $('[name=tipo]').val(tipoS);
 
@@ -238,19 +234,19 @@ $(document).ready(function() {
             <div id="commissionMembersCNT'+num1+'">\
               <label for="commissionMember'+num1+'">Acompañantes</label>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-1" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" id="commissionMember'+num1+'-1" name="commissionMember'+num1+'-1" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
               </div>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-2" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" id="commissionMember'+num1+'-2" name="commissionMember'+num1+'-2" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
               </div>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-3" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" id="commissionMember'+num1+'-3" name="commissionMember'+num1+'-3" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
@@ -474,7 +470,7 @@ $(document).ready(function() {
       html: false
     }, function(isConfirm) {
       if (isConfirm) {
-        // Deshabilitar las validaciones de nulidad
+        // Deshabilitar las validaciones
         $('#tipo').removeAttr('data-validation');
         $('#startDate').removeAttr('data-validation');
         $('#startTime').removeAttr('data-validation');
@@ -482,11 +478,27 @@ $(document).ready(function() {
         $('#endTime').removeAttr('data-validation');
         $('#description').removeAttr('data-validation');
         $('#address').removeAttr('data-validation');
-        for(i = 1; i <= commissionsCount; i++) $("#commissionBoss"+i).removeAttr('data-validation');
+        for(i = 1; i <= commissionsCount; i++) {
+          $("#commissionBoss"+i).removeAttr('data-validation');
+          //$("#commissionDriver"+i+"-1").removeAttr('data-validation');
+          //for(j = 1; j <= commissionMembersCount[i-1]; j++) $("#commissionMember"+i+"-"+j).removeAttr('data-validation');
+        }
         for(i = 1; i <= affectedCount; i++) {
           $("#affectedFirstName"+i).removeAttr('data-validation');
+          //$("#affectedSecondName"+i).removeAttr('data-validation');
           $("#affectedFirstSurname"+i).removeAttr('data-validation');
+          //$("#affectedSecondSurname"+i).removeAttr('data-validation');
+          //$("#affectedNotes"+i).removeAttr('data-validation');
+          //for(j = 1; j <= phoneCount[i-1]; j++) $("#affectedPhone"+i+"-"+j).removeAttr('data-validation');
+          //for(j = 1; j <= emailsCount[i-1]; j++) $("#affectedEmail"+i+"-"+j).removeAttr('data-validation');
         }
+        /*for(i = 1; i <= apoyoExtCount; i++) {
+          $("#cuerpoDepartamento"+i).removeAttr('data-validation');
+          $("#jefe"+i).removeAttr('data-validation');
+          $("#unitExtValue"+i).removeAttr('data-validation');
+          $("#unitExtPlaca"+i).removeAttr('data-validation');
+          $("#unitExtNotes"+i).removeAttr('data-validation');
+        }*/
 
         // Enviar form
         form.submit();

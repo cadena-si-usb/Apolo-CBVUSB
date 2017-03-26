@@ -405,7 +405,7 @@ $(document).ready(function() {
       html: false
     }, function(isConfirm) {
       if (isConfirm) {
-        // Deshabilitar las validaciones de nulidad
+        // Deshabilitar las validaciones
         $('#tipo').removeAttr('data-validation');
         $('#startDate').removeAttr('data-validation');
         $('#startTime').removeAttr('data-validation');
@@ -413,11 +413,27 @@ $(document).ready(function() {
         $('#endTime').removeAttr('data-validation');
         $('#description').removeAttr('data-validation');
         $('#address').removeAttr('data-validation');
-        for(i = 1; i <= commissionsCount; i++) $("#commissionBoss"+i).removeAttr('data-validation');
+        for(i = 1; i <= commissionsCount; i++) {
+          $("#commissionBoss"+i).removeAttr('data-validation');
+          //$("#commissionDriver"+i+"-1").removeAttr('data-validation');
+          //for(j = 1; j <= commissionMembersCount[i-1]; j++) $("#commissionMember"+i+"-"+j).removeAttr('data-validation');
+        }
         for(i = 1; i <= affectedCount; i++) {
           $("#affectedFirstName"+i).removeAttr('data-validation');
+          //$("#affectedSecondName"+i).removeAttr('data-validation');
           $("#affectedFirstSurname"+i).removeAttr('data-validation');
+          //$("#affectedSecondSurname"+i).removeAttr('data-validation');
+          //$("#affectedNotes"+i).removeAttr('data-validation');
+          //for(j = 1; j <= phoneCount[i-1]; j++) $("#affectedPhone"+i+"-"+j).removeAttr('data-validation');
+          //for(j = 1; j <= emailsCount[i-1]; j++) $("#affectedEmail"+i+"-"+j).removeAttr('data-validation');
         }
+        /*for(i = 1; i <= apoyoExtCount; i++) {
+          $("#cuerpoDepartamento"+i).removeAttr('data-validation');
+          $("#jefe"+i).removeAttr('data-validation');
+          $("#unitExtValue"+i).removeAttr('data-validation');
+          $("#unitExtPlaca"+i).removeAttr('data-validation');
+          $("#unitExtNotes"+i).removeAttr('data-validation');
+        }*/
 
         // Enviar form
         form.submit();
