@@ -51,9 +51,10 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 		error = True
 
 	elif len(request.vars):
+		print request.vars
 
 		if db(db.bombero.id_usuario==auth.user.id).isempty():
-			db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, **db.usuario._filter_fields(request.vars))
+			db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, email=request.vars.email_principal, **db.usuario._filter_fields(request.vars))
 			id_persona = db.persona.insert( **db.persona._filter_fields(request.vars))
 			db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
 

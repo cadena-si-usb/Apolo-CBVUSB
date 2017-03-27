@@ -256,7 +256,7 @@ $(document).ready(function() {
                             </select>\
                         </div>\
                         <div class="col-xs-12 col-sm-8" style="padding-top: 2%;">\
-                            <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" placeholder="Teléfono...">\
+                            <input type="tel" class="form-control" id="tel'+num+'" name="telefono'+num+'" placeholder="EJ: 02121234567...">\
                         </div>\
                         <div class="text-right" id="quitartlf'+num+'">\
                             <button id="quitartlf'+num+'" type="button" class="btn btn-primary quitartlf top-space-separator">Eliminar Teléfono <span class="glyphicon glyphicon-remove-sign"></span></button>\
@@ -317,10 +317,9 @@ $(document).ready(function() {
     // Funcion para ingresar carnet solo cuando tu cargo no es estudiante
     $("select[name=cargo]").change(function(){
         var cargo = $('select[name=cargo]').val();
-
+        $("#tabla_carnet").remove();
         $('#validadoresGlobales').remove();
-        if (cargo != "Estudiante") {
-            
+        if (cargo != "Estudiante" && cargo != "") {
             $("#tabla_carnet").remove();
             $("#tabla_cargo").after(
                 '<div id="tabla_carnet" class="form-group">\
@@ -332,10 +331,10 @@ $(document).ready(function() {
             $('#validador-here').append('<input id="validadoresGlobales"type="hidden" data-validation="cedulaVal, carnetVal, primerApellidoVal, primeroNombreVal">');
         }      
         else {
+
             $("#tabla_carnet").remove();
             $('#validador-here').append('<input id="validadoresGlobales"type="hidden" data-validation="cedulaVal,  primerApellidoVal, primeroNombreVal">');
         }
-
     });
 
     // Placeholders que faltan, especificamente de los SQLFORM de web2py
