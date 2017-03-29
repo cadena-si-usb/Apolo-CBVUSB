@@ -544,7 +544,7 @@ def jerarquiaRangos():
     rangos["Distinguido"] = 3
     rangos["Cabo Segundo"] = 4
     rangos["Cabo Primero"] = 5
-    rangos["Sargento Segundp"] = 6
+    rangos["Sargento Segundo"] = 6
     rangos["Sargento Primero"] = 7
     rangos["Sargento Mayor"] = 8
     rangos["Teniente"] = 9

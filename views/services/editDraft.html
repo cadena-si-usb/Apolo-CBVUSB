@@ -238,6 +238,14 @@
                       </span>
                     </div>
                     {{pass}}
+                    {{for i in range(len(comision['acompanantes']),3):}}
+                    <div class="commissionMemberField input-group">
+                      <input list="firefighterList" name="commissionMember{{=comision['numero']}}-{{=i+1}}" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">
+                      <span class="input-group-btn">
+                        <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>
+                      </span>
+                    </div>
+                    {{pass}}
                   </div>
                   <div class="text-right">
                     <button id="addCommissionMember1" type="button" class="btn bg-1 addCommissionMember top-space-separator addCommissionMember">

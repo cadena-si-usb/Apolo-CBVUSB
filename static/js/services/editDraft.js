@@ -34,10 +34,10 @@ $(document).ready(function() {
   $('input[name=apoyoExtCount]').val(apoyoExtCount);
 
   // Calcular el número de miembros de cada comisión
-  for(i = 0; i < commissionsCount; i++) {
+  /*for(i = 0; i < commissionsCount; i++) {
     num = parseInt($('input[id^="commissionMember"]:last').prop("id").match(/\-\d+/g), 10)*-1;
     commissionMembersCount = commissionMembersCount.concat([num]);
-  }
+  }*/
 
   // Calcular el número de emails y teléfonos de cada afectado
   for(i = 0; i < affectedCount; i++) {
