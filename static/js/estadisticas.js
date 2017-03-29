@@ -85,14 +85,18 @@ function pieChart() {
       $(this).click( handleTableClick );
 
       // Extract and store the cell colour
+      if ( currentCell % 2 != 0)
+      chartColours[currentRow] = getColor(currentRow);
+       $(this).css('color', 'rgb('+chartColours[currentRow][0]+','+chartColours[currentRow][1]+','+chartColours[currentRow][2]+')');
+      /*
       if ( rgb = $(this).css('color').match( /rgb\((\d+), (\d+), (\d+)/) ) {
-        chartColours[currentRow] = [ rgb[1], rgb[2], rgb[3] ];
+
       } else if ( hex = $(this).css('color').match(/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/) ) {
         chartColours[currentRow] = [ parseInt(hex[1],16) ,parseInt(hex[2],16), parseInt(hex[3], 16) ];
       } else {
         alert( "Error: Colour could not be determined! Please specify table colours using the format '#xxxxxx'" );
         return;
-      }
+      }*/
 
     } );
 
@@ -360,4 +364,47 @@ function pieChart() {
     return ( Math.pow ( 1 - ratio, power ) + 1 );
   }
 
+  function getColor (i) {
+    switch (i) {
+      case 0: return [229,57,53]; break;
+      case 1: return [216,27,96]; break;
+      case 2: return [142,36,170]; break;
+      case 3: return [94,53,177]; break;
+      case 4: return [57,73,171]; break;
+      case 5: return [30,136,229]; break;
+      case 6: return [3,155,229]; break;
+      case 7: return [0,172,193]; break;
+      case 8: return [0,137,123]; break;
+      case 9: return [67,160,71]; break;
+      case 10: return [124,179,66]; break;
+      case 11: return [192,202,51]; break;
+      case 12: return [253,216,53]; break;
+      case 13: return [255,179,0]; break;
+
+      //De aqui en adelante mas colores en caso de que se agregen mas servicios
+      case 14: return [251,140,0]; break;
+      case 15: return [244,81,30]; break;
+      case 16: return [109,76,65]; break;
+      case 17: return [117,117,117]; break;
+      case 18: return [84,110,122]; break;
+      case 19: return [213,0,0]; break;
+      case 20: return [197,17,98]; break;
+      case 21: return [170,0,255]; break;
+      case 22: return [98,0,234];  break;
+      case 23: return [48,79,254]; break;
+      case 24: return [41,98,255]; break;
+      case 25: return [0,145,234]; break;
+      case 26: return [0,184,212]; break;
+      case 27: return [0,191,165]; break;
+      case 28: return [0,200,83]; break;
+      case 29: return [100,221,23]; break;
+      case 30: return [174,234,0]; break;
+      case 31: return [255,214,0]; break;
+      case 32: return [255,171,0]; break;
+      case 33: return [255,109,0]; break;
+      case 34: return [221,44,0]; break;
+      //modo random
+      default: return [Math.floor(Math.random() * 255) + 1, Math.floor(Math.random() * 255) + 1, Math.floor(Math.random() * 255) + 1]; break;
+    }
+  }
 };

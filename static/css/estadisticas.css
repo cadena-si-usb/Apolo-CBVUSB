@@ -1,10 +1,10 @@
 #chart, #chartData {
   border: 1px solid #333;
-  background: #ebedf2 url("../images/gradient.png") repeat-x 0 0;
 }
 
 #chart {
   cursor: pointer;
+  background: #ebedf2 url("../images/gradient.png") repeat-x 0 0;
 }
 
 #chartData {
@@ -29,9 +29,9 @@
 }
 
 #chartData td.highlight {
-  background: #e8e8e8;
+  background: #FFFF8D;
 }
 
 #chartData tr:hover td {
-  background: #f0f0f0;
+  background: #212121;
 }
