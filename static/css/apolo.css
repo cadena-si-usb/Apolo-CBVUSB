@@ -197,8 +197,11 @@ label#usuario_remember_me__label {
 
 .selectOption a{
   text-decoration: none;
+  color:#000000;
+}
+
+.selectOption a:hover{
   color:#1565C0;
-  background-color:white;
 }
 
 .selectOption div:hover{
@@ -206,4 +209,3 @@ label#usuario_remember_me__label {
   color:#1565C0;
   border-radius: 10px;
 }
-

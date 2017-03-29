@@ -1,0 +1,37 @@
+#chart, #chartData {
+  border: 1px solid #333;
+}
+
+#chart {
+  cursor: pointer;
+  background: #ebedf2 url("../images/gradient.png") repeat-x 0 0;
+}
+
+#chartData {
+  width: 200px;
+  border-collapse: collapse;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
+}
+
+#chartData th, #chartData td {
+  padding: 0.5em;
+  text-align: center;
+}
+
+#chartData th {
+  text-transform: uppercase;
+}
+
+#chartData td {
+  cursor: pointer;
+}
+
+#chartData td.highlight {
+  background: #FFFF8D;
+}
+
+#chartData tr:hover td {
+  background: #212121;
+}
