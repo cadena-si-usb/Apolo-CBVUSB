@@ -748,6 +748,64 @@ def editDraft():
 
         return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos, nombreUnidades=nombreUnidades, nombresArray=nombresArray)
 
+@auth.requires_login()
+def editPending():
+
+    if request.env.request_method == 'POST':
+
+        servicio = db(db.servicio.id == request.vars['id']).select().first()
+        servicio.id = request.vars['id']
+        servicio.tipo = request.vars['tipo']
+        servicio.horaCreacion = request.vars['horaCreacion']
+        servicio.fechaCreacion = request.vars['fechaCreacion']
+        servicio.horaFinalizacion = request.vars['horaFinalizacion']
+        servicio.fechaFinalizacion = request.vars['fechaFinalizacion']
+        servicio.descripcion = request.vars['descripcion']
+        servicio.localizacion = request.vars['localizacion']
+
+        eliminarComisiones(request)
+        eliminarAfectados(request)
+        eliminarApoyoExterno(request)
+
+        registrarComisiones(request)
+        registrarAfectados(request)
+        registrarApoyoExterno(request)
+
+        # Registrar form
+        if request.vars['borrador'] == "False":
+            servicio.Borrador = False
+            servicio.update_record()
+            redirect(URL('services','index.html'))
+        # Guardar borrador y continuar edicion
+        else:
+            servicio.update_record()
+            redirect(URL('services','editDraft.html',vars=dict(id=request.vars['id'])))
+
+    else:
+
+        serviceId = request.vars.id
+        service = db(db.servicio.id == serviceId).select()[0]
+
+        nombreBomberos = obtenerNombreBomberos()
+
+        # Comisiones del servicio
+        comisiones = obtenerComisiones(serviceId)
+
+        # Afectados del servicio
+        afectados = obtenerAfectados(serviceId)
+
+        # Comisiones de apoyo
+        externos = obtenerApoyoExterno(serviceId)
+
+        # Obtener nombres de unidades
+        nombreUnidades = obtenerNombreUnidades()
+
+        # Obtener array con los nombres de los bomberos (brutal pal javaScript)
+        nombresArray = []
+        for nombre in nombreBomberos: nombresArray.append(nombre)
+
+        return dict(service=service, nombreBomberos=nombreBomberos, comisiones=comisiones, afectados=afectados, externos=externos, nombreUnidades=nombreUnidades, nombresArray=nombresArray)
+
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Funciones que conforman la vista de "Aprobar Servicio"
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -860,6 +918,11 @@ def validarServicio():
 def editarServicio():
     # Editar servicio pendiente por aprobacion
     redirect(URL('services','editDraft.html',vars=dict(id=request.vars['id'])))
+
+@auth.requires_login()
+def editarPendiente():
+    # Editar servicio pendiente por aprobacion
+    redirect(URL('services','editPending.html',vars=dict(id=request.vars['id'])))
 
 @auth.requires_login()
 def rechazarServicio():
