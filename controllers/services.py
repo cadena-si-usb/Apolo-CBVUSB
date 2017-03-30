@@ -570,7 +570,7 @@ def esMayor(bombero, aprobador):
     elif rangos[bombero.rango] < rangos[aprobador["rango"]]:
         return False
     else:
-        return bombero.carnet < aprobador["carnet"]
+        return bombero.carnet <= aprobador["carnet"]
 
 
 # Funcion para agregar bombero que debe aprobar el servicio
@@ -708,23 +708,27 @@ def editDraft():
         servicio.descripcion = request.vars['descripcion']
         servicio.localizacion = request.vars['localizacion']
 
+        if request.vars['borrador'] == "False":
+            servicio.Borrador = False
+        
+        # Registrar form
+        servicio.update_record()
+
         eliminarComisiones(request)
         eliminarAfectados(request)
         eliminarApoyoExterno(request)
-
 
         registrarComisiones(request)
         registrarAfectados(request)
         registrarApoyoExterno(request)
 
-        # Registrar form
+        agregarAprobador(request.vars["id"])
+
+       # Registrar form
         if request.vars['borrador'] == "False":
-            servicio.Borrador = False
-            servicio.update_record()
             redirect(URL('services','index.html'))
         # Guardar borrador y continuar edicion
         else:
-            servicio.update_record()
             redirect(URL('services','editDraft.html',vars=dict(id=request.vars['id'])))
 
     else:
@@ -767,6 +771,12 @@ def editPending():
         servicio.descripcion = request.vars['descripcion']
         servicio.localizacion = request.vars['localizacion']
 
+        if request.vars['borrador'] == "False":
+            servicio.Borrador = False
+        
+        # Registrar form
+        servicio.update_record()
+
         eliminarComisiones(request)
         eliminarAfectados(request)
         eliminarApoyoExterno(request)
@@ -775,14 +785,13 @@ def editPending():
         registrarAfectados(request)
         registrarApoyoExterno(request)
 
-        # Registrar form
+        agregarAprobador(request.vars["id"])
+
+       # Registrar form
         if request.vars['borrador'] == "False":
-            servicio.Borrador = False
-            servicio.update_record()
             redirect(URL('services','index.html'))
         # Guardar borrador y continuar edicion
         else:
-            servicio.update_record()
             redirect(URL('services','editDraft.html',vars=dict(id=request.vars['id'])))
 
     else:
