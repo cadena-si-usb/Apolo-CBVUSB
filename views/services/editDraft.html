@@ -214,6 +214,7 @@
                     <div id="unit{{=comision['numero']}}-1">
                       <div class="col-xs-4 col-sm-4">
                         <select id="unitValue{{=comision['numero']}}-1" class="form-control" name="unitValue{{=comision['numero']}}-1">
+                          <option value="" selected="selected">--</option>
                           {{for unidad in nombreUnidades:}}
                             {{if unidad == comision['unidad']:}}
                             <option value="{{=unidad}}" selected>{{=unidad}}</option>

@@ -41,42 +41,43 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 		redirect(URL('default','usernotconfirmedsent'))
 
 	varsForm = dict((k,v) for k,v in request.vars.iteritems() if v != '')
-	print len(request.vars)
-	print len(varsForm)
-
-	print request.vars
-	print varsForm
 
 	if len(request.vars) != len(varsForm):
 		error = True
 
 	elif len(request.vars):
-		print request.vars
 
-		if db(db.bombero.id_usuario==auth.user.id).isempty():
-			db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, email=request.vars.email_principal, **db.usuario._filter_fields(request.vars))
-			id_persona = db.persona.insert( **db.persona._filter_fields(request.vars))
-			db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
+		if not(db((db.persona.cedula==request.vars.cedula) & (db.bombero.id_persona==db.persona.id) & (db.bombero.id_usuario != auth.user.id)).isempty()):
+			error = True
 
-		else:
-			db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, **db.usuario._filter_fields(request.vars))
-			db(db.bombero.id_usuario==auth.user.id).update( **db.persona._filter_fields(request.vars))
-			db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
+		if not(db((db.bombero.carnet == request.vars.carnet) & (db.bombero.id_usuario != auth.user.id) & (db.bombero.carnet != 0)).isempty()):
+			error = True
 
-		bombero = db((db.bombero.id_usuario==auth.user.id) & (db.usuario.id==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
+		if not error:
+			if db(db.bombero.id_usuario==auth.user.id).isempty():
+				db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, email=request.vars.email_principal, **db.usuario._filter_fields(request.vars))
+				id_persona = db.persona.insert( **db.persona._filter_fields(request.vars))
+				db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
 
-		mail.send(to=[bombero.usuario.email], subject='Confirmación de usuario: Pendiente',
-			message='Estimado '+bombero.usuario.username+' su información acaba de ser enviada y pronto le será notificado el resultado.\n\n'+
-					'Su información ingresada fue la siguiente:\n\n'+
-					'\tCedula: '+str(bombero.persona.cedula)+'\n'+
-					'\tNombre: '+bombero.persona.primer_nombre+'\n'+
-					'\tApellido: '+bombero.persona.primer_apellido+'\n'+
-					'\tGenero: '+bombero.persona.genero+'\n'+
-					'\tRango: '+bombero.bombero.rango+'\n'+
-					'\tCargo: '+bombero.bombero.cargo+'\n'+
-					'\tCarnet: '+str(bombero.bombero.carnet)+'\n\n'+
-					'Sistema de Gestión Apolo. CBVUSB.')
-		redirect(URL('default','usernotconfirmedsent'))
+			else:
+				db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, **db.usuario._filter_fields(request.vars))
+				db(db.bombero.id_usuario==auth.user.id).update( **db.persona._filter_fields(request.vars))
+				db.bombero.insert( id_usuario=auth.user.id, id_persona=id_persona, **db.bombero._filter_fields(request.vars))
+
+			bombero = db((db.bombero.id_usuario==auth.user.id) & (db.usuario.id==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
+
+			mail.send(to=[bombero.usuario.email], subject='Confirmación de usuario: Pendiente',
+				message='Estimado '+bombero.usuario.username+' su información acaba de ser enviada y pronto le será notificado el resultado.\n\n'+
+						'Su información ingresada fue la siguiente:\n\n'+
+						'\tCedula: '+str(bombero.persona.cedula)+'\n'+
+						'\tNombre: '+bombero.persona.primer_nombre+'\n'+
+						'\tApellido: '+bombero.persona.primer_apellido+'\n'+
+						'\tGenero: '+bombero.persona.genero+'\n'+
+						'\tRango: '+bombero.bombero.rango+'\n'+
+						'\tCargo: '+bombero.bombero.cargo+'\n'+
+						'\tCarnet: '+str(bombero.bombero.carnet)+'\n\n'+
+						'Sistema de Gestión Apolo. CBVUSB.')
+			redirect(URL('default','usernotconfirmedsent'))
 
 	if not error:
 		tipo="success"
@@ -128,6 +129,8 @@ def confirmar():
 					'\t2. Tras ingresar le recomendamos que vaya a la pestaña '+bombero.usuario.username+' y modifique su contraseña en modificar perfil.\n'+
 					'\t3. Le invitamos a completar la información personal en la pestaña de modificar.\n\n'+
 					'Sistema de Gestión Apolo. CBVUSB.')
+
+			redirect(URL("default","confirmar"))
 
 		if opcion == 'eliminar':
 			if not db(db.bombero.id_usuario==id_bombero).isempty():
