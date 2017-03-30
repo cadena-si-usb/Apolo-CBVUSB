@@ -153,7 +153,7 @@ $(document).ready(function() {
             if (isConfirm) {
                 window.location.href = href;
                 swal({
-                    title: "Contancia cancelada",
+                    title: "Constancia cancelada",
                     type: "success",
                     showConfirmButton: false,
                     html: false
@@ -323,7 +323,7 @@ $(document).ready(function() {
             $("#tabla_carnet").remove();
             $("#tabla_cargo").after(
                 '<div id="tabla_carnet" class="form-group">\
-                    <label class="control-label col-sm-3" for="carnet">Carnet *</label>\
+                    <label class="control-label col-sm-3" for="carnet">Carnet</label>\
                     <div class="col-sm-9">\
                         <input id="carnet" class="form-control string" type="text" name="carnet">\
                     </div>\
