@@ -26,7 +26,26 @@
    + Salvador Covelo
 
 ## Estado del proyecto
-20% del sistema completado.
+30% del sistema completado. Algunas de las funcionalidades del sistema son:
+   + Registro de servicio
+   + Guardar borrador de servicio
+   + Editar servicio
+   + Listar servicios
+   + Ver detalles de servicio
+   + Aprobar servicio
+   + Iniciar sesión
+   + Registrar usuario
+   + Modificar perfil
+   + Ver perfil
+   + Ver estadísticas públicas
+   + Exportar servicio
+   + Exportar estadísticas
+   + Enviar constancias
+   + Notificaciones de actividad por correo electrónico
+
+## Errores conocidos
+   + La función de envio de constancia no funciona en el servidor
+   + Al eliminar alguna instancia de un multivaluado en el formulario de registro de servicio, no se actualiza el contador para las instancias que venian despues de la eliminada.
 
 ## Especificaciones técnicas
 1. Requeirmientos del sistema
@@ -34,6 +53,7 @@
    + Python v2.7.x
    + Libreria python-ldap
    + Libreia psycopg2
+   + wkhtmltopdf
 
 2. Versiones de los componentes
    + Bootstrap v3.3.5             (incluido)
@@ -64,4 +84,3 @@ cd web2py/applications/apolo/
 sudo ./DBINSTALL.sh
 ```
 + Ingresar "1234" cuando solicite la contraseña para crear el nuevo role
-+ Mover la carpeta "web2py/aplications/apolo/site-packages/" a "web2py/", o hacer un enlace simbólico

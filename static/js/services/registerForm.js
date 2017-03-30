@@ -1,10 +1,6 @@
 var borrador = false;
-function registerService() {
-  $('#draft').val("0");
-};
-function saveDraft() {
-  $('#draft').val("1");
-};
+function registerService() {$('#draft').val("0");};
+function saveDraft() {$('#draft').val("1");};
 
 $(document).ready(function() {
   var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones
@@ -22,8 +18,6 @@ $(document).ready(function() {
   var phoneCount = [0];                                                 // Arreglo para contar los Teléfonos (Por defecto 0)
   var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
 
-  console.log(bomberos[0]);
-
   // Función para los botones de eliminar comisión
   $(commissionsCNT).on("click","button.removeGroup", function() {
     var $parent = $($($($($(this).parent('span')).parent('div')).parent('div')).parent('div')).parent('div');
@@ -32,13 +26,13 @@ $(document).ready(function() {
 
   // Función para los botones de eliminar afectado
   $(affectedCNT).on("click","button.removeGroup", function() {
-    var $parent = $($($($($($($(this).parent('span')).parent('div')).parent('div')).parent('div')).parent('div')).parent('div')).parent('div');
+    var $parent = $($($($(this).parent('span')).parent('div')).parent('div')).parent('div');
     $parent.remove();
   });
 
   // Función para los botones de eliminar apoyo externo
   $(apoyoExtCNT).on("click","button.removeGroup", function() {
-    var $parent = $($($($($($(this).parent('span')).parent('div')).parent('div')).parent('div')).parent('div')).parent('div');
+    var $parent = $($($(this).parent('span')).parent('div')).parent('div');
     $parent.remove();
   });
 
@@ -70,7 +64,7 @@ $(document).ready(function() {
     // Inserción del html
     $(commissionMembersCNT).append(
     '<div class="input-group">\
-      <input list="firefighterList" name="commissionMember'+num1+'-'+num2+'" class="form-control" placeholder="Acompañante de Comisión">\
+      <input list="firefighterList" name="commissionMember'+num1+'-'+num2+'" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
       <span class="input-group-btn">\
         <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
       </span>\
@@ -138,12 +132,15 @@ $(document).ready(function() {
     '<div id="commission'+num1+'">\
       <input type="hidden" name="commissionMembersCount'+num1+'" value="3">\
       <div class="row">\
-        <div class="col-xs-12">\
+        <div class="col-xs-12 col-sm-8">\
           <div class="input-group">\
-            <span class="input-group-btn">\
-              <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>\
-            </span>\
             <h3 id="commissionTitle'+num1+'" name="commissionTitle'+num1+'">Comisión <kbd>'+num1+'</kbd></h3>\
+            <span class="input-group-btn">\
+              <button class="removeButton removeGroup" type="button">\
+                <span>Eliminar comisión </span>\
+                <span class="glyphicon glyphicon-remove"></span>\
+              </button>\
+            </span>\
           </div>\
           <input type="hidden" name="commissionTitle'+num1+'" value="commissionTitle'+num1+'">\
         </div>\
@@ -152,7 +149,7 @@ $(document).ready(function() {
         <div class="col-xs-12 col-sm-4">\
           <div class="form-group">\
             <label for="commissionBoss'+num1+'">Jefe de comisión</label>\
-            <input list="firefighterList" name="commissionBoss'+num1+'" class="form-control" data-validation="required" placeholder="Jefe de Comisión">\
+            <input list="firefighterList" id="commissionBoss'+num1+'" name="commissionBoss'+num1+'" class="form-control" data-validation="required, validName" placeholder="Jefe de Comisión">\
           </div>\
           <label for="unitTitle">Unidad</label>\
           <div class="row">\
@@ -162,7 +159,7 @@ $(document).ready(function() {
                 '+unitsListCopy+'\
                 </div>\
                 <div class="col-xs-8 col-sm-8">\
-                  <input list="firefighterList" name="commissionDriver'+num1+'-'+num2+'" class="form-control" placeholder="Conductor">\
+                  <input list="firefighterList" name="commissionDriver'+num1+'-'+num2+'" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Conductor">\
                  </div>\
                 </div>\
               </div>\
@@ -172,19 +169,19 @@ $(document).ready(function() {
             <div id="commissionMembersCNT'+num1+'">\
               <label for="commissionMember'+num1+'">Acompañantes</label>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-1" class="form-control" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" name="commissionMember'+num1+'-1" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
               </div>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-2" class="form-control" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" name="commissionMember'+num1+'-2" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
               </div>\
               <div class="input-group">\
-                <input list="firefighterList" name="commissionMember'+num1+'-3" class="form-control" placeholder="Acompañante de Comisión">\
+                <input list="firefighterList" name="commissionMember'+num1+'-3" class="form-control" data-validation="validName" data-validation-optional="true" placeholder="Acompañante de Comisión">\
                 <span class="input-group-btn">\
                   <button class="removeButton removeField" type="button" title="Eliminar"><span class="glyphicon glyphicon-remove"></span></button>\
                 </span>\
@@ -216,43 +213,46 @@ $(document).ready(function() {
       <input type="hidden" name="emailsCount'+num1+'" value="0">\
       <input type="hidden" name="phoneCount'+num1+'" value="0">\
       <div class="row">\
+        <div class="input-group text-right no-space-bottom">\
+          <span class="input-group-btn">\
+            <button class="removeButton removeGroup" type="button">\
+              <span>Eliminar afectado</span>\
+              <span class="glyphicon glyphicon-remove"></span>\
+            </button>\
+          </span>\
+        </div>\
         <div class="col-xs-12 col-sm-6">\
           <div class="row">\
             <div class="col-xs-12 col-sm-12">\
-              <div class="input-group">\
-                <span class="input-group-btn">\
-                  <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>\
-                </span>\
-                <h3>Afectado <kbd>'+num1+'</kbd></h3>\
-              </div>\
+              <h3>Afectado <kbd>'+num1+'</kbd></h3>\
               <input type="hidden" name="affectedTitle'+num1+'" value="affectedTitle'+num1+'">\
               <label>Nombre *</label>\
             </div>\
             <div class="col-xs-6 col-sm-4 form-group">\
-              <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'" data-validation="required" placeholder="Primer Nombre *">\
+              <input type="text" class="form-control" id="affectedFirstName'+num1+'" name="affectedFirstName'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" placeholder="Primer Nombre *">\
             </div>\
             <!--<div class="col-xs-6 col-sm-2 form-group">\
             <label for="affected'+num1+'" class="sr-only"><small>2do Nombre</small></label>\
-            <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" placeholder="Segundo Nombre">\
+            <input type="text" class="form-control" id="affectedSecondName'+num1+'" name="affectedSecondName'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" data-validation-optional="true" placeholder="Segundo Nombre">\
           </div>-->\
           <div class="col-xs-6 col-sm-4 form-group">\
             <!--  <label for="affected2" class="sr-only">1er Apellido</label>-->\
-            <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" data-validation="required" placeholder="Primer Apellido *">\
+            <input type="text" class="form-control" id="affectedFirstSurname'+num1+'" name="affectedFirstSurname'+num1+'" data-validation="required, custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" placeholder="Primer Apellido *">\
           </div>\
           <div class="col-xs-6 col-sm-4 form-group">\
             <label for="affectedName3" class="sr-only"><small>2do Apellido</small></label>\
-            <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" placeholder="Segundo Apellido">\
+            <input type="text" class="form-control" id="affectedSecondSurname'+num1+'" name="affectedSecondSurname'+num1+'" data-validation="custom" data-validation-regex="^(?:[A-Za-z\u00C0-\u024f]+(?:[\-\'][A-Za-z\u00C0-\u024f]+)?)+$" data-validation-optional="true" placeholder="Segundo Apellido">\
           </div>\
         </div>\
         <div class="row">\
           <div class="col-xs-12 col-sm-4 form-group">\
-            <label for="affectedCI'+num1+'">Cedula</label>\
+            <label for="affectedCI'+num1+'">Cédula</label>\
             <input type="text" class="form-control" id="affectedCI'+num1+'" name="affectedCI'+num1+'" data-validation="number" data-validation-allowing="range[1;99000000]" data-validation-optional="true" placeholder="Número de Cedula">\
           </div>\
           <div class="col-xs-4 col-sm-2">\
             <div class="form-group">\
               <label for="affectedGender'+num1+'">Sexo</label>\
-              <select class="form-control" id="affectedGender'+num1+'" data-validation="required" name="affectedGender'+num1+'">\
+              <select class="form-control" id="affectedGender'+num1+'" name="affectedGender'+num1+'">\
                 <option value="-" selected="selected">-</option>\
                 <option value="F">F</option>\
                 <option value="M">M</option>\
@@ -314,15 +314,18 @@ $(document).ready(function() {
 
     $(apoyoExtCNT).append(
     '<div id="comExt'+num1+'">\
+      <div class="input-group text-right no-space-bottom">\
+        <span class="input-group-btn">\
+          <button class="removeButton removeGroup" type="button">\
+            <span>Eliminar apoyo externo</span>\
+            <span class="glyphicon glyphicon-remove"></span>\
+          </button>\
+        </span>\
+      </div>\
       <div class="row">\
         <div class="col-xs-12 col-sm-6">\
           <div id="comisionExt'+num1+'" class="col-xs-12 col-sm-12">\
-            <div class="input-group">\
-              <span class="input-group-btn">\
-                <button class="removeButton removeGroup" type="button"><span class="glyphicon glyphicon-remove"></span></button>\
-              </span>\
-              <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
-            </div>\
+            <h3 id="comisionExtTitle'+num1+'" name="comisionExtTitle'+num1+'">Comisión Externa <kbd>'+num1+'</kbd></h3>\
             <input type="hidden" name="comisionExtTitle'+num1+'" value="comisionExtTitle'+num1+'">\
             <div class="form-group ui-widget col-xs-12 col-sm-12">\
               <label for="cuerpoDepartamento'+num1+'">Cuerpo o Departamento</label>\
@@ -356,7 +359,7 @@ $(document).ready(function() {
           <br />\
           <label>Comentario</label>\
           <div class="form-group">\
-            <textarea id="unitExtNotes'+num1+'" name="unitExtNotes'+num1+'" class="form-control" data-validation="length" data-validation-length="max 600" rows="9"></textarea>\
+            <textarea id="unitExtNotes'+num1+'" name="unitExtNotes'+num1+'" class="form-control" data-validation="length" data-validation-length="max700" rows="10"></textarea>\
           </div>\
         </div>\
       </div>\
@@ -402,7 +405,7 @@ $(document).ready(function() {
       html: false
     }, function(isConfirm) {
       if (isConfirm) {
-        // Deshabilitar las validaciones de nulidad
+        // Deshabilitar las validaciones
         $('#tipo').removeAttr('data-validation');
         $('#startDate').removeAttr('data-validation');
         $('#startTime').removeAttr('data-validation');
@@ -410,12 +413,32 @@ $(document).ready(function() {
         $('#endTime').removeAttr('data-validation');
         $('#description').removeAttr('data-validation');
         $('#address').removeAttr('data-validation');
-        $('#commissionBoss1').removeAttr('data-validation');
+        for(i = 1; i <= commissionsCount; i++) {
+          $("#commissionBoss"+i).removeAttr('data-validation');
+          //$("#commissionDriver"+i+"-1").removeAttr('data-validation');
+          //for(j = 1; j <= commissionMembersCount[i-1]; j++) $("#commissionMember"+i+"-"+j).removeAttr('data-validation');
+        }
+        for(i = 1; i <= affectedCount; i++) {
+          $("#affectedFirstName"+i).removeAttr('data-validation');
+          //$("#affectedSecondName"+i).removeAttr('data-validation');
+          $("#affectedFirstSurname"+i).removeAttr('data-validation');
+          //$("#affectedSecondSurname"+i).removeAttr('data-validation');
+          //$("#affectedNotes"+i).removeAttr('data-validation');
+          //for(j = 1; j <= phoneCount[i-1]; j++) $("#affectedPhone"+i+"-"+j).removeAttr('data-validation');
+          //for(j = 1; j <= emailsCount[i-1]; j++) $("#affectedEmail"+i+"-"+j).removeAttr('data-validation');
+        }
+        /*for(i = 1; i <= apoyoExtCount; i++) {
+          $("#cuerpoDepartamento"+i).removeAttr('data-validation');
+          $("#jefe"+i).removeAttr('data-validation');
+          $("#unitExtValue"+i).removeAttr('data-validation');
+          $("#unitExtPlaca"+i).removeAttr('data-validation');
+          $("#unitExtNotes"+i).removeAttr('data-validation');
+        }*/
 
         // Enviar form
         form.submit();
 
-        // Popup
+        // Popupexcluir resultados google
         swal("¡Guardado!", "", "success");
       }
     });

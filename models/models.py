@@ -14,7 +14,7 @@ plugins = PluginManager()
 
 auth.settings.login_methods.append(ldap_auth(
 	server='bomberos.usb.ve',
-	base_dn='ou=users,dc=bomberos,dc=usb,dc=ve')) ## No esta en el servidor
+	base_dn='ou=users,dc=bomberos,dc=usb,dc=ve'))
 
 auth.settings.table_user_name = 'usuario'
 auth.settings.extra_fields['usuario']= [Field('disable', type='boolean', default=False),
@@ -60,7 +60,7 @@ db.define_table('telefono',
 	Field('id_persona', type='reference persona', required=True, notnull=True),
 	Field('tipo_telefono', type='string', default='Móvil'),
 	Field('codigo_telefono', type='integer', length=4, notnull=True),
-	Field('numero_telefono', type='integer', length=7, notnull=True),
+	Field('numero_telefono', type='integer', notnull=True),
 	migrate="db.telefono")
 
 db.define_table('direccion',

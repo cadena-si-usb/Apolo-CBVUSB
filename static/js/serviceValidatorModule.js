@@ -65,3 +65,13 @@ $.formUtils.addValidator({
   errorMessage : 'Hay campos vacíos en la pestaña de información básica',
   errorMessageKey: 'incompleteBasicInfo'
 });
+
+$.formUtils.addValidator({
+  name : 'validName',
+  validatorFunction : function(value, $el, config, language, $form) {
+    if($.inArray(value, bomberos) > -1) return true;
+    else return false;
+  },
+  errorMessage : 'No hay coincidencias de bomberos',
+  errorMessageKey: 'validName'
+});

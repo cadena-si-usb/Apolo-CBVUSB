@@ -41,6 +41,8 @@ apt-get -y install python-reportlab
 apt-get -y install mercurial
 /etc/init.d/postgresql restart
 
+./install_pdf.sh
+
 # optional, uncomment for emacs
 # apt-get -y install emacs
 

@@ -19,6 +19,10 @@ Varios
   margin-top: 1em;
 }
 
+.no-space-bottom {
+  margin-bottom: -15px;
+}
+
 /*####################
 Imágenes
 #####################*/
@@ -167,7 +171,7 @@ Forms
 
 div#username__error.error, div#password__error.error,
 div#password_actual__error.error
-div#username__error.error, div#password__error.error, 
+div#username__error.error, div#password__error.error,
 div#password_again__error.error
 {
   color: red;
@@ -193,8 +197,11 @@ label#usuario_remember_me__label {
 
 .selectOption a{
   text-decoration: none;
+  color:#000000;
+}
+
+.selectOption a:hover{
   color:#1565C0;
-  background-color:white;
 }
 
 .selectOption div:hover{
