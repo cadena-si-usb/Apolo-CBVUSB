@@ -139,7 +139,6 @@ def perfilmodth():
 		Field('fecha_nacimiento', 
 			type='date', 
 			notnull=True,
-			#default=date(db.persona.fecha_nacimiento.year, db.persona.fecha_nacimiento.month, db.persona.fecha_nacimiento.day),
 			requires=db.persona.fecha_nacimiento.requires,
 			label='Fecha de nacimiento'
 			),
@@ -160,7 +159,6 @@ def perfilmodth():
 		Field('imagen', 
 			type='upload',
 			uploadfolder=os.path.join(request.folder,'static/profile-images'),
-			#default=os.path.join(request.folder,'static/profile-images',persona.imagen)
 			requires=db.persona.imagen.requires
 			),
 		Field('email_principal', 
@@ -446,12 +444,6 @@ def deshabilitarth():
 
 			db(db.usuario.id==bombero.id_usuario).update(disable=not(usuario.disable))
 
-			#tipo = "success"
-			#if usuario.disable:
-			#	response.flash = '¡El usuario '+usuario.username+' ha sido habilitado satisfactoriamente!'
-			#else:
-			#	response.flash = '¡El usuario '+usuario.username+' ha sido deshabilitado satisfactoriamente!'
-
 	tabla = db((db.persona.id==db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)\
 				& (db.bombero.id_usuario!=userid) & (db.usuario.confirmed==True) & (db.bombero.carnet!="-1"))\
 				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
@@ -473,7 +465,7 @@ def constancia():
 	if len(request.args) == 2:
 		solicitante = db((db.bombero.id==request.args[0]) & (db.persona.id==db.bombero.id_persona)).select().first()
 		direccion = db((db.direccion.id_persona==solicitante.bombero.id_persona)).select(db.direccion.ALL).first()
-		aprobador   = db((db.bombero.id==request.args[1]) & (db.persona.id==db.bombero.id_persona)).select().first()
+		aprobador   = db((db.bombero.id_usuario==request.args[1]) & (db.persona.id==db.bombero.id_persona)).select().first()
 		return dict(solicitante=solicitante, aprobador=aprobador, direccion=direccion)
 	else:
 		redirect(URL('th','gestionarconstancia'))
@@ -501,7 +493,7 @@ def gestionarconstancia():
 			url_constancia = URL('th','constancia', args=[request.args[1],auth.user.id])
 			bombero = db((db.bombero.id==request.args[1]) & (db.persona.id == db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)).select().first()
 			db(db.constancia.id_solicitante == request.args[1]).delete()
-			os.system('sudo wkhtmltopdf '+request.env.http_host+url_constancia+' '+os.getcwd()+'/constancia.pdf')
+			os.system('wkhtmltopdf '+request.env.http_host+url_constancia+' '+os.getcwd()+'/constancia.pdf')
 			mail.send(to=[bombero.persona.email_principal], 
 						subject='Solicitud de constancia: Aprobada',
 						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido aprobada por el departamente de Talento Humano.\n\n'+
@@ -513,7 +505,7 @@ def gestionarconstancia():
 		if solicitud == 'cancelar' and len(request.args) > 1:
 			db(db.constancia.id == request.args[1]).delete()
 			bombero = db((db.bombero.id==request.args[1]) & (db.persona.id == db.bombero.id_persona) & (db.usuario.id==db.bombero.id_usuario)).select().first()
-			aprobador   = db((db.bombero.id==request.args[1]) & (db.persona.id==db.bombero.id_persona)).select().first()
+			aprobador = db((db.bombero.id_usuario==auth.user.id) & (db.persona.id==db.bombero.id_persona)).select().first()
 			mail.send(to=[bombero.persona.email_principal], 
 						subject='Solicitud de constancia: Rechazada',
 						message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido rechazada por el departamento de Talento Humano.\n\n'+
@@ -525,10 +517,3 @@ def gestionarconstancia():
 				.select(distinct=db.bombero.carnet,	orderby=~db.bombero.carnet)
 
 	return dict( usuario=usuario, tabla=tabla, tipo=tipo, no_solicitado=no_solicitado)
-
-"""
-mail.send(to=[bombero.usuario.email], subject='Solicitud de constancia: Cancelada',
-			message='Estimado '+bombero.usuario.username+' su solicitud de constancia ha sido rechazada por Talento Humano. Sentimos las molestias ocasionadas.\n\n'+
-					'Sistema de Gestión Apolo. CBVUSB.')
-		redirect(URL('default','usernotconfirmedsent'))
-"""

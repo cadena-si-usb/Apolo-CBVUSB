@@ -12,9 +12,9 @@ auth = Auth(db, host_names=myconf.get('host.names'))
 service = Service()
 plugins = PluginManager()
 
-#auth.settings.login_methods.append(ldap_auth(
-#	server='bomberos.usb.ve',
-#	base_dn='ou=users,dc=bomberos,dc=usb,dc=ve'))
+auth.settings.login_methods.append(ldap_auth(
+	server='bomberos.usb.ve',
+	base_dn='ou=users,dc=bomberos,dc=usb,dc=ve')) ## No esta en el servidor
 
 auth.settings.table_user_name = 'usuario'
 auth.settings.extra_fields['usuario']= [Field('disable', type='boolean', default=False),
