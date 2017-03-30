@@ -16,7 +16,8 @@ $(document).ready(function() {
   var phoneCount = [0];                                                                         // Número de teléfonos por comisión (Por defecto 0)
   var liveEmailsCount = [0];                                                                    // Número de correos vivos por comisión (Por defecto 0)
   var emailsCount = [0];                                                                        // Número de correos totales por comisión (Por defecto 0)
-  var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML').replace('selected', ''); // Copia de la lista de unidades
+  var unitsList = $('select[id^="unitValue"]:last').prop('outerHTML').replace('selected=""', ''); // Copia de la lista de unidades
+  console.log(unitsList);
   var num, tmp, auxPhoneCount, auxEmailCount;                                                   // Variables auxiliares
 
   // Calcular el número real de comisiones en el servicio y actualizar el contador tanto en el script como en el html
@@ -181,7 +182,7 @@ $(document).ready(function() {
     var num2 = 1;                                                 // Variable auxiliar para la sustitucion en el html de abajo
 
     // Copio la lista de unidades y la formateo para la nueva comisión
-    var unitsListCopy = $unitsList.replace(
+    var unitsListCopy = unitsList.replace(
     '<select id="unitValue1-1" class="form-control" name="unitValue1-1">',
     '<select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">');
 
