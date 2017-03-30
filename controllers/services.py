@@ -173,7 +173,8 @@ def obtenerComisiones(serviceId):
         try:
             # Jefe de comision
             bomberoRow = db(db.bombero.id == comisionRow.lider).select()[0]
-            comision['jefe'] = nombreBombero(bomberoRow.id_persona)
+            comision['jefe'] = nombreBombero(bomberoRow.id_persona).strip().strip('\n').replace("  ", " ")
+
         except:
             continue
 
@@ -182,15 +183,16 @@ def obtenerComisiones(serviceId):
             unidadUtilizadaRow = db(db.unidad_utilizada_por.comision == comisionRow.id).select()[0]
             if unidadUtilizadaRow.unidad is None:
                 comision["unidad"] = None
-                comision["conductor"] = None
+                comision["conductor"] = ""
             else:
                 unidadRow = db(db.unidad.id == unidadUtilizadaRow.unidad).select()[0]
-                comision["unidad"] = unidadRow.nombre
+                comision["unidad"] = unidadRow.nombre.strip().strip('\n').replace("  ", " ")
                 bomberoRow = unidadUtilizadaRow.conductor
-                comision["conductor"] = nombreBombero(bomberoRow.id_persona)
+                comision["conductor"] = nombreBombero(bomberoRow.id_persona).strip().strip('\n').replace("  ", " ")
+
         except:
             comision["unidad"] = None
-            comision["conductor"] = None
+            comision["conductor"] = ""
 
         # Acompanantes
         acompanantes = list()
@@ -198,8 +200,8 @@ def obtenerComisiones(serviceId):
         for esAcompananteRow in esAcompananteSet:
             try:
                 bomberoRow = esAcompananteRow.bombero
-                nombre = nombreBombero(bomberoRow.id_persona)
-                acompanantes.append(nombre)
+                nombre = nombreBombero(bomberoRow.id_persona).strip().strip('\n').replace("  ", " ")
+                acompanantes.append(nombre).strip().strip('\n').replace("  ", " ")
             except:
                 continue
 
@@ -390,13 +392,13 @@ def registrarComisiones(request):
         if request.vars["commissionTitle"+str(commissionCounter)] is not None:
 
             # Jefe de comision
-            jefeComision = request.vars["commissionBoss"+str(commissionCounter)]
+            jefeComision = request.vars["commissionBoss"+str(commissionCounter)].strip().strip('\n').replace("  ", " ")
 
             # Acompanantes
             acompanantes = list()
             for acompanantesCounter in range(1,int(request.vars["commissionMembersCount"+str(commissionCounter)])+1):
                 if request.vars["commissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)] is not None:
-                    acompanantes.append(request.vars["commissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)])
+                    acompanantes.append(request.vars["commissionMember"+str(commissionCounter)+"-"+str(acompanantesCounter)].strip().strip('\n').replace("  ", " "))
 
             # Unidades
             UnidadesCounter = 1
@@ -404,9 +406,8 @@ def registrarComisiones(request):
             conductores = list()
             while request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)] is not None:
                 unidades.append(request.vars["unitValue"+str(commissionCounter)+"-"+str(UnidadesCounter)])
-                conductores.append(request.vars["commissionDriver"+str(commissionCounter)+"-"+str(UnidadesCounter)])
+                conductores.append(request.vars["commissionDriver"+str(commissionCounter)+"-"+str(UnidadesCounter)].strip().strip('\n').replace("  ", " "))
                 UnidadesCounter+=1
-
 
             ####################################
             #### Almacenar en base de datos ####
@@ -429,6 +430,7 @@ def registrarComisiones(request):
 
             # Guardar unidades y conductores
             for unidadComision, conductorComision in zip(unidades,conductores):
+                print unidadComision
                 db.unidad_utilizada_por.insert(
                     unidad = idUnidades.get(unidadComision),
                     conductor = idBomberos.get(conductorComision),

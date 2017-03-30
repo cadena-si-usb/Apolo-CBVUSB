@@ -3,24 +3,25 @@ function registerService() {$('#draft').val("0");};
 function saveDraft() {$('#draft').val("1");};
 
 $(document).ready(function() {
-  var commissionsCount = 1;                                             // Contador de comisiones (Por defecto 1)
-  var affectedCount = 0;                                                // Contador de afectados (Por defecto 0)
-  var apoyoExtCount = 0;                                                // Contador de apoyo externo (Por defecto 0)
-  var commissionsCNT = $("#commissionsCNT");                            // ID del contenedor de las comisiones
-  var affectedCNT = $("#affectedCNT");                                  // ID del contenedor de los afectados
-  var apoyoExtCNT = $("#comExtCNT");                                    // ID del contenedor de los afectados
-  var addCommission = $("#addCommission");                              // ID del botón para añadir comisiones
-  var addAffected = $("#addAffected");                                  // ID del botón para añadir Afectados
-  var addApoyoExt = $("#addApoyoExt");                                  // ID del botón para añadir Afectados
-  var commissionMembersCount = [3];                                     // Número de miembros por comisión (Por defecto 3)
-  var phoneCount = [0];                                                 // Número de teléfonos por comisión (Por defecto 0)
-  var liveEmailsCount = [0];                                            // Número de correos vivos por comisión (Por defecto 0)
-  var emailsCount = [0];                                                // Número de correos totales por comisión (Por defecto 0)
-  var $unitsList = $('select[id^="unitValue"]:last').prop('outerHTML'); // Copia de la lista de unidades
-  var num, tmp, auxPhoneCount, auxEmailCount;                           // Variables auxiliares
+  var commissionsCount = 1;                                                                     // Contador de comisiones (Por defecto 1)
+  var affectedCount = 0;                                                                        // Contador de afectados (Por defecto 0)
+  var apoyoExtCount = 0;                                                                        // Contador de apoyo externo (Por defecto 0)
+  var commissionsCNT = $("#commissionsCNT");                                                    // ID del contenedor de las comisiones
+  var affectedCNT = $("#affectedCNT");                                                          // ID del contenedor de los afectados
+  var apoyoExtCNT = $("#comExtCNT");                                                            // ID del contenedor de los afectados
+  var addCommission = $("#addCommission");                                                      // ID del botón para añadir comisiones
+  var addAffected = $("#addAffected");                                                          // ID del botón para añadir Afectados
+  var addApoyoExt = $("#addApoyoExt");                                                          // ID del botón para añadir Afectados
+  var commissionMembersCount = [3];                                                             // Número de miembros por comisión (Por defecto 3)
+  var phoneCount = [0];                                                                         // Número de teléfonos por comisión (Por defecto 0)
+  var liveEmailsCount = [0];                                                                    // Número de correos vivos por comisión (Por defecto 0)
+  var emailsCount = [0];                                                                        // Número de correos totales por comisión (Por defecto 0)
+  var unitsList = $('select[id^="unitValue"]:last').prop('outerHTML').replace('selected=""', ''); // Copia de la lista de unidades
+  console.log(unitsList);
+  var num, tmp, auxPhoneCount, auxEmailCount;                                                   // Variables auxiliares
 
   // Calcular el número real de comisiones en el servicio y actualizar el contador tanto en el script como en el html
-  commissionsCount = parseInt($('div[id^="commission"]:last').prop("id").match(/\d+/g), 10);
+  commissionsCount = parseInt($('#commissionsCNT > div[id^="commission"]:last').prop("id").match(/\d+/g), 10);
   $('input[name=commissionsCount]').val(commissionsCount);
 
   // Calcular el número real de afectados en el servicio y actualizar el contador tanto en el script como en el html
@@ -181,7 +182,7 @@ $(document).ready(function() {
     var num2 = 1;                                                 // Variable auxiliar para la sustitucion en el html de abajo
 
     // Copio la lista de unidades y la formateo para la nueva comisión
-    var unitsListCopy = $unitsList.replace(
+    var unitsListCopy = unitsList.replace(
     '<select id="unitValue1-1" class="form-control" name="unitValue1-1">',
     '<select id="unitValue'+num1+'-'+num2+'" class="form-control" name="unitValue'+num1+'-'+num2+'">');
 
