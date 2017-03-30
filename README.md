@@ -44,8 +44,7 @@
    + Notificaciones de actividad por correo electrónico
 
 ## Errores conocidos
-   + La función de envio de constancia no funciona en el servidor
-   + Al eliminar alguna instancia de un multivaluado en el formulario de registro de servicio, no se actualiza el contador para las instancias que venian despues de la eliminada.
+   + Ninguno ;)
 
 ## Especificaciones técnicas
 1. Requeirmientos del sistema
