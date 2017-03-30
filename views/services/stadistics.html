@@ -2,7 +2,6 @@
 {{extend 'layout.html'}}
 
 {{block head_css}}
-<link rel="stylesheet" href="{{=URL('static','css/sweetalert.css')}}"/>
 <link rel="stylesheet" href="{{=URL('static','css/estadisticas.css')}}"/>
 {{end}}
 
@@ -115,8 +114,7 @@
 <script>{{=ASSIGNJS(mesS = mes)}}</script>
 <script>{{=ASSIGNJS(anoS = ano)}}</script>
 <script src="{{=URL('static','js/services/estadisticas.js')}}"></script>               <!-- Script para listado de anos -->
-<script src="{{=URL('static','js/sweetalert.min.js')}}"></script>               <!-- Script para mensajes de alerta -->
-<script src="{{=URL('static','js/estadisticas.js')}}"></script>               <!-- Script para mensajes de alerta -->
+<script src="{{=URL('static','js/services/estadisticas2.js')}}"></script>               <!-- Script para listado de anos -->
 <!--[if IE]>
 <script src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
 <![endif]-->

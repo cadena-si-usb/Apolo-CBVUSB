@@ -20,6 +20,10 @@
 
   <script src="{{=URL('static','js/jquery-3.1.1.min.js')}}"></script>                                  <!-- Libreria Jquery para los scripts-->
   <script src="{{=URL('static','js/bootstrap-3.3.5.min.js')}}"></script>                               <!-- Scripts para el funcionamiento de Bootstrap-->
+
+  <script src="{{=URL('static','js/services/pdfServicio.js')}}"></script>
+  <script src="{{=URL('static','js/services/html2canvas.min.js')}}"></script>
+  <script src="{{=URL('static','js/services/jspdf.min.js')}}"></script>
   {{block head_js}}{{end}}                                                                             <!-- Bloque para agregar scripts en una vista especifica-->
   {{block web2py_ajax}}{{include 'web2py_ajax.html'}}{{end}}                                           <!-- Scripts de web2py -->
 
@@ -33,12 +37,25 @@
   (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
 </head>
 <body>
-	<main class="container-fluid" style="margin:25%;" id="constancia">
-	
+	<main class="container-fluid" style="margin-right: 17%; margin-left: 17%;" id="constancia">
+    <div class="row">
+			<div class="col-xs-3">
+				<br>
+				<img class="img-responsive img-center" align="right" src="{{=URL('static','images/logo-150-100.png')}}" style="width:150px;height:100px;">
+			</div>
+			<div class="col-xs-6">
+				<br>
+				<h4 align="center"><strong>UNIVERSIDAD SIMÓN BOLÍVAR<br>CUERPO DE BOMBEROS VOLUNTARIOS<br>FUNDADO EN 1993</strong></h4>
+			</div>
+			<div class="col-xs-3">
+				<img class="img-responsive img-center" align="left" src="{{=URL('static','images/cbvusb_logo_vectorizado-150-150.JPG')}}" style="width:150px;height:150px;">
+			</div>
+		</div>
 
+    <div style="margin-right: 8%;">
 		<!-- /////////////////////EMPIEZA LA PARTE DE IMPRIMIR SERVICIOS ////////////////////////////////////////-->
 		<h3 align="center"><strong> SERVICIO {{ = id }} </strong></h3>
-	
+
 		<h4> Información básica: </h4>
 		<p align = "justify">
 			<strong>&emsp;Tipo de servicio:</strong> &emsp; {{ = servicio.tipo}} <br>
@@ -57,11 +74,11 @@
 				<strong>&emsp;Jefe de Comisión:&emsp; </strong> {{ = comision['jefe'] }}<br>
 				<strong>&emsp;Acompañantes:</strong> <br>
 				{{for a in comision["acompanantes"]:}}
-						&emsp; &emsp; {{ = a}} <br> 
+						&emsp; &emsp; {{ = a}} <br>
 				{{pass}}
 				{{ if (comision["unidad"] is not None): }}
 					<strong>&emsp;Unidad:</strong>    &emsp; {{ = comision['unidad']   }} <br>
-					<strong>&emsp;Conductor:</strong> &emsp; {{ = comision['conductor'] }} <br> 
+					<strong>&emsp;Conductor:</strong> &emsp; {{ = comision['conductor'] }} <br>
 				{{pass}}
 				{{else:}}
 					<strong>&emsp;Unidad:</strong>    &emsp; Ninguna <br>
@@ -76,7 +93,7 @@
 			{{for afectado in afectados:}}
 				<p align = "justify">
 				<strong> Afectado 1 </strong> <br>
-				
+
 				<strong>&emsp;Nombre:</strong>
 					&emsp; {{ = afectado['primer_nombre']}}
 					{{ if afectado["segundo_nombre"] is not None: }}
@@ -86,7 +103,7 @@
 					{{ if afectado["segundo_apellido"] is not None: }}
 						&emsp; {{ = afectado['segundo_apellido']}}
 					{{pass}}
-				
+
 				<!-- Poner cedula -->
 				{{if afectado["cedula"] is not None:}}
 					<strong>&emsp;Cédula:</strong> &emsp; {{  = afectado["cedula"] }} <br>
@@ -127,7 +144,7 @@
 				{{if afectado["notastratamiento"] is not None:}}
 					<strong>&emsp;Notas/tratamiento:</strong> &emsp; {{ = afectado["notastratamiento"] }} <br>
 				{{pass}}
-				
+
 				</p>
 			{{pass}}
 		{{pass}}
@@ -141,18 +158,18 @@
 			{{for externo in externos:}}
 				<p align = "justify">
 				<strong> Comisión Externa {{ = externo["counter"]}} </strong> <br>
-				
+
 				<!-- Poner cuerpo o departamento -->
 				{{if externo["cuerpoDepartamento"] is not None:}}
 					<strong>&emsp;Cuerpo o Departamento:</strong> &emsp; {{ = externo["cuerpoDepartamento"] }} <br>
 				{{pass}}
-				
+
 
 				<!-- Poner Jefe -->
 				{{if externo["jefe"] is not None:}}
 					<strong>&emsp;Jefe: &emsp; {{ = externo["jefe"] }} </strong> <br>
 				{{pass}}
-				
+
 				<!-- Poner tipo de afectado -->
 				{{if externo["numAcomp"] is not None:}}
 					<strong>&emsp;Número de acompañantes: &emsp; {{ = externo["numAcomp"]}}</strong> <br>
@@ -176,11 +193,11 @@
 				</p>
 			{{pass}}
 		{{pass}}
-		
+
 		<br>
+  </div>
 		<!-- ///////////////////////////// TERMINA LA PARTE DE IMPRIMIR SERVICIOS /////////////////////////////-->
-		
-		
+
 
 		<p align="justify" style="color:gray;padding-left:10%;padding-right:10%;font-size:8pt;">Pabellón I, Universidad Simón Bolívar, Valle de Sartenejas, Baruta, Edo. Miranda. Web: http://bomberos.usb.ve. Email: comandancia@bomberos.usb.ve Telf.: + (212) 9063909. Aptdo. 89000, Caracas 1080-A. VENEZUELA.</p>
 	</main>
