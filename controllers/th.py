@@ -61,8 +61,8 @@ def perfilth():
 		userid = auth.user.id
 
 	usuario = db((db.bombero.id_usuario==userid) & (db.bombero.id_persona == db.persona.id)).select().first()
-	contacto = db((db.contacto.id_bombero==userid) & (db.bombero.id_persona == db.contacto.id_bombero)).select(db.contacto.ALL).first()
-	telefono = db((db.telefono.id_persona==userid) & (db.telefono.id_persona == db.bombero.id_persona)).select(db.telefono.ALL)
+	contacto = db((db.bombero.id_usuario==userid) & (db.bombero.id == db.contacto.id_bombero)).select(db.contacto.ALL).first()
+	telefono = db((db.bombero.id_usuario==userid) & (db.telefono.id_persona == db.bombero.id_persona)).select(db.telefono.ALL)
 	direccion = db((db.bombero.id_usuario==userid) & (db.direccion.id_persona==db.bombero.id_persona)).select(db.direccion.ALL)
 		
 	if usuario is None:
