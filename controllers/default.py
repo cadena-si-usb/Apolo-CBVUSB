@@ -41,17 +41,17 @@ def usernotconfirmed():	# HAY QUE VER SI EXISTE EL USUARIO EN CONFIRMACIÓN PARA
 		redirect(URL('default','usernotconfirmedsent'))
 
 	varsForm = dict((k,v) for k,v in request.vars.iteritems() if v != '')
-	print len(request.vars)
-	print len(varsForm)
-
-	print request.vars
-	print varsForm
 
 	if len(request.vars) != len(varsForm):
 		error = True
 
 	elif len(request.vars):
-		print request.vars
+
+		if not(db(db.persona.cedula==request.vars.cedula && db.bombero.id_persona==db.persona.id && db.bombero.id_usuario != auth.user.id).isempty()):
+			error = True
+
+		if not(db(db.bombero.carnet == request.vars.carnet && db.bombero.id_usuario != auth.user.id && db.bombero.carnet != 0).isempty()):
+			error = True
 
 		if db(db.bombero.id_usuario==auth.user.id).isempty():
 			db(db.usuario.id==auth.user.id).update( first_name=request.vars.primer_nombre, last_name=request.vars.primer_apellido, email=request.vars.email_principal, **db.usuario._filter_fields(request.vars))
