@@ -139,7 +139,6 @@ def perfilmodth():
 		Field('fecha_nacimiento', 
 			type='date', 
 			notnull=True,
-			#default=date(db.persona.fecha_nacimiento.year, db.persona.fecha_nacimiento.month, db.persona.fecha_nacimiento.day),
 			requires=db.persona.fecha_nacimiento.requires,
 			label='Fecha de nacimiento'
 			),
@@ -292,28 +291,6 @@ def perfilmodth():
 			if re.match(rango,campo):
 				db(db.bombero.id_usuario==userid).validate_and_update(rango=request.vars[campo])
 
-			if re.match(telefonos,campo):
-
-				tipo_telefono = request.vars[campo][0]
-				codigo_telefono = request.vars[campo][1][:4]
-				numero_telefono = request.vars[campo][1][4:]
-
-				if codigo_telefono == '' and tipo_telefono == '':
-					pass
-
-				elif len(request.vars[campo][1]) != 11 or tipo_telefono == '':
-					error = True
-					tipo = "danger"
-					response.flash = "No puede ingresar datos incompletos"
-					print "Error"
-
-				elif db((db.bombero.id_usuario==userid) & (db.bombero.id_persona==db.telefono.id_persona)\
-					& (db.telefono.codigo_telefono==codigo_telefono) & (db.telefono.numero_telefono==numero_telefono))\
-					.isempty():
-
-					db.telefono.validate_and_insert(id_persona=persona.id, tipo_telefono=tipo_telefono,
-													codigo_telefono=codigo_telefono, numero_telefono=numero_telefono)
-
 			if re.match(contacto,campo):
 				nombre = request.vars[campo][0]
 				tipo_telefono1 = request.vars[campo][1]
@@ -343,6 +320,28 @@ def perfilmodth():
 					db(db.contacto.id_bombero==bombero.id).update(nombre=nombre, 
 							tipo_telefono1=tipo_telefono1, codigo_telefono1=codigo_telefono1, numero_telefono1=numero_telefono1,
 							tipo_telefono2=tipo_telefono2, codigo_telefono2=codigo_telefono2, numero_telefono2=numero_telefono2)
+
+			if re.match(telefonos,campo):
+
+				tipo_telefono = request.vars[campo][0]
+				codigo_telefono = request.vars[campo][1][:4]
+				numero_telefono = request.vars[campo][1][4:]
+
+				if codigo_telefono == '' and tipo_telefono == '':
+					pass
+
+				elif len(request.vars[campo][1]) != 11 or tipo_telefono == '':
+					error = True
+					tipo = "danger"
+					response.flash = "No puede ingresar datos incompletos"
+					print "Error"
+
+				elif db((db.bombero.id_usuario==userid) & (db.bombero.id_persona==db.telefono.id_persona)\
+					& (db.telefono.codigo_telefono==codigo_telefono) & (db.telefono.numero_telefono==numero_telefono))\
+					.isempty():
+
+					db.telefono.validate_and_insert(id_persona=persona.id, tipo_telefono=tipo_telefono,
+													codigo_telefono=codigo_telefono, numero_telefono=numero_telefono)
 
 			if re.match(direccion,campo):
 				direccion_tipo = request.vars[campo][0]
