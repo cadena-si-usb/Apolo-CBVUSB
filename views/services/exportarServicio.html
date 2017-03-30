@@ -35,9 +35,13 @@
   right_sidebar_enabled = globals().get('right_sidebar_enabled', False)
   middle_column = {0: mc0, 1: mc1, 2: mc2}[
   (left_sidebar_enabled and 1 or 0)+(right_sidebar_enabled and 1 or 0)]}}
+
+
 </head>
 <body>
-	<main class="container-fluid" style="margin-right: 17%; margin-left: 17%;" id="constancia">
+  <div id="my_mm" style="height: 1mm; display: none"></div>
+
+	<main id="export" class="container-fluid" style="margin-right: 17%; margin-left: 17%;" id="constancia">
     <div class="row">
 			<div class="col-xs-3">
 				<br>
@@ -52,9 +56,9 @@
 			</div>
 		</div>
 
-    <div style="margin-right: 8%;">
-		<!-- /////////////////////EMPIEZA LA PARTE DE IMPRIMIR SERVICIOS ////////////////////////////////////////-->
-		<h3 align="center"><strong> SERVICIO {{ = id }} </strong></h3>
+    <!-- /////////////////////EMPIEZA LA PARTE DE IMPRIMIR SERVICIOS ////////////////////////////////////////-->
+    <h3 align="center"><strong> SERVICIO {{ = id }} </strong></h3>
+    <div style="margin-left: 15%; margin-right: 10%;">
 
 		<h4> Información básica: </h4>
 		<p align = "justify">
@@ -198,8 +202,8 @@
   </div>
 		<!-- ///////////////////////////// TERMINA LA PARTE DE IMPRIMIR SERVICIOS /////////////////////////////-->
 
-
-		<p align="justify" style="color:gray;padding-left:10%;padding-right:10%;font-size:8pt;">Pabellón I, Universidad Simón Bolívar, Valle de Sartenejas, Baruta, Edo. Miranda. Web: http://bomberos.usb.ve. Email: comandancia@bomberos.usb.ve Telf.: + (212) 9063909. Aptdo. 89000, Caracas 1080-A. VENEZUELA.</p>
+    <p align="center" style="color:gray;padding-left:10%;padding-right:10%;font-size:8pt;">Pabellón I, Universidad Simón Bolívar, Valle de Sartenejas, Baruta, Edo. Miranda. Aptdo. 89000, Caracas 1080-A. VENEZUELA.</p>
+    <p align="center" style="margin-top:-10px; color:gray;padding-left:10%;padding-right:10%;font-size:8pt;">Web: http://bomberos.usb.ve. Email: comandancia@bomberos.usb.ve Telf.: + (212) 9063909.</p>	</main>
 	</main>
 </body>
 </html>
