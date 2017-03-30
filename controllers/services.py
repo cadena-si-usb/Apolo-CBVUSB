@@ -855,7 +855,11 @@ def obtenerDuracionServicio(servicio):
 # Mostrar servicios pendientes por mi aprobacion
 @auth.requires_login()
 def approve():
-    services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == auth.user.id)).select(orderby=~db.servicio.fechaCreacion)
+
+    bomberoRow = db(db.bombero.id_usuario == auth.user.id).select().first()
+    bomberoActualId = bomberoRow.id
+
+    services = db((db.servicio.Borrador == False) & (db.servicio.aprobado == False) & (db.servicio.Aprueba == bomberoActualId)).select(orderby=~db.servicio.fechaCreacion)
     registran = list()
     for servicio in  services:
         bombero = db(db.bombero.id == servicio.Registra).select()[0]
