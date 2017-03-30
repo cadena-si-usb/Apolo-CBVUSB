@@ -2,6 +2,7 @@
 
 {{block head_css}}
 <link rel="stylesheet" href="{{=URL('static', 'css/dataTables-1.10.13.min.css')}}">
+<link rel="stylesheet" href="{{=URL('static','css/bootstrap-datepicker.min.css')}}"/>
 {{end}}
 
 {{block web2py_ajax}}{{end}}
@@ -226,6 +227,7 @@
 <script src="{{=URL('static','js/dataTables-1.10.13.min.js')}}"></script>
 <script src="{{=URL('static','js/th/th.js')}}"></script>
 <script src="{{=URL('static','js/jquery.form-validator.min.js')}}"></script>
+<script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}"></script>
 <script>
 $.formUtils.loadModules('thValidatorModule');
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {

@@ -314,6 +314,12 @@ $(document).ready(function() {
         dirsCont--;
     }); 
 
+    $('.date').datepicker({
+    	'format': 'dd/mm/yyyy',
+    	'autoclose': true,
+    	'changeYear': true
+ 	});
+
     // Funcion para ingresar carnet solo cuando tu cargo no es estudiante
     $("select[name=cargo]").change(function(){
         var cargo = $('select[name=cargo]').val();
