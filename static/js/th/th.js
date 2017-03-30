@@ -317,7 +317,8 @@ $(document).ready(function() {
     $('.date').datepicker({
     	'format': 'dd/mm/yyyy',
     	'autoclose': true,
-    	'changeYear': true
+    	'changeYear': true,
+    	'changeMonth': true
  	});
 
     // Funcion para ingresar carnet solo cuando tu cargo no es estudiante
