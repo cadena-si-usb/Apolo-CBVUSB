@@ -548,11 +548,12 @@ def jerarquiaRangos():
     rangos["Sargento Mayor"] = 8
     rangos["Teniente"] = 9
     rangos["Primer Teniente"] = 10
-    rangos["Capitán y Mayor"] = 11
-    rangos["Teniente Coronel"] = 12
-    rangos["Coronel"] = 13
-    rangos["General"] = 14
-    rangos["Primer General"] = 15
+    rangos["Capitán"] = 11
+    rangos["Mayor"] = 12
+    rangos["Teniente Coronel"] = 13
+    rangos["Coronel"] = 14
+    rangos["General"] = 15
+    rangos["Primer General"] = 16
 
     return rangos
 
@@ -586,6 +587,7 @@ def agregarAprobador(servicioID):
 
             # Bombero es seleccionado para ser aprobador de servicio
             if aprobador["carnet"] == -1 or esMayor(bomberoRow, aprobador):
+                
                 aprobador["rango"] = bomberoRow.rango
                 aprobador["carnet"] = bomberoRow.carnet
                 aprobador["id"] = bomberoRow.id
