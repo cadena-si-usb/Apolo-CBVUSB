@@ -386,7 +386,6 @@ def registrarComisiones(request):
     idUnidades = obtenerNombreUnidades()
 
     for commissionCounter in range(1,int(request.vars["commissionsCount"])+1):
-
         # Procesar cada comision agregada
         if request.vars["commissionTitle"+str(commissionCounter)] is not None:
 
@@ -708,6 +707,7 @@ def editDraft():
         eliminarComisiones(request)
         eliminarAfectados(request)
         eliminarApoyoExterno(request)
+
 
         registrarComisiones(request)
         registrarAfectados(request)
